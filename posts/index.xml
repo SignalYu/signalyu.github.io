@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Signal&#39;s Blog</title>
-    <link>/posts/</link>
+    <link>https://signalyu.github.io/posts/</link>
     <description>Recent content in Posts on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.125.1</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 23 Apr 2024 15:31:50 +0800</lastBuildDate>
-    <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://signalyu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java 中父类的私有属性可以被子类继承吗？</title>
-      <link>/posts/tech/0001-java-private-inheritance/</link>
+      <link>https://signalyu.github.io/posts/tech/0001-java-private-inheritance/</link>
       <pubDate>Tue, 23 Apr 2024 15:31:50 +0800</pubDate>
-      <guid>/posts/tech/0001-java-private-inheritance/</guid>
+      <guid>https://signalyu.github.io/posts/tech/0001-java-private-inheritance/</guid>
       <description>Java 中子类是否继承父类的私有属性？大家的疑惑无非是：如果子类不继承父类的私有属性，那子类对象为什么包含父类的私有属性？博主之前也同样疑惑，在查阅了相关资料后，得出如下结论：
 子类对象确实存在父类的私有属性，但子类不继承父类的私有属性。
 子类对象包含父类私有属性 首先，博主先验证子类对象包含父类的私有属性，代码如下：
