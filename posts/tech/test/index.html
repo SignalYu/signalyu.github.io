@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=58664&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Signal&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="&#43;&#43;&#43; title = &lsquo;Spring：基于 XML 管理 Bean&rsquo; date = 2021-03-18T19:21:39&#43;08:00 draft = true tags = [&ldquo;CS&rdquo;, &ldquo;Spring&rdquo;] &#43;&#43;&#43;
+获取 Bean 的三种方式 id：bean 标签的标识，必须唯一 class：组件类的全类名 flowchart LR subgraph newIoc[新建 IoC 容器] newCtx[new ClassPathXmlApplicationContext] end subgraph ioc[IoC 容器] getBean1[&#34;`getBean(id)`&#34;] ~~~ getBean2[&#34;`getBean(class)`&#34;] ~~~ getBean3[&#34;`getBean(id, class)`&#34;] end subgraph beans[beans.xml] bean[&#34;`&lt; bean id=... class=包.类&gt;`&#34;] end subgraph userClass[User 类] user[&#34;`package .... class User {}`&#34;] end newCtx --&gt;|创建 IoC 容器|ioc bean -.- getBean1 & getBean2 & getBean3 userClass -.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:58664/posts/tech/test/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:58664/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:58664/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:58664/favicon-32x32">
+<link rel="apple-touch-icon" href="http://localhost:58664/apple-touch-icon">
+<link rel="mask-icon" href="http://localhost:58664/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:58664/posts/tech/test/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:58664/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="http://localhost:58664/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:58664/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:58664/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:58664/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:58664/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:58664/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      
+    </h1>
+    <div class="post-meta">
+
+</div>
+  </header> 
+  <div class="post-content"><p>+++
+title = &lsquo;Spring：基于 XML 管理 Bean&rsquo;
+date = 2021-03-18T19:21:39+08:00
+draft = true
+tags = [&ldquo;CS&rdquo;, &ldquo;Spring&rdquo;]
++++</p>
+<h1 id="获取-bean-的三种方式">获取 Bean 的三种方式<a hidden class="anchor" aria-hidden="true" href="#获取-bean-的三种方式">#</a></h1>
+<ul>
+<li>id：bean 标签的标识，必须唯一</li>
+<li>class：组件类的全类名</li>
+</ul>
+<pre class="mermaid">flowchart LR
+    subgraph newIoc[新建 IoC 容器]
+        newCtx[new ClassPathXmlApplicationContext]
+    end
+
+    subgraph ioc[IoC 容器]
+        getBean1["`getBean(id)`"] ~~~ getBean2["`getBean(class)`"] ~~~ getBean3["`getBean(id, class)`"]
+    end
+
+    subgraph beans[beans.xml]
+        bean["`< bean id=...
+         class=包.类>`"]
+    end
+
+    subgraph userClass[User 类]
+        user["`package ....
+        class User {}`"]
+    end
+
+    newCtx -->|创建 IoC 容器|ioc 
+    bean -.- getBean1 & getBean2 & getBean3
+    userClass -.- bean
+</pre>
+<head>
+    <style>
+         
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<details>
+    <summary>点击查看代码</summary>
+    <div>
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Beans.xml</button>
+
+
+
+<button class="tab_btn ">User.java</button>
+
+
+
+<button class="tab_btn ">TestUser.java</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    &lt;bean id="user" class="org.signalyu.spring6.iocxml.User">&lt;/bean>
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class User {
+    private String name;
+    private Integer age;
+
+    public void run() {
+        System.out.println("Run...");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.javaPathXmlApplicationContext;
+
+public class TestUser {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        // 基于 id 获取 Bean
+        User user = (User)context.getBean("user");
+        System.out.println(user);
+
+        // 基于 class 获取 Bean
+        User user2 = context.getBean(User.java);
+        System.out.println(user2);
+
+        // 基于 id 和 class 获取 Bean
+        User user3 = context.getBean("user",User.java);
+        System.out.println(user3);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+    </div>
+</details>
+<pre class="mermaid">flowchart LR
+    subgraph newIoc[新建 IoC 容器]
+        newCtx[new ClassPathXmlApplicationContext]
+    end
+
+    subgraph ioc[IoC 容器]
+        getBean["`getBean(class)`"]
+    end
+
+    subgraph beans[beans.xml]
+        bean1["`< bean id=...
+         class=包.Shape>`"] ~~~ bean2["`< bean id=...
+         class=包.Shape>`"]
+    end
+
+    subgraph shapeInterface[Shape 接口]
+        shape["`package ....
+        interface Shape {}`"]
+    end
+
+    subgraph circleClass[Circle 类]
+        circle["`package ....
+        class Circle {}`"]
+    end
+
+    subgraph rectangleClass[Rectangle 类]
+        rectangle["`package ....
+        class Rectangle {}`"]
+    end
+
+    subgraph error[ ]
+        err[根据 Shape 接口获取到两个不同的 bean]
+    end
+
+    newCtx --> ioc
+    circle & rectangle -.-> shape
+    shape --- bean1 & bean2
+    bean1 & bean2 -.- err --> getBean
+</pre>
+<p>注意，bean 标签需要包含无参构造函数。</p>
+<h1 id="基于-setter-进行依赖注入">基于 Setter 进行依赖注入<a hidden class="anchor" aria-hidden="true" href="#基于-setter-进行依赖注入">#</a></h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;Class Field Name&#34;</span> <span class="na">value=</span><span class="s">&#34;Class Field Value&#34;</span><span class="nt">/&gt;</span>
+</span></span></code></pre></div><head>
+    <style>
+         
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<details>
+    <summary>点击查看代码</summary>
+    <div>
+        
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Beans.xml</button>
+
+
+
+<button class="tab_btn ">Course.java</button>
+
+
+
+<button class="tab_btn ">Student.java</button>
+
+
+
+<button class="tab_btn ">Main.java</button>
+
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    &lt;!-- Define the course bean -->
+    &lt;bean id="course" class="org.signalyu.spring6.iocxml.Course">
+        &lt;property name="courseName" value="Computer Science"/>
+    &lt;/bean>
+
+    &lt;!-- Define the student bean -->
+    &lt;bean id="student" class="org.signalyu.spring6.iocxml.Student">
+        &lt;!-- Inject the course dependency -->
+        &lt;property name="course" ref="course"/>
+    &lt;/bean>
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class Course {
+    private String courseName;
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class Student {
+    private Course course;
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void displayCourse() {
+        System.out.println("Student is enrolled in: " + course.getCourseName());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.javaPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = (Student) context.getBean("student");
+        student.displayCourse();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+    </div>
+</details>
+<h1 id="基于构造器进行依赖注入">基于构造器进行依赖注入<a hidden class="anchor" aria-hidden="true" href="#基于构造器进行依赖注入">#</a></h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;constructor-arg</span> <span class="na">name=</span><span class="s">&#34;Class Field Name&#34;</span> <span class="na">value=</span><span class="s">&#34;Class Field Name&#34;</span><span class="nt">/&gt;</span>
+</span></span></code></pre></div><head>
+    <style>
+         
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<details>
+    <summary>点击查看代码</summary>
+    <div>
+        
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Beans.xml</button>
+
+
+
+<button class="tab_btn ">Course.java</button>
+
+
+
+<button class="tab_btn ">Student.java</button>
+
+
+
+<button class="tab_btn ">Main.java</button>
+
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    &lt;!-- Define the course bean -->
+    &lt;bean id="course" class="org.signalyu.spring6.iocxml.Course">
+        &lt;constructor-arg name="courseName" value="Computer Science"/>
+    &lt;/bean>
+
+    &lt;!-- Define the student bean -->
+    &lt;bean id="student" class="org.signalyu.spring6.iocxml.Student">
+        &lt;!-- Inject the course dependency -->
+        &lt;constructor-arg name="course" ref="course"/>
+    &lt;/bean>
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class Course {
+    private String courseName;
+
+    public Course(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class Student {
+    private Course course;
+
+    public Student(Course course) {
+        this.course = course;
+    }
+
+    public void displayCourse() {
+        System.out.println("Student is enrolled in: " + course.getCourseName());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.javaPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = (Student) context.getBean("student");
+        student.displayCourse();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+    </div>
+</details>
+<h1 id="beansxml-特殊值处理">beans.xml 特殊值处理<a hidden class="anchor" aria-hidden="true" href="#beansxml-特殊值处理">#</a></h1>
+<h2 id="字面量赋值">字面量赋值<a hidden class="anchor" aria-hidden="true" href="#字面量赋值">#</a></h2>
+<p>使用 value 属性给 bean 的属性赋值时，Spring 会把 value 属性的值看做字面量。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;course&#34;</span> <span class="na">class=</span><span class="s">&#34;org.signalyu.spring6.iocxml.Course&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;courseName&#34;</span> <span class="na">value=</span><span class="s">&#34;Computer Science&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/bean&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- Define the Course bean using the p namespace --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;course&#34;</span> <span class="na">class=</span><span class="s">&#34;org.signalyu.spring6.iocxml.Course&#34;</span> <span class="na">p:courseName=</span><span class="s">&#34;Computer Science&#34;</span><span class="nt">/&gt;</span>
+</span></span></code></pre></div><p>上述定义中，<code>Couputer Science</code> 为 <code>org.signalyu.spring6.iocxml.Course</code> 类中的 <code>courseName</code> 属性的值。</p>
+<h2 id="null-值">null 值<a hidden class="anchor" aria-hidden="true" href="#null-值">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;course&#34;</span> <span class="na">class=</span><span class="s">&#34;org.signalyu.spring6.iocxml.Course&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;courseName&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;null/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/bean&gt;</span>
+</span></span></code></pre></div><h2 id="xml-实体与-cdata-块">XML 实体与 CDATA 块<a hidden class="anchor" aria-hidden="true" href="#xml-实体与-cdata-块">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="c">&lt;!-- &amp;lt; 表示 &lt; --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;expression&#34;</span> <span class="na">value=</span><span class="s">&#34;a &amp;lt; b&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- CDATA 表示纯文本数据 --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;expression&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;value&gt;</span><span class="cp">&lt;![CDATA[a &lt; b]]&gt;</span><span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/property&gt;</span>
+</span></span></code></pre></div><h1 id="为对象类型属性赋值">为对象类型属性赋值<a hidden class="anchor" aria-hidden="true" href="#为对象类型属性赋值">#</a></h1>
+<h2 id="使用-ref-引用外部-bean">使用 ref 引用外部 bean<a hidden class="anchor" aria-hidden="true" href="#使用-ref-引用外部-bean">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;course&#34;</span> <span class="na">class=</span><span class="s">&#34;org.signalyu.spring6.iocxml.Course&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;courseName&#34;</span> <span class="na">value=</span><span class="s">&#34;Computer Science&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/bean&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;student&#34;</span> <span class="na">class=</span><span class="s">&#34;org.signalyu.spring6.iocxml.Student&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;course&#34;</span> <span class="na">ref=</span><span class="s">&#34;course&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/bean&gt;</span>
+</span></span></code></pre></div><h2 id="使用内部-bean-方式">使用内部 bean 方式<a hidden class="anchor" aria-hidden="true" href="#使用内部-bean-方式">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&#34;student&#34;</span> <span class="na">class=</span><span class="s">&#34;org.signalyu.spring6.iocxml.Student&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;course&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&#34;org.signalyu.spring6.iocxml.Course&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&#34;courseName&#34;</span> <span class="na">value=</span><span class="s">&#34;Computer Science&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/bean&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/bean&gt;</span>
+</span></span></code></pre></div><h2 id="使用工厂方法">使用工厂方法<a hidden class="anchor" aria-hidden="true" href="#使用工厂方法">#</a></h2>
+<head>
+    <style>
+         
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<details>
+    <summary>点击查看代码</summary>
+    <div>
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Beans.xml</button>
+
+
+
+<button class="tab_btn ">CourseFactory.java</button>
+
+
+
+<button class="tab_btn ">Course.java</button>
+
+
+
+<button class="tab_btn ">Student.java</button>
+
+
+
+<button class="tab_btn ">Main.java</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    &lt;!-- Define the CourseFactory bean -->
+    &lt;bean id="courseFactory" class="org.signalyu.spring6.iocxml.CourseFactory"/>
+
+    &lt;!-- Define the Student bean -->
+    &lt;bean id="student" class="org.signalyu.spring6.iocxml.Student">
+        &lt;!-- Inject the Course using factory method -->
+        &lt;property name="course">
+            &lt;bean factory-bean="courseFactory" factory-method="createCourse"/>
+        &lt;/property>
+    &lt;/bean>
+
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class CourseFactory {
+    public static Course createCourse() {
+        return new Course("Computer Science");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class Course {
+    private String courseName;
+
+    public Course(String courseName) {
+        this.courseName = courseName;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseName='" + courseName + '\'' +
+                '}';
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class Student {
+    private Course course;
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void displayCourse() {
+        System.out.println("Student is enrolled in: " + course.getCourseName());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.javaPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = (Student) context.getBean("student");
+        student.displayCourse();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+    </div>
+</details>
+<h1 id="为数组集合类型赋值">为数组/集合类型赋值<a hidden class="anchor" aria-hidden="true" href="#为数组集合类型赋值">#</a></h1>
+<ul>
+<li>数组类型使用 array 标签，集合类型可使用 list 或者 set 标签。</li>
+</ul>
+<head>
+    <style>
+         
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<details>
+    <summary>点击查看代码</summary>
+    <div>
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Beans.xml</button>
+
+
+
+<button class="tab_btn ">Course.java</button>
+
+
+
+<button class="tab_btn ">Student.java</button>
+
+
+
+<button class="tab_btn ">Main.java</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    &lt;!-- Define the Student bean -->
+    &lt;bean id="student" class="org.signalyu.spring6.iocxml.Student">
+        &lt;!-- Assign values to the courses property -->
+        &lt;property name="courses">
+            &lt;array>
+                &lt;value>Math&lt;/value>
+                &lt;value>Science&lt;/value>
+                &lt;value>History&lt;/value>
+            &lt;/array>
+        &lt;/property>
+    &lt;/bean>
+
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class Course {
+    private String courseName;
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class Student {
+    private String[] courses;
+
+    public void setCourses(String[] courses) {
+        this.courses = courses;
+    }
+
+    public String[] getCourses() {
+        return courses;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = (Student) context.getBean("student");
+        // Display the courses
+        System.out.println("Student is enrolled in the following courses:");
+        for (String course : student.getCourses()) {
+            System.out.println("- " + course);
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+    </div>
+</details>
+<h2 id="为-map-类型赋值">为 Map 类型赋值<a hidden class="anchor" aria-hidden="true" href="#为-map-类型赋值">#</a></h2>
+<head>
+    <style>
+         
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<details>
+    <summary>点击查看代码</summary>
+    <div>
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Beans.xml</button>
+
+
+
+<button class="tab_btn ">Student.java</button>
+
+
+
+<button class="tab_btn ">Main.java</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    &lt;!-- Define the Student bean -->
+    &lt;bean id="student" class="org.signalyu.spring6.iocxml.Student">
+        &lt;!-- Assign values to the courseGrades property using a Map -->
+        &lt;property name="courseGrades">
+            &lt;map>
+                &lt;entry key="Math" value="90"/>
+                &lt;entry key="Science" value="85"/>
+                &lt;entry key="History" value="88"/>
+            &lt;/map>
+        &lt;/property>
+    &lt;/bean>
+
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+import java.util.Map;
+
+public class Student {
+    private Map<String, Integer> courseGrades;
+
+    public void setCourseGrades(Map<String, Integer> courseGrades) {
+        this.courseGrades = courseGrades;
+    }
+
+    public Map<String, Integer> getCourseGrades() {
+        return courseGrades;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+        // Retrieve the student bean from the Spring IoC container
+        Student student = (Student) context.getBean("student");
+
+        // Display course grades
+        System.out.println("Course Grades:");
+        student.getCourseGrades().forEach((course, grade) ->
+                System.out.println(course + ": " + grade)
+        );
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+    </div>
+</details>
+<h1 id="引入外部属性文件">引入外部属性文件<a hidden class="anchor" aria-hidden="true" href="#引入外部属性文件">#</a></h1>
+<head>
+    <style>
+         
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<details>
+    <summary>点击查看代码</summary>
+    <div>
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">BeanJdbc.xml</button>
+
+
+
+<button class="tab_btn ">Jdbc.properties</button>
+
+
+
+<button class="tab_btn ">TestJdbc.java</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    &lt;!--引入外部属性文件之前需要在 beans 标签中添加 context 相关的约束-->
+    &lt;!-- 引入外部属性文件 -->
+    &lt;context:property-placeholder location="classpath:jdbc.properties"/>
+
+    &lt;bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        &lt;property name="url" value="${jdbc.url}"/>
+        &lt;property name="driverClassName" value="${jdbc.driver}"/>
+        &lt;property name="username" value="${jdbc.user}"/>
+        &lt;property name="password" value="${jdbc.password}"/>
+    &lt;/bean>
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-bash" data-lang="bash">jdbc.user=root
+jdbc.password=root
+jdbc.url=jdbc:mysql://localhost:3306
+jdbc.driver=com.mysql.cj.jdbc.Driver
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+public class TestJdbc {
+    @Test
+    public void testDataSource() throws SQLException {
+        ApplicationContext ac = new ClassPathXmlApplicationContext("beansJdbc.xml");
+        DataSource dataSource = ac.getBean(DataSource.class);
+        Connection connection = dataSource.getConnection();
+        System.out.println(connection);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+    </div>
+</details>
+<h1 id="bean-的作用域">bean 的作用域<a hidden class="anchor" aria-hidden="true" href="#bean-的作用域">#</a></h1>
+<p>bean 标签的 scope 属性可以指定 bean 的作用域范围，常用值为 singleton（默认） 和 prototype。当作用域范围为 singleton 时，bean 对象在 IoC 容器初始化时创建，且只有一个；当作用域范围为 prototype 时，bean 对象在获取执行 getBean 时创建，IoC 容器中存在多个不同的 bean 实例。</p>
+<head>
+    <style>
+         
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<details>
+    <summary>点击查看代码</summary>
+    <div>
+        
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Beans.xml</button>
+
+
+
+<button class="tab_btn ">SingletonBean.java</button>
+
+
+
+<button class="tab_btn ">PrototypeBean.java</button>
+
+
+
+<button class="tab_btn ">TestBeanScope.java</button>
+
+
+
+<button class="tab_btn ">测试结果</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml">&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    &lt;!-- Singleton scope (default) -->
+    &lt;bean id="singletonBean" class="org.signalyu.spring6.iocxml.SingletonBean" />
+
+    &lt;!-- Prototype scope -->
+    &lt;bean id="prototypeBean" class="org.signalyu.spring6.iocxml.PrototypeBean" scope="prototype" />
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class SingletonBean {
+    private String message;
+
+    public SingletonBean() {
+        this.message = "SingletonBean instance created";
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.iocxml;
+
+public class PrototypeBean {
+    private String message;
+
+    public PrototypeBean() {
+        this.message = "PrototypeBean instance created";
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">import org.junit.jupiter.api.Test;
+import org.signalyu.spring6.iocxml.SingletonBean;
+import org.signalyu.spring6.iocxml.PrototypeBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class TestBeanScope {
+    @Test
+    public void testBeanScope(){
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+        // Retrieve singletonBean and prototypeBean from the Spring IoC container
+        SingletonBean singletonBean1 = context.getBean("singletonBean", SingletonBean.class);
+        SingletonBean singletonBean2 = context.getBean("singletonBean", SingletonBean.class);
+        PrototypeBean prototypeBean1 = context.getBean("prototypeBean", PrototypeBean.class);
+        PrototypeBean prototypeBean2 = context.getBean("prototypeBean", PrototypeBean.class);
+
+        // Change the message for both beans
+        System.out.println("Modify the message of singletonBean1~~~");
+        singletonBean1.setMessage("Singleton bean modified");
+        System.out.println("Modify the message of prototypeBean1~~~");
+        prototypeBean1.setMessage("Prototype bean modified");
+
+        // Display the messages for both beans
+        System.out.println("Singleton Bean 1: " + singletonBean1.getMessage());
+        System.out.println("Singleton Bean 2: " + singletonBean2.getMessage());
+        System.out.println("Prototype Bean 1: " + prototypeBean1.getMessage());
+        System.out.println("Prototype Bean 2: " + prototypeBean2.getMessage());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-bash" data-lang="bash">2024-05-09 19:05:39 466 [main] DEBUG org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@531c311e
+2024-05-09 19:05:39 554 [main] DEBUG org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loaded 2 bean definitions from class path resource [beans.xml]
+2024-05-09 19:05:39 572 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - <b>Creating shared instance of singleton bean 'singletonBean'</b>
+Modify the message of singletonBean1~~~
+Modify the message of prototypeBean1~~~
+Singleton Bean 1: Singleton bean modified
+Singleton Bean 2: Singleton bean modified
+Prototype Bean 1: Prototype bean modified
+Prototype Bean 2: PrototypeBean instance created
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+    </div>
+</details>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:58664/posts/tech/0002-birds-eye-of-java-web/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>鸟瞰 Java Web</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="http://localhost:58664/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script></body>
+
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Java Web on Signal&#39;s Blog</title>
+    <link>http://localhost:1313/zh/tags/java-web/</link>
+    <description>Recent content in Java Web on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.125.1</generator>
+    <language>zh-Cn</language>
+    <lastBuildDate>Tue, 23 Apr 2024 21:24:01 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/java-web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>鸟瞰 Java Web</title>
+      <link>http://localhost:1313/zh/posts/tech/0002-birds-eye-of-java-web/</link>
+      <pubDate>Tue, 23 Apr 2024 21:24:01 +0800</pubDate>
+      <guid>http://localhost:1313/zh/posts/tech/0002-birds-eye-of-java-web/</guid>
+      <description>请求与响应 【图】请求与响应示意图
+【HTTP协议】 请求格式 响应格式 内容类型 总结：The communication between the browser and server is controlled by the HTTP protocol. The two major parts of the protocol cover the request and response: the request from the browser and the response from the server must have specific formats. The server also indicates the type of the content that is being sent to the browser, so that the browser will know how to display it.</description>
+    </item>
+  </channel>
+</rss>

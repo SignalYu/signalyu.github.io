@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en" dir=" auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>数据结构与算法——树 | Signal&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="树的定义 树（Tree）是 $n (n \ge 0)$ 个结点的有限集。$n = 0$ 时称为空树。在任意一棵非空树中： 树的定义 有且仅有一个特定的根（Root）结点； 当 $n &gt; 1$ 时，其余结点可分为 $m (m &gt; 0)$ 个互不相交的有限集 $T_1、\cdots、T_m$，其中每一个集合本身又是一棵树，并且称为根的子树（SubTree）。 子树 结点的分类 结点拥有的子树数称为结点的度（Degree），它等于树内各结点的度的最大值。 度为 0 的结点称为叶结点（Leaf）；度不为 0 的结点称为分支结点。 子树 结点间的关系、树的其他相关概念 结点的层次（Level）从根开始定义起，根为第一层，根的孩子为第二层。 双亲在同一层的结点互为堂兄弟（Siblings）。 树中结点的最大层次称为树的深度（Depth）或高度。 若将树中结点的各子树看成从左至右是有次序的，不能互换的，则称该树为有序树，否则称为无序树。 森林（Forest）是 $m (m \ge 0)$ 棵互不相交的树的集合。 树的存储结构 双亲表示法 孩子表示法 孩子兄弟表示法 二叉树 二叉树（Binary Tree）是 $n (n \ge 0)$ 个结点的有限集合，该集合或者为空集（称为空二叉树），或者由一个根结点和两棵互不相交的、分别称为根结点的左子树和右子树的二叉树组成。 二叉树五种基本形态为：空二叉树、只有一个根结点、根结点只有左子树、根结点只有右子树、根结点既有左子树又有右子树。 斜树：所有的结点都只有左子树或者右子树的二叉树。 满二叉树：所有分支结点都存在左子树和右子树，并且所有叶子都在同一层上的二叉树。 满二叉树 完全二叉树：对一棵有 $n$ 个结点的二叉树按层序编号，如果编号为 $i(1 \le i\le n)$ 的结点与同样深度的满二叉树中编号为 $i$ 的结点在二叉树中位置完全相同，则这棵二叉树称为完全二叉树。 完全二叉树 非完全二叉树 完全二叉树特点如下： 叶子结点只能出现在最下面两层。 最下层的叶子一定集中在左部连续位置。 在倒数第二层若存在叶子结点，一定都在右部连续位置。 如果结点度为 1，则该结点只有左孩子，即不存在只有右子树的情况。 同样结点的二叉树，完全二叉树的深度最小。 二叉树的性质 在二叉树的第 $i$ 层至多有 $2^{i-1}$ 个结点（$i \ge 1$）。 $ 第一层是根结点，只有 1 个，2^{1-1} = 2^0 = 1\\ 第二层有两个，2^{2-1} = 2^1 = 2\\ 第三层有四个，2^{3-1} = 2^2 = 4\\ 第四层有八个，2^{4-1} = 2^3 = 8\\ \;\;\;\;\;\vdots\\ 由数学归纳法可得：\\ 二叉树的第 \;i\; 层至多有 \;2^{i-1}\; 个结点（i \ge 1） $ 深度为 $k$ 的二叉树至多有 $2^k - 1$ 个结点（$k \ge 1$）。 $ 因为二叉树的第 \;i \;层至多有\; 2^{i-1} \;个结点（i \ge 1）\\ 则深度为 \;k \;的二叉树结点和为：\\ \frac{1\times (1-2^k)}{1-2} = 2^k -1(等比数列前k项和) $ 对任何一棵二叉树 $T$，如果其叶结点数为 $n_0$，度为 2 的结点数为 $n_2$，则 $n_0 = n_2 &#43; 1$。 具有 $n$ 个结点的完全二叉树的深度为 $\lfloor\log_2 n\rfloor &#43; 1$（$x$ 表示不大于 $x$ 的最大整数）。 如果对一棵有 $n$ 个结点的完全二叉树（其深度为 $\lfloor \log_2 n\rfloor &#43; 1$ 的结点按层序编号（从第 1 层到第 $\lfloor \log_2 n\rfloor &#43; 1$ 层，每层从左到右），对任一结点 $i(1 \le i \le n)$ 有： 如果 $i = 1$，则结点 $i$ 是二叉树的根，无双亲；如果 $i &gt; 1$，则其双亲是结点 $\lfloor i/2\rfloor$。 如果 $2i &gt; n$，则结点 $i$ 无左孩子（结点 $i$ 为叶子结点）；否则其左孩子为结点 $2i$。 如果 $2i &#43; 1 &gt; n$，则结点 $i$ 无右孩子；否则其右孩子是结点 $2i&#43;1$。 二叉树的存储结构 二叉树的顺序存储结构 二叉链表 遍历二叉树 前序遍历 中序遍历 后序遍历 层序遍历 ">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="http://localhost:1313/posts/cs/dsa/0007-tree/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e77414909e0d5e5e659ebf696801d8bdf5b2bfbf528e9a67d3f9529f0156a575.css" integrity="sha256-53QUkJ4NXl5lnr9paAHYvfWyv79Sjppn0/lSnwFWpXU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon">
+<link rel="mask-icon" href="http://localhost:1313/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/cs/dsa/0007-tree/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+    };
+</script>
+
+</head>
+
+<body class="" id="
+    top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="http://localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      数据结构与算法——树
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta"><span title='2024-05-04 15:56:54 +0800 HKT'>May 4, 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+        <details >
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e6%a0%91%e7%9a%84%e5%ae%9a%e4%b9%89" aria-label="树的定义">树的定义</a></li>
+                    <li>
+                        <a href="#%e7%bb%93%e7%82%b9%e7%9a%84%e5%88%86%e7%b1%bb" aria-label="结点的分类">结点的分类</a></li>
+                    <li>
+                        <a href="#%e7%bb%93%e7%82%b9%e9%97%b4%e7%9a%84%e5%85%b3%e7%b3%bb%e6%a0%91%e7%9a%84%e5%85%b6%e4%bb%96%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5" aria-label="结点间的关系、树的其他相关概念">结点间的关系、树的其他相关概念</a></li>
+                    <li>
+                        <a href="#%e6%a0%91%e7%9a%84%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84" aria-label="树的存储结构">树的存储结构</a><ul>
+                                
+                    <li>
+                        <a href="#%e5%8f%8c%e4%ba%b2%e8%a1%a8%e7%a4%ba%e6%b3%95" aria-label="双亲表示法">双亲表示法</a></li>
+                    <li>
+                        <a href="#%e5%ad%a9%e5%ad%90%e8%a1%a8%e7%a4%ba%e6%b3%95" aria-label="孩子表示法">孩子表示法</a></li>
+                    <li>
+                        <a href="#%e5%ad%a9%e5%ad%90%e5%85%84%e5%bc%9f%e8%a1%a8%e7%a4%ba%e6%b3%95" aria-label="孩子兄弟表示法">孩子兄弟表示法</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e4%ba%8c%e5%8f%89%e6%a0%91" aria-label="二叉树">二叉树</a><ul>
+                                
+                    <li>
+                        <a href="#%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%80%a7%e8%b4%a8" aria-label="二叉树的性质">二叉树的性质</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84" aria-label="二叉树的存储结构">二叉树的存储结构</a><ul>
+                                
+                    <li>
+                        <a href="#%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e9%a1%ba%e5%ba%8f%e5%ad%98%e5%82%a8%e7%bb%93%e6%9e%84" aria-label="二叉树的顺序存储结构">二叉树的顺序存储结构</a></li>
+                    <li>
+                        <a href="#%e4%ba%8c%e5%8f%89%e9%93%be%e8%a1%a8" aria-label="二叉链表">二叉链表</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#%e9%81%8d%e5%8e%86%e4%ba%8c%e5%8f%89%e6%a0%91" aria-label="遍历二叉树">遍历二叉树</a><ul>
+                                
+                    <li>
+                        <a href="#%e5%89%8d%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="前序遍历">前序遍历</a></li>
+                    <li>
+                        <a href="#%e4%b8%ad%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="中序遍历">中序遍历</a></li>
+                    <li>
+                        <a href="#%e5%90%8e%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="后序遍历">后序遍历</a></li>
+                    <li>
+                        <a href="#%e5%b1%82%e5%ba%8f%e9%81%8d%e5%8e%86" aria-label="层序遍历">层序遍历</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+  <div class="post-content"><h1 id="树的定义">树的定义<a hidden class="anchor" aria-hidden="true" href="#树的定义">#</a></h1>
+<ul>
+<li>树（Tree）是 $n (n \ge 0)$ 个结点的有限集。$n = 0$ 时称为空树。在任意一棵非空树中：<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-1.png#center" width="350px"/> <figcaption>
+            树的定义
+        </figcaption>
+</figure>
+
+<ol>
+<li>有且仅有一个特定的根（Root）结点；</li>
+<li>当 $n &gt; 1$ 时，其余结点可分为 $m (m &gt; 0)$ 个互不相交的有限集 $T_1、\cdots、T_m$，其中每一个集合本身又是一棵树，并且称为根的子树（SubTree）。<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-2.png#center" width="100%"/> <figcaption>
+            子树
+        </figcaption>
+</figure>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="结点的分类">结点的分类<a hidden class="anchor" aria-hidden="true" href="#结点的分类">#</a></h1>
+<ul>
+<li>结点拥有的子树数称为结点的度（Degree），它等于树内各结点的度的最大值。</li>
+<li>度为 0 的结点称为叶结点（Leaf）；度不为 0 的结点称为分支结点。<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-3.png#center" width="100%"/> <figcaption>
+            子树
+        </figcaption>
+</figure>
+</li>
+</ul>
+<h1 id="结点间的关系树的其他相关概念">结点间的关系、树的其他相关概念<a hidden class="anchor" aria-hidden="true" href="#结点间的关系树的其他相关概念">#</a></h1>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-4.png#center" width="100%"/> 
+</figure>
+
+<ul>
+<li>结点的层次（Level）从根开始定义起，根为第一层，根的孩子为第二层。</li>
+<li>双亲在同一层的结点互为堂兄弟（Siblings）。</li>
+<li>树中结点的最大层次称为树的深度（Depth）或高度。</li>
+<li>若将树中结点的各子树看成从左至右是有次序的，不能互换的，则称该树为有序树，否则称为无序树。</li>
+<li>森林（Forest）是 $m (m \ge 0)$ 棵互不相交的树的集合。</li>
+</ul>
+<h1 id="树的存储结构">树的存储结构<a hidden class="anchor" aria-hidden="true" href="#树的存储结构">#</a></h1>
+<h2 id="双亲表示法">双亲表示法<a hidden class="anchor" aria-hidden="true" href="#双亲表示法">#</a></h2>
+<h2 id="孩子表示法">孩子表示法<a hidden class="anchor" aria-hidden="true" href="#孩子表示法">#</a></h2>
+<h2 id="孩子兄弟表示法">孩子兄弟表示法<a hidden class="anchor" aria-hidden="true" href="#孩子兄弟表示法">#</a></h2>
+<h1 id="二叉树">二叉树<a hidden class="anchor" aria-hidden="true" href="#二叉树">#</a></h1>
+<ul>
+<li>二叉树（Binary Tree）是 $n (n \ge 0)$ 个结点的有限集合，该集合或者为空集（称为空二叉树），或者由一个根结点和两棵互不相交的、分别称为根结点的左子树和右子树的二叉树组成。</li>
+<li>二叉树五种基本形态为：空二叉树、只有一个根结点、根结点只有左子树、根结点只有右子树、根结点既有左子树又有右子树。</li>
+<li>斜树：所有的结点都只有左子树或者右子树的二叉树。</li>
+<li>满二叉树：所有分支结点都存在左子树和右子树，并且所有叶子都在同一层上的二叉树。<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-5.png#center" width="100%"/> <figcaption>
+            满二叉树
+        </figcaption>
+</figure>
+</li>
+<li>完全二叉树：对一棵有 $n$ 个结点的二叉树按层序编号，如果编号为 $i(1 \le i\le n)$ 的结点与同样深度的满二叉树中编号为 $i$ 的结点在二叉树中位置完全相同，则这棵二叉树称为完全二叉树。<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-6.png#center" width="100%"/> <figcaption>
+            完全二叉树
+        </figcaption>
+</figure>
+
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-7.png#center" width="100%"/> <figcaption>
+            非完全二叉树
+        </figcaption>
+</figure>
+</li>
+<li>完全二叉树特点如下：
+<ol>
+<li>叶子结点只能出现在最下面两层。</li>
+<li>最下层的叶子一定集中在左部连续位置。</li>
+<li>在倒数第二层若存在叶子结点，一定都在右部连续位置。</li>
+<li>如果结点度为 1，则该结点只有左孩子，即不存在只有右子树的情况。</li>
+<li>同样结点的二叉树，完全二叉树的深度最小。</li>
+</ol>
+</li>
+</ul>
+<h2 id="二叉树的性质">二叉树的性质<a hidden class="anchor" aria-hidden="true" href="#二叉树的性质">#</a></h2>
+<ol>
+<li>在二叉树的第 $i$ 层至多有 $2^{i-1}$ 个结点（$i \ge 1$）。
+$
+第一层是根结点，只有 1 个，2^{1-1} = 2^0 = 1\\
+第二层有两个，2^{2-1} = 2^1 = 2\\
+第三层有四个，2^{3-1} = 2^2 = 4\\
+第四层有八个，2^{4-1} = 2^3 = 8\\
+\;\;\;\;\;\vdots\\
+由数学归纳法可得：\\
+二叉树的第 \;i\; 层至多有 \;2^{i-1}\; 个结点（i \ge 1）
+$</li>
+<li>深度为 $k$ 的二叉树至多有 $2^k - 1$ 个结点（$k \ge 1$）。
+$
+因为二叉树的第 \;i \;层至多有\; 2^{i-1} \;个结点（i \ge 1）\\
+则深度为 \;k \;的二叉树结点和为：\\
+\frac{1\times (1-2^k)}{1-2} = 2^k -1(等比数列前k项和)
+$</li>
+<li>对任何一棵二叉树 $T$，如果其叶结点数为 $n_0$，度为 2 的结点数为 $n_2$，则 $n_0 = n_2 + 1$。<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-8.png#center" width="100%"/> 
+</figure>
+</li>
+<li>具有 $n$ 个结点的完全二叉树的深度为 $\lfloor\log_2 n\rfloor + 1$（$x$ 表示不大于 $x$ 的最大整数）。</li>
+<li>如果对一棵有 $n$ 个结点的完全二叉树（其深度为 $\lfloor \log_2 n\rfloor + 1$ 的结点按层序编号（从第 1 层到第 $\lfloor \log_2 n\rfloor + 1$ 层，每层从左到右），对任一结点 $i(1 \le i \le n)$ 有：</li>
+</ol>
+<ul>
+<li>如果 $i = 1$，则结点 $i$ 是二叉树的根，无双亲；如果 $i &gt; 1$，则其双亲是结点 $\lfloor i/2\rfloor$。</li>
+<li>如果 $2i &gt; n$，则结点 $i$ 无左孩子（结点 $i$ 为叶子结点）；否则其左孩子为结点 $2i$。</li>
+<li>如果 $2i + 1 &gt; n$，则结点 $i$ 无右孩子；否则其右孩子是结点 $2i+1$。<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/cs-dsa-0007-tree-9.png#center" width="100%"/> 
+</figure>
+</li>
+</ul>
+<h1 id="二叉树的存储结构">二叉树的存储结构<a hidden class="anchor" aria-hidden="true" href="#二叉树的存储结构">#</a></h1>
+<h2 id="二叉树的顺序存储结构">二叉树的顺序存储结构<a hidden class="anchor" aria-hidden="true" href="#二叉树的顺序存储结构">#</a></h2>
+<h2 id="二叉链表">二叉链表<a hidden class="anchor" aria-hidden="true" href="#二叉链表">#</a></h2>
+<h1 id="遍历二叉树">遍历二叉树<a hidden class="anchor" aria-hidden="true" href="#遍历二叉树">#</a></h1>
+<h2 id="前序遍历">前序遍历<a hidden class="anchor" aria-hidden="true" href="#前序遍历">#</a></h2>
+<h2 id="中序遍历">中序遍历<a hidden class="anchor" aria-hidden="true" href="#中序遍历">#</a></h2>
+<h2 id="后序遍历">后序遍历<a hidden class="anchor" aria-hidden="true" href="#后序遍历">#</a></h2>
+<h2 id="层序遍历">层序遍历<a hidden class="anchor" aria-hidden="true" href="#层序遍历">#</a></h2>
+
+
+  </div>
+
+  
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/cs/dsa/0008-graph/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>数据结构与算法——图</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/math/calculus/0002-limit/">
+    <span class="title">Next »</span>
+    <br>
+    <span>微积分——极限</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="http://localhost:1313/">Signal&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en" dir=" auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>编程参考手册 | Signal&#39;s Blog</title>
+<meta name="keywords" content="Tech">
+<meta name="description" content="HTML CSS Javascript Ajax Promise Axios TypeScript Vue3 创建 Vue 项目 npm create vue@latest 根据需要构建项目 Vue.js - The Progressive JavaScript Framework ✔ Project name: … vue3_test ✔ Add TypeScript? … No / Yes ✔ Add JSX Support? … No / Yes ✔ Add Vue Router for Single Page Application development? … No / Yes ✔ Add Pinia for state management? … No / Yes ✔ Add Vitest for Unit Testing? … No / Yes ✔ Add an End-to-End Testing Solution?">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="http://localhost:1313/posts/tech/-1-programming-handbook/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e77414909e0d5e5e659ebf696801d8bdf5b2bfbf528e9a67d3f9529f0156a575.css" integrity="sha256-53QUkJ4NXl5lnr9paAHYvfWyv79Sjppn0/lSnwFWpXU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon">
+<link rel="mask-icon" href="http://localhost:1313/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/tech/-1-programming-handbook/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+    };
+</script>
+
+</head>
+
+<body class="" id="
+    top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="http://localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      编程参考手册
+    </h1>
+    <div class="post-meta"><span title='2024-04-29 09:45:21 +0800 HKT'>April 29, 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+        <details >
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">目录</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#html" aria-label="HTML">HTML</a></li>
+                    <li>
+                        <a href="#css" aria-label="CSS">CSS</a></li>
+                    <li>
+                        <a href="#javascript" aria-label="Javascript">Javascript</a></li>
+                    <li>
+                        <a href="#ajax" aria-label="Ajax">Ajax</a></li>
+                    <li>
+                        <a href="#promise" aria-label="Promise">Promise</a></li>
+                    <li>
+                        <a href="#axios" aria-label="Axios">Axios</a></li>
+                    <li>
+                        <a href="#typescript" aria-label="TypeScript">TypeScript</a></li>
+                    <li>
+                        <a href="#vue3" aria-label="Vue3">Vue3</a><ul>
+                                
+                    <li>
+                        <a href="#%e5%88%9b%e5%bb%ba-vue-%e9%a1%b9%e7%9b%ae" aria-label="创建 Vue 项目">创建 Vue 项目</a></li>
+                    <li>
+                        <a href="#setup" aria-label="setup()">setup()</a></li>
+                    <li>
+                        <a href="#ref-%e4%b8%8e-reactive" aria-label="ref() 与 reactive()">ref() 与 reactive()</a></li>
+                    <li>
+                        <a href="#toref-%e5%92%8c-torefs" aria-label="toRef() 和 toRefs()">toRef() 和 toRefs()</a></li>
+                    <li>
+                        <a href="#computed" aria-label="computed()">computed()</a></li>
+                    <li>
+                        <a href="#watch" aria-label="watch()">watch()</a></li>
+                    <li>
+                        <a href="#watcheffect" aria-label="watchEffect()">watchEffect()</a></li>
+                    <li>
+                        <a href="#%e6%a0%87%e7%ad%be%e7%9a%84-ref-%e5%b1%9e%e6%80%a7" aria-label="标签的 ref 属性">标签的 ref 属性</a></li>
+                    <li>
+                        <a href="#props" aria-label="props">props</a></li>
+                    <li>
+                        <a href="#%e7%94%9f%e5%91%bd%e5%91%a8%e6%9c%9f" aria-label="生命周期">生命周期</a></li>
+                    <li>
+                        <a href="#%e8%87%aa%e5%ae%9a%e4%b9%89-hook" aria-label="自定义 hook">自定义 hook</a></li>
+                    <li>
+                        <a href="#%e8%b7%af%e7%94%b1" aria-label="路由">路由</a></li>
+                    <li>
+                        <a href="#pinia" aria-label="Pinia">Pinia</a></li>
+                    <li>
+                        <a href="#%e7%bb%84%e4%bb%b6%e9%80%9a%e4%bf%a1" aria-label="组件通信">组件通信</a></li>
+                    <li>
+                        <a href="#%e6%8f%92%e6%a7%bd-slot" aria-label="插槽 slot">插槽 slot</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#react" aria-label="React">React</a></li>
+                    <li>
+                        <a href="#%e5%be%ae%e4%bf%a1%e5%b0%8f%e7%a8%8b%e5%ba%8f" aria-label="微信小程序">微信小程序</a></li>
+                    <li>
+                        <a href="#java" aria-label="Java">Java</a></li>
+                    <li>
+                        <a href="#mysql" aria-label="MySQL">MySQL</a></li>
+                    <li>
+                        <a href="#jdbc" aria-label="JDBC">JDBC</a></li>
+                    <li>
+                        <a href="#java-web" aria-label="Java Web">Java Web</a></li>
+                    <li>
+                        <a href="#maven" aria-label="Maven">Maven</a></li>
+                    <li>
+                        <a href="#gradle" aria-label="Gradle">Gradle</a></li>
+                    <li>
+                        <a href="#spring6" aria-label="Spring6">Spring6</a></li>
+                    <li>
+                        <a href="#spring-mvc" aria-label="Spring MVC">Spring MVC</a></li>
+                    <li>
+                        <a href="#mybatis" aria-label="MyBatis">MyBatis</a></li>
+                    <li>
+                        <a href="#mybatis-plus" aria-label="MyBatis Plus">MyBatis Plus</a></li>
+                    <li>
+                        <a href="#ssm" aria-label="SSM">SSM</a></li>
+                    <li>
+                        <a href="#redis" aria-label="Redis">Redis</a></li>
+                    <li>
+                        <a href="#springboot2" aria-label="SpringBoot2">SpringBoot2</a></li>
+                    <li>
+                        <a href="#springcloud" aria-label="SpringCloud">SpringCloud</a></li>
+                    <li>
+                        <a href="#git" aria-label="Git">Git</a></li>
+                    <li>
+                        <a href="#docker" aria-label="Docker">Docker</a></li>
+                    <li>
+                        <a href="#elasticsearch" aria-label="Elasticsearch">Elasticsearch</a></li>
+                    <li>
+                        <a href="#zookeeper" aria-label="ZooKeeper">ZooKeeper</a></li>
+                    <li>
+                        <a href="#nginx" aria-label="Nginx">Nginx</a></li>
+                    <li>
+                        <a href="#springsecurity" aria-label="SpringSecurity">SpringSecurity</a></li>
+                    <li>
+                        <a href="#activemq" aria-label="ActiveMQ">ActiveMQ</a></li>
+                    <li>
+                        <a href="#rabbitmq" aria-label="RabbitMQ">RabbitMQ</a></li>
+                    <li>
+                        <a href="#rocketmq" aria-label="RocketMQ">RocketMQ</a></li>
+                    <li>
+                        <a href="#k8s" aria-label="K8S">K8S</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+  <div class="post-content"><h1 id="html">HTML<a hidden class="anchor" aria-hidden="true" href="#html">#</a></h1>
+<h1 id="css">CSS<a hidden class="anchor" aria-hidden="true" href="#css">#</a></h1>
+<h1 id="javascript">Javascript<a hidden class="anchor" aria-hidden="true" href="#javascript">#</a></h1>
+<h1 id="ajax">Ajax<a hidden class="anchor" aria-hidden="true" href="#ajax">#</a></h1>
+<h1 id="promise">Promise<a hidden class="anchor" aria-hidden="true" href="#promise">#</a></h1>
+<h1 id="axios">Axios<a hidden class="anchor" aria-hidden="true" href="#axios">#</a></h1>
+<h1 id="typescript">TypeScript<a hidden class="anchor" aria-hidden="true" href="#typescript">#</a></h1>
+<h1 id="vue3">Vue3<a hidden class="anchor" aria-hidden="true" href="#vue3">#</a></h1>
+<h2 id="创建-vue-项目">创建 Vue 项目<a hidden class="anchor" aria-hidden="true" href="#创建-vue-项目">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>npm create vue@latest
+</span></span></code></pre></div><head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>根据需要构建项目</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active"></button>
+
+</div>
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-shell" data-lang="shell">Vue.js - The Progressive JavaScript Framework
+
+✔ Project name: … vue3_test
+✔ Add TypeScript? … No / Yes
+✔ Add JSX Support? … No / Yes
+✔ Add Vue Router for Single Page Application development? … No / Yes
+✔ Add Pinia for state management? … No / Yes
+✔ Add Vitest for Unit Testing? … No / Yes
+✔ Add an End-to-End Testing Solution? › Playwright
+✔ Add ESLint for code quality? … No / Yes
+✔ Add Prettier for code formatting? … No / Yes
+✔ Add Vue DevTools 7 extension for debugging? (experimental) … No / Yes
+
+Scaffolding project in /Users/signalfish/vscode_workspace/vue/vue3_test...
+
+Done. Now run:
+
+  cd vue3_test
+  npm install
+  npm run format
+  npm run dev
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h2 id="setup">setup()<a hidden class="anchor" aria-hidden="true" href="#setup">#</a></h2>
+<ul>
+<li><code>setup()</code> 函数是 <strong>Composition API</strong> 引入的新功能，用于替换 <code>Vue2</code> 中 <strong>Options API</strong> 的 <code>data</code>，<code>methods</code>，<code>computed</code> 选项。</li>
+<li><code>setup()</code> 函数返回的对象中的内容，可直接在模板中使用。<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>setup() 演示</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active"></button>
+
+</div>
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-html" data-lang="html">&lttemplate>
+  &ltdiv>
+    &ltp>Count: {{ count }}&lt/p>
+    &ltbutton @click="increment">Increment&lt/button>
+  &lt/div>
+&lt/template>
+
+&ltscript>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    // Define reactive data
+    const count = ref(0);
+
+    // Define a method
+    function increment() {
+      count.value++;
+    }
+
+    // Expose data and methods to the template
+    return {
+      count,
+      increment
+    };
+  }
+}
+&lt/script>
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div></li>
+<li><code>setup()</code> 函数中的 <code>this</code> 是 <code>undefined</code>。因为 <code>setup()</code> 函数是在组件实例创建前运行。</li>
+<li><code>setup()</code> 函数的返回值可以是一个对象，也可以是一个函数。如果 <code>setup()</code> 返回一个对象，则该对象中的属性或方法可以直接在模版中使用。如果 <code>setup()</code> 返回一个函数，则该函数会被作为组件的渲染函数。例如：<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>setup() 返回函数</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active"></button>
+
+</div>
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-javascript" data-lang="javascript">setup() {
+  return () => 'Hello, Vue 3!';
+  };
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div></li>
+<li><code>setup()</code> 与 <code>Options API</code> 的关系：
+<ul>
+<li>Vue2 的选项（<code>data</code>、<code>methods</code>等）可以访问到 <code>setup()</code> 中的属性、方法，但在 <code>setup()</code> 中不能访问到 Vue2 的选项。</li>
+<li>当被访问的属性或方法同时存在于 <code>setup()</code> 函数或 Vue2 的选项中，则优先访问 <code>setup()</code> 函数中的属性或方法。</li>
+</ul>
+</li>
+<li>setup() 语法糖：<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>setup 语法糖</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active"></button>
+
+
+
+<button class="tab_btn "></button>
+
+</div>
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-html" data-lang="html">&ltscript>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    // Define reactive data
+    const count = ref(0);
+
+    // Define a method
+    function increment() {
+      count.value++;
+    }
+
+    // Expose data and methods to the template
+    return {
+      count,
+      increment
+    };
+  }
+}
+&lt/script>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-html" data-lang="html">&ltscript setup>
+import { ref } from 'vue';
+
+// Define reactive data
+const count = ref(0);
+
+// Define a method
+function increment() {
+  count.value++;
+}
+&lt/script>
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div></li>
+</ul>
+<h2 id="ref-与-reactive">ref() 与 reactive()<a hidden class="anchor" aria-hidden="true" href="#ref-与-reactive">#</a></h2>
+<ul>
+<li><code>ref()</code> 用于定义基本类型和对象类型的响应式数据，<code>reactive()</code> 用于定义对象类型的响应式数据。</li>
+<li>创建基本类型的响应式数据，必须使用 <code>ref()</code>；创建<strong>层级较浅</strong>的响应式对象，使用 <code>ref()</code> 和 <code>reactive()</code> 均可以；创建<strong>层级较深</strong>的响应式对象，使用 <code>reactive()</code>。</li>
+<li>在 JS/TS 中操作有 <code>ref()</code> 创建的响应式数据时，需要使用 <code>.value</code>。<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>在 JS/TS 中操作有 ref() 创建的响应式数据</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active"></button>
+
+</div>
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-html" data-lang="html">&ltscript setup lang="ts">
+import { ref } from 'vue';
+
+let age = ref(18);
+
+function changeAge() {
+    // Accessing and modifying the age using .value
+    age.value += 1;
+    console.log(age.value);
+}
+&lt/script>
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div></li>
+<li>将一个对象赋值给由 <code>reactive()</code> 创建的变量时，该变量会失去响应性。为保持变量的响应性，可以使用 <code>Object.assign()</code> 方法整体替换该变量的所有属性。<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>使用 Object.assign() 保持对象响应性</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active"></button>
+
+</div>
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java">&ltscript setup lang="ts">
+import { reactive } from 'vue';
+
+const state = reactive({
+  count: 0,
+  message: 'Hello'
+});
+
+// 重新给 state 变量赋值一个新对象，将失去响应性
+// state = { count: 1, message: 'New message' }; 
+
+function changeState() {
+    // 使用 Object.assign() 整体替换 state 的所有属性以保持响应性
+    Object.assign(state, { count: 1, message: 'New message' });
+}
+&lt/script>
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div></li>
+</ul>
+<h2 id="toref-和-torefs">toRef() 和 toRefs()<a hidden class="anchor" aria-hidden="true" href="#toref-和-torefs">#</a></h2>
+<h2 id="computed">computed()<a hidden class="anchor" aria-hidden="true" href="#computed">#</a></h2>
+<h2 id="watch">watch()<a hidden class="anchor" aria-hidden="true" href="#watch">#</a></h2>
+<h2 id="watcheffect">watchEffect()<a hidden class="anchor" aria-hidden="true" href="#watcheffect">#</a></h2>
+<h2 id="标签的-ref-属性">标签的 ref 属性<a hidden class="anchor" aria-hidden="true" href="#标签的-ref-属性">#</a></h2>
+<h2 id="props">props<a hidden class="anchor" aria-hidden="true" href="#props">#</a></h2>
+<h2 id="生命周期">生命周期<a hidden class="anchor" aria-hidden="true" href="#生命周期">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>Vue3 组件生命周期流程图</summary>
+        <div>
+            
+<figure class="align-center ">
+    <img loading="lazy" src="/img/tech/0003-vue3-component-lifecycle.png#center"/> <figcaption>
+            vue3-component-lifecycle with hooks
+        </figcaption>
+</figure>
+
+
+        </div>
+    </details>
+</div>
+<h2 id="自定义-hook">自定义 hook<a hidden class="anchor" aria-hidden="true" href="#自定义-hook">#</a></h2>
+<h2 id="路由">路由<a hidden class="anchor" aria-hidden="true" href="#路由">#</a></h2>
+<h2 id="pinia">Pinia<a hidden class="anchor" aria-hidden="true" href="#pinia">#</a></h2>
+<h2 id="组件通信">组件通信<a hidden class="anchor" aria-hidden="true" href="#组件通信">#</a></h2>
+<h2 id="插槽-slot">插槽 slot<a hidden class="anchor" aria-hidden="true" href="#插槽-slot">#</a></h2>
+<h1 id="react">React<a hidden class="anchor" aria-hidden="true" href="#react">#</a></h1>
+<h1 id="微信小程序">微信小程序<a hidden class="anchor" aria-hidden="true" href="#微信小程序">#</a></h1>
+<h1 id="java">Java<a hidden class="anchor" aria-hidden="true" href="#java">#</a></h1>
+<h1 id="mysql">MySQL<a hidden class="anchor" aria-hidden="true" href="#mysql">#</a></h1>
+<h1 id="jdbc">JDBC<a hidden class="anchor" aria-hidden="true" href="#jdbc">#</a></h1>
+<h1 id="java-web">Java Web<a hidden class="anchor" aria-hidden="true" href="#java-web">#</a></h1>
+<h1 id="maven">Maven<a hidden class="anchor" aria-hidden="true" href="#maven">#</a></h1>
+<h1 id="gradle">Gradle<a hidden class="anchor" aria-hidden="true" href="#gradle">#</a></h1>
+<h1 id="spring6">Spring6<a hidden class="anchor" aria-hidden="true" href="#spring6">#</a></h1>
+<h1 id="spring-mvc">Spring MVC<a hidden class="anchor" aria-hidden="true" href="#spring-mvc">#</a></h1>
+<h1 id="mybatis">MyBatis<a hidden class="anchor" aria-hidden="true" href="#mybatis">#</a></h1>
+<h1 id="mybatis-plus">MyBatis Plus<a hidden class="anchor" aria-hidden="true" href="#mybatis-plus">#</a></h1>
+<h1 id="ssm">SSM<a hidden class="anchor" aria-hidden="true" href="#ssm">#</a></h1>
+<h1 id="redis">Redis<a hidden class="anchor" aria-hidden="true" href="#redis">#</a></h1>
+<h1 id="springboot2">SpringBoot2<a hidden class="anchor" aria-hidden="true" href="#springboot2">#</a></h1>
+<h1 id="springcloud">SpringCloud<a hidden class="anchor" aria-hidden="true" href="#springcloud">#</a></h1>
+<h1 id="git">Git<a hidden class="anchor" aria-hidden="true" href="#git">#</a></h1>
+<h1 id="docker">Docker<a hidden class="anchor" aria-hidden="true" href="#docker">#</a></h1>
+<h1 id="elasticsearch">Elasticsearch<a hidden class="anchor" aria-hidden="true" href="#elasticsearch">#</a></h1>
+<h1 id="zookeeper">ZooKeeper<a hidden class="anchor" aria-hidden="true" href="#zookeeper">#</a></h1>
+<h1 id="nginx">Nginx<a hidden class="anchor" aria-hidden="true" href="#nginx">#</a></h1>
+<h1 id="springsecurity">SpringSecurity<a hidden class="anchor" aria-hidden="true" href="#springsecurity">#</a></h1>
+<h1 id="activemq">ActiveMQ<a hidden class="anchor" aria-hidden="true" href="#activemq">#</a></h1>
+<h1 id="rabbitmq">RabbitMQ<a hidden class="anchor" aria-hidden="true" href="#rabbitmq">#</a></h1>
+<h1 id="rocketmq">RocketMQ<a hidden class="anchor" aria-hidden="true" href="#rocketmq">#</a></h1>
+<h1 id="k8s">K8S<a hidden class="anchor" aria-hidden="true" href="#k8s">#</a></h1>
+
+
+  </div>
+
+  
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/tech/">Tech</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/tech/0003-interactions-between-components-in-vue3/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Vue3 组件通信</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/tech/0002-java-web-notes/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Java Web 笔记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="http://localhost:1313/">Signal&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

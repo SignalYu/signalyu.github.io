@@ -5,9 +5,23 @@
     <link>https://signalyu.github.io/</link>
     <description>Recent content on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.125.1</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 23 Apr 2024 15:31:50 +0800</lastBuildDate>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 09 May 2024 19:22:30 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring：基于 XML 管理 Bean</title>
+      <link>https://signalyu.github.io/posts/tech/0005-bean-management-base-on-xml/</link>
+      <pubDate>Thu, 09 May 2024 19:22:30 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/tech/0005-bean-management-base-on-xml/</guid>
+      <description>获取 Bean 的三种方式 id：bean 标签的标识，必须唯一 class：组件类的全类名 flowchart subgraph newIoc[新建 IoC 容器] newCtx[new ClassPathXmlApplicationContext] end subgraph ioc[IoC 容器] getBean1[&#34;`getBean(id)`&#34;] ~~~ getBean2[&#34;`getBean(class)`&#34;] ~~~ getBean3[&#34;`getBean(id, class)`&#34;] end subgraph beans[beans.xml] bean[&#34;`&lt; bean id=... class=包.类&gt;`&#34;] end subgraph userClass[User 类] user[&#34;`package .... class User {}`&#34;] end newCtx --&gt;|创建 IoC 容器|ioc bean -.- getBean1 &amp; getBean2 &amp; getBean3 userClass -.- bean 点击查看代码 beans.xml User.java TestUser.java &amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt; &amp;lt;beans xmlns=&#34;http://www.springframework.org/schema/beans&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xsi:schemaLocation=&#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&#34;&gt; &amp;lt;bean id=&#34;user&#34; class=&#34;org.signalyu.spring6.iocxml.User&#34;&gt;&amp;lt;/bean&gt; &amp;lt;/beans&gt; package org.</description>
+    </item>
+    <item>
+      <title>Java Web 笔记</title>
+      <link>https://signalyu.github.io/posts/tech/0002-java-web-notes/</link>
+      <pubDate>Tue, 23 Apr 2024 21:24:01 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/tech/0002-java-web-notes/</guid>
+      <description>日程管理系统 MVC 模型 flowchart LR subgraph server[&#34;`**日程管理系统 MVC 模型**`&#34;] subgraph mysql[&#34;MySQL 数据库&#34;] direction TB subgraph tables[ ] subgraph userTable[sys_user 表] direction LR uid ~~~ username ~~~ userpwd end end end subgraph model[Model（模型层）] subgraph pojo[POJO] subgraph sysUserClass[SysUser.java] sysUserCode[&#34; private Integer uid; private String username; private String userPwd;&#34;] end end subgraph dao[DAO（持久层）] sysUserDao[SysUserDao 接口]~~~ baseDao[BaseDao 类] sysUserDao -.-&gt; sysUserDaoImpl[SysUserDaoImpl] baseDao --&gt;|继承| sysUserDaoImpl end subgraph service[Service（业务层）] sysUserService[SysUserService 接口] sysUserService -.-&gt; sysUserServiceImpl[SysUserServiceImpl] end end subgraph controller[Controller（与 View 构成表示层）] httpServlet[HttpServlet] ~~~ baseController[BaseController] ~~~ sysUserController[SysUserController] ~~~ utils[工具类] httpServlet -.</description>
+    </item>
     <item>
       <title>Java 中父类的私有属性可以被子类继承吗？</title>
       <link>https://signalyu.github.io/posts/tech/0001-java-private-inheritance/</link>

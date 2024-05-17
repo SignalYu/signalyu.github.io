@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on Signal&#39;s Blog</title>
+    <link>http://localhost:1313/zh/posts/</link>
+    <description>Recent content in Posts on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.125.1</generator>
+    <language>zh-Cn</language>
+    <lastBuildDate>Wed, 01 May 2024 14:32:14 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java 中父类的私有属性可以被子类继承吗？</title>
+      <link>http://localhost:1313/zh/posts/tech/0001-java-private-inheritance/</link>
+      <pubDate>Tue, 23 Apr 2024 15:31:50 +0800</pubDate>
+      <guid>http://localhost:1313/zh/posts/tech/0001-java-private-inheritance/</guid>
+      <description>Java 中子类是否继承父类的私有属性？大家的疑惑无非是：如果子类不继承父类的私有属性，那子类对象为什么包含父类的私有属性？博主之前也同样疑惑，在查阅了相关资料后，得出如下结论：
+子类对象确实存在父类的私有属性，但子类不继承父类的私有属性。
+子类对象包含父类私有属性 首先，博主先验证子类对象包含父类的私有属性，代码如下：
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 class Parent { private int privateField; public Parent() { System.out.println(&amp;#34;this in Parent() =&amp;gt; &amp;#34; + this); this.privateField = 666; } public Parent(int privateField) { System.out.println(&amp;#34;this in Parent(int) =&amp;gt; &amp;#34; + this); this.</description>
+    </item>
+    <item>
+      <title>数据结构与算法</title>
+      <link>http://localhost:1313/zh/posts/cs/0001-data-structures-and-algorithms/</link>
+      <pubDate>Wed, 01 May 2024 14:32:14 +0800</pubDate>
+      <guid>http://localhost:1313/zh/posts/cs/0001-data-structures-and-algorithms/</guid>
+      <description>数组 链表 栈 队列 字符串 树 图 </description>
+    </item>
+    <item>
+      <title>Vue3 组件通信</title>
+      <link>http://localhost:1313/zh/posts/tech/0003-interactions-between-components-in-vue3/</link>
+      <pubDate>Tue, 30 Apr 2024 13:47:14 +0800</pubDate>
+      <guid>http://localhost:1313/zh/posts/tech/0003-interactions-between-components-in-vue3/</guid>
+      <description>props 用于只读数据通信 组件通信——props Parent.vue Child.vue App.vue &amp;ltscript setup lang=&#34;ts&#34;&gt; import Parent from &#39;./components/Parent.vue&#39;; &amp;lt/script&gt; &amp;lttemplate&gt; &amp;lth1&gt;App Component &amp;ltParent /&gt; &amp;lt/template&gt; &amp;ltstyle scoped&gt; &amp;lt/style&gt; &amp;ltscript setup lang=&#34;ts&#34;&gt; const props = defineProps([&#39;money&#39;]); &amp;lt/script&gt; &amp;lttemplate&gt; &amp;ltp&gt;Child Component: props from parent: {{ money }}&amp;lt/p&gt; &amp;lt/template&gt; &amp;ltstyle scoped&gt; &amp;lt/style&gt; &amp;ltscript setup lang=&#34;ts&#34;&gt; import Parent from &#39;./components/Parent.vue&#39;; &amp;lt/script&gt; &amp;lttemplate&gt; &amp;lth1&gt;App Component &amp;ltParent /&gt; &amp;lt/template&gt; &amp;ltstyle scoped&gt; &amp;lt/style&gt; 自定义事件（子父） 全局时间总线$bus（任意组件） v-model（） useAttrs 方法（） 发布订阅模式（任意组件） vuex（任意组件） ref 与 $parent（父子） provide 与 inject pinia 插槽 slot（父子） </description>
+    </item>
+    <item>
+      <title>编程参考手册</title>
+      <link>http://localhost:1313/zh/posts/tech/-1-programming-handbook/</link>
+      <pubDate>Mon, 29 Apr 2024 09:45:21 +0800</pubDate>
+      <guid>http://localhost:1313/zh/posts/tech/-1-programming-handbook/</guid>
+      <description>HTML CSS Javascript Ajax Promise Axios TypeScript Vue3 创建 Vue 项目 npm create vue@latest 根据需要构建项目 Vue.js - The Progressive JavaScript Framework ✔ Project name: … vue3_test ✔ Add TypeScript? … No / Yes ✔ Add JSX Support? … No / Yes ✔ Add Vue Router for Single Page Application development? … No / Yes ✔ Add Pinia for state management? … No / Yes ✔ Add Vitest for Unit Testing? … No / Yes ✔ Add an End-to-End Testing Solution?</description>
+    </item>
+    <item>
+      <title>鸟瞰 Java Web</title>
+      <link>http://localhost:1313/zh/posts/tech/0002-birds-eye-of-java-web/</link>
+      <pubDate>Tue, 23 Apr 2024 21:24:01 +0800</pubDate>
+      <guid>http://localhost:1313/zh/posts/tech/0002-birds-eye-of-java-web/</guid>
+      <description>请求与响应 【图】请求与响应示意图
+【HTTP协议】 请求格式 响应格式 内容类型 总结：The communication between the browser and server is controlled by the HTTP protocol. The two major parts of the protocol cover the request and response: the request from the browser and the response from the server must have specific formats. The server also indicates the type of the content that is being sent to the browser, so that the browser will know how to display it.</description>
+    </item>
+  </channel>
+</rss>

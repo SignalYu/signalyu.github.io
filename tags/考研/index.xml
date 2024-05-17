@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>考研 on Signal&#39;s Blog</title>
+    <link>http://localhost:1313/tags/%E8%80%83%E7%A0%94/</link>
+    <description>Recent content in 考研 on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.125.1</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 03 May 2024 13:02:18 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E8%80%83%E7%A0%94/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>微积分——函数</title>
+      <link>http://localhost:1313/posts/math/calculus/0001-function/</link>
+      <pubDate>Fri, 03 May 2024 13:02:18 +0800</pubDate>
+      <guid>http://localhost:1313/posts/math/calculus/0001-function/</guid>
+      <description>函数概念 设 $x$ 和 $y$ 是两个变量，$D$ 是一个给定的非空数集，如果对于每个数 $x \in D$，变量 $x$ 按找一定的对应法则 $f$ 总有一个确定的数值 $y$ 和它对应，则称 $y$ 是 $x$ 的函数，记为： $$y = f(x)，x\in D$$
+其中 $x$ 称为自变量，$y$ 称为因变量，$D$ 称为函数 $f$ 的值域，记作 $R_f$ 或 $f(D)$，即： $$R_f = f(D) = \{y|y=f(x),x\in D\}$$
+定义域 D 和对应法则 f 是函数的两个基本要素，当两个函数的定义域和对应法则相同时，则这两个函数相同。
+常见分段函数 $f(x) = \max\{x,x^2\}$ $ f(x) = \max\{x,x^2\} = \begin{cases} x^2, &amp;amp; x \le 0\\ x, &amp;amp; 0 &amp;lt;x &amp;lt;1\\ x^2, &amp;amp; x \ge 1 \end{cases} $</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" dir=" auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Spring：基于注解管理 Bean | Signal&#39;s Blog</title>
+<meta name="keywords" content="Tech, Spring">
+<meta name="description" content="属性注入 点击查看代码 User UserDao UserDaoImpl UserService UserServiceImpl UserController UserTest package org.signalyu.spring6.ioc_anno.pojo; public class User { private Integer id; private String name; } package org.signalyu.spring6.ioc_anno.dao; import org.signalyu.spring6.ioc_anno.pojo.User; public interface UserDao { User getUserById(int id); } package org.signalyu.spring6.ioc_anno.dao; import org.signalyu.spring6.ioc_anno.pojo.User; import org.springframework.stereotype.Repository; @Repository public class UserDaoImpl implements UserDao{ @Override public User getUserById(int id) { System.out.println(&#34;UserDaoImpl: getUserById(&#34; &#43; id &#43;&#34;)&#34;); return null; } } package org.signalyu.spring6.ioc_anno.service; import org.signalyu.spring6.ioc_anno.pojo.User; public interface UserService { User getUserById(int id); } package org.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="http://localhost:1313/posts/tech/0006-bean-management-base-on-annotation/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e77414909e0d5e5e659ebf696801d8bdf5b2bfbf528e9a67d3f9529f0156a575.css" integrity="sha256-53QUkJ4NXl5lnr9paAHYvfWyv79Sjppn0/lSnwFWpXU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon">
+<link rel="mask-icon" href="http://localhost:1313/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/tech/0006-bean-management-base-on-annotation/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class=" dark" id="
+    top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="http://localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Spring：基于注解管理 Bean
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta"><span title='2024-05-10 09:47:06 +0800 HKT'>May 10, 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+        <details >
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">目录</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e5%b1%9e%e6%80%a7%e6%b3%a8%e5%85%a5" aria-label="属性注入">属性注入</a><ul>
+                                
+                    <li>
+                        <a href="#%e7%bb%84%e4%bb%b6%e6%89%ab%e6%8f%8f%e6%96%b9%e5%bc%8f" aria-label="组件扫描方式">组件扫描方式</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+  <div class="post-content"><h1 id="属性注入">属性注入<a hidden class="anchor" aria-hidden="true" href="#属性注入">#</a></h1>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">User</button>
+
+
+
+<button class="tab_btn ">UserDao</button>
+
+
+
+<button class="tab_btn ">UserDaoImpl</button>
+
+
+
+<button class="tab_btn ">UserService</button>
+
+
+
+<button class="tab_btn ">UserServiceImpl</button>
+
+
+
+<button class="tab_btn ">UserController</button>
+
+
+
+<button class="tab_btn ">UserTest</button>
+
+</div>
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.ioc_anno.pojo;
+
+public class User {
+    private Integer id;
+    private String name;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.ioc_anno.dao;
+
+import org.signalyu.spring6.ioc_anno.pojo.User;
+
+public interface UserDao {
+    User getUserById(int id);
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.ioc_anno.dao;
+
+import org.signalyu.spring6.ioc_anno.pojo.User;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class UserDaoImpl implements UserDao{
+    @Override
+    public User getUserById(int id) {
+        System.out.println("UserDaoImpl: getUserById(" + id +")");
+        return null;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.ioc_anno.service;
+
+import org.signalyu.spring6.ioc_anno.pojo.User;
+
+public interface UserService {
+    User getUserById(int id);
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.ioc_anno.service;
+
+import org.signalyu.spring6.ioc_anno.dao.UserDao;
+import org.signalyu.spring6.ioc_anno.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserServiceImpl implements UserService {
+    @Autowired
+    private UserDao userDao;
+
+    @Override
+    public User getUserById(int id) {
+        System.out.println("UserServiceImpl: getUserById(" + id +")");
+        return userDao.getUserById(id);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu.spring6.ioc_anno.controller;
+
+import org.signalyu.spring6.ioc_anno.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class UserController {
+    @Autowired
+    private UserService userService;
+
+    public String getUserById(int id) {
+        System.out.println("Controller: getUserById(" + id + ")");
+        userService.getUserById(id);
+        return "user";
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">import org.junit.jupiter.api.Test;
+import org.signalyu.spring6.ioc_anno.controller.UserController;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class UserTest {
+    @Test
+    public void testUser() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        UserController userController = context.getBean(UserController.class);
+        userController.getUserById(999);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h2 id="组件扫描方式">组件扫描方式<a hidden class="anchor" aria-hidden="true" href="#组件扫描方式">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">基本扫描</button>
+
+
+
+<button class="tab_btn ">指定组件扫描</button>
+
+
+
+<button class="tab_btn ">排除扫描组件</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    &lt;context:component-scan base-package="org.signalyu.spring6.ioc_anno">
+
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    &lt;context:component-scan base-package="org.signalyu.spring6.ioc_anno">
+    &lt;!-- context:include-filter标签：指定在原有扫描规则的基础上追加的规则 -->
+    &lt;!-- use-default-filters属性：取值false表示关闭默认扫描规则 -->
+    &lt;!-- 此时必须设置use-default-filters="false"，因为默认规则即扫描指定包下所有类 -->
+    &lt;!--
+        type：设置排除或包含的依据
+        type="annotation"，根据注解排除，expression中设置要排除的注解的全类名
+        type="assignable"，根据类型排除，expression中设置要排除的类型的全类名
+    -->
+    &lt;context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    &lt;!--<context:include-filter type="assignable" expression="org.signalyu.spring6.ioc_anno.controller.UserController"/>-->
+&lt;/context:component-scan>
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    &lt;!--<context:component-scan base-package="org.signalyu.spring6.ioc_anno">-->
+        &lt;!-- context:exclude-filter标签：指定排除规则 -->
+        &lt;!--
+            type：设置排除或包含的依据
+            type="annotation"，根据注解排除，expression中设置要排除的注解的全类名
+            type="assignable"，根据类型排除，expression中设置要排除的类型的全类名
+        -->
+    &lt;!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+    &lt;context:exclude-filter type="assignable" expression="org.signalyu.spring6.ioc_anno.controller.UserController"/>
+&lt;/context:component-scan>
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<link rel="stylesheet" href="/css/notice.css">
+
+
+<div class="notice warning">
+    
+指定扫描组件只指定 UserController，由于测试中还用到了 UserServiceImpl 和 UserDaoImpl 组件，因此测试报错。
+
+</div>
+<ul>
+<li>@Component 注解用于描述容器中的一个组件（Bean），可以作用在应用的任何层次，例如 Service 层、Dao 层等。</li>
+<li>@Repository 注解用于将数据访问层（Dao 层）的类标识为 Spring 中的 Bean，功能与 @Component 相同。</li>
+<li>@Service 注解用于将数据访问层（Serivce 层）的类标识为 Spring 中的 Bean，功能与 @Component 相同。</li>
+<li>@Controller 注解用于将数据访问层（Controller 层）的类标识为 Spring 中的 Bean，功能与 @Component 相同。</li>
+</ul>
+
+
+  </div>
+
+  
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/tech/">Tech</a></li>
+      <li><a href="http://localhost:1313/tags/spring/">Spring</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/tech/0007-spring-ioc-di/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Spring：理解控制反转和依赖注入</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/tech/0005-bean-management-base-on-xml/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Spring：基于 XML 管理 Bean</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="http://localhost:1313/">Signal&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

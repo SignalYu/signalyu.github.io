@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" dir=" auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>Spring 知识点总结 | Signal&#39;s Blog</title>
+<meta name="keywords" content="Tech, Spring">
+<meta name="description" content="谈谈你对 Spring 的理解 Spring 是简化企业级应用开发的轻量级框架。它的主要核心包括控制反转（IoC）、依赖注入（DI）和面向切面编程（AOP）。
+控制反转（IoC）：控制反转是一种设计原则，指的是对象的创建和管理权从应用程序的某个对象反转给 IoC 容器。如下图所示，汽车类（Car）依赖于引擎类（Engine），即 Car 类对其依赖—— Engine 类对象的创建具有控制权。在传统模式下，Car 类必须在其内部创建 Engine 类。而在 IoC 模式下，Engine 类对象的创建和管理由外部实体——IoC 容器完成，也就是说，对 Engine 类对象的创建和管理权限由 Car 类转移到 IoC 容器中。由于在 IoC 模式下 Car 类不需要在其内部创建 Engine 类对象，因此实现了代码解耦。 graph LR direction LR subgraph traditional[传统模式] direction LR car[Car] -.- depend((依赖)) -.-&gt; engine[Engine] car --&gt;|创建| engine end graph subgraph iocPattern[IoC 模式] car[Car] -.- depend((依赖)) -.-&gt; engine[Engine] config[XML/注解配置] ==&gt; ioc[IoC 容器] --&gt;|依赖注入| depend ioc --&gt;|创建| car & engine end 传统模式代码 Car.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="http://localhost:1313/posts/tech/0007-spring-knowledge-points-summary/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.e77414909e0d5e5e659ebf696801d8bdf5b2bfbf528e9a67d3f9529f0156a575.css" integrity="sha256-53QUkJ4NXl5lnr9paAHYvfWyv79Sjppn0/lSnwFWpXU=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon">
+<link rel="mask-icon" href="http://localhost:1313/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/tech/0007-spring-knowledge-points-summary/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="
+    top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="http://localhost:1313/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://localhost:1313/">Home</a>&nbsp;»&nbsp;<a href="http://localhost:1313/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Spring 知识点总结
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta"><span title='2024-05-12 08:37:38 +0800 HKT'>May 12, 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+        <details >
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">目录</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#%e8%b0%88%e8%b0%88%e4%bd%a0%e5%af%b9-spring-%e7%9a%84%e7%90%86%e8%a7%a3" aria-label="谈谈你对 Spring 的理解">谈谈你对 Spring 的理解</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+  <div class="post-content"><h1 id="谈谈你对-spring-的理解">谈谈你对 Spring 的理解<a hidden class="anchor" aria-hidden="true" href="#谈谈你对-spring-的理解">#</a></h1>
+<p>Spring 是简化企业级应用开发的轻量级框架。它的主要核心包括<strong>控制反转（IoC）</strong>、<strong>依赖注入（DI）<strong>和</strong>面向切面编程（AOP）</strong>。</p>
+<ul>
+<li><strong>控制反转（IoC）</strong>：控制反转是一种设计原则，指的是对象的创建和管理权从应用程序的某个对象反转给 IoC 容器。如下图所示，汽车类（Car）依赖于引擎类（Engine），即 Car 类对其依赖—— Engine 类对象的创建具有控制权。在传统模式下，Car 类必须在其内部创建 Engine 类。而在 IoC 模式下，Engine 类对象的创建和管理由外部实体——IoC 容器完成，也就是说，对 Engine 类对象的创建和管理权限由 Car 类转移到 IoC 容器中。由于在 IoC 模式下 Car 类不需要在其内部创建 Engine 类对象，因此实现了代码解耦。</li>
+</ul>
+<pre class="mermaid">graph LR
+    direction LR
+    subgraph traditional[传统模式]
+        direction LR
+        car[Car] -.- depend((依赖)) -.-> engine[Engine]
+        car -->|创建| engine
+    end
+</pre>
+<pre class="mermaid">graph
+    subgraph iocPattern[IoC 模式]
+        car[Car] -.- depend((依赖)) -.-> engine[Engine]
+        config[XML/注解配置] ==> ioc[IoC 容器] -->|依赖注入| depend
+        ioc -->|创建| car & engine
+    end
+</pre>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>传统模式代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Car.java</button>
+
+
+
+<button class="tab_btn ">Engine.java</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java">package org.signalyu;
+
+public class Car {
+    private Engine engine;
+
+    public Car() {
+        // Car 类在其内部创建 Engine 类
+        this.engine = new Engine();
+    }
+
+    public void start() {
+        engine.start();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu;
+
+public class Engine {
+    public void start() {
+        System.out.println("org.signalyu.Engine started");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<div class="collapsibleContainer">
+    <details>
+        <summary>IoC 模式代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/tabbed_code.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script src="/js/tabbed_code.js"></script>
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Car.java</button>
+
+
+
+<button class="tab_btn ">Engine.java</button>
+
+
+
+<button class="tab_btn ">Main.java</button>
+
+
+
+<button class="tab_btn ">Beans.xml</button>
+
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java">package org.signalyu;
+
+public class Car {
+    private Engine engine;
+
+    public Car(Engine engine) {
+        this.engine = engine;
+    }
+
+    public void start() {
+        engine.start();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu;
+
+public class Engine {
+    public Engine() {
+    }
+
+    public void start() {
+        System.out.println("org.signalyu.Engine started");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java">package org.signalyu;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+        Car car = context.getBean("car",Car.class);
+        car.start();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    &lt;!-- Define the Engine bean -->
+    &lt;bean id="engine" class="org.signalyu.Engine"/>
+
+    &lt;!-- Define the Car bean with constructor injection -->
+    &lt;bean id="car" class="org.signalyu.Car">
+        &lt;constructor-arg name="engine" ref="engine"/>
+    &lt;/bean>
+&lt;/beans>
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+        </div>
+    </details>
+</div>
+<ul>
+<li>
+<p><strong>依赖注入</strong>：依赖注入是指 IoC 容器动态地向某个对象提供它所依赖的外部资源。在上述例子中，IoC 容器会在运行时动态地创建 Engine 类并将其注入到 Car 类对象中。</p>
+</li>
+<li>
+<p><strong>面向切面编程（Aspect Oriented Programming, AOP）</strong>：</p>
+</li>
+</ul>
+
+
+  </div>
+
+  
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/tech/">Tech</a></li>
+      <li><a href="http://localhost:1313/tags/spring/">Spring</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/posts/tech/0009-spring-aop/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>0009 Spring Aop</span>
+  </a>
+  <a class="next" href="http://localhost:1313/posts/tech/0006-bean-management-base-on-annotation/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Spring：基于注解管理 Bean</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="http://localhost:1313/">Signal&#39;s Blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            "flowchart": { "htmlLabels": true },
+            theme: 'base',
+            themeVariables: {
+                'primaryColor': '#0b1529',
+                'primaryTextColor': '#dee4eb',
+                'primaryBorderColor': '#dee4eb',
+                'secondaryBorderColor': 'lightblue',
+                'tertiaryBorderColor': 'lightblue',
+                'noteBorderColor': 'lightblue',
+                'lineColor': 'lightblue',
+                'background': '#0b1529'
+            }
+        });
+    </script>
+    
+</body>
+
+</html>

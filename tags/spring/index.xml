@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Spring on Signal&#39;s Blog</title>
+    <link>https://signalyu.github.io/tags/spring/</link>
+    <description>Recent content in Spring on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.125.1</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 09 May 2024 19:22:30 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/spring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Spring：基于 XML 管理 Bean</title>
+      <link>https://signalyu.github.io/posts/tech/0005-bean-management-base-on-xml/</link>
+      <pubDate>Thu, 09 May 2024 19:22:30 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/tech/0005-bean-management-base-on-xml/</guid>
+      <description>获取 Bean 的三种方式 id：bean 标签的标识，必须唯一 class：组件类的全类名 flowchart subgraph newIoc[新建 IoC 容器] newCtx[new ClassPathXmlApplicationContext] end subgraph ioc[IoC 容器] getBean1[&#34;`getBean(id)`&#34;] ~~~ getBean2[&#34;`getBean(class)`&#34;] ~~~ getBean3[&#34;`getBean(id, class)`&#34;] end subgraph beans[beans.xml] bean[&#34;`&lt; bean id=... class=包.类&gt;`&#34;] end subgraph userClass[User 类] user[&#34;`package .... class User {}`&#34;] end newCtx --&gt;|创建 IoC 容器|ioc bean -.- getBean1 &amp; getBean2 &amp; getBean3 userClass -.- bean 点击查看代码 beans.xml User.java TestUser.java &amp;lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt; &amp;lt;beans xmlns=&#34;http://www.springframework.org/schema/beans&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xsi:schemaLocation=&#34;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&#34;&gt; &amp;lt;bean id=&#34;user&#34; class=&#34;org.signalyu.spring6.iocxml.User&#34;&gt;&amp;lt;/bean&gt; &amp;lt;/beans&gt; package org.</description>
+    </item>
+  </channel>
+</rss>

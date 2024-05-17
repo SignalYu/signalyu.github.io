@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Vue3 on Signal&#39;s Blog</title>
+    <link>http://localhost:1313/tags/vue3/</link>
+    <description>Recent content in Vue3 on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.125.1</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 30 Apr 2024 13:47:14 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/vue3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue3 组件通信</title>
+      <link>http://localhost:1313/posts/tech/0003-interactions-between-components-in-vue3/</link>
+      <pubDate>Tue, 30 Apr 2024 13:47:14 +0800</pubDate>
+      <guid>http://localhost:1313/posts/tech/0003-interactions-between-components-in-vue3/</guid>
+      <description>props 用于只读数据通信 组件通信——props Parent.vue Child.vue App.vue &amp;ltscript setup lang=&#34;ts&#34;&gt; import Parent from &#39;./components/Parent.vue&#39;; &amp;lt/script&gt; &amp;lttemplate&gt; &amp;lth1&gt;App Component &amp;ltParent /&gt; &amp;lt/template&gt; &amp;ltstyle scoped&gt; &amp;lt/style&gt; &amp;ltscript setup lang=&#34;ts&#34;&gt; const props = defineProps([&#39;money&#39;]); &amp;lt/script&gt; &amp;lttemplate&gt; &amp;ltp&gt;Child Component: props from parent: {{ money }}&amp;lt/p&gt; &amp;lt/template&gt; &amp;ltstyle scoped&gt; &amp;lt/style&gt; &amp;ltscript setup lang=&#34;ts&#34;&gt; import Parent from &#39;./components/Parent.vue&#39;; &amp;lt/script&gt; &amp;lttemplate&gt; &amp;lth1&gt;App Component &amp;ltParent /&gt; &amp;lt/template&gt; &amp;ltstyle scoped&gt; &amp;lt/style&gt; 自定义事件（子父） 全局时间总线$bus（任意组件） v-model（） useAttrs 方法（） 发布订阅模式（任意组件） vuex（任意组件） ref 与 $parent（父子） provide 与 inject pinia 插槽 slot（父子） </description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tech on Signal&#39;s Blog</title>
+    <link>http://localhost:1313/zh/tags/tech/</link>
+    <description>Recent content in Tech on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.125.1</generator>
+    <language>zh-Cn</language>
+    <lastBuildDate>Mon, 29 Apr 2024 09:45:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/zh/tags/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>编程参考手册</title>
+      <link>http://localhost:1313/zh/posts/tech/-1-programming-handbook/</link>
+      <pubDate>Mon, 29 Apr 2024 09:45:21 +0800</pubDate>
+      <guid>http://localhost:1313/zh/posts/tech/-1-programming-handbook/</guid>
+      <description>HTML CSS Javascript Ajax Promise Axios TypeScript Vue3 创建 Vue 项目 npm create vue@latest 根据需要构建项目 Vue.js - The Progressive JavaScript Framework ✔ Project name: … vue3_test ✔ Add TypeScript? … No / Yes ✔ Add JSX Support? … No / Yes ✔ Add Vue Router for Single Page Application development? … No / Yes ✔ Add Pinia for state management? … No / Yes ✔ Add Vitest for Unit Testing? … No / Yes ✔ Add an End-to-End Testing Solution?</description>
+    </item>
+  </channel>
+</rss>
