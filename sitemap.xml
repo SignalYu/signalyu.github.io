@@ -3,33 +3,51 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://signalyu.github.io/posts/</loc>
-    <lastmod>2024-05-14T14:21:49+08:00</lastmod>
+    <lastmod>2024-05-18T10:22:44+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/</loc>
-    <lastmod>2024-05-14T14:21:49+08:00</lastmod>
+    <lastmod>2024-05-18T10:22:44+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/spring/</loc>
-    <lastmod>2024-05-09T19:22:30+08:00</lastmod>
+    <lastmod>2024-05-17T16:11:35+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/tech/0005-bean-management-base-on-xml/</loc>
-    <lastmod>2024-05-09T19:22:30+08:00</lastmod>
+    <loc>https://signalyu.github.io/posts/tech/spring/3-bean-life-cycle/</loc>
+    <lastmod>2024-05-17T16:11:35+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/</loc>
-    <lastmod>2024-05-09T19:22:30+08:00</lastmod>
+    <lastmod>2024-05-17T16:11:35+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/tech/</loc>
-    <lastmod>2024-05-09T19:22:30+08:00</lastmod>
+    <lastmod>2024-05-17T16:11:35+08:00</lastmod>
+  </url><url>
+    <loc>https://signalyu.github.io/tags/spring-mvc/</loc>
+    <lastmod>2024-05-14T14:21:49+08:00</lastmod>
+  </url><url>
+    <loc>https://signalyu.github.io/posts/tech/spring-mvc/1-spring-mvc-execution-flow/</loc>
+    <lastmod>2024-05-14T14:21:49+08:00</lastmod>
+  </url><url>
+    <loc>https://signalyu.github.io/posts/tech/spring/2-spring-aop/</loc>
+    <lastmod>2024-05-12T13:19:15+08:00</lastmod>
+  </url><url>
+    <loc>https://signalyu.github.io/posts/tech/spring/1-spring-ioc-di/</loc>
+    <lastmod>2024-05-12T08:37:38+08:00</lastmod>
+  </url><url>
+    <loc>https://signalyu.github.io/tags/maven/</loc>
+    <lastmod>2024-05-02T19:26:09+08:00</lastmod>
+  </url><url>
+    <loc>https://signalyu.github.io/posts/tech/maven/1-maven-notes/</loc>
+    <lastmod>2024-05-02T19:26:09+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/java-web/</loc>
     <lastmod>2024-04-23T21:24:01+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/tech/0002-java-web-notes/</loc>
+    <loc>https://signalyu.github.io/posts/tech/java-web/1-java-web-notes/</loc>
     <lastmod>2024-04-23T21:24:01+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/java/</loc>
     <lastmod>2024-04-23T15:31:50+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/tech/0001-java-private-inheritance/</loc>
+    <loc>https://signalyu.github.io/posts/tech/java/1-java-private-inheritance/</loc>
     <lastmod>2024-04-23T15:31:50+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/archives/</loc>

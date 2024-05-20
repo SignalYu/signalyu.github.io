@@ -10,9 +10,9 @@
     <atom:link href="https://signalyu.github.io/tags/java-web/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java Web 笔记</title>
-      <link>https://signalyu.github.io/posts/tech/0002-java-web-notes/</link>
+      <link>https://signalyu.github.io/posts/tech/java-web/1-java-web-notes/</link>
       <pubDate>Tue, 23 Apr 2024 21:24:01 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/tech/0002-java-web-notes/</guid>
+      <guid>https://signalyu.github.io/posts/tech/java-web/1-java-web-notes/</guid>
       <description>日程管理系统 MVC 模型 flowchart LR subgraph server[&#34;`**日程管理系统 MVC 模型**`&#34;] subgraph mysql[&#34;MySQL 数据库&#34;] direction TB subgraph tables[ ] subgraph userTable[sys_user 表] direction LR uid ~~~ username ~~~ userpwd end end end subgraph model[Model（模型层）] subgraph pojo[POJO] subgraph sysUserClass[SysUser.java] sysUserCode[&#34; private Integer uid; private String username; private String userPwd;&#34;] end end subgraph dao[DAO（持久层）] sysUserDao[SysUserDao 接口]~~~ baseDao[BaseDao 类] sysUserDao -.-&gt; sysUserDaoImpl[SysUserDaoImpl] baseDao --&gt;|继承| sysUserDaoImpl end subgraph service[Service（业务层）] sysUserService[SysUserService 接口] sysUserService -.-&gt; sysUserServiceImpl[SysUserServiceImpl] end end subgraph controller[Controller（与 View 构成表示层）] httpServlet[HttpServlet] ~~~ baseController[BaseController] ~~~ sysUserController[SysUserController] ~~~ utils[工具类] httpServlet -.</description>
     </item>
   </channel>
