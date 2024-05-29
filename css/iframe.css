@@ -1,0 +1,46 @@
+:root {
+    --xmobile-iframe-width: 375px;
+    --mobile-iframe-width: 576px;
+    --tablet-iframe-width: 768px;
+    --laptop-iframe-width: 900px;
+}
+
+#iframeContainer {
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (min-width: 375px) {
+    iframe {
+        width: 100%;
+        height: 211px;
+    }
+}
+
+@media screen and (min-width: 480px) {
+    iframe {
+        width: 100%;
+        height: 270px;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    iframe {
+        width: 100%;
+        height: 324px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    iframe {
+        width: 100%;
+        height: 432px;
+    }
+}
+
+@media screen and (min-width: 900px) {
+    iframe {
+        width: 900px;
+        height: 506px;
+    }
+}

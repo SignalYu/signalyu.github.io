@@ -1,0 +1,28 @@
+.notice {
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.warning {
+    background-color: orange;
+    border: 1px solid #c4aa5c;
+    color: #663300;
+}
+
+.success {
+    background-color: #e6ffe6;
+    border: 1px solid #66ff66;
+    color: #006600;
+}
+
+.info {
+    background-color: #e6f7ff;
+    border: 1px solid #66ccff;
+    color: #004c99;
+}
+
+.equation {
+    overflow: hidden;
+    overflow-x: scroll;
+}
