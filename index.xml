@@ -4,10 +4,24 @@
     <title>Signal&#39;s Blog</title>
     <link>https://signalyu.github.io/</link>
     <description>Recent content on Signal&#39;s Blog</description>
-    <generator>Hugo -- 0.125.1</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 17 May 2024 16:11:35 +0800</lastBuildDate>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 21 May 2024 21:33:20 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>设计模式——代理模式</title>
+      <link>https://signalyu.github.io/posts/cs/design-patterns/2-proxy-pattern/</link>
+      <pubDate>Tue, 21 May 2024 21:33:20 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/cs/design-patterns/2-proxy-pattern/</guid>
+      <description>静态代理 静态代理模式类图 在静态代理模式下，可以在不修改目标对象代码的前提下对其进行功能扩展； 在静态代理模式下，代理对象和目标对象都需要实现父接口或者继承父类； 由于代理对象和目标对象需要实现相同的接口或者继承相同的父类，因此容易导致很多代理类的存在； 当父接口或父类增加方法时，目标对象和代理对象都需要维护。 代码示例 代码示例类图 点击查看代码 BankAccount ConcreteBankAccount StaticBankAccountProxy StaticProxyTest 输出结果 package org.signalyu.patterns.proxy; public interface BankAccount { boolean deposit(double amount); boolean withdraw(double amount); double getBalance(); } package org.signalyu.patterns.proxy; public class ConcreteBankAccount implements BankAccount { private double balance; public ConcreteBankAccount(double balance) { this.balance = balance; } @Override public boolean deposit(double amount) { if (amount &gt; 0) { this.balance += amount; return true; } return false; } @Override public boolean withdraw(double amount) { if (balance &gt;= amount) { balance -= amount; return true; } else { return false; } } @Override public double getBalance() { return balance; } } package org.</description>
+    </item>
+    <item>
+      <title>设计模式——工厂模式</title>
+      <link>https://signalyu.github.io/posts/cs/design-patterns/1-factory-pattern/</link>
+      <pubDate>Mon, 20 May 2024 17:09:27 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/cs/design-patterns/1-factory-pattern/</guid>
+      <description>简单工厂（Simple Factory） 简单工厂模式通过一个专门的工厂类基于特定的参数来创建产品类的实例； 简单工厂模式违反了开闭原则，即在需要添加新的产品类型时需要修改工厂类。 代码示例 简单工厂示例类图 点击查看代码 Pizza MargheritaPizza PepperoniPizza BeefPizza PizzaFactory SimpleFactoryTest 输出结果 package org.signalyu.patterns.factory; public interface Pizza { void prepare(); void bake(); void cut(); void box(); } package org.signalyu.patterns.factory; public class MargheritaPizza implements Pizza { @Override public void prepare() { System.out.println(&#34;玛格丽特比萨：1. 准备材料&#34;); } @Override public void bake() { System.out.println(&#34;玛格丽特比萨：2. 烘烤比萨 &#34;); } @Override public void cut() { System.out.println(&#34;玛格丽特比萨：3. 切比萨&#34;); } @Override public void box() { System.out.println(&#34;玛格丽特比萨：4. 披萨打包&#34;); } } package org.</description>
+    </item>
     <item>
       <title>Spring：Bean 生命周期</title>
       <link>https://signalyu.github.io/posts/tech/spring/3-bean-life-cycle/</link>
@@ -35,14 +49,14 @@
       <pubDate>Sun, 12 May 2024 08:37:38 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/tech/spring/1-spring-ioc-di/</guid>
       <description>控制反转 控制反转（IoC）：控制反转是一种设计原则，指的是对象的创建和管理权从应用程序的某个对象反转给 IoC 容器。如下图所示，汽车类（Car）依赖于引擎类（Engine），即 Car 类对其依赖—— Engine 类对象的创建具有控制权。在传统模式下，Car 类必须在其内部创建 Engine 类。而在 IoC 模式下，Engine 类对象的创建和管理由外部实体——IoC 容器完成，也就是说，对 Engine 类对象的创建和管理权限由 Car 类转移到 IoC 容器中。由于在 IoC 模式下 Car 类不需要在其内部创建 Engine 类对象，因此实现了代码解耦。
-graph LR direction LR subgraph traditional[传统模式] direction LR car[Car] -.- depend((依赖)) -.-&gt; engine[Engine] car --&gt;|创建| engine end graph subgraph iocPattern[IoC 模式] car[Car] -.- depend((依赖)) -.-&gt; engine[Engine] config[XML/注解配置] ==&gt; ioc[IoC 容器] --&gt;|依赖注入| depend ioc --&gt;|创建| car &amp; engine end 传统模式代码 Car.java Engine.java package org.signalyu; public class Car { private Engine engine; public Car() { // Car 类在其内部创建 Engine 类 this.</description>
+graph LR direction LR subgraph traditional[传统模式] direction LR car[Car] -.- depend((依赖)) -.-&gt; engine[Engine] car --&gt;|创建| engine end graph subgraph iocPattern[IoC 模式] engine[Engine] -.- depend((依赖)) -.-&gt; car[Car] config[XML/注解配置] ==&gt; ioc[IoC 容器] --&gt;|依赖注入| depend ioc --&gt;|创建| car &amp; engine end 点击查看传统模式代码 Car.java Engine.java package org.signalyu; public class Car { private Engine engine; public Car() { // Car 类在其内部创建 Engine 类 this.</description>
     </item>
     <item>
       <title>Maven 笔记</title>
       <link>https://signalyu.github.io/posts/tech/maven/1-maven-notes/</link>
       <pubDate>Thu, 02 May 2024 19:26:09 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/tech/maven/1-maven-notes/</guid>
-      <description>Maven 简介 --- title: Maven 软件的工作原理图 --- flowchart subgraph mavenRepo[Maven 依赖仓库] officialRepo[官方仓库]--&gt;|定期备份|mirrorRepo[镜像仓库] mirrorRepo[镜像仓库]--&gt;|下载|localRepo[本地仓库] end subgraph dependencyManage[依赖管理] dispatch[依赖传递]~~~conflict[依赖冲突]~~~inheritence[依赖继承]~~~cohesion[依赖聚合] end subgraph settings[配置 settings.xml] localRepository~~~mirror~~~jdk end subgraph lifeCircle[生命周期] clean ~~~ compile ~~~ test ~~~ package ~~~ install ~~~ others[...] end subgraph projects[项目] javaSE[JavaSE]~~~javaWeb[JavaWeb] pom.xml -.- javaSE &amp; javaWeb end subgraph app[包] jar ~~~ war end localRepo --&gt;|引用| maven((Maven)) --- dependencyManage maven -.- settings javaSE &amp; javaWeb --&gt; install install --&gt; localRepo package --&gt; app IntelliJ --&gt;|新建| javaSE --&gt;|war| javaWeb 依赖管理：Maven 可以管理项目的依赖，包括自动下载所需依赖库、自动下载依赖需要的依赖并且保证版本没有冲突、依赖版本管理等。 构建管理：项目构建是指将源代码、配置文件、资源文件等转化为能够运行或部署的应用程序或库的过程。Maven 可以管理项目的编译、测试、打包、部署等构建过程。通过实现标准的构建生命周期，Maven 可以确保每一个构建过程都遵循同样的的规则和最佳实践。同时，Maven 的插件机制也使得开发者可以对构建过程进行扩展和定制。 Maven 目录结构 .</description>
+      <description>Maven 简介 --- title: Maven 软件的工作原理图 --- flowchart subgraph mavenRepo[Maven 依赖仓库] officialRepo[官方仓库]--&gt;|定期备份|mirrorRepo[镜像仓库] mirrorRepo[镜像仓库]--&gt;|下载|localRepo[本地仓库] end subgraph dependencyManage[依赖管理] dispatch[依赖传递]~~~conflict[依赖冲突]~~~inheritence[依赖继承]~~~cohesion[依赖聚合] end subgraph settings[配置 settings.xml] localRepository~~~mirror~~~jdk end subgraph lifeCircle[生命周期] clean ~~~ compile ~~~ test ~~~ package ~~~ install ~~~ others[...] end subgraph projects[项目] javaSE[JavaSE]~~~javaWeb[JavaWeb] pom.xml -.- javaSE &amp; javaWeb end subgraph app[包] jar ~~~ war end localRepo --&gt;|引用| maven((Maven)) --- dependencyManage maven -.- settings javaSE &amp; javaWeb --&gt; install install --&gt; localRepo package --&gt; app IntelliJ --&gt;|新建| javaSE --&gt;|war| javaWeb 依赖管理：Maven 可以管理项目的依赖，包括自动下载所需依赖库、自动下载依赖需要的依赖并且保证版本没有冲突、依赖版本管理等。 构建管理：项目构建是指将源代码、配置文件、资源文件等转化为能够运行或部署的应用程序或库的过程。Maven 可以管理项目的编译、测试、打包、部署等构建过程。通过实现标准的构建生命周期，Maven 可以确保每一个构建过程都遵循同样的的规则和最佳实践。同时，Maven 的插件机制也使得开发者可以对构建过程进行扩展和定制。 Maven 目录结构 点击查看代码 Maven 目录结构 .</description>
     </item>
     <item>
       <title>Java Web 笔记</title>
@@ -57,7 +71,7 @@ graph LR direction LR subgraph traditional[传统模式] direction LR car[Car] -
       <pubDate>Tue, 23 Apr 2024 15:31:50 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/tech/java/1-java-private-inheritance/</guid>
       <description>子类对象拥有父类的私有成员，但子类不继承父类的私有属性。 子类对象包含父类私有属性 首先验证子类对象包含父类的私有属性，代码如下：
-点击查看代码 验证子类对象拥有父类私有成员 输出结果 class Parent { private int privateField; public Parent() { System.out.println(&#34;this in Parent() =&gt; &#34; + this); this.privateField = 666; } public Parent(int privateField) { System.out.println(&#34;this in Parent(int) =&gt; &#34; + this); this.privateField = privateField; } private void printPrivateField() { System.out.println(this.privateField); } public void accessPrivateMembers() { System.out.println(&#34;this in accessPrivateMembers() =&gt; &#34; + this); System.out.print(&#34;调用 this.printPrivateField() 方法 =&gt; &#34;); this.printPrivateField(); } } class Child extends Parent { public Child() { System.</description>
+点击查看代码 class Parent { private int privateField; public Parent() { System.out.println(&#34;this in Parent() =&gt; &#34; + this); this.privateField = 666; } public Parent(int privateField) { System.out.println(&#34;this in Parent(int) =&gt; &#34; + this); this.privateField = privateField; } private void printPrivateField() { System.out.println(this.privateField); } public void accessPrivateMembers() { System.out.println(&#34;this in accessPrivateMembers() =&gt; &#34; + this); System.out.print(&#34;调用 this.printPrivateField() 方法 =&gt; &#34;); this.printPrivateField(); } } class Child extends Parent { public Child() { System.</description>
     </item>
   </channel>
 </rss>

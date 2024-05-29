@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir=" auto">
+<html lang="en" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="canonical" href="https://signalyu.github.io/tags/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e77414909e0d5e5e659ebf696801d8bdf5b2bfbf528e9a67d3f9529f0156a575.css" integrity="sha256-53QUkJ4NXl5lnr9paAHYvfWyv79Sjppn0/lSnwFWpXU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://signalyu.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
@@ -42,8 +42,7 @@
 
 </head>
 
-<body class=" list dark" id="
-    top">
+<body class="list dark" id="top">
 
 <header class="header">
     <nav class="nav">
@@ -56,18 +55,18 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://signalyu.github.io/archives/" title="Archives">
-                    <span>Archives</span>
+                <a href="https://signalyu.github.io/archives/" title="档案">
+                    <span>档案</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/tags/" title="Tags">
-                    <span class="active">Tags</span>
+                <a href="https://signalyu.github.io/tags/" title="标签">
+                    <span class="active">标签</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>Search</span>
+                <a href="https://signalyu.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
                 </a>
             </li>
         </ul>
@@ -75,10 +74,16 @@
 </header>
 <main class="main">
 <header class="page-header">
-    <h1>Tags</h1>
+    <h1>
+        
+        标签
+    </h1>
 </header>
-<hr>
+
 <ul class="terms-tags">
+    <li>
+        <a href="https://signalyu.github.io/tags/cs/">CS <sup><strong><sup>2</sup></strong></sup> </a>
+    </li>
     <li>
         <a href="https://signalyu.github.io/tags/java/">Java <sup><strong><sup>1</sup></strong></sup> </a>
     </li>
@@ -97,18 +102,20 @@
     <li>
         <a href="https://signalyu.github.io/tags/tech/">Tech <sup><strong><sup>7</sup></strong></sup> </a>
     </li>
+    <li>
+        <a href="https://signalyu.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式 <sup><strong><sup>2</sup></strong></sup> </a>
+    </li>
 </ul>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
 <script>
     let menu = document.getElementById('menu')
@@ -139,6 +146,19 @@
     });
 
 </script>
-</body>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
 
+</script>
+
+</body>
 </html>

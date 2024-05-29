@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir=" auto">
+<html lang="en" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +10,7 @@
 <meta name="description" content="AOP 相关概念 AOP 相关概念 横切关注点（Crosscutting Concern）：横切关注点是指业务处理过程中的附加功能。一类业务可以有多个横切关注点（附加功能），例如上述例子中的的借书方法具有日志和安全校验两个附加功能，即具有两个横切关注点。 切面（Aspect）：在不同类业务中提取的同类核心关注点构成的模块称为切面。例如上述例子中的借书和还书方法可提取出日志切面（LoggingAspect）和校验切面（AuthenticationAspect）。 连接点（Joint Point）：连接点是指业务处理过程中能够应用切面功能的位置。 通知（Advice）：通知是指切面在某个特定连接点上触发的行为。 切入点（Pointcut）：切入点是指业务处理过程中实际应用切面功能的连接点位置。例如核心业务处理前，核心业务成功处理后，核心业务处理发生异常时等等。 织入（Weaving）：织入是指将附加功能集成到目标对象的过程。 AOP 代码 点击查看代码 BookService BookServiceImpl LoggingAspect AuthenticationAspect BookServiceTest beans.xml 输出结果 package org.signalyu; public interface BookService { boolean borrowBook(String bookId); boolean returnBook(String bookId); } package org.signalyu; import org.springframework.stereotype.Service; import java.util.HashMap; import java.util.Map; @Service public class BookServiceImpl implements BookService { final private Map&ltString, Boolean&gt; bookStatus = new HashMap&lt;&gt;(); public BookServiceImpl() { // Initialize book status map with some books available initially bookStatus.">
 <meta name="author" content="Signal Yu">
 <link rel="canonical" href="https://signalyu.github.io/posts/tech/spring/2-spring-aop/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e77414909e0d5e5e659ebf696801d8bdf5b2bfbf528e9a67d3f9529f0156a575.css" integrity="sha256-53QUkJ4NXl5lnr9paAHYvfWyv79Sjppn0/lSnwFWpXU=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://signalyu.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
@@ -97,8 +97,7 @@
 </script>
 </head>
 
-<body class=" dark" id="
-    top">
+<body class=" dark" id="top">
 
 <header class="header">
     <nav class="nav">
@@ -111,18 +110,18 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://signalyu.github.io/archives/" title="Archives">
-                    <span>Archives</span>
+                <a href="https://signalyu.github.io/archives/" title="档案">
+                    <span>档案</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/tags/" title="Tags">
-                    <span>Tags</span>
+                <a href="https://signalyu.github.io/tags/" title="标签">
+                    <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>Search</span>
+                <a href="https://signalyu.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
                 </a>
             </li>
         </ul>
@@ -136,25 +135,27 @@
     <h1 class="post-title entry-hint-parent">
       Spring：理解 AOP
     </h1>
-    <div class="post-meta"><span title='2024-05-12 13:19:15 +0800 HKT'>May 12, 2024</span>&nbsp;·&nbsp;Signal Yu
+    <div class="post-meta"><span title='2024-05-12 13:19:15 +0800 HKT'>2024年5月12日</span>&nbsp;·&nbsp;Signal Yu
 
 </div>
   </header> <div class="toc">
-        <details >
-            <summary accesskey="c" title="(Alt + C)">
-                <span class="details">目录</span>
-            </summary>
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+            
+        </summary>
 
-            <div class="inner"><ul>
-                    <li>
-                        <a href="#aop-%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5" aria-label="AOP 相关概念">AOP 相关概念</a></li>
-                    <li>
-                        <a href="#aop-%e4%bb%a3%e7%a0%81" aria-label="AOP 代码">AOP 代码</a>
-                    </li>
-                </ul>
-            </div>
-        </details>
-    </div>
+        <div class="inner"><ul>
+                <li>
+                    <a href="#aop-%e7%9b%b8%e5%85%b3%e6%a6%82%e5%bf%b5" aria-label="AOP 相关概念">AOP 相关概念</a></li>
+                <li>
+                    <a href="#aop-%e4%bb%a3%e7%a0%81" aria-label="AOP 代码">AOP 代码</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
   <div class="post-content"><h1 id="aop-相关概念">AOP 相关概念<a hidden class="anchor" aria-hidden="true" href="#aop-相关概念">#</a></h1>
 <figure class="align-center ">
     <img loading="lazy" src="/img/tech/spring6/spring-aop-1.png#center" width="100%" height="100%"/> <figcaption>
@@ -188,17 +189,14 @@
         }
     </style>
 </head>
+
 <div class="collapsibleContainer">
     <details>
         <summary>点击查看代码</summary>
         <div>
             
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
-    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="/css/tabbed_code.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
+
 
 <div class="code_block_container">
     
@@ -235,13 +233,20 @@
 
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 
 
 
 
 <div class="code_blocks">
     <div class="code_block active">
-        <pre><code class="language-java" data-lang="java">package org.signalyu;
+        <pre><code class="language-java" data-lang="java" >package org.signalyu;
 
 public interface BookService {
     boolean borrowBook(String bookId);
@@ -251,13 +256,20 @@ public interface BookService {
     </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 
 
 
 
 <div class="code_blocks">
     <div class="code_block ">
-        <pre><code class="language-java" data-lang="java">package org.signalyu;
+        <pre><code class="language-java" data-lang="java" >package org.signalyu;
 
 import org.springframework.stereotype.Service;
 
@@ -313,13 +325,20 @@ public class BookServiceImpl implements BookService {
     </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 
 
 
 
 <div class="code_blocks">
     <div class="code_block ">
-        <pre><code class="language-java" data-lang="java">package org.signalyu;
+        <pre><code class="language-java" data-lang="java" >package org.signalyu;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -380,13 +399,20 @@ public class LoggingAspect {
     </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 
 
 
 
 <div class="code_blocks">
     <div class="code_block ">
-        <pre><code class="language-java" data-lang="java">package org.signalyu;
+        <pre><code class="language-java" data-lang="java" >package org.signalyu;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -415,13 +441,20 @@ public class AuthenticationAspect {
     </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 
 
 
 
 <div class="code_blocks">
     <div class="code_block ">
-        <pre><code class="language-java" data-lang="java">import org.junit.jupiter.api.Test;
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.Test;
 import org.signalyu.BookService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -447,13 +480,20 @@ public class BookServiceTest {
     </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 
 
 
 
 <div class="code_blocks">
     <div class="code_block ">
-        <pre><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?>
+        <pre><code class="language-xml" data-lang="xml" >&lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
@@ -469,13 +509,20 @@ public class BookServiceTest {
     </div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
 
 
 
 
 <div class="code_blocks">
     <div class="code_block ">
-        <pre><code class="language-bash" data-lang="bash">==============Borrowing Book================
+        <pre><code class="language-bash" data-lang="bash" >==============Borrowing Book================
 Logging around borrowBook execution - Before
 Logging before borrowBook execution
 Authentication before borrowBook execution
@@ -515,8 +562,6 @@ Logging around returnBook execution - After
 
   </div>
 
-  
-
   <footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://signalyu.github.io/tags/tech/">Tech</a></li>
@@ -524,12 +569,14 @@ Logging around returnBook execution - After
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://signalyu.github.io/posts/tech/spring-mvc/1-spring-mvc-execution-flow/">
-    <span class="title">« Prev</span>
+    <span class="title">« 上一页</span>
+    
     <br>
     <span>Spring MVC 执行流程</span>
   </a>
   <a class="next" href="https://signalyu.github.io/posts/tech/spring/1-spring-ioc-di/">
-    <span class="title">Next »</span>
+    <span class="title">下一页 »</span>
+    
     <br>
     <span>Spring：理解控制反转和依赖注入</span>
   </a>
@@ -540,14 +587,13 @@ Logging around returnBook execution - After
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
-
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
 <script>
     let menu = document.getElementById('menu')
@@ -576,6 +622,19 @@ Logging around returnBook execution - After
             }
         });
     });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
 
 </script>
 <script>
@@ -625,6 +684,6 @@ Logging around returnBook execution - After
         }
     });
 </script>
-</body>
 
+</body>
 </html>
