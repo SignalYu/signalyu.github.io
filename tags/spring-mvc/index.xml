@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Spring MVC on Signal&#39;s Blog</title>
+    <title>Spring MVC on 信一的博客</title>
     <link>https://signalyu.github.io/tags/spring-mvc/</link>
-    <description>Recent content in Spring MVC on Signal&#39;s Blog</description>
+    <description>Recent content in Spring MVC on 信一的博客</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 14 May 2024 14:21:49 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/spring-mvc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Spring MVC 执行流程</title>
-      <link>https://signalyu.github.io/posts/tech/spring-mvc/1-spring-mvc-execution-flow/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/spring-mvc/1-spring-mvc-execution-flow/</link>
       <pubDate>Tue, 14 May 2024 14:21:49 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/tech/spring-mvc/1-spring-mvc-execution-flow/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/spring-mvc/1-spring-mvc-execution-flow/</guid>
       <description>Spring MVC 执行流程图 Spring MVC 执行流程图 graph TB subgraph dispatchServlet[前端控制器（DispatchServlet）] direction TB doDispatch ~~~ getHandler ~~~ getHandlerAdapter ~~~ processDispatchResult end subgraph handlerMapping[处理器映射器] end subgraph handlerAdapter[处理器适配器] handle end subgraph handler[处理器（Handler）] 执行业务逻辑 end subgraph viewResolver[视图解析器] resolveViewName end subgraph view[视图（View）] render end user(((用户))) --&gt;|① 请求| dispatchServlet dispatchServlet --&gt;|② 匹配 Handler| handlerMapping handlerMapping --&gt;|③ 返回 HandlerExecutionChain| dispatchServlet dispatchServlet --&gt;|④ 获取 HandlerAdapter| handlerAdapter handlerAdapter --&gt;|⑤ 返回 HandlerAdapter| dispatchServlet dispatchServlet -.- preHandler[⑥ 执行 preHandler] -.-&gt;|⑦ 执行 handle| handlerAdapter handlerAdapter --&gt;|⑧ 执行 handleInternal| handler --&gt;|⑨ 返回 ModelAndView| handlerAdapter handlerAdapter -.</description>
     </item>
   </channel>

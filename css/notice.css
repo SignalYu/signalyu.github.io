@@ -4,6 +4,10 @@
     border-radius: 8px;
 }
 
+.notice p {
+    margin: 10px 0;
+}
+
 .warning {
     background-color: orange;
     border: 1px solid #c4aa5c;
@@ -20,9 +24,4 @@
     background-color: #e6f7ff;
     border: 1px solid #66ccff;
     color: #004c99;
-}
-
-.equation {
-    overflow: hidden;
-    overflow-x: scroll;
 }

@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>CS on Signal&#39;s Blog</title>
+    <title>CS on 信一的博客</title>
     <link>https://signalyu.github.io/tags/cs/</link>
-    <description>Recent content in CS on Signal&#39;s Blog</description>
+    <description>Recent content in CS on 信一的博客</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 21 May 2024 21:33:20 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 31 May 2024 15:40:35 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/cs/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>数据结构与算法：投票算法</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/dsa/algorithms/1-boyer-moore-voting-algorithm/</link>
+      <pubDate>Fri, 31 May 2024 15:40:35 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/dsa/algorithms/1-boyer-moore-voting-algorithm/</guid>
+      <description>Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --&amp;gt; candidate = current element; count = 0 (current element == candidate) ? count++ : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count++ 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i &lt; size; i++) { if (count == 0) { candidate = nums[i]; count++; } else if (nums[i] == candidate) { count++; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i &lt; size; i++) { if (nums[i] == candidate) { count++; } } // 存在多数元素 if (count &gt; size / 2) { return candidate; } // 不存在多数元素 return -1; } #include &amp;lt;stdio.</description>
+    </item>
+    <item>
       <title>设计模式——代理模式</title>
-      <link>https://signalyu.github.io/posts/cs/design-patterns/2-proxy-pattern/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/2-proxy-pattern/</link>
       <pubDate>Tue, 21 May 2024 21:33:20 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/cs/design-patterns/2-proxy-pattern/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/2-proxy-pattern/</guid>
       <description>静态代理 静态代理模式类图 在静态代理模式下，可以在不修改目标对象代码的前提下对其进行功能扩展； 在静态代理模式下，代理对象和目标对象都需要实现父接口或者继承父类； 由于代理对象和目标对象需要实现相同的接口或者继承相同的父类，因此容易导致很多代理类的存在； 当父接口或父类增加方法时，目标对象和代理对象都需要维护。 代码示例 代码示例类图 点击查看代码 BankAccount ConcreteBankAccount StaticBankAccountProxy StaticProxyTest 输出结果 package org.signalyu.patterns.proxy; public interface BankAccount { boolean deposit(double amount); boolean withdraw(double amount); double getBalance(); } package org.signalyu.patterns.proxy; public class ConcreteBankAccount implements BankAccount { private double balance; public ConcreteBankAccount(double balance) { this.balance = balance; } @Override public boolean deposit(double amount) { if (amount &gt; 0) { this.balance += amount; return true; } return false; } @Override public boolean withdraw(double amount) { if (balance &gt;= amount) { balance -= amount; return true; } else { return false; } } @Override public double getBalance() { return balance; } } package org.</description>
     </item>
     <item>
       <title>设计模式——工厂模式</title>
-      <link>https://signalyu.github.io/posts/cs/design-patterns/1-factory-pattern/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/1-factory-pattern/</link>
       <pubDate>Mon, 20 May 2024 17:09:27 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/cs/design-patterns/1-factory-pattern/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/1-factory-pattern/</guid>
       <description>简单工厂（Simple Factory） 简单工厂模式通过一个专门的工厂类基于特定的参数来创建产品类的实例； 简单工厂模式违反了开闭原则，即在需要添加新的产品类型时需要修改工厂类。 代码示例 简单工厂示例类图 点击查看代码 Pizza MargheritaPizza PepperoniPizza BeefPizza PizzaFactory SimpleFactoryTest 输出结果 package org.signalyu.patterns.factory; public interface Pizza { void prepare(); void bake(); void cut(); void box(); } package org.signalyu.patterns.factory; public class MargheritaPizza implements Pizza { @Override public void prepare() { System.out.println(&#34;玛格丽特比萨：1. 准备材料&#34;); } @Override public void bake() { System.out.println(&#34;玛格丽特比萨：2. 烘烤比萨 &#34;); } @Override public void cut() { System.out.println(&#34;玛格丽特比萨：3. 切比萨&#34;); } @Override public void box() { System.out.println(&#34;玛格丽特比萨：4. 披萨打包&#34;); } } package org.</description>
     </item>
   </channel>

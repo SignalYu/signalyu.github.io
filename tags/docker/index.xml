@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Docker on 信一的博客</title>
+    <link>https://signalyu.github.io/tags/docker/</link>
+    <description>Recent content in Docker on 信一的博客</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 17 Jun 2024 19:58:54 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker 笔记</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/docker/1-docker-notes/</link>
+      <pubDate>Mon, 17 Jun 2024 19:58:54 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/docker/1-docker-notes/</guid>
+      <description>Docker 架构 Docker 架构 Docker 三要素为镜像（Image）、容器（Container）和仓库（Repository）。 仓库（Repository）和注册表（Registry）的区别： 仓库是镜像的集合，用于存储和组织不同版本的镜像，类似于代码仓库中不同版本的代码； 注册表是存储和分发镜像的服务平台，可以包含多个仓库，每个仓库又包含多个镜像，类似于代码托管平台（如 GitHub）。 Docker 常用命令 Docker 镜像操作 搜索远程镜像： # docker search image_name # docker search --help docker search redis NAME DESCRIPTION STARS OFFICIAL redis Redis is the world’s fastest data platform f… 12859 [OK] 拉取镜像： # docker pull image_name # docker pull --help docker pull redis # docker pull redis:7.0.10 查看本地镜像： #docker images --help docker images 删除本地镜像： # docker rmi --help docker rmi redis # 注意：如果一个镜像存在对应的容器， # 此时这个镜像是无法进行删除的。 Docker 容器操作 查询容器： # docker ps --help docker ps 创建容器： # docker run --help docker run hello-world # 创建一个交互型容器，交互界面一直保留 docker run -it redis # 创建一个交互型容器，以后台方式运行 docker run -d redis 注意，docker 容器内部所运行的进程是无法被外部机器直接访问的。如果外部机器向访问容器内的进程，需要进行端口映射，即将容器内的端口与宿主机的端口进行绑定，使得容器内的服务可以通过宿主机的端口对外提供访问。 # 将宿主机的 8080 端口映射到容器内的 80 端口 docker run -d -p 8080:80 my_container_image Docker 端口映射 容器服务管理： ```shell docker stop 容器名称/容器id # 关闭容器 docker start 容器名称/容器id # 启动容器 docker restart 容器名称/容器id # 重启容器 删除容器： # docker rm --help # docker rm 容器名称/容器的id docker rm redis # 删除所有容器 docker rm $(docker ps -aq) 进入容器： # 在容器中打开一个 bash 终端 docker exec -it &amp;lt;container_id_or_name&amp;gt; /bin/bash # 在容器中执行单个命令 docker exec &amp;lt;container_id_or_name&amp;gt; ps aux # 在容器中执行后台命令 docker exec -d &amp;lt;container_id_or_name&amp;gt; /usr/sbin/nginx -s reload Docker 数据卷 数据卷（Volume）是 Docker 中用于数据持久化的一种机制，它是一个虚拟目录，可以被彼此隔离的各容器共享。</description>
+    </item>
+  </channel>
+</rss>
