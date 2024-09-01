@@ -6,37 +6,44 @@
     <description>Recent content in 工程与技术 on 信一的博客</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 23 Jun 2024 09:42:24 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 25 Jun 2024 14:40:21 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/%E5%B7%A5%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>数据结构与算法：图</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/</link>
+      <pubDate>Tue, 25 Jun 2024 14:40:21 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/</guid>
+      <description>深度优先搜索 深度优先搜索算法基于栈数据结构实现 对于递归形式的深度优先搜索算法，函数调用栈充当栈数据结构 对于迭代形式的深度优先搜索算法，需要显式定义栈数据结构 深度优先搜索算法最大限度地探索每条路径，当遇到死胡同（dead end）时，将回溯到原出发点，并选择新的路径继续搜索 深度优先搜索算法的搜索顺序取决于邻居结点的被访问的顺序 递归实现 import java.util.LinkedList; class Graph { // Number of vertices private int vertices; // Adjacency list representation of the graph private LinkedList&amp;lt;Integer&amp;gt;[] adjList; public Graph(int vertices) { this.vertices = vertices; // Initialize adjacency list adjList = new LinkedList[vertices]; for (int i = 0; i &lt; vertices; i++) { adjList[i] = new LinkedList&amp;lt;&amp;gt;(); } } // Add edge to the undirected graph public void addEdge(int src, int dest) { adjList[src].</description>
+    </item>
+    <item>
       <title>数据结构与算法：递归</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/dsa/algorithms/3-recursion/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/</link>
       <pubDate>Sun, 23 Jun 2024 09:42:24 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/dsa/algorithms/3-recursion/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/</guid>
       <description>递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：
 基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：&amp;ldquo;signal yu&amp;rdquo; 输出为 &amp;ldquo;uy langis&amp;rdquo; 基本情况：当字符串 s 为空串时返回 &amp;quot;&amp;quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() &lt;= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) + s.charAt(0); } public static void main(String[] args) { String inputStr = &#34;signal yu&#34;; String reversedStr = reverseString(inputStr); System.</description>
     </item>
     <item>
-      <title>MySQL 笔记</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/mysql/1-mysql-notes/</link>
-      <pubDate>Tue, 18 Jun 2024 22:31:45 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/mysql/1-mysql-notes/</guid>
-      <description>存储引擎 MySQL 架构 MySQL 架构图 连接层（Connection Layer） 处理客户端连接和授权认证 使用线程池管理用户连接 支持多种连接方式，如 TCP/IP、UNIX 套接字等 服务层（Service Layer） 包括 MySQL 的核心服务功能，如查询解析、分析、优化和执行 包括查询解析器（Parser）、查询优化器（Optimizer）、缓存（Cache）、以及内置函数等。 查询解析器将SQL语句解析成语法树；优化器负责选择最优的执行计划。 存储引擎层（Storage Engine Layer） 负责数据的存储和提取 支持多种存储引擎，如 InnoDB、MyISAM、Memory、CSV 等 存储引擎与服务层通过 API 接口进行交互 存储层（Storage Layer） 负责数据的物理存储，包括文件系统管理和磁盘 I/O 操作 确保数据持久性和一致性，通过日志和备份机制保障数据安全 MySQL 存储引擎 InnoDB MyISAM Memory 存储引擎区别 面试题 </description>
-    </item>
-    <item>
-      <title>Docker 笔记</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/docker/1-docker-notes/</link>
-      <pubDate>Mon, 17 Jun 2024 19:58:54 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/docker/1-docker-notes/</guid>
-      <description>Docker 架构 Docker 架构 Docker 三要素为镜像（Image）、容器（Container）和仓库（Repository）。 仓库（Repository）和注册表（Registry）的区别： 仓库是镜像的集合，用于存储和组织不同版本的镜像，类似于代码仓库中不同版本的代码； 注册表是存储和分发镜像的服务平台，可以包含多个仓库，每个仓库又包含多个镜像，类似于代码托管平台（如 GitHub）。 Docker 常用命令 Docker 镜像操作 搜索远程镜像： # docker search image_name # docker search --help docker search redis NAME DESCRIPTION STARS OFFICIAL redis Redis is the world’s fastest data platform f… 12859 [OK] 拉取镜像： # docker pull image_name # docker pull --help docker pull redis # docker pull redis:7.0.10 查看本地镜像： #docker images --help docker images 删除本地镜像： # docker rmi --help docker rmi redis # 注意：如果一个镜像存在对应的容器， # 此时这个镜像是无法进行删除的。 Docker 容器操作 查询容器： # docker ps --help docker ps 创建容器： # docker run --help docker run hello-world # 创建一个交互型容器，交互界面一直保留 docker run -it redis # 创建一个交互型容器，以后台方式运行 docker run -d redis 注意，docker 容器内部所运行的进程是无法被外部机器直接访问的。如果外部机器向访问容器内的进程，需要进行端口映射，即将容器内的端口与宿主机的端口进行绑定，使得容器内的服务可以通过宿主机的端口对外提供访问。 # 将宿主机的 8080 端口映射到容器内的 80 端口 docker run -d -p 8080:80 my_container_image Docker 端口映射 容器服务管理： ```shell docker stop 容器名称/容器id # 关闭容器 docker start 容器名称/容器id # 启动容器 docker restart 容器名称/容器id # 重启容器 删除容器： # docker rm --help # docker rm 容器名称/容器的id docker rm redis # 删除所有容器 docker rm $(docker ps -aq) 进入容器： # 在容器中打开一个 bash 终端 docker exec -it &amp;lt;container_id_or_name&amp;gt; /bin/bash # 在容器中执行单个命令 docker exec &amp;lt;container_id_or_name&amp;gt; ps aux # 在容器中执行后台命令 docker exec -d &amp;lt;container_id_or_name&amp;gt; /usr/sbin/nginx -s reload Docker 数据卷 数据卷（Volume）是 Docker 中用于数据持久化的一种机制，它是一个虚拟目录，可以被彼此隔离的各容器共享。</description>
-    </item>
-    <item>
-      <title>Mybatis(Plus) 笔记</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/mybatis/1-mybatis-notes/</link>
-      <pubDate>Thu, 06 Jun 2024 11:23:41 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/mybatis/1-mybatis-notes/</guid>
-      <description>对象关系映射 对象关系映射（Object-Relational Mapping, ORM） 是一种用于在 Model 对象和数据库之间的数据转换技术。 对象关系映射 映射文件的 namespace 要和 mapper 接口的全类名保持一致； 映射文件中 SQL 语句中的 id 要和 mapper 接口中的方法名保持一致。
-基本增删改查 基本增删改查 点击查看代码 User.java UserMapper.java UserMapper.xml mybatis-config.xml jdbc.properties MyBatisTest.java pom.xml package dev.signalyu.mybatis.pojo; import lombok.AllArgsConstructor; import lombok.Data; import lombok.NoArgsConstructor; import lombok.ToString; @Data @AllArgsConstructor @NoArgsConstructor @ToString public class User { private int id; private String name; private String email; } package dev.signalyu.mybatis.mapper; import dev.signalyu.mybatis.pojo.User; import java.util.List; public interface UserMapper { int insertUser(); void updateUser(); void deleteUser(); User getUserById(); List&amp;lt;User&amp;gt; getAllUser(); } &amp;lt;?</description>
+      <title>数据结构与算法：动态规划</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/2-dynamic-programming/</link>
+      <pubDate>Sun, 16 Jun 2024 11:35:47 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/2-dynamic-programming/</guid>
+      <description>动态规划相关概念 动态规划核心思想： 将原问题划分为更简单的子问题，通过子问题的解来构建问题的解。 Memoization（自上而下法）：将原问题递归地划分为更小的子问题，并在对子问题的结果进行缓存，以避免重复计算。 Tabulation（自下而上法）：从最小的子问题开始，迭代地构建原问题的解。 动态规划例题 斐波那契数列 点击查看题目 斐波那契数（通常用 $F(n)$ 表示）形成的序列称为斐波那契数列。该数列由 $0$ 和 $1$ 开始，后面的每一项数字都是前面两项数字的和。也就是：
+$F(1) = 0，F(2) = 1$
+$F(n) = F(n - 1) + F(n - 2)，其中\; n &amp;gt; 2$
+给定 $n$ ，请计算 $F(n)$。
+示例 1：
+输入：$n = 2$
+输出：$1$
+解释：$F(2) = 1$
+示例 2：
+输入：$n = 3$
+输出：$2$
+解释：$F(3) = F(2) + F(1) = 1 + 0 = 1$
+示例 3：
+输入：$n = 4$
+输出：$3$
+解释：$F(4) = F(3) + F(2) = 1 + 1 = 2$</description>
     </item>
     <item>
       <title>C 语言中的数组与指针</title>
@@ -54,9 +61,9 @@
     </item>
     <item>
       <title>数据结构与算法：投票算法</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/dsa/algorithms/1-boyer-moore-voting-algorithm/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/</link>
       <pubDate>Fri, 31 May 2024 15:40:35 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/dsa/algorithms/1-boyer-moore-voting-algorithm/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/</guid>
       <description>Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --&amp;gt; candidate = current element; count = 0 (current element == candidate) ? count++ : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count++ 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i &lt; size; i++) { if (count == 0) { candidate = nums[i]; count++; } else if (nums[i] == candidate) { count++; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i &lt; size; i++) { if (nums[i] == candidate) { count++; } } // 存在多数元素 if (count &gt; size / 2) { return candidate; } // 不存在多数元素 return -1; } #include &amp;lt;stdio.</description>
     </item>
     <item>
@@ -72,13 +79,6 @@
       <pubDate>Mon, 20 May 2024 17:09:27 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/1-factory-pattern/</guid>
       <description>简单工厂（Simple Factory） 简单工厂模式通过一个专门的工厂类基于特定的参数来创建产品类的实例； 简单工厂模式违反了开闭原则，即在需要添加新的产品类型时需要修改工厂类。 代码示例 简单工厂示例类图 点击查看代码 Pizza MargheritaPizza PepperoniPizza BeefPizza PizzaFactory SimpleFactoryTest 输出结果 package org.signalyu.patterns.factory; public interface Pizza { void prepare(); void bake(); void cut(); void box(); } package org.signalyu.patterns.factory; public class MargheritaPizza implements Pizza { @Override public void prepare() { System.out.println(&#34;玛格丽特比萨：1. 准备材料&#34;); } @Override public void bake() { System.out.println(&#34;玛格丽特比萨：2. 烘烤比萨 &#34;); } @Override public void cut() { System.out.println(&#34;玛格丽特比萨：3. 切比萨&#34;); } @Override public void box() { System.out.println(&#34;玛格丽特比萨：4. 披萨打包&#34;); } } package org.</description>
-    </item>
-    <item>
-      <title>Spring：Bean 生命周期</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/spring/3-bean-life-cycle/</link>
-      <pubDate>Fri, 17 May 2024 16:11:35 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/spring/3-bean-life-cycle/</guid>
-      <description>Bean 生命周期状态图 graph TB subgraph state[ ] s1[1. 声明 Bean Definitions] --&gt; s2[2. 加载 Bean Definitions] --&gt; s3[3. 处理 Bean Definitions] --&gt; s4[4. Bean 实例化] --&gt; s5[5. Bean 属性赋值] --&gt; s6[6. Bean 后置处理（初始化前）] --&gt; s7[7. Bean 初始化] --&gt; s8[8. Bean 后置处理（初始化后）] --&gt; s9[9. Bean 存储在 IoC 容器中] --&gt; s10[10. 销毁 Bean] end n1[&#34;`使用 XML，带包扫描的注解，带有 @Configuration 注解的类声明 Bean`&#34;] -.- s1 n2[&#34;`**BeanDefinitionReader**：解析配置并创建 BeanDefinition对象`&#34;] -.- s2 n3[&#34;`**BeanFactoryPostProcessor**：在实际创建 Bean 之前修改 BeanDefinitions`&#34;] -.- s3 n4[&#34;`**BeanFactory**：调用 Bean 的构造函数。需要时会将实例化行为委托给自定义 FactoryBean 实例。`&#34;</description>
     </item>
     <item>
       <title>Spring MVC 执行流程</title>
@@ -108,13 +108,6 @@ graph LR direction LR subgraph traditional[传统模式] direction LR car[Car] -
       <pubDate>Thu, 02 May 2024 19:26:09 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/maven/1-maven-notes/</guid>
       <description>Maven 简介 --- title: Maven 软件的工作原理图 --- flowchart subgraph mavenRepo[Maven 依赖仓库] officialRepo[官方仓库]--&gt;|定期备份|mirrorRepo[镜像仓库] mirrorRepo[镜像仓库]--&gt;|下载|localRepo[本地仓库] end subgraph dependencyManage[依赖管理] dispatch[依赖传递]~~~conflict[依赖冲突]~~~inheritence[依赖继承]~~~cohesion[依赖聚合] end subgraph settings[配置 settings.xml] localRepository~~~mirror~~~jdk end subgraph lifeCircle[生命周期] clean ~~~ compile ~~~ test ~~~ package ~~~ install ~~~ others[...] end subgraph projects[项目] javaSE[JavaSE]~~~javaWeb[JavaWeb] pom.xml -.- javaSE &amp; javaWeb end subgraph app[包] jar ~~~ war end localRepo --&gt;|引用| maven((Maven)) --- dependencyManage maven -.- settings javaSE &amp; javaWeb --&gt; install install --&gt; localRepo package --&gt; app IntelliJ --&gt;|新建| javaSE --&gt;|war| javaWeb 依赖管理：Maven 可以管理项目的依赖，包括自动下载所需依赖库、自动下载依赖需要的依赖并且保证版本没有冲突、依赖版本管理等。 构建管理：项目构建是指将源代码、配置文件、资源文件等转化为能够运行或部署的应用程序或库的过程。Maven 可以管理项目的编译、测试、打包、部署等构建过程。通过实现标准的构建生命周期，Maven 可以确保每一个构建过程都遵循同样的的规则和最佳实践。同时，Maven 的插件机制也使得开发者可以对构建过程进行扩展和定制。 Maven 目录结构 点击查看代码 Maven 目录结构 .</description>
-    </item>
-    <item>
-      <title>Java Web 笔记</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/java-web/1-java-web-notes/</link>
-      <pubDate>Tue, 23 Apr 2024 21:24:01 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/java-web/1-java-web-notes/</guid>
-      <description>日程管理系统 MVC 模型 flowchart LR subgraph server[&#34;`**日程管理系统 MVC 模型**`&#34;] subgraph mysql[&#34;MySQL 数据库&#34;] direction TB subgraph tables[ ] subgraph userTable[sys_user 表] direction LR uid ~~~ username ~~~ userpwd end end end subgraph model[Model（模型层）] subgraph pojo[POJO] subgraph sysUserClass[SysUser.java] sysUserCode[&#34; private Integer uid; private String username; private String userPwd;&#34;] end end subgraph dao[DAO（持久层）] sysUserDao[SysUserDao 接口]~~~ baseDao[BaseDao 类] sysUserDao -.-&gt; sysUserDaoImpl[SysUserDaoImpl] baseDao --&gt;|继承| sysUserDaoImpl end subgraph service[Service（业务层）] sysUserService[SysUserService 接口] sysUserService -.-&gt; sysUserServiceImpl[SysUserServiceImpl] end end subgraph controller[Controller（与 View 构成表示层）] httpServlet[HttpServlet] ~~~ baseController[BaseController] ~~~ sysUserController[SysUserController] ~~~ utils[工具类] httpServlet -.</description>
     </item>
     <item>
       <title>Java 私有成员继承</title>

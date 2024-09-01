@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>数据结构与算法：投票算法 | 信一的博客</title>
+<meta name="keywords" content="工程与技术, 数据结构与算法, 计算机科学">
+<meta name="description" content="Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --&gt; candidate = current element; count = 0 (current element == candidate) ? count&#43;&#43; : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count&#43;&#43; 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i &lt; size; i&#43;&#43;) { if (count == 0) { candidate = nums[i]; count&#43;&#43;; } else if (nums[i] == candidate) { count&#43;&#43;; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i &lt; size; i&#43;&#43;) { if (nums[i] == candidate) { count&#43;&#43;; } } // 存在多数元素 if (count &gt; size / 2) { return candidate; } // 不存在多数元素 return -1; } #include &lt;stdio.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+  
+
+<meta property="og:title" content="数据结构与算法：投票算法" />
+<meta property="og:description" content="Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --&gt; candidate = current element; count = 0 (current element == candidate) ? count&#43;&#43; : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count&#43;&#43; 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i &lt; size; i&#43;&#43;) { if (count == 0) { candidate = nums[i]; count&#43;&#43;; } else if (nums[i] == candidate) { count&#43;&#43;; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i &lt; size; i&#43;&#43;) { if (nums[i] == candidate) { count&#43;&#43;; } } // 存在多数元素 if (count &gt; size / 2) { return candidate; } // 不存在多数元素 return -1; } #include &lt;stdio." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-05-31T15:40:35+08:00" />
+<meta property="article:modified_time" content="2024-05-31T15:40:35+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构与算法：投票算法"/>
+<meta name="twitter:description" content="Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --&gt; candidate = current element; count = 0 (current element == candidate) ? count&#43;&#43; : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count&#43;&#43; 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i &lt; size; i&#43;&#43;) { if (count == 0) { candidate = nums[i]; count&#43;&#43;; } else if (nums[i] == candidate) { count&#43;&#43;; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i &lt; size; i&#43;&#43;) { if (nums[i] == candidate) { count&#43;&#43;; } } // 存在多数元素 if (count &gt; size / 2) { return candidate; } // 不存在多数元素 return -1; } #include &lt;stdio."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "数据结构与算法：投票算法",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "数据结构与算法：投票算法",
+  "name": "数据结构与算法：投票算法",
+  "description": "Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --\u0026gt; candidate = current element; count = 0 (current element == candidate) ? count++ : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count++ 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i \u003c size; i++) { if (count == 0) { candidate = nums[i]; count++; } else if (nums[i] == candidate) { count++; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i \u003c size; i++) { if (nums[i] == candidate) { count++; } } // 存在多数元素 if (count \u003e size / 2) { return candidate; } // 不存在多数元素 return -1; } #include \u0026lt;stdio.",
+  "keywords": [
+    "工程与技术", "数据结构与算法", "计算机科学"
+  ],
+  "articleBody": "Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --\u003e candidate = current element; count = 0 (current element == candidate) ? count++ : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count++ 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i \u003c size; i++) { if (count == 0) { candidate = nums[i]; count++; } else if (nums[i] == candidate) { count++; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i \u003c size; i++) { if (nums[i] == candidate) { count++; } } // 存在多数元素 if (count \u003e size / 2) { return candidate; } // 不存在多数元素 return -1; } #include int main() { int nums1[] = {3, 2, 3}; int numsSize1 = sizeof(nums1) / sizeof(nums1[0]); printf(\"Majority element in nums1: %d\\n\", majorityElement(nums1, numsSize1)); int nums2[] = {2, 2, 1, 1, 1, 2, 2}; int numsSize2 = sizeof(nums2) / sizeof(nums2[0]); printf(\"Majority element in nums2: %d\\n\", majorityElement(nums2, numsSize2)); } Majority element in nums1: 3 Majority element in nums2: 2 ",
+  "wordCount" : "197",
+  "inLanguage": "en",
+  "datePublished": "2024-05-31T15:40:35+08:00",
+  "dateModified": "2024-05-31T15:40:35+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "信一的博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="信一的博客 (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">信一的博客</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="档案">
+                    <span>档案</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      数据结构与算法：投票算法
+    </h1>
+    <div class="post-meta"><span title='2024-05-31 15:40:35 +0800 HKT'>2024年5月31日</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+            
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#boyer-moore-%e6%8a%95%e7%a5%a8%e7%ae%97%e6%b3%95%e9%80%bb%e8%be%91%e6%ad%a5%e9%aa%a4" aria-label="Boyer Moore 投票算法逻辑步骤">Boyer Moore 投票算法逻辑步骤</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="boyer-moore-投票算法逻辑步骤">Boyer Moore 投票算法逻辑步骤<a hidden class="anchor" aria-hidden="true" href="#boyer-moore-投票算法逻辑步骤">#</a></h1>
+<ol>
+<li>初始化候选人（candidate）和计票器（counter）；</li>
+<li>遍历数组寻找可能为最大元素的候选人：
+<ol>
+<li><code>count == 0 --&gt; candidate = current element; count = 0</code></li>
+<li><code>(current element == candidate) ? count++ : count--</code></li>
+</ol>
+</li>
+<li>遍历数组验证候选人是否为多数元素（majority element）：
+<ol>
+<li>count = 0</li>
+<li><code>(current element == candidate) ? count++</code></li>
+<li>判断 count 是否过半</li>
+</ol>
+</li>
+</ol>
+<link rel="stylesheet" href="/css/notice.css">
+
+
+<div class="notice info">
+    <strong>Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。</strong>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details open>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">majorityElement.c</button>
+
+
+
+<button class="tab_btn ">测试代码</button>
+
+
+
+<button class="tab_btn ">输出结果</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-c" data-lang="c" >int majorityElement(int const nums[], int size) {
+    // 初始化候选人和计票器
+    int candidate = 0;
+    int count = 0;
+
+    // 遍历数组确定候选人
+    for (int i = 0; i < size; i++) {
+        if (count == 0) {
+            candidate = nums[i];
+            count++;
+        } else if (nums[i] == candidate) {
+            count++;
+        } else {
+            count--;
+        }
+    }
+
+    // 遍历数组判断候选人是否为多数元素
+    count = 0;
+    for (int i = 0; i < size; i++) {
+        if (nums[i] == candidate) {
+            count++;
+        }
+    }
+    // 存在多数元素
+    if (count > size / 2) {
+        return candidate;
+    }
+    // 不存在多数元素
+    return -1;
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-c" data-lang="c" >#include &lt;stdio.h&gt;
+int main() {
+    int nums1[] = {3, 2, 3};
+    int numsSize1 = sizeof(nums1) / sizeof(nums1[0]);
+    printf("Majority element in nums1: %d\n", majorityElement(nums1, numsSize1));
+
+    int nums2[] = {2, 2, 1, 1, 1, 2, 2};
+    int numsSize2 = sizeof(nums2) / sizeof(nums2[0]);
+    printf("Majority element in nums2: %d\n", majorityElement(nums2, numsSize2));
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-bash" data-lang="bash" >Majority element in nums1: 3
+Majority element in nums2: 2
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/%E5%B7%A5%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/">工程与技术</a></li>
+      <li><a href="https://signalyu.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></li>
+      <li><a href="https://signalyu.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/">计算机科学</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/tech/linux/1-centos-linux-manual/">
+    <span class="title">« 上一页</span>
+    
+    <br>
+    <span>Linux 参考手册（Centos 9 Stream）</span>
+  </a>
+  <a class="next" href="https://signalyu.github.io/posts/1-natural-science/math/calculus/3-proof-of-common-equivalent-infinitesimals/">
+    <span class="title">下一页 »</span>
+    
+    <br>
+    <span>常用等价无穷小的证明</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">信一的博客</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>数据结构与算法：递归 | 信一的博客</title>
+<meta name="keywords" content="工程与技术, 数据结构与算法, 计算机科学">
+<meta name="description" content="递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：
+基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：&ldquo;signal yu&rdquo; 输出为 &ldquo;uy langis&rdquo; 基本情况：当字符串 s 为空串时返回 &quot;&quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() &lt;= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) &#43; s.charAt(0); } public static void main(String[] args) { String inputStr = &#34;signal yu&#34;; String reversedStr = reverseString(inputStr); System.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="数据结构与算法：递归" />
+<meta property="og:description" content="递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：
+基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：&ldquo;signal yu&rdquo; 输出为 &ldquo;uy langis&rdquo; 基本情况：当字符串 s 为空串时返回 &quot;&quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() &lt;= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) &#43; s.charAt(0); } public static void main(String[] args) { String inputStr = &#34;signal yu&#34;; String reversedStr = reverseString(inputStr); System." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-06-23T09:42:24+08:00" />
+<meta property="article:modified_time" content="2024-06-23T09:42:24+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="数据结构与算法：递归"/>
+<meta name="twitter:description" content="递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：
+基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：&ldquo;signal yu&rdquo; 输出为 &ldquo;uy langis&rdquo; 基本情况：当字符串 s 为空串时返回 &quot;&quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() &lt;= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) &#43; s.charAt(0); } public static void main(String[] args) { String inputStr = &#34;signal yu&#34;; String reversedStr = reverseString(inputStr); System."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "数据结构与算法：递归",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "数据结构与算法：递归",
+  "name": "数据结构与算法：递归",
+  "description": "递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成： 基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：\u0026ldquo;signal yu\u0026rdquo; 输出为 \u0026ldquo;uy langis\u0026rdquo; 基本情况：当字符串 s 为空串时返回 \u0026quot;\u0026quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() \u003c= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) + s.charAt(0); } public static void main(String[] args) { String inputStr = \"signal yu\"; String reversedStr = reverseString(inputStr); System.",
+  "keywords": [
+    "工程与技术", "数据结构与算法", "计算机科学"
+  ],
+  "articleBody": "递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：\n基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：“signal yu” 输出为 “uy langis” 基本情况：当字符串 s 为空串时返回 \"\"，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() \u003c= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) + s.charAt(0); } public static void main(String[] args) { String inputStr = \"signal yu\"; String reversedStr = reverseString(inputStr); System.out.println(reversedStr); // uy langis } } 反转字符串调用栈 回文字符串（Palindrom） 点击查看题目 如果一个序列是对称的，即从左往右读与从右往左读完全相同，那么它就被认为是一个回文字符串，例如 “radar”, “level”, “madam”。 基本情况：字符串长度为 0 或 1 递归情况：每调用一次函数能缩小问题规模的最小单元为 2（去掉首尾字符） public class Palindrome { public static boolean isPalindrome(String str) { // Base case: if the string is empty or has one character, it is a palindrome if (str.isEmpty() || str.length() == 1) { return true; } // Check if the first and last characters are the same if (str.charAt(0) == str.charAt(str.length() - 1)) { // Recur with the substring excluding the first and last characters return isPalindrome(str.substring(1, str.length() - 1)); } // If the first and last characters are not the same, it is not a palindrome return false; } public static void main(String[] args) { String[] testStrings = {\"racecar\", \"madam\", \"hello\", \"A\", \"\", \"level\"}; for (String str : testStrings) { if (isPalindrome(str)) { System.out.println(str + \" is a palindrome.\"); } else { System.out.println(str + \" is not a palindrome.\"); } } } } 回文字符串调用栈 I 回文字符串调用栈 II 十进制转二进制 点击查看题目 将指定的十进制数字，返回其二进制表示形式。例如 10 的二进制形式为 1010。 基本情况：当数字为 1 时，当数字为 0 时，返回 0. 递归情况：每调用一次函数能缩小问题规模的最小单元为原问题的一半。 public class DecimalToBinary { public static String decimalToBinary(int n) { // Base case: if the number is 0, return \"0\" if (n == 0) { return \"0\"; } // If the number is 1, return \"1\" if (n == 1) { return \"1\"; } // Recursive call: divide the number by 2 and concatenate the remainder return decimalToBinary(n / 2) + (n % 2); } public static void main(String[] args) { int[] testNumbers = {0, 1, 2, 3, 4, 5, 10, 255}; for (int number : testNumbers) { System.out.println(\"Decimal: \" + number + \" -\u003e Binary: \" + decimalToBinary(number)); } } } 十进制转二进制调用栈 分而治之（Divide and Conquer） 分治算法（Divide and Conquer）的核心思想为：\n分（Divide）：将原问题不断分解为更小的子问题 治（Conquer）：递归解决子问题，对于基本情况（Base Case）则直接求解 合（Combine）：将子问题的求解结果合并，以获得原问题的解 二分查找 归并排序 归并排序核心思想如下：\n递归地将数组划分为两部分，直至不能进一步划分（数组中的元素只有一个） 递归地将排序后的数组进行合并 归并排序——划分数组 归并排序——合并数组 需要注意的是，归并排序并不是将所有子数组都划分至最小子数组后才进行合并，而是先将某一分支上的数组划分至最小子数组，然后对该分支的元素进行合并。具体过程如下列视频所示： import java.util.Arrays; public class MergeSort { // Method to merge two halves public static void merge(int[] arr, int left, int mid, int right) { int n1 = mid - left + 1; int n2 = right - mid; // Create temporary arrays int[] leftArray = new int[n1]; int[] rightArray = new int[n2]; // Copy data to temp arrays for (int i = 0; i \u003c n1; i++) { leftArray[i] = arr[left + i]; } for (int j = 0; j \u003c n2; j++) { rightArray[j] = arr[mid + 1 + j]; } // Merge the temp arrays // Initial indexes of first and second subarrays int i = 0, j = 0; // Initial index of merged subarray int k = left; while (i \u003c n1 \u0026\u0026 j \u003c n2) { if (leftArray[i] \u003c= rightArray[j]) { arr[k++] = leftArray[i++]; } else { arr[k++] = rightArray[j++]; } } // Copy remaining elements of leftArray if any while (i \u003c n1) { arr[k++] = leftArray[i++]; } // Copy remaining elements of rightArray if any while (j \u003c n2) { arr[k++] = rightArray[j++]; } } // Main function that sorts arr[left...right] using merge() public static void mergeSort(int[] arr, int left, int right) { if (left \u003c right) { // Find the middle point int mid = left + (right - left) / 2; // Sort first and second halves mergeSort(arr, left, mid); mergeSort(arr, mid + 1, right); // Merge the sorted halves merge(arr, left, mid, right); } } public static void main(String[] args) { int[] arr1 = {3, 7, 8, 5, 4, 2, 6, 1}; System.out.println(\"arr1 = \" + Arrays.toString(arr1)); mergeSort(arr1, 0, arr1.length - 1); System.out.println(\"Sorted arr1 = \" + Arrays.toString(arr1)); } } 快速排序 快速排序（Quick Sort）的核心思想如下：\n选择基准（Pivot）：从数组中选择一个元素作为基准。 分区（Partition）：将数组重新排列，使得比中枢值小的元素都排在基准的左边，比基准值大的元素都排在基准的右边。 递归排序：对基准左边和右边的子数组分别递归地应用快速排序算法。 合并结果： 将左边子数组、基准和右边子数组合并起来，得到最终的排序结果。 快速排序的基准元素选择通常有三种：第一个元素、随机元素和最后一个元素。\n当选择随机元素为基准元素时，在排序之前将它与第一个元素或最后一个元素进行交换后再排序即可。\n点击查看代码 最后一个元素作为基准元素 第一个元素作为基准元素 随机元素作为基准元素 import java.util.Arrays; public class QuickSort { // Method to perform Quick Sort public static void quickSort(int[] array, int low, int high) { if (low \u003c high) { // Partition the array and get the pivot index int pivotIndex = partition(array, low, high); // Recursively sort elements before and after partition quickSort(array, low, pivotIndex - 1); quickSort(array, pivotIndex + 1, high); } } // Method to partition the array private static int partition(int[] array, int low, int high) { // Choose the pivot (here we are choosing the last element as pivot) int pivot = array[high]; int i = low - 1; for (int j = low; j \u003c high; j++) { if (array[j] \u003c pivot) { i++; // Swap array[i] and array[j] int temp = array[i]; array[i] = array[j]; array[j] = temp; } } i++; // Swap array[i] and pivot int temp = array[i]; array[i] = array[high]; array[high] = temp; return i; // return index of new pivot } // Main method to test the Quick Sort algorithm public static void main(String[] args) { int[] array = {8, 2, 4, 7, 1, 3, 9, 6, 5}; System.out.println(\"Unsorted array: \" + Arrays.toString(array)); quickSort(array, 0, array.length - 1); System.out.println(\"Sorted array: \" + Arrays.toString(array)); } } import java.util.Arrays; public class QuickSort { // Method to partition the array and return the pivot index private static int partition(int[] arr, int low, int high) { // Choose the pivot element (first element of the array) int pivot = arr[low]; // Index of the smaller element int i = low; for (int j = low + 1; j \u003c= high; j++) { // If current element is smaller than the pivot if (arr[j] \u003c= pivot) { // Comparison should include equality to maintain stability i++; // Swap arr[i] and arr[j] int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp; } } // Swap arr[i] and pivot int temp = arr[low]; arr[low] = arr[i]; arr[i] = temp; // Return the pivot index return i; } // Recursive method to partition and sort subarrays private static void quickSort(int[] arr, int low, int high) { if (low \u003c high) { // Partition the array and get the pivot index int pivotIndex = partition(arr, low, high); // Recursively sort the left and right subarrays quickSort(arr, low, pivotIndex - 1); quickSort(arr, pivotIndex + 1, high); } } // Main method to test the quick sort algorithm public static void main(String[] args) { int[] array = {8, 2, 4, 7, 1, 3, 9, 6, 5}; System.out.println(\"Unsorted array: \" + Arrays.toString(array)); quickSort(array, 0, array.length - 1); System.out.println(\"Sorted array: \" + Arrays.toString(array)); } } import java.util.Arrays; import java.util.Random; public class QuickSort { // Method to perform Quick Sort public static void quickSort(int[] array, int low, int high) { if (low \u003c high) { // Randomize pivot and partition the array int pivotIndex = partition(array, low, high); // Recursively sort elements before and after partition quickSort(array, low, pivotIndex - 1); quickSort(array, pivotIndex + 1, high); } } // Method to partition the array private static int partition(int[] array, int low, int high) { // Choose the pivot (here it is the last element after randomization) int pivotIndex = low + new Random().nextInt(high - low + 1); swap(array, pivotIndex, high); // Move the pivot element to the end int pivot = array[high]; int i = low - 1; for (int j = low; j \u003c high; j++) { if (array[j] \u003c= pivot) { i++; // Swap array[i] and array[j] swap(array, i, j); } } i++; // Swap array[i] and pivot swap(array, i, high); return i; // return new pivot index } // Utility method to swap two elements in the array private static void swap(int[] array, int i, int j) { int temp = array[i]; array[i] = array[j]; array[j] = temp; } // Main method to test the quick sort algorithm public static void main(String[] args) { int[] array = {8, 2, 4, 7, 1, 3, 9, 6, 5}; System.out.println(\"Unsorted array: \" + Arrays.toString(array)); quickSort(array, 0, array.length - 1); System.out.println(\"Sorted array: \" + Arrays.toString(array)); } } 链表反转 基本情况：链表为空或者链表中仅有一个结点 递归情况：每调用一次函数能缩小问题规模的最小单元为 1 public class LinkedList { Node head; static class Node { int data; Node next; // Constructor to create a new node Node(int data) { this.data = data; next = null; } } Node reverse(Node head) { // if (head == null || head.next == null) { return head; } // Reverse the rest of the list Node p = reverse(head.next); // Set the next of the last node to the current head head.next.next = head; // Set the next of the current head to null head.next = null; // Return the new head of the reversed list return p; } // Utility function to print the linked list void printList(Node head) { Node temp = head; while (temp != null) { System.out.print(temp.data + \"-\u003e\"); temp = temp.next; } System.out.println(\"null\"); } public static void main(String[] args) { LinkedList list = new LinkedList(); list.head = new Node(1); list.head.next = new Node(2); list.head.next.next = new Node(3); list.head.next.next.next = new Node(4); list.head.next.next.next.next = new Node(5); list.head.next.next.next.next.next = new Node(6); System.out.println(\"Original Linked List:\"); list.printList(list.head); list.head = list.reverse(list.head); System.out.println(\"Reversed Linked List:\"); list.printList(list.head); } } 链表反转调用栈——入栈 链表反转调用栈——出栈 有序链表合并 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。\npublic class LinkedList { static class Node { int data; Node next; // Constructor to create a new node Node(int data) { this.data = data; next = null; } } // Utility function to print the linked list void printList(Node head) { Node temp = head; while (temp != null) { System.out.print(temp.data + \"-\u003e\"); temp = temp.next; } System.out.println(\"null\"); } public Node mergeTwoLists(Node A, Node B) { if (A == null) { return B; } if (B == null) { return A; } if (A.data \u003c= B.data) { A.next = mergeTwoLists(A.next, B); return A; } else { B.next = mergeTwoLists(A, B.next); return B; } } public static void main(String[] args) { // Create first sorted list: 1 -\u003e 8 -\u003e 22 Node l1 = new Node(1); l1.next = new Node(8); l1.next.next = new Node(22); // Create second sorted list: 4 -\u003e 11 -\u003e 16 Node l2 = new Node(4); l2.next = new Node(11); l2.next.next = new Node(16); // Merge the lists LinkedList solution = new LinkedList(); Node mergedList = solution.mergeTwoLists(l1, l2); // Print the merged list: 1 -\u003e 4 -\u003e 8 -\u003e 16 -\u003e 22 -\u003e null new LinkedList().printList(mergedList); } } 合并两个有序链表入栈与出栈 二叉搜索树插值 public class BinarySearchTree { static class Node { int data; Node left, right; public Node(int item) { data = item; left = right = null; } } Node root; public BinarySearchTree() { root = null; } // A recursive function to insert a new key in BST public Node insert(Node root, int key) { // If the tree is empty, return a new node if (root == null) { root = new Node(key); return root; } // Otherwise, recur down the tree if (key \u003c root.data) { root.left = insert(root.left, key); } else if (key \u003e root.data) { root.right = insert(root.right, key); } // return the (unchanged) node pointer return root; } public static void main(String[] args) { BinarySearchTree tree = new BinarySearchTree(); /* Create following BST 50 / \\ 30 70 / \\ / \\ 20 40 60 80 */ tree.root = tree.insert(tree.root, 50); tree.insert(tree.root, 30); tree.insert(tree.root, 20); tree.insert(tree.root, 40); tree.insert(tree.root, 70); tree.insert(tree.root, 60); tree.insert(tree.root, 80); } } 二叉搜索树插值调用栈 打印所有叶子结点 public class BinarySearchTree { static class Node { int data; Node left, right; public Node(int item) { data = item; left = right = null; } } Node root; public BinarySearchTree() { } // A recursive function to insert a new key in BST public Node insert(Node root, int key) { // If the tree is empty, return a new node if (root == null) { root = new Node(key); return root; } // Otherwise, recur down the tree if (key \u003c root.data) { root.left = insert(root.left, key); } else if (key \u003e root.data) { root.right = insert(root.right, key); } // return the (unchanged) node pointer return root; } // A recursive function to print all leaf nodes of the BST public void printAllLeafNodes(Node root) { if (root == null) return; // Check if this node is a leaf node if (root.left == null \u0026\u0026 root.right == null) { System.out.print(root.data + \" \"); return; } // Otherwise, recur for the left and right subtree if (root.left != null) printAllLeafNodes(root.left); if (root.right != null) printAllLeafNodes(root.right); } // Driver Program to test above functions public static void main(String[] args) { BinarySearchTree tree = new BinarySearchTree(); /* Create following BST 50 / \\ 30 70 / \\ / \\ 20 40 60 80 */ tree.root = tree.insert(tree.root, 50); tree.insert(tree.root, 30); tree.insert(tree.root, 20); tree.insert(tree.root, 40); tree.insert(tree.root, 70); tree.insert(tree.root, 60); tree.insert(tree.root, 80); // Print all leaf nodes System.out.println(\"Leaf nodes of the BST:\"); tree.printAllLeafNodes(tree.root); } } 深度优先搜索算法 深度优先搜索算法基于栈数据结构实现 对于递归形式的深度优先搜索算法，函数调用栈充当栈数据结构 对于迭代形式的深度优先搜索算法，需要显式定义栈数据结构 深度优先搜索算法最大限度地探索每条路径，当遇到死胡同（dead end）时，将回溯到原出发点，并选择新的路径继续搜索 深度优先搜索算法的搜索顺序取决于邻居结点的被访问的顺序 import java.util.LinkedList; class Graph { // Number of vertices private int vertices; // Adjacency list representation of the graph private LinkedList[] adjList; public Graph(int vertices) { this.vertices = vertices; // Initialize adjacency list adjList = new LinkedList[vertices]; for (int i = 0; i \u003c vertices; i++) { adjList[i] = new LinkedList\u003c\u003e(); } } // Add edge to the undirected graph public void addEdge(int src, int dest) { adjList[src].add(dest); adjList[dest].add(src); } // Add edge to the graph (directed) public void addDirectedEdge(int src, int dest) { adjList[src].add(dest); } // Print the graph public void printGraph() { for (int i = 0; i \u003c vertices; i++) { System.out.print(\"Vertex \" + i + \":\"); for (Integer node : adjList[i]) { System.out.print(\" -\u003e \" + node); } System.out.println(); } } // Depth-First Search (DFS) public void dfs(int startVertex) { boolean[] visited = new boolean[vertices]; dfs(startVertex, visited); System.out.println(); } private void dfs(int vertex, boolean[] visited) { visited[vertex] = true; System.out.print(vertex + \" \"); // base case 隐藏在 for 循环中 for (int adjVertex : adjList[vertex]) { if (!visited[adjVertex]) { dfs(adjVertex, visited); } } } public static void main(String[] args) { Graph graph = new Graph(6); graph.addDirectedEdge(0,1); graph.addDirectedEdge(0,2); graph.addDirectedEdge(0,4); graph.addDirectedEdge(1,3); graph.addDirectedEdge(2,4); graph.addDirectedEdge(5,3); graph.addDirectedEdge(4,1); System.out.println(\"Graph:\"); graph.printGraph(); System.out.println(\"DFS starting from vertex 0:\"); graph.dfs(0); } } 递归深度优先搜索进出栈顺序图 递归优化 使用缓存：使用缓存存储重复计算的值，需要时直接使用即可 点击查看代码 不使用缓存 使用缓存 public static long fib(int n) { if (n == 1) { return 0; } if (n == 2) { return 1; } return fib(n - 1) + fib(n - 2); } import java.util.HashMap; import java.util.Map; public class Fibonacci { // 使用 HashMap 来存储已经计算过的斐波那契数 private Map cache = new HashMap\u003c\u003e(); public long fib(int n) { // 基本情况 if (n == 1) { return 0; } if (n == 2) { return 1; } // 检查缓存中是否已有结果 if (cache.containsKey(n)) { return cache.get(n); } // 递归计算斐波那契数，并存储结果到缓存中 long result = fib(n - 1) + fib(n - 2); cache.put(n, result); return result; } } --- title: 斐波那契：暴力递归（不使用缓存） --- flowchart TB f6((\"fib(6)\")) --\u003e f5((\"fib(5)\")) f6 --\u003e f4((\"fib(4)\")) f5 --\u003e f41((\"fib(4)\")) f5 --\u003e f3((\"fib(3)\")) f4 --\u003e f31((\"fib(3)\")) f4 --\u003e f2((\"fib(2)\")) f41 --\u003e f32((\"fib(3)\")) f41 --\u003e f21((\"fib(2)\")) f3 --\u003e f20((\"fib(2)\")) f3 --\u003e f10((\"fib(1)\")) f31 --\u003e f22((\"fib(2)\")) f31 --\u003e f1((\"fib(1)\")) f32 --\u003e f23((\"fib(2)\")) f32 --\u003e f11((\"fib(1)\")) style f5 fill:lightblue,color:black style f4 fill:orange,color:black style f41 fill:orange,color:black style f3 fill:red style f31 fill:red style f32 fill:red style f20 fill:purple style f2 fill:purple style f21 fill:purple style f22 fill:purple style f23 fill:purple style f1 fill:grey style f11 fill:grey style f10 fill:grey 斐波那契：递归 + 缓存 2. 尾调用递归（Tail-Call Recursion）优化：当函数调用是尾递归调用时，编译器可以优化递归调用以避免在调用栈中添加新的帧。换句话说，编译器可以重复使用当前函数的堆栈帧，从而有效地将递归转化为迭代。（Python、JVM 等并不支持尾递归调用优化）\n点击查看代码 递归 尾递归 public static long factorial(int n) { if (n == 1) { return 1; } return n * factorial(n - 1); } /* factorial(5) 5 * factorial(4) 5 * (4 * factorial(3)) 5 * (4 * (3 * factorial(2))) 5 * (4 * (3 * (2 * factorial(1)))) 5 * (4 * (3 * (2 * 1))) 5 * (4 * (3 * 2))) 5 * (4 * 6)) 5 * 24 120 */ public static long tailFactorial(int n) { return tailFactorial(n, 1); } public static long tailFactorial(int n, int acc) { if (n == 1) { return acc; } return tailFactorial(n - 1, n * acc); } ",
+  "wordCount" : "2634",
+  "inLanguage": "en",
+  "datePublished": "2024-06-23T09:42:24+08:00",
+  "dateModified": "2024-06-23T09:42:24+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "信一的博客",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="信一的博客 (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">信一的博客</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="档案">
+                    <span>档案</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="标签">
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      数据结构与算法：递归
+    </h1>
+    <div class="post-meta"><span title='2024-06-23 09:42:24 +0800 HKT'>2024年6月23日</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+            
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e5%ae%9a%e4%b9%89" aria-label="递归定义">递归定义</a></li>
+                <li>
+                    <a href="#%e4%be%8b%e9%a2%98" aria-label="例题">例题</a><ul>
+                        
+                <li>
+                    <a href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%8f%8d%e8%bd%ac" aria-label="字符串反转">字符串反转</a></li>
+                <li>
+                    <a href="#%e5%9b%9e%e6%96%87%e5%ad%97%e7%ac%a6%e4%b8%b2palindrom" aria-label="回文字符串（Palindrom）">回文字符串（Palindrom）</a></li>
+                <li>
+                    <a href="#%e5%8d%81%e8%bf%9b%e5%88%b6%e8%bd%ac%e4%ba%8c%e8%bf%9b%e5%88%b6" aria-label="十进制转二进制">十进制转二进制</a></li>
+                <li>
+                    <a href="#%e5%88%86%e8%80%8c%e6%b2%bb%e4%b9%8bdivide-and-conquer" aria-label="分而治之（Divide and Conquer）">分而治之（Divide and Conquer）</a><ul>
+                        
+                <li>
+                    <a href="#%e4%ba%8c%e5%88%86%e6%9f%a5%e6%89%be" aria-label="二分查找">二分查找</a></li>
+                <li>
+                    <a href="#%e5%bd%92%e5%b9%b6%e6%8e%92%e5%ba%8f" aria-label="归并排序">归并排序</a></li>
+                <li>
+                    <a href="#%e5%bf%ab%e9%80%9f%e6%8e%92%e5%ba%8f" aria-label="快速排序">快速排序</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%93%be%e8%a1%a8%e5%8f%8d%e8%bd%ac" aria-label="链表反转">链表反转</a></li>
+                <li>
+                    <a href="#%e6%9c%89%e5%ba%8f%e9%93%be%e8%a1%a8%e5%90%88%e5%b9%b6" aria-label="有序链表合并">有序链表合并</a></li>
+                <li>
+                    <a href="#%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e6%8f%92%e5%80%bc" aria-label="二叉搜索树插值">二叉搜索树插值</a></li>
+                <li>
+                    <a href="#%e6%89%93%e5%8d%b0%e6%89%80%e6%9c%89%e5%8f%b6%e5%ad%90%e7%bb%93%e7%82%b9" aria-label="打印所有叶子结点">打印所有叶子结点</a></li>
+                <li>
+                    <a href="#%e6%b7%b1%e5%ba%a6%e4%bc%98%e5%85%88%e6%90%9c%e7%b4%a2%e7%ae%97%e6%b3%95" aria-label="深度优先搜索算法">深度优先搜索算法</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%80%92%e5%bd%92%e4%bc%98%e5%8c%96" aria-label="递归优化">递归优化</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="递归定义">递归定义<a hidden class="anchor" aria-hidden="true" href="#递归定义">#</a></h1>
+<p><strong>递归</strong>（<strong>Recursion</strong>）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：</p>
+<ol>
+<li><strong>基本情况</strong>（<strong>Base Case(s)</strong>）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（<strong>寻找最小子问题</strong>）</li>
+<li><strong>递归情况</strong>（<strong>Recursive Case(s)</strong>）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（<strong>寻找每调用一次函数能缩小问题规模的最小单元</strong>）</li>
+</ol>
+<h1 id="例题">例题<a hidden class="anchor" aria-hidden="true" href="#例题">#</a></h1>
+<h2 id="字符串反转">字符串反转<a hidden class="anchor" aria-hidden="true" href="#字符串反转">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details open>
+        <summary>点击查看题目</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/notice.css">
+
+
+<div class="notice info">
+    字符串反转：&ldquo;signal yu&rdquo; 输出为 &ldquo;uy langis&rdquo;
+</div>
+
+        </div>
+    </details>
+</div>
+<ul>
+<li>基本情况：当字符串 <code>s</code> 为空串时返回 <code>&quot;&quot;</code>，当字符串 <code>s</code>     长度为 1 时，返回 <code>s</code>，即当字符串长度小于等于 1 时，返回 <code>s</code>。</li>
+<li>递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。</li>
+</ul>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class ReverseString {
+
+    // 递归方法反转字符串
+    public static String reverseString(String s) {
+        // 基本情况：如果字符串为空或只有一个字符，直接返回它
+        if (s.length() <= 1) {
+            return s;
+        }
+        // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾
+        return reverseString(s.substring(1)) + s.charAt(0);
+    }
+
+    public static void main(String[] args) {
+        String inputStr = "signal yu";
+        String reversedStr = reverseString(inputStr);
+        System.out.println(reversedStr); // uy langis
+    }
+}
+</code></pre>
+    </div>
+</div>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-1.png#center" width="100%" height="100%"/> <figcaption>
+            反转字符串调用栈
+        </figcaption>
+</figure>
+
+<h2 id="回文字符串palindrom">回文字符串（Palindrom）<a hidden class="anchor" aria-hidden="true" href="#回文字符串palindrom">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details open>
+        <summary>点击查看题目</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/notice.css">
+
+
+<div class="notice info">
+    如果一个序列是对称的，即从左往右读与从右往左读完全相同，那么它就被认为是一个回文字符串，例如 &ldquo;radar&rdquo;, &ldquo;level&rdquo;, &ldquo;madam&rdquo;。
+</div>
+
+        </div>
+    </details>
+</div>
+<ul>
+<li>基本情况：字符串长度为 0 或 1</li>
+<li>递归情况：每调用一次函数能缩小问题规模的最小单元为 2（去掉首尾字符）</li>
+</ul>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Palindrome {
+
+    public static boolean isPalindrome(String str) {
+        // Base case: if the string is empty or has one character, it is a palindrome
+        if (str.isEmpty() || str.length() == 1) {
+            return true;
+        }
+
+        // Check if the first and last characters are the same
+        if (str.charAt(0) == str.charAt(str.length() - 1)) {
+            // Recur with the substring excluding the first and last characters
+            return isPalindrome(str.substring(1, str.length() - 1));
+        }
+
+        // If the first and last characters are not the same, it is not a palindrome
+        return false;
+    }
+
+    public static void main(String[] args) {
+        String[] testStrings = {"racecar", "madam", "hello", "A", "", "level"};
+
+        for (String str : testStrings) {
+            if (isPalindrome(str)) {
+                System.out.println(str + " is a palindrome.");
+            } else {
+                System.out.println(str + " is not a palindrome.");
+            }
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-2.png#center" width="100%" height="100%"/> <figcaption>
+            回文字符串调用栈 I
+        </figcaption>
+</figure>
+
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-3.png#center" width="100%" height="100%"/> <figcaption>
+            回文字符串调用栈 II
+        </figcaption>
+</figure>
+
+<h2 id="十进制转二进制">十进制转二进制<a hidden class="anchor" aria-hidden="true" href="#十进制转二进制">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details open>
+        <summary>点击查看题目</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/notice.css">
+
+
+<div class="notice info">
+    将指定的十进制数字，返回其二进制表示形式。例如 10 的二进制形式为 1010。
+</div>
+
+        </div>
+    </details>
+</div>
+<ul>
+<li>基本情况：当数字为 1 时，当数字为 0 时，返回 0.</li>
+<li>递归情况：每调用一次函数能缩小问题规模的最小单元为原问题的一半。</li>
+</ul>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class DecimalToBinary {
+    public static String decimalToBinary(int n) {
+        // Base case: if the number is 0, return "0"
+        if (n == 0) {
+            return "0";
+        }
+
+        // If the number is 1, return "1"
+        if (n == 1) {
+            return "1";
+        }
+
+        // Recursive call: divide the number by 2 and concatenate the remainder
+        return decimalToBinary(n / 2) + (n % 2);
+    }
+
+    public static void main(String[] args) {
+        int[] testNumbers = {0, 1, 2, 3, 4, 5, 10, 255};
+
+        for (int number : testNumbers) {
+            System.out.println("Decimal: " + number + " -> Binary: " + decimalToBinary(number));
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-4.png#center" width="100%" height="100%"/> <figcaption>
+            十进制转二进制调用栈
+        </figcaption>
+</figure>
+
+<h2 id="分而治之divide-and-conquer">分而治之（Divide and Conquer）<a hidden class="anchor" aria-hidden="true" href="#分而治之divide-and-conquer">#</a></h2>
+<p>分治算法（Divide and Conquer）的核心思想为：</p>
+<ol>
+<li><strong>分（Divide）</strong>：将原问题不断分解为更小的子问题</li>
+<li><strong>治（Conquer）</strong>：递归解决子问题，对于基本情况（Base Case）则直接求解</li>
+<li><strong>合（Combine）</strong>：将子问题的求解结果合并，以获得原问题的解</li>
+</ol>
+<h3 id="二分查找">二分查找<a hidden class="anchor" aria-hidden="true" href="#二分查找">#</a></h3>
+<h3 id="归并排序">归并排序<a hidden class="anchor" aria-hidden="true" href="#归并排序">#</a></h3>
+<p>归并排序核心思想如下：</p>
+<ol>
+<li>递归地将数组划分为两部分，直至不能进一步划分（数组中的元素只有一个）</li>
+<li>递归地将排序后的数组进行合并</li>
+</ol>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-5.png#center" width="100%" height="100%"/> <figcaption>
+            归并排序——划分数组
+        </figcaption>
+</figure>
+
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-6.png#center" width="100%" height="100%"/> <figcaption>
+            归并排序——合并数组
+        </figcaption>
+</figure>
+
+<link rel="stylesheet" href="/css/notice.css">
+
+
+<div class="notice info">
+    需要注意的是，归并排序并不是将所有子数组都划分至最小子数组后才进行合并，而是先将某一分支上的数组划分至最小子数组，然后对该分支的元素进行合并。具体过程如下列视频所示：
+</div>
+<link rel="stylesheet" href="/css/iframe.css">
+
+<div id="iframeContainer">
+    <iframe src="//player.bilibili.com/player.html?isOutside=true&amp;aid=112666068649644&amp;bvid=BV1q63ge1EXu&amp;cid=500001593603384&amp;p=1" scrolling="no" border="0"
+        frameborder="no" framespacing="0" allowfullscreen="true">
+    </iframe>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+
+public class MergeSort {
+    // Method to merge two halves
+    public static void merge(int[] arr, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        // Create temporary arrays
+        int[] leftArray = new int[n1];
+        int[] rightArray = new int[n2];
+
+        // Copy data to temp arrays
+        for (int i = 0; i < n1; i++) {
+            leftArray[i] = arr[left + i];
+        }
+        for (int j = 0; j < n2; j++) {
+            rightArray[j] = arr[mid + 1 + j];
+        }
+
+        // Merge the temp arrays
+        // Initial indexes of first and second subarrays
+        int i = 0, j = 0;
+
+        // Initial index of merged subarray
+        int k = left;
+        while (i < n1 && j < n2) {
+            if (leftArray[i] <= rightArray[j]) {
+                arr[k++] = leftArray[i++];
+            } else {
+                arr[k++] = rightArray[j++];
+            }
+        }
+
+        // Copy remaining elements of leftArray if any
+        while (i < n1) {
+            arr[k++] = leftArray[i++];
+        }
+
+        // Copy remaining elements of rightArray if any
+        while (j < n2) {
+            arr[k++] = rightArray[j++];
+        }
+    }
+
+    // Main function that sorts arr[left...right] using merge()
+    public static void mergeSort(int[] arr, int left, int right) {
+        if (left < right) {
+            // Find the middle point
+            int mid = left + (right - left) / 2;
+
+            // Sort first and second halves
+            mergeSort(arr, left, mid);
+            mergeSort(arr, mid + 1, right);
+
+            // Merge the sorted halves
+            merge(arr, left, mid, right);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr1 = {3, 7, 8, 5, 4, 2, 6, 1};
+
+        System.out.println("arr1 = " + Arrays.toString(arr1));
+        mergeSort(arr1, 0, arr1.length - 1);
+
+        System.out.println("Sorted arr1 = " + Arrays.toString(arr1));
+    }
+}
+</code></pre>
+    </div>
+</div>
+<h3 id="快速排序">快速排序<a hidden class="anchor" aria-hidden="true" href="#快速排序">#</a></h3>
+<p><strong>快速排序</strong>（<strong>Quick Sort</strong>）的核心思想如下：</p>
+<ol>
+<li>选择基准（Pivot）：从数组中选择一个元素作为基准。</li>
+<li>分区（Partition）：将数组重新排列，使得比中枢值小的元素都排在基准的左边，比基准值大的元素都排在基准的右边。</li>
+<li>递归排序：对基准左边和右边的子数组分别递归地应用快速排序算法。</li>
+<li>合并结果： 将左边子数组、基准和右边子数组合并起来，得到最终的排序结果。</li>
+</ol>
+<link rel="stylesheet" href="/css/notice.css">
+
+
+<div class="notice info">
+    <p><strong>快速排序</strong>的基准元素选择通常有三种：第一个元素、随机元素和最后一个元素。</p>
+<p>当选择随机元素为基准元素时，在排序之前将它与第一个元素或最后一个元素进行交换后再排序即可。</p>
+
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details open>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">最后一个元素作为基准元素</button>
+
+
+
+<button class="tab_btn ">第一个元素作为基准元素</button>
+
+
+
+<button class="tab_btn ">随机元素作为基准元素</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+
+public class QuickSort {
+
+    // Method to perform Quick Sort
+    public static void quickSort(int[] array, int low, int high) {
+        if (low < high) {
+            // Partition the array and get the pivot index
+            int pivotIndex = partition(array, low, high);
+
+            // Recursively sort elements before and after partition
+            quickSort(array, low, pivotIndex - 1);
+            quickSort(array, pivotIndex + 1, high);
+        }
+    }
+
+    // Method to partition the array
+    private static int partition(int[] array, int low, int high) {
+        // Choose the pivot (here we are choosing the last element as pivot)
+        int pivot = array[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (array[j] < pivot) {
+                i++;
+                // Swap array[i] and array[j]
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+        }
+
+        i++;
+        // Swap array[i] and pivot
+        int temp = array[i];
+        array[i] = array[high];
+        array[high] = temp;
+
+        return i;  // return index of new pivot
+    }
+
+    // Main method to test the Quick Sort algorithm
+    public static void main(String[] args) {
+        int[] array = {8, 2, 4, 7, 1, 3, 9, 6, 5};
+
+        System.out.println("Unsorted array: " + Arrays.toString(array));
+
+        quickSort(array, 0, array.length - 1);
+
+        System.out.println("Sorted array: " + Arrays.toString(array));
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+
+public class QuickSort {
+    // Method to partition the array and return the pivot index
+    private static int partition(int[] arr, int low, int high) {
+        // Choose the pivot element (first element of the array)
+        int pivot = arr[low];
+        // Index of the smaller element
+        int i = low;
+        for (int j = low + 1; j <= high; j++) {
+            // If current element is smaller than the pivot
+            if (arr[j] <= pivot) {  // Comparison should include equality to maintain stability
+                i++;
+                // Swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        // Swap arr[i] and pivot
+        int temp = arr[low];
+        arr[low] = arr[i];
+        arr[i] = temp;
+        // Return the pivot index
+        return i;
+    }
+
+    // Recursive method to partition and sort subarrays
+    private static void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            // Partition the array and get the pivot index
+            int pivotIndex = partition(arr, low, high);
+
+            // Recursively sort the left and right subarrays
+            quickSort(arr, low, pivotIndex - 1);
+            quickSort(arr, pivotIndex + 1, high);
+        }
+    }
+
+
+    // Main method to test the quick sort algorithm
+    public static void main(String[] args) {
+        int[] array = {8, 2, 4, 7, 1, 3, 9, 6, 5};
+        System.out.println("Unsorted array: " + Arrays.toString(array));
+        quickSort(array, 0, array.length - 1);
+        System.out.println("Sorted array: " + Arrays.toString(array));
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+import java.util.Random;
+
+public class QuickSort {
+
+    // Method to perform Quick Sort
+    public static void quickSort(int[] array, int low, int high) {
+        if (low < high) {
+            // Randomize pivot and partition the array
+            int pivotIndex = partition(array, low, high);
+
+            // Recursively sort elements before and after partition
+            quickSort(array, low, pivotIndex - 1);
+            quickSort(array, pivotIndex + 1, high);
+        }
+    }
+
+    // Method to partition the array
+    private static int partition(int[] array, int low, int high) {
+        // Choose the pivot (here it is the last element after randomization)
+        int pivotIndex = low + new Random().nextInt(high - low + 1);
+        swap(array, pivotIndex, high);  // Move the pivot element to the end
+        int pivot = array[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (array[j] <= pivot) {
+                i++;
+                // Swap array[i] and array[j]
+                swap(array, i, j);
+            }
+        }
+
+        i++;
+        // Swap array[i] and pivot
+        swap(array, i, high);
+
+        return i;  // return new pivot index
+    }
+
+    // Utility method to swap two elements in the array
+    private static void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    // Main method to test the quick sort algorithm
+    public static void main(String[] args) {
+        int[] array = {8, 2, 4, 7, 1, 3, 9, 6, 5};
+        System.out.println("Unsorted array: " + Arrays.toString(array));
+        quickSort(array, 0, array.length - 1);
+        System.out.println("Sorted array: " + Arrays.toString(array));
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h2 id="链表反转">链表反转<a hidden class="anchor" aria-hidden="true" href="#链表反转">#</a></h2>
+<ul>
+<li>基本情况：链表为空或者链表中仅有一个结点</li>
+<li>递归情况：每调用一次函数能缩小问题规模的最小单元为 1</li>
+</ul>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class LinkedList {
+    Node head;
+
+    static class Node {
+        int data;
+        Node next;
+
+        // Constructor to create a new node
+        Node(int data) {
+            this.data = data;
+            next = null;
+        }
+    }
+
+    Node reverse(Node head) {
+        //
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // Reverse the rest of the list
+        Node p = reverse(head.next);
+        // Set the next of the last node to the current head
+        head.next.next = head;
+
+        // Set the next of the current head to null
+        head.next = null;
+
+        // Return the new head of the reversed list
+        return p;
+    }
+
+    // Utility function to print the linked list
+    void printList(Node head) {
+        Node temp = head;
+        while (temp != null) {
+                System.out.print(temp.data + "->");
+                temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        list.head = new Node(1);
+        list.head.next = new Node(2);
+        list.head.next.next = new Node(3);
+        list.head.next.next.next = new Node(4);
+        list.head.next.next.next.next = new Node(5);
+        list.head.next.next.next.next.next = new Node(6);
+
+        System.out.println("Original Linked List:");
+        list.printList(list.head);
+
+        list.head = list.reverse(list.head);
+
+        System.out.println("Reversed Linked List:");
+        list.printList(list.head);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-7.png#center" width="100%" height="100%"/> <figcaption>
+            链表反转调用栈——入栈
+        </figcaption>
+</figure>
+
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-8.png#center" width="100%" height="100%"/> <figcaption>
+            链表反转调用栈——出栈
+        </figcaption>
+</figure>
+
+<h2 id="有序链表合并">有序链表合并<a hidden class="anchor" aria-hidden="true" href="#有序链表合并">#</a></h2>
+<p>将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class LinkedList {
+
+    static class Node {
+        int data;
+        Node next;
+
+        // Constructor to create a new node
+        Node(int data) {
+            this.data = data;
+            next = null;
+        }
+    }
+
+    // Utility function to print the linked list
+    void printList(Node head) {
+        Node temp = head;
+        while (temp != null) {
+                System.out.print(temp.data + "->");
+                temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    public Node mergeTwoLists(Node A, Node B) {
+        if (A == null) {
+            return B;
+        }
+        if (B == null) {
+            return A;
+        }
+
+        if (A.data <= B.data) {
+            A.next = mergeTwoLists(A.next, B);
+            return A;
+        } else {
+            B.next = mergeTwoLists(A, B.next);
+            return B;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create first sorted list: 1 -> 8 -> 22
+        Node l1 = new Node(1);
+        l1.next = new Node(8);
+        l1.next.next = new Node(22);
+
+        // Create second sorted list: 4 -> 11 -> 16
+        Node l2 = new Node(4);
+        l2.next = new Node(11);
+        l2.next.next = new Node(16);
+
+        // Merge the lists
+        LinkedList solution = new LinkedList();
+        Node mergedList = solution.mergeTwoLists(l1, l2);
+
+        // Print the merged list: 1 -> 4 -> 8 -> 16 -> 22 -> null
+        new LinkedList().printList(mergedList);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-9.png#center" width="100%" height="100%"/> <figcaption>
+            合并两个有序链表入栈与出栈
+        </figcaption>
+</figure>
+
+<h2 id="二叉搜索树插值">二叉搜索树插值<a hidden class="anchor" aria-hidden="true" href="#二叉搜索树插值">#</a></h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class BinarySearchTree {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        public Node(int item) {
+            data = item;
+            left = right = null;
+        }
+    }
+
+    Node root;
+
+    public BinarySearchTree() {
+        root = null;
+    }
+
+    // A recursive function to insert a new key in BST
+    public Node insert(Node root, int key) {
+        // If the tree is empty, return a new node
+        if (root == null) {
+            root = new Node(key);
+            return root;
+        }
+
+        // Otherwise, recur down the tree
+        if (key < root.data) {
+            root.left = insert(root.left, key);
+        } else if (key > root.data) {
+            root.right = insert(root.right, key);
+        }
+
+        // return the (unchanged) node pointer
+        return root;
+    }
+
+    public static void main(String[] args) {
+        BinarySearchTree tree = new BinarySearchTree();
+
+        /* Create following BST
+              50
+           /     \
+          30      70
+         /  \    /  \
+        20   40  60   80 */
+
+        tree.root = tree.insert(tree.root, 50);
+        tree.insert(tree.root, 30);
+        tree.insert(tree.root, 20);
+        tree.insert(tree.root, 40);
+        tree.insert(tree.root, 70);
+        tree.insert(tree.root, 60);
+        tree.insert(tree.root, 80);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/3-recursion-10.png#center" width="100%" height="100%"/> <figcaption>
+            二叉搜索树插值调用栈
+        </figcaption>
+</figure>
+
+<h2 id="打印所有叶子结点">打印所有叶子结点<a hidden class="anchor" aria-hidden="true" href="#打印所有叶子结点">#</a></h2>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class BinarySearchTree {
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        public Node(int item) {
+            data = item;
+            left = right = null;
+        }
+    }
+
+    Node root;
+
+    public BinarySearchTree() {
+    }
+
+    // A recursive function to insert a new key in BST
+    public Node insert(Node root, int key) {
+        // If the tree is empty, return a new node
+        if (root == null) {
+            root = new Node(key);
+            return root;
+        }
+
+        // Otherwise, recur down the tree
+        if (key < root.data) {
+            root.left = insert(root.left, key);
+        } else if (key > root.data) {
+            root.right = insert(root.right, key);
+        }
+
+        // return the (unchanged) node pointer
+        return root;
+    }
+
+
+    // A recursive function to print all leaf nodes of the BST
+    public void printAllLeafNodes(Node root) {
+        if (root == null)
+            return;
+
+        // Check if this node is a leaf node
+        if (root.left == null && root.right == null) {
+            System.out.print(root.data + " ");
+            return;
+        }
+
+        // Otherwise, recur for the left and right subtree
+        if (root.left != null)
+            printAllLeafNodes(root.left);
+        if (root.right != null)
+            printAllLeafNodes(root.right);
+    }
+
+    // Driver Program to test above functions
+    public static void main(String[] args) {
+        BinarySearchTree tree = new BinarySearchTree();
+
+        /* Create following BST
+              50
+           /     \
+          30      70
+         /  \    /  \
+        20   40  60   80 */
+
+        tree.root = tree.insert(tree.root, 50);
+        tree.insert(tree.root, 30);
+        tree.insert(tree.root, 20);
+        tree.insert(tree.root, 40);
+        tree.insert(tree.root, 70);
+        tree.insert(tree.root, 60);
+        tree.insert(tree.root, 80);
+
+        // Print all leaf nodes
+        System.out.println("Leaf nodes of the BST:");
+        tree.printAllLeafNodes(tree.root);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<h2 id="深度优先搜索算法">深度优先搜索算法<a hidden class="anchor" aria-hidden="true" href="#深度优先搜索算法">#</a></h2>
+<ul>
+<li>深度优先搜索算法基于栈数据结构实现
+<ol>
+<li>对于递归形式的深度优先搜索算法，函数调用栈充当栈数据结构</li>
+<li>对于迭代形式的深度优先搜索算法，需要显式定义栈数据结构</li>
+</ol>
+</li>
+<li><strong>深度优先搜索</strong>算法最大限度地探索每条路径，当遇到死胡同（dead end）时，将回溯到原出发点，并选择新的路径继续搜索</li>
+<li><strong>深度优先搜索</strong>算法的搜索顺序取决于邻居结点的被访问的顺序</li>
+</ul>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.LinkedList;
+
+class Graph {
+    // Number of vertices
+    private int vertices;
+    // Adjacency list representation of the graph
+    private LinkedList&lt;Integer&gt;[] adjList;
+
+    public Graph(int vertices) {
+        this.vertices = vertices;
+        // Initialize adjacency list
+        adjList = new LinkedList[vertices];
+        for (int i = 0; i < vertices; i++) {
+            adjList[i] = new LinkedList&lt;&gt;();
+        }
+    }
+
+    // Add edge to the undirected graph
+    public void addEdge(int src, int dest) {
+        adjList[src].add(dest);
+        adjList[dest].add(src);
+    }
+
+    // Add edge to the graph (directed)
+    public void addDirectedEdge(int src, int dest) {
+        adjList[src].add(dest);
+    }
+
+    // Print the graph
+    public void printGraph() {
+        for (int i = 0; i < vertices; i++) {
+            System.out.print("Vertex " + i + ":");
+            for (Integer node : adjList[i]) {
+                System.out.print(" -> " + node);
+            }
+            System.out.println();
+        }
+    }
+
+    // Depth-First Search (DFS)
+    public void dfs(int startVertex) {
+        boolean[] visited = new boolean[vertices];
+        dfs(startVertex, visited);
+        System.out.println();
+    }
+
+    private void dfs(int vertex, boolean[] visited) {
+        visited[vertex] = true;
+        System.out.print(vertex + " ");
+        // base case 隐藏在 for 循环中
+        for (int adjVertex : adjList[vertex]) {
+            if (!visited[adjVertex]) {
+                dfs(adjVertex, visited);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Graph graph = new Graph(6);
+
+        graph.addDirectedEdge(0,1);
+        graph.addDirectedEdge(0,2);
+        graph.addDirectedEdge(0,4);
+        graph.addDirectedEdge(1,3);
+        graph.addDirectedEdge(2,4);
+        graph.addDirectedEdge(5,3);
+        graph.addDirectedEdge(4,1);
+
+        System.out.println("Graph:");
+        graph.printGraph();
+
+        System.out.println("DFS starting from vertex 0:");
+        graph.dfs(0);
+    }
+}
+</code></pre>
+    </div>
+</div>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/6-graph-1.png#center" width="100%" height="100%"/> <figcaption>
+            递归深度优先搜索进出栈顺序图
+        </figcaption>
+</figure>
+
+<h1 id="递归优化">递归优化<a hidden class="anchor" aria-hidden="true" href="#递归优化">#</a></h1>
+<ol>
+<li>使用缓存：使用缓存存储重复计算的值，需要时直接使用即可
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details open>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">不使用缓存</button>
+
+
+
+<button class="tab_btn ">使用缓存</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public static long fib(int n) {
+    if (n == 1) {
+        return 0;
+    }
+    if (n == 2) {
+        return 1;
+    }
+    return fib(n - 1) + fib(n - 2);
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >import java.util.HashMap;
+import java.util.Map;
+
+public class Fibonacci {
+
+    // 使用 HashMap 来存储已经计算过的斐波那契数
+    private Map&lt;Integer, Long&gt; cache = new HashMap&lt;&gt;();
+
+    public long fib(int n) {
+        // 基本情况
+        if (n == 1) {
+            return 0;
+        }
+        if (n == 2) {
+            return 1;
+        }
+        
+        // 检查缓存中是否已有结果
+        if (cache.containsKey(n)) {
+            return cache.get(n);
+        }
+
+        // 递归计算斐波那契数，并存储结果到缓存中
+        long result = fib(n - 1) + fib(n - 2);
+        cache.put(n, result);
+        
+        return result;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div></li>
+</ol>
+<pre class="mermaid">---
+title: 斐波那契：暴力递归（不使用缓存）
+---
+flowchart TB
+    f6(("fib(6)")) --> f5(("fib(5)"))
+    f6 --> f4(("fib(4)"))
+    f5 --> f41(("fib(4)"))
+    f5 --> f3(("fib(3)"))
+    f4 --> f31(("fib(3)"))
+    f4 --> f2(("fib(2)"))
+    f41 --> f32(("fib(3)"))
+    f41 --> f21(("fib(2)"))
+    f3 --> f20(("fib(2)"))
+    f3 --> f10(("fib(1)"))
+    f31 --> f22(("fib(2)"))
+    f31 --> f1(("fib(1)"))
+    f32 --> f23(("fib(2)"))
+    f32 --> f11(("fib(1)"))
+
+    style f5 fill:lightblue,color:black
+
+    style f4 fill:orange,color:black
+    style f41 fill:orange,color:black
+
+    style f3 fill:red
+    style f31 fill:red
+    style f32 fill:red
+
+    style f20 fill:purple
+    style f2 fill:purple
+    style f21 fill:purple
+    style f22 fill:purple
+    style f23 fill:purple
+
+    style f1 fill:grey
+    style f11 fill:grey
+    style f10 fill:grey
+</pre>
+<p><figure class="align-center ">
+    <img loading="lazy" src="/img/cs/dsa/2-dynamic-programming-1.png#center" width="100%" height="100%"/> <figcaption>
+            斐波那契：递归 &#43; 缓存
+        </figcaption>
+</figure>
+
+2. 尾调用递归（Tail-Call Recursion）优化：当函数调用是尾递归调用时，编译器可以优化递归调用以避免在调用栈中添加新的帧。换句话说，编译器可以重复使用当前函数的堆栈帧，从而有效地将递归转化为迭代。（Python、JVM 等并不支持尾递归调用优化）</p>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details open>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">递归</button>
+
+
+
+<button class="tab_btn ">尾递归</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public static long factorial(int n) {
+    if (n == 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+/*
+    factorial(5)
+    5 * factorial(4)
+    5 * (4 * factorial(3))
+    5 * (4 * (3 * factorial(2)))
+    5 * (4 * (3 * (2 * factorial(1))))
+    5 * (4 * (3 * (2 * 1)))
+    5 * (4 * (3 * 2)))
+    5 * (4 * 6))
+    5 * 24
+    120
+*/
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >public static long tailFactorial(int n) {
+    return tailFactorial(n, 1);
+}
+public static long tailFactorial(int n, int acc) {
+    if (n == 1) {
+        return acc;
+    }
+    return tailFactorial(n - 1, n * acc);
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/%E5%B7%A5%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/">工程与技术</a></li>
+      <li><a href="https://signalyu.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></li>
+      <li><a href="https://signalyu.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/">计算机科学</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/">
+    <span class="title">« 上一页</span>
+    
+    <br>
+    <span>数据结构与算法：图</span>
+  </a>
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/2-dynamic-programming/">
+    <span class="title">下一页 »</span>
+    
+    <br>
+    <span>数据结构与算法：动态规划</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">信一的博客</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            "flowchart": { "htmlLabels": true },
+            theme: 'dark',
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        });
+    </script>
+    
+</body>
+</html>

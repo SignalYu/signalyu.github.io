@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>计算机科学 on 信一的博客</title>
+    <link>https://signalyu.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/</link>
+    <description>Recent content in 计算机科学 on 信一的博客</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 25 Jun 2024 14:40:21 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据结构与算法：图</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/</link>
+      <pubDate>Tue, 25 Jun 2024 14:40:21 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/</guid>
+      <description>深度优先搜索 深度优先搜索算法基于栈数据结构实现 对于递归形式的深度优先搜索算法，函数调用栈充当栈数据结构 对于迭代形式的深度优先搜索算法，需要显式定义栈数据结构 深度优先搜索算法最大限度地探索每条路径，当遇到死胡同（dead end）时，将回溯到原出发点，并选择新的路径继续搜索 深度优先搜索算法的搜索顺序取决于邻居结点的被访问的顺序 递归实现 import java.util.LinkedList; class Graph { // Number of vertices private int vertices; // Adjacency list representation of the graph private LinkedList&amp;lt;Integer&amp;gt;[] adjList; public Graph(int vertices) { this.vertices = vertices; // Initialize adjacency list adjList = new LinkedList[vertices]; for (int i = 0; i &lt; vertices; i++) { adjList[i] = new LinkedList&amp;lt;&amp;gt;(); } } // Add edge to the undirected graph public void addEdge(int src, int dest) { adjList[src].</description>
+    </item>
+    <item>
+      <title>数据结构与算法：递归</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/</link>
+      <pubDate>Sun, 23 Jun 2024 09:42:24 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/</guid>
+      <description>递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：
+基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：&amp;ldquo;signal yu&amp;rdquo; 输出为 &amp;ldquo;uy langis&amp;rdquo; 基本情况：当字符串 s 为空串时返回 &amp;quot;&amp;quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() &lt;= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) + s.charAt(0); } public static void main(String[] args) { String inputStr = &#34;signal yu&#34;; String reversedStr = reverseString(inputStr); System.</description>
+    </item>
+    <item>
+      <title>数据结构与算法：动态规划</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/2-dynamic-programming/</link>
+      <pubDate>Sun, 16 Jun 2024 11:35:47 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/2-dynamic-programming/</guid>
+      <description>动态规划相关概念 动态规划核心思想： 将原问题划分为更简单的子问题，通过子问题的解来构建问题的解。 Memoization（自上而下法）：将原问题递归地划分为更小的子问题，并在对子问题的结果进行缓存，以避免重复计算。 Tabulation（自下而上法）：从最小的子问题开始，迭代地构建原问题的解。 动态规划例题 斐波那契数列 点击查看题目 斐波那契数（通常用 $F(n)$ 表示）形成的序列称为斐波那契数列。该数列由 $0$ 和 $1$ 开始，后面的每一项数字都是前面两项数字的和。也就是：
+$F(1) = 0，F(2) = 1$
+$F(n) = F(n - 1) + F(n - 2)，其中\; n &amp;gt; 2$
+给定 $n$ ，请计算 $F(n)$。
+示例 1：
+输入：$n = 2$
+输出：$1$
+解释：$F(2) = 1$
+示例 2：
+输入：$n = 3$
+输出：$2$
+解释：$F(3) = F(2) + F(1) = 1 + 0 = 1$
+示例 3：
+输入：$n = 4$
+输出：$3$
+解释：$F(4) = F(3) + F(2) = 1 + 1 = 2$</description>
+    </item>
+    <item>
+      <title>数据结构与算法：投票算法</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/</link>
+      <pubDate>Fri, 31 May 2024 15:40:35 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/</guid>
+      <description>Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --&amp;gt; candidate = current element; count = 0 (current element == candidate) ? count++ : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count++ 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i &lt; size; i++) { if (count == 0) { candidate = nums[i]; count++; } else if (nums[i] == candidate) { count++; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i &lt; size; i++) { if (nums[i] == candidate) { count++; } } // 存在多数元素 if (count &gt; size / 2) { return candidate; } // 不存在多数元素 return -1; } #include &amp;lt;stdio.</description>
+    </item>
+  </channel>
+</rss>

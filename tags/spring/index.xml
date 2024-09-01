@@ -6,15 +6,8 @@
     <description>Recent content in Spring on 信一的博客</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 17 May 2024 16:11:35 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 May 2024 13:19:15 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/spring/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Spring：Bean 生命周期</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/spring/3-bean-life-cycle/</link>
-      <pubDate>Fri, 17 May 2024 16:11:35 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/spring/3-bean-life-cycle/</guid>
-      <description>Bean 生命周期状态图 graph TB subgraph state[ ] s1[1. 声明 Bean Definitions] --&gt; s2[2. 加载 Bean Definitions] --&gt; s3[3. 处理 Bean Definitions] --&gt; s4[4. Bean 实例化] --&gt; s5[5. Bean 属性赋值] --&gt; s6[6. Bean 后置处理（初始化前）] --&gt; s7[7. Bean 初始化] --&gt; s8[8. Bean 后置处理（初始化后）] --&gt; s9[9. Bean 存储在 IoC 容器中] --&gt; s10[10. 销毁 Bean] end n1[&#34;`使用 XML，带包扫描的注解，带有 @Configuration 注解的类声明 Bean`&#34;] -.- s1 n2[&#34;`**BeanDefinitionReader**：解析配置并创建 BeanDefinition对象`&#34;] -.- s2 n3[&#34;`**BeanFactoryPostProcessor**：在实际创建 Bean 之前修改 BeanDefinitions`&#34;] -.- s3 n4[&#34;`**BeanFactory**：调用 Bean 的构造函数。需要时会将实例化行为委托给自定义 FactoryBean 实例。`&#34;</description>
-    </item>
     <item>
       <title>Spring：理解 AOP</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/spring/2-spring-aop/</link>

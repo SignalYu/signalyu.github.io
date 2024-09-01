@@ -6,15 +6,8 @@
     <description>Recent content in Tags on 信一的博客</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 23 Jun 2024 09:42:24 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 25 Jun 2024 14:40:21 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Tech</title>
-      <link>https://signalyu.github.io/tags/tech/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/tech/</guid>
-      <description></description>
-    </item>
     <item>
       <title>工程与技术</title>
       <link>https://signalyu.github.io/tags/%E5%B7%A5%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/</link>
@@ -30,17 +23,10 @@
       <description></description>
     </item>
     <item>
-      <title>MySQL</title>
-      <link>https://signalyu.github.io/tags/mysql/</link>
+      <title>计算机科学</title>
+      <link>https://signalyu.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/mysql/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Docker</title>
-      <link>https://signalyu.github.io/tags/docker/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/docker/</guid>
+      <guid>https://signalyu.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/</guid>
       <description></description>
     </item>
     <item>
@@ -65,17 +51,17 @@
       <description></description>
     </item>
     <item>
-      <title>MyBatis</title>
-      <link>https://signalyu.github.io/tags/mybatis/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/mybatis/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>C</title>
       <link>https://signalyu.github.io/tags/c/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://signalyu.github.io/tags/c/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tech</title>
+      <link>https://signalyu.github.io/tags/tech/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/tech/</guid>
       <description></description>
     </item>
     <item>
@@ -100,13 +86,6 @@
       <description></description>
     </item>
     <item>
-      <title>Spring</title>
-      <link>https://signalyu.github.io/tags/spring/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/spring/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Spring MVC</title>
       <link>https://signalyu.github.io/tags/spring-mvc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -114,17 +93,17 @@
       <description></description>
     </item>
     <item>
+      <title>Spring</title>
+      <link>https://signalyu.github.io/tags/spring/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/spring/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Maven</title>
       <link>https://signalyu.github.io/tags/maven/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://signalyu.github.io/tags/maven/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java Web</title>
-      <link>https://signalyu.github.io/tags/java-web/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/java-web/</guid>
       <description></description>
     </item>
     <item>

@@ -6,15 +6,8 @@
     <description>Recent content in CS on 信一的博客</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 31 May 2024 15:40:35 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2024 21:33:20 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/cs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>数据结构与算法：投票算法</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/dsa/algorithms/1-boyer-moore-voting-algorithm/</link>
-      <pubDate>Fri, 31 May 2024 15:40:35 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/dsa/algorithms/1-boyer-moore-voting-algorithm/</guid>
-      <description>Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --&amp;gt; candidate = current element; count = 0 (current element == candidate) ? count++ : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count++ 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i &lt; size; i++) { if (count == 0) { candidate = nums[i]; count++; } else if (nums[i] == candidate) { count++; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i &lt; size; i++) { if (nums[i] == candidate) { count++; } } // 存在多数元素 if (count &gt; size / 2) { return candidate; } // 不存在多数元素 return -1; } #include &amp;lt;stdio.</description>
-    </item>
     <item>
       <title>设计模式——代理模式</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/2-proxy-pattern/</link>
