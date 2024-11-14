@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>C 语言中的数组与指针 | 信一的博客</title>
+<title>C 语言中的数组与指针 | Signal&#39;s Blog</title>
 <meta name="keywords" content="工程与技术, Tech, C">
 <meta name="description" content="数组 数组基本概念 在 C 语言中，越界访问数组编译器并不会报错； 一维数组的长度计算：int length = sizeof(arr) / sizeof(arr[0]); sizeof 返回值的数据类型是 size_t ，所以 sizeof(a) / sizeof(a[0]) 的数据类型也是 size_t。在 printf() 里面的占位符，要用 %zd 或 %zu 。 一维数组的内存分析： 一维数组的内存分析 C 语言规定，数组变量一旦声明，数组名指向的地址就不可更改。因此，使用大括号赋值时，必须在数组声明时赋值，否则编译时会报错。 int nums[5]; nums = {1, 2, 3, 4, 5}; // 报错 int nums[5] = {1, 2, 3, 4, 5}; // 正确写法 数组的复制 使用循环复制数组： void copyArray(int src[], int dest[], int size) { for (int i = 0; i &lt; size; i&#43;&#43;) { dest[i] = src[i]; } } 使用 memcopy() 函数复制数组： #include &lt;string.">
 <meta name="author" content="Signal Yu">
@@ -87,7 +87,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "信一的博客",
+    "name": "Signal's Blog",
     "logo": {
       "@type": "ImageObject",
       "url": "https://signalyu.github.io/favicon.ico"
@@ -102,26 +102,26 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://signalyu.github.io/" accesskey="h" title="信一的博客 (Alt + H)">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
                 <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
-                    height="40">信一的博客</a>
+                    height="40">Signal&#39;s Blog</a>
             <div class="logo-switches">
             </div>
         </div>
         <ul id="menu">
             <li>
-                <a href="https://signalyu.github.io/archives/" title="档案">
-                    <span>档案</span>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/tags/" title="标签">
-                    <span>标签</span>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span>搜索</span>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
                 </a>
             </li>
         </ul>
@@ -135,14 +135,13 @@
     <h1 class="post-title entry-hint-parent">
       C 语言中的数组与指针
     </h1>
-    <div class="post-meta"><span title='2024-06-04 16:17:31 +0800 HKT'>2024年6月4日</span>&nbsp;·&nbsp;Signal Yu
+    <div class="post-meta"><span title='2024-06-04 16:17:31 +0800 HKT'>Jun 4 2024</span>&nbsp;·&nbsp;Signal Yu
 
 </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">目录</span>
-            
+            <span class="details">Table of Contents</span>
         </summary>
 
         <div class="inner"><ul>
@@ -315,7 +314,7 @@ int main() {
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看题目</summary>
         <div>
             
@@ -383,7 +382,7 @@ int main() {
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看答案</summary>
         <div>
             
@@ -965,16 +964,16 @@ pStr[1] = 'm';  // 运行时错误
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://signalyu.github.io/posts/1-natural-science/math/calculus/4-derivative-and-differential/">
-    <span class="title">« 上一页</span>
+    <span class="title">« PREV</span>
     
     <br>
     <span>导数与微分</span>
   </a>
-  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/tech/linux/1-centos-linux-manual/">
-    <span class="title">下一页 »</span>
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/">
+    <span class="title">NEXT »</span>
     
     <br>
-    <span>Linux 参考手册（Centos 9 Stream）</span>
+    <span>数据结构与算法：投票算法</span>
   </a>
 </nav>
 
@@ -983,7 +982,7 @@ pStr[1] = 'm';  // 运行时错误
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="https://signalyu.github.io/">信一的博客</a></span> · 
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">

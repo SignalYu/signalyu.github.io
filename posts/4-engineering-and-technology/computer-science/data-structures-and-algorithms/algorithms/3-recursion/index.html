@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>数据结构与算法：递归 | 信一的博客</title>
+<title>数据结构与算法：递归 | Signal&#39;s Blog</title>
 <meta name="keywords" content="工程与技术, 数据结构与算法, 计算机科学">
 <meta name="description" content="递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：
 基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：&ldquo;signal yu&rdquo; 输出为 &ldquo;uy langis&rdquo; 基本情况：当字符串 s 为空串时返回 &quot;&quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() &lt;= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) &#43; s.charAt(0); } public static void main(String[] args) { String inputStr = &#34;signal yu&#34;; String reversedStr = reverseString(inputStr); System.">
@@ -116,7 +116,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "信一的博客",
+    "name": "Signal's Blog",
     "logo": {
       "@type": "ImageObject",
       "url": "https://signalyu.github.io/favicon.ico"
@@ -131,26 +131,26 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://signalyu.github.io/" accesskey="h" title="信一的博客 (Alt + H)">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
                 <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
-                    height="40">信一的博客</a>
+                    height="40">Signal&#39;s Blog</a>
             <div class="logo-switches">
             </div>
         </div>
         <ul id="menu">
             <li>
-                <a href="https://signalyu.github.io/archives/" title="档案">
-                    <span>档案</span>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/tags/" title="标签">
-                    <span>标签</span>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span>搜索</span>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
                 </a>
             </li>
         </ul>
@@ -164,14 +164,13 @@
     <h1 class="post-title entry-hint-parent">
       数据结构与算法：递归
     </h1>
-    <div class="post-meta"><span title='2024-06-23 09:42:24 +0800 HKT'>2024年6月23日</span>&nbsp;·&nbsp;Signal Yu
+    <div class="post-meta"><span title='2024-06-23 09:42:24 +0800 HKT'>Jun 23 2024</span>&nbsp;·&nbsp;Signal Yu
 
 </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">目录</span>
-            
+            <span class="details">Table of Contents</span>
         </summary>
 
         <div class="inner"><ul>
@@ -242,7 +241,7 @@
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看题目</summary>
         <div>
             
@@ -320,7 +319,7 @@
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看题目</summary>
         <div>
             
@@ -416,7 +415,7 @@
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看题目</summary>
         <div>
             
@@ -639,7 +638,7 @@ public class MergeSort {
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看代码</summary>
         <div>
             
@@ -1359,7 +1358,7 @@ class Graph {
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看代码</summary>
         <div>
             
@@ -1525,7 +1524,7 @@ flowchart TB
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看代码</summary>
         <div>
             
@@ -1628,13 +1627,13 @@ public static long tailFactorial(int n, int acc) {
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/">
-    <span class="title">« 上一页</span>
+    <span class="title">« PREV</span>
     
     <br>
     <span>数据结构与算法：图</span>
   </a>
   <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/2-dynamic-programming/">
-    <span class="title">下一页 »</span>
+    <span class="title">NEXT »</span>
     
     <br>
     <span>数据结构与算法：动态规划</span>
@@ -1646,7 +1645,7 @@ public static long tailFactorial(int n, int acc) {
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="https://signalyu.github.io/">信一的博客</a></span> · 
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">

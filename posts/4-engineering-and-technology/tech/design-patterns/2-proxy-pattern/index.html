@@ -5,8 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>设计模式——代理模式 | 信一的博客</title>
-<meta name="keywords" content="工程与技术, CS, 设计模式">
+<title>设计模式——代理模式 | Signal&#39;s Blog</title>
+<meta name="keywords" content="">
 <meta name="description" content="静态代理 静态代理模式类图 在静态代理模式下，可以在不修改目标对象代码的前提下对其进行功能扩展； 在静态代理模式下，代理对象和目标对象都需要实现父接口或者继承父类； 由于代理对象和目标对象需要实现相同的接口或者继承相同的父类，因此容易导致很多代理类的存在； 当父接口或父类增加方法时，目标对象和代理对象都需要维护。 代码示例 代码示例类图 点击查看代码 BankAccount ConcreteBankAccount StaticBankAccountProxy StaticProxyTest 输出结果 package org.signalyu.patterns.proxy; public interface BankAccount { boolean deposit(double amount); boolean withdraw(double amount); double getBalance(); } package org.signalyu.patterns.proxy; public class ConcreteBankAccount implements BankAccount { private double balance; public ConcreteBankAccount(double balance) { this.balance = balance; } @Override public boolean deposit(double amount) { if (amount &gt; 0) { this.balance &#43;= amount; return true; } return false; } @Override public boolean withdraw(double amount) { if (balance &gt;= amount) { balance -= amount; return true; } else { return false; } } @Override public double getBalance() { return balance; } } package org.">
 <meta name="author" content="Signal Yu">
 <link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/2-proxy-pattern/">
@@ -70,7 +70,7 @@
   "name": "设计模式——代理模式",
   "description": "静态代理 静态代理模式类图 在静态代理模式下，可以在不修改目标对象代码的前提下对其进行功能扩展； 在静态代理模式下，代理对象和目标对象都需要实现父接口或者继承父类； 由于代理对象和目标对象需要实现相同的接口或者继承相同的父类，因此容易导致很多代理类的存在； 当父接口或父类增加方法时，目标对象和代理对象都需要维护。 代码示例 代码示例类图 点击查看代码 BankAccount ConcreteBankAccount StaticBankAccountProxy StaticProxyTest 输出结果 package org.signalyu.patterns.proxy; public interface BankAccount { boolean deposit(double amount); boolean withdraw(double amount); double getBalance(); } package org.signalyu.patterns.proxy; public class ConcreteBankAccount implements BankAccount { private double balance; public ConcreteBankAccount(double balance) { this.balance = balance; } @Override public boolean deposit(double amount) { if (amount \u003e 0) { this.balance += amount; return true; } return false; } @Override public boolean withdraw(double amount) { if (balance \u003e= amount) { balance -= amount; return true; } else { return false; } } @Override public double getBalance() { return balance; } } package org.",
   "keywords": [
-    "工程与技术", "CS", "设计模式"
+    
   ],
   "articleBody": "静态代理 静态代理模式类图 在静态代理模式下，可以在不修改目标对象代码的前提下对其进行功能扩展； 在静态代理模式下，代理对象和目标对象都需要实现父接口或者继承父类； 由于代理对象和目标对象需要实现相同的接口或者继承相同的父类，因此容易导致很多代理类的存在； 当父接口或父类增加方法时，目标对象和代理对象都需要维护。 代码示例 代码示例类图 点击查看代码 BankAccount ConcreteBankAccount StaticBankAccountProxy StaticProxyTest 输出结果 package org.signalyu.patterns.proxy; public interface BankAccount { boolean deposit(double amount); boolean withdraw(double amount); double getBalance(); } package org.signalyu.patterns.proxy; public class ConcreteBankAccount implements BankAccount { private double balance; public ConcreteBankAccount(double balance) { this.balance = balance; } @Override public boolean deposit(double amount) { if (amount \u003e 0) { this.balance += amount; return true; } return false; } @Override public boolean withdraw(double amount) { if (balance \u003e= amount) { balance -= amount; return true; } else { return false; } } @Override public double getBalance() { return balance; } } package org.signalyu.patterns.proxy; import java.time.LocalDateTime; public class StaticBankAccountProxy implements BankAccount { private final ConcreteBankAccount target; public StaticBankAccountProxy(double initialBalance) { this.target = new ConcreteBankAccount(initialBalance); } @Override public boolean withdraw(double amount) { System.out.println(LocalDateTime.now() + \": 取款中...\"); boolean withdraw = target.withdraw(amount); if (withdraw) { System.out.println(LocalDateTime.now() + \": 取款成功！\"); return true; } else { System.out.println(LocalDateTime.now() + \": 取款失败！\"); return false; } } @Override public boolean deposit(double amount) { boolean deposited = target.deposit(amount); System.out.println(LocalDateTime.now() + \": 存款中...\"); if (deposited) { System.out.println(LocalDateTime.now() + \": 存款完毕！\"); return true; } } @Override public double getBalance() { System.out.println(LocalDateTime.now() + \": 正在查询...\"); double balance = target.getBalance(); System.out.println(\"您的账户余额为：\" + target.getBalance()); return balance; } } import org.junit.jupiter.api.Test; import org.signalyu.patterns.proxy.BankAccount; import org.signalyu.patterns.proxy.StaticBankAccountProxy; public class StaticProxyTest { @Test public void testBankAccountProxy() { BankAccount proxy = new StaticBankAccountProxy(0); proxy.deposit(999); System.out.println(\"==================\"); proxy.withdraw(666); System.out.println(\"==================\"); proxy.getBalance(); System.out.println(\"==================\"); proxy.withdraw(400); } } 2024-05-22T13:11:10.480679: 存款中... 2024-05-22T13:11:10.481097: 存款完毕！ ================== 2024-05-22T13:11:10.481258: 取款中... 2024-05-22T13:11:10.481394: 取款成功！ ================== 2024-05-22T13:11:10.481567: 正在查询... 您的账户余额为：333.0 ================== 2024-05-22T13:11:10.486958: 取款中... 2024-05-22T13:11:10.487005: 取款失败！ 动态代理（JDK） 动态代理模式类图 在动态代理模式中，代理对象不需要实现父接口（或继承父接口），但目标对象需要实现接口； 在动态代理模式下，通过 JDK 的 API 动态地在内存中创建代理对象。 代码示例 示例代码类图 点击查看代码 BankAccount ConcreteBankAccount JDkBankAccountProxy Client 输出结果 package org.signalyu.patterns.proxy; public interface BankAccount { boolean deposit(double amount); boolean withdraw(double amount); double getBalance(); } package org.signalyu.patterns.proxy; public class ConcreteBankAccount implements BankAccount { private double balance; public ConcreteBankAccount(double balance) { this.balance = balance; } @Override public boolean deposit(double amount) { if (amount \u003e 0) { this.balance += amount; return true; } return false; } @Override public boolean withdraw(double amount) { if (balance \u003e= amount) { balance -= amount; return true; } else { return false; } } @Override public double getBalance() { return balance; } } package org.signalyu.patterns.proxy; import java.lang.reflect.Proxy; import java.time.LocalDateTime; public class JDKBankAccountProxy { private final Object target; public JDKBankAccountProxy(Object target) { this.target = target; } public Object getProxyInstance() { return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), (proxy, method, args) -\u003e { String methodName = method.getName(); if (\"deposit\".equals(methodName)) { System.out.println(LocalDateTime.now() + \": 存款中...\"); boolean invoked = (boolean) method.invoke(target, args); if (invoked) { System.out.println(LocalDateTime.now() + \": 存款完毕！\"); } return invoked; } else if (\"withdraw\".equals(methodName)) { boolean invoked = (boolean)method.invoke(target, args); if (invoked){ System.out.println(LocalDateTime.now() + \": 取款中...\"); System.out.println(LocalDateTime.now() + \": 取款成功！\"); } else { System.out.println(LocalDateTime.now() + \": 取款失败！\"); } return invoked; } else { System.out.println(LocalDateTime.now() + \": 正在查询余额...\"); Object invoked = method.invoke(target, args); System.out.println(\"您的余额为：\"+ method.invoke(target, args)); return invoked; } }); } } package org.signalyu.patterns.proxy; public class Client { public static void main(String[] args) { ConcreteBankAccount target = new ConcreteBankAccount(0); BankAccount proxyInstance = (BankAccount) new JDKBankAccountProxy(target).getProxyInstance(); proxyInstance.deposit(999); System.out.println(\"==================\"); proxyInstance.withdraw(666); System.out.println(\"==================\"); proxyInstance.getBalance(); System.out.println(\"==================\"); proxyInstance.withdraw(400); } } 2024-05-22T13:02:27.648927: 存款中... 2024-05-22T13:02:27.649245: 存款完毕！ ================== 2024-05-22T13:02:27.649376: 取款中... 2024-05-22T13:02:27.649448: 取款成功！ ================== 2024-05-22T13:02:27.649523: 正在查询余额... 您的余额为：333.0 ================== 2024-05-22T13:02:27.650227: 取款失败！ ",
   "wordCount" : "511",
@@ -87,7 +87,7 @@
   },
   "publisher": {
     "@type": "Organization",
-    "name": "信一的博客",
+    "name": "Signal's Blog",
     "logo": {
       "@type": "ImageObject",
       "url": "https://signalyu.github.io/favicon.ico"
@@ -102,26 +102,26 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://signalyu.github.io/" accesskey="h" title="信一的博客 (Alt + H)">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
                 <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
-                    height="40">信一的博客</a>
+                    height="40">Signal&#39;s Blog</a>
             <div class="logo-switches">
             </div>
         </div>
         <ul id="menu">
             <li>
-                <a href="https://signalyu.github.io/archives/" title="档案">
-                    <span>档案</span>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/tags/" title="标签">
-                    <span>标签</span>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
                 </a>
             </li>
             <li>
-                <a href="https://signalyu.github.io/search/" title="搜索 (Alt &#43; /)" accesskey=/>
-                    <span>搜索</span>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
                 </a>
             </li>
         </ul>
@@ -135,14 +135,13 @@
     <h1 class="post-title entry-hint-parent">
       设计模式——代理模式
     </h1>
-    <div class="post-meta"><span title='2024-05-21 21:33:20 +0800 HKT'>2024年5月21日</span>&nbsp;·&nbsp;Signal Yu
+    <div class="post-meta"><span title='2024-05-21 21:33:20 +0800 HKT'>May 21 2024</span>&nbsp;·&nbsp;Signal Yu
 
 </div>
   </header> <div class="toc">
     <details >
         <summary accesskey="c" title="(Alt + C)">
-            <span class="details">目录</span>
-            
+            <span class="details">Table of Contents</span>
         </summary>
 
         <div class="inner"><ul>
@@ -204,7 +203,7 @@
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看代码</summary>
         <div>
             
@@ -479,7 +478,7 @@ public class StaticProxyTest {
 </head>
 
 <div class="collapsibleContainer">
-    <details open>
+    <details>
         <summary>点击查看代码</summary>
         <div>
             
@@ -717,19 +716,16 @@ public class Client {
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://signalyu.github.io/tags/%E5%B7%A5%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/">工程与技术</a></li>
-      <li><a href="https://signalyu.github.io/tags/cs/">CS</a></li>
-      <li><a href="https://signalyu.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></li>
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://signalyu.github.io/posts/1-natural-science/math/calculus/1-epsilon-n-definition-of-limit/">
-    <span class="title">« 上一页</span>
+    <span class="title">« PREV</span>
     
     <br>
     <span>极限的 Ɛ-N 定义</span>
   </a>
   <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/1-factory-pattern/">
-    <span class="title">下一页 »</span>
+    <span class="title">NEXT »</span>
     
     <br>
     <span>设计模式——工厂模式</span>
@@ -741,7 +737,7 @@ public class Client {
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="https://signalyu.github.io/">信一的博客</a></span> · 
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
 </footer>
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
