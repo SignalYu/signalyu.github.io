@@ -10,9 +10,9 @@
     <atom:link href="https://signalyu.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java 私有成员继承</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/java/1-java-private-inheritance/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-private-inheritance/</link>
       <pubDate>Tue, 23 Apr 2024 15:31:50 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/java/1-java-private-inheritance/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-private-inheritance/</guid>
       <description>子类对象拥有父类的私有成员，但子类不继承父类的私有属性。 子类对象包含父类私有属性 首先验证子类对象包含父类的私有属性，代码如下：
 点击查看代码 class Parent { private int privateField; public Parent() { System.out.println(&#34;this in Parent() =&gt; &#34; + this); this.privateField = 666; } public Parent(int privateField) { System.out.println(&#34;this in Parent(int) =&gt; &#34; + this); this.privateField = privateField; } private void printPrivateField() { System.out.println(this.privateField); } public void accessPrivateMembers() { System.out.println(&#34;this in accessPrivateMembers() =&gt; &#34; + this); System.out.print(&#34;调用 this.printPrivateField() 方法 =&gt; &#34;); this.printPrivateField(); } } class Child extends Parent { public Child() { System.</description>
     </item>

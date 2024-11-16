@@ -54,9 +54,9 @@ $F(n) = F(n - 1) + F(n - 2)，其中\; n &amp;gt; 2$
     </item>
     <item>
       <title>C 语言中的数组与指针</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/c/1-array-and-pointer-in-c/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/c/1-array-and-pointer-in-c/</link>
       <pubDate>Tue, 04 Jun 2024 16:17:31 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/c/1-array-and-pointer-in-c/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/c/1-array-and-pointer-in-c/</guid>
       <description>数组 数组基本概念 在 C 语言中，越界访问数组编译器并不会报错； 一维数组的长度计算：int length = sizeof(arr) / sizeof(arr[0]); sizeof 返回值的数据类型是 size_t ，所以 sizeof(a) / sizeof(a[0]) 的数据类型也是 size_t。在 printf() 里面的占位符，要用 %zd 或 %zu 。 一维数组的内存分析： 一维数组的内存分析 C 语言规定，数组变量一旦声明，数组名指向的地址就不可更改。因此，使用大括号赋值时，必须在数组声明时赋值，否则编译时会报错。 int nums[5]; nums = {1, 2, 3, 4, 5}; // 报错 int nums[5] = {1, 2, 3, 4, 5}; // 正确写法 数组的复制 使用循环复制数组： void copyArray(int src[], int dest[], int size) { for (int i = 0; i &lt; size; i++) { dest[i] = src[i]; } } 使用 memcopy() 函数复制数组： #include &amp;lt;string.</description>
     </item>
     <item>
@@ -92,23 +92,23 @@ $\varepsilon$ 用于刻画数列的项与常数 $a$ 的接近程度，即 $|x_n 
     </item>
     <item>
       <title>设计模式——代理模式</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/2-proxy-pattern/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/design-patterns/2-proxy-pattern/</link>
       <pubDate>Tue, 21 May 2024 21:33:20 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/2-proxy-pattern/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/design-patterns/2-proxy-pattern/</guid>
       <description>静态代理 静态代理模式类图 在静态代理模式下，可以在不修改目标对象代码的前提下对其进行功能扩展； 在静态代理模式下，代理对象和目标对象都需要实现父接口或者继承父类； 由于代理对象和目标对象需要实现相同的接口或者继承相同的父类，因此容易导致很多代理类的存在； 当父接口或父类增加方法时，目标对象和代理对象都需要维护。 代码示例 代码示例类图 点击查看代码 BankAccount ConcreteBankAccount StaticBankAccountProxy StaticProxyTest 输出结果 package org.signalyu.patterns.proxy; public interface BankAccount { boolean deposit(double amount); boolean withdraw(double amount); double getBalance(); } package org.signalyu.patterns.proxy; public class ConcreteBankAccount implements BankAccount { private double balance; public ConcreteBankAccount(double balance) { this.balance = balance; } @Override public boolean deposit(double amount) { if (amount &gt; 0) { this.balance += amount; return true; } return false; } @Override public boolean withdraw(double amount) { if (balance &gt;= amount) { balance -= amount; return true; } else { return false; } } @Override public double getBalance() { return balance; } } package org.</description>
     </item>
     <item>
       <title>设计模式——工厂模式</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/1-factory-pattern/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/design-patterns/1-factory-pattern/</link>
       <pubDate>Mon, 20 May 2024 17:09:27 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/design-patterns/1-factory-pattern/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/design-patterns/1-factory-pattern/</guid>
       <description>简单工厂（Simple Factory） 简单工厂模式通过一个专门的工厂类基于特定的参数来创建产品类的实例； 简单工厂模式违反了开闭原则，即在需要添加新的产品类型时需要修改工厂类。 代码示例 简单工厂示例类图 点击查看代码 Pizza MargheritaPizza PepperoniPizza BeefPizza PizzaFactory SimpleFactoryTest 输出结果 package org.signalyu.patterns.factory; public interface Pizza { void prepare(); void bake(); void cut(); void box(); } package org.signalyu.patterns.factory; public class MargheritaPizza implements Pizza { @Override public void prepare() { System.out.println(&#34;玛格丽特比萨：1. 准备材料&#34;); } @Override public void bake() { System.out.println(&#34;玛格丽特比萨：2. 烘烤比萨 &#34;); } @Override public void cut() { System.out.println(&#34;玛格丽特比萨：3. 切比萨&#34;); } @Override public void box() { System.out.println(&#34;玛格丽特比萨：4. 披萨打包&#34;); } } package org.</description>
     </item>
     <item>
       <title>Java 私有成员继承</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/tech/java/1-java-private-inheritance/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-private-inheritance/</link>
       <pubDate>Tue, 23 Apr 2024 15:31:50 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/tech/java/1-java-private-inheritance/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-private-inheritance/</guid>
       <description>子类对象拥有父类的私有成员，但子类不继承父类的私有属性。 子类对象包含父类私有属性 首先验证子类对象包含父类的私有属性，代码如下：
 点击查看代码 class Parent { private int privateField; public Parent() { System.out.println(&#34;this in Parent() =&gt; &#34; + this); this.privateField = 666; } public Parent(int privateField) { System.out.println(&#34;this in Parent(int) =&gt; &#34; + this); this.privateField = privateField; } private void printPrivateField() { System.out.println(this.privateField); } public void accessPrivateMembers() { System.out.println(&#34;this in accessPrivateMembers() =&gt; &#34; + this); System.out.print(&#34;调用 this.printPrivateField() 方法 =&gt; &#34;); this.printPrivateField(); } } class Child extends Parent { public Child() { System.</description>
     </item>
