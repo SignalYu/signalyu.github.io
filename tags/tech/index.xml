@@ -15,13 +15,5 @@
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/c/1-array-and-pointer-in-c/</guid>
       <description>数组 数组基本概念 在 C 语言中，越界访问数组编译器并不会报错； 一维数组的长度计算：int length = sizeof(arr) / sizeof(arr[0]); sizeof 返回值的数据类型是 size_t ，所以 sizeof(a) / sizeof(a[0]) 的数据类型也是 size_t。在 printf() 里面的占位符，要用 %zd 或 %zu 。 一维数组的内存分析： 一维数组的内存分析 C 语言规定，数组变量一旦声明，数组名指向的地址就不可更改。因此，使用大括号赋值时，必须在数组声明时赋值，否则编译时会报错。 int nums[5]; nums = {1, 2, 3, 4, 5}; // 报错 int nums[5] = {1, 2, 3, 4, 5}; // 正确写法 数组的复制 使用循环复制数组： void copyArray(int src[], int dest[], int size) { for (int i = 0; i &lt; size; i++) { dest[i] = src[i]; } } 使用 memcopy() 函数复制数组： #include &amp;lt;string.</description>
     </item>
-    <item>
-      <title>Java 私有成员继承</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-private-inheritance/</link>
-      <pubDate>Tue, 23 Apr 2024 15:31:50 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-private-inheritance/</guid>
-      <description>子类对象拥有父类的私有成员，但子类不继承父类的私有属性。 子类对象包含父类私有属性 首先验证子类对象包含父类的私有属性，代码如下：
-点击查看代码 class Parent { private int privateField; public Parent() { System.out.println(&#34;this in Parent() =&gt; &#34; + this); this.privateField = 666; } public Parent(int privateField) { System.out.println(&#34;this in Parent(int) =&gt; &#34; + this); this.privateField = privateField; } private void printPrivateField() { System.out.println(this.privateField); } public void accessPrivateMembers() { System.out.println(&#34;this in accessPrivateMembers() =&gt; &#34; + this); System.out.print(&#34;调用 this.printPrivateField() 方法 =&gt; &#34;); this.printPrivateField(); } } class Child extends Parent { public Child() { System.</description>
-    </item>
   </channel>
 </rss>
