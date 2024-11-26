@@ -11,7 +11,7 @@
 基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：&ldquo;signal yu&rdquo; 输出为 &ldquo;uy langis&rdquo; 基本情况：当字符串 s 为空串时返回 &quot;&quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() &lt;= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) &#43; s.charAt(0); } public static void main(String[] args) { String inputStr = &#34;signal yu&#34;; String reversedStr = reverseString(inputStr); System.">
 <meta name="author" content="Signal Yu">
 <link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8d397153e1313fc7080fb221defd149a585e181195089458dedc0f60e27770eb.css" integrity="sha256-jTlxU&#43;ExP8cID7Ih3v0UmlheGBGVCJRY3twPYOJ3cOs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://signalyu.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">

@@ -10,7 +10,7 @@
 <meta name="description" content="数组 数组基本概念 在 C 语言中，越界访问数组编译器并不会报错； 一维数组的长度计算：int length = sizeof(arr) / sizeof(arr[0]); sizeof 返回值的数据类型是 size_t ，所以 sizeof(a) / sizeof(a[0]) 的数据类型也是 size_t。在 printf() 里面的占位符，要用 %zd 或 %zu 。 一维数组的内存分析： 一维数组的内存分析 C 语言规定，数组变量一旦声明，数组名指向的地址就不可更改。因此，使用大括号赋值时，必须在数组声明时赋值，否则编译时会报错。 int nums[5]; nums = {1, 2, 3, 4, 5}; // 报错 int nums[5] = {1, 2, 3, 4, 5}; // 正确写法 数组的复制 使用循环复制数组： void copyArray(int src[], int dest[], int size) { for (int i = 0; i &lt; size; i&#43;&#43;) { dest[i] = src[i]; } } 使用 memcopy() 函数复制数组： #include &lt;string.">
 <meta name="author" content="Signal Yu">
 <link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/c/1-array-and-pointer-in-c/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8d397153e1313fc7080fb221defd149a585e181195089458dedc0f60e27770eb.css" integrity="sha256-jTlxU&#43;ExP8cID7Ih3v0UmlheGBGVCJRY3twPYOJ3cOs=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://signalyu.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">

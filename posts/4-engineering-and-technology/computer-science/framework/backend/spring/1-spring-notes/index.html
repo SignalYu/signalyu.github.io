@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Spring Notes | Signal&#39;s Blog</title>
+<meta name="keywords" content="Spring">
+<meta name="description" content="Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.
+Inversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.
+Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8d397153e1313fc7080fb221defd149a585e181195089458dedc0f60e27770eb.css" integrity="sha256-jTlxU&#43;ExP8cID7Ih3v0UmlheGBGVCJRY3twPYOJ3cOs=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="Spring Notes" />
+<meta property="og:description" content="Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.
+Inversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.
+Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-18T15:44:50+08:00" />
+<meta property="article:modified_time" content="2024-11-18T15:44:50+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Notes"/>
+<meta name="twitter:description" content="Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.
+Inversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.
+Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Spring Notes",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Spring Notes",
+  "name": "Spring Notes",
+  "description": "Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.\nInversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.\nDependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.",
+  "keywords": [
+    "Spring"
+  ],
+  "articleBody": "Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.\nInversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.\nDependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.\nBeans Beans are objects that are managed by the Spring framework.\nContainer A Spring Container is responsible for managing the life cycle, configuration, and dependencies injection of the beans in a Spring Application.\nLife Cycle of Beans Beans are objects that are managed by the Spring framework. Bean Definition includes configuration meta data required by the Spring container to create and manage the bean. Bean Configurations can be provided in various way, including XML configuration files, annotations, and Java-based configuration. Bean Instantiation $\\rightarrow$ Population of Properties $\\rightarrow$ Initialization $\\rightarrow$ Ready for Use $\\rightarrow$ Destruction The Difference between instantiation and initiation?\nInstantiation occurs when a new keyword is used to create an object. It focus on constructing the object’s structure and allocating memory. In contrast, initialization focus on assigning values to the object’s fields and setting up its initial state after instantiation.\nConstructor Injection \u0026 Setter Injection \u0026 Field Injection Constructor Injection Constructor Injection in Spring is a type of dependency injection where the Spring framework provides the required dependency to a class by invoking its constructor. Since dependencies are supplied via the constructor, they cannot be changed after object creation – promoting immutability. However, this approach may cause circular dependency issues if two or more beans depend on each other in a circular manner.\nSHOW CODE Java @Component public class ServiceA { private final RepositoryA repositoryA; // Constructor injection @Autowired public ServiceA(RepositoryA repositoryA) { this.repositoryA = repositoryA; } } Setter Injection Setter Injection in Spring is a form of dependency injection where the Spring framework injects dependencies into a bean by calling the bean’s setter method. This approach is flexible and commonly used to inject optional dependencies or when the dependency might change after the object is initialized.\nSHOW CODE Java @Component public class ServiceB { private RepositoryB repositoryB; // Setter injection @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } Field Injection Field Injection in Spring is a form of dependency injection where the Spring framework directly injects dependencies into a class’s fields. Like constructor injection, the dependencies remain immutable after being injected. Under the hood. Spring uses reflection to assign values to private fields.\nSHOW CODE Java @Component public class ServiceC { @Autowired private RepositoryC repositoryC; public void performAction() { repositoryC.doSomething(); } } @Component \u0026 @ComponentScan The @Component annotation in Spring is used to mark a class as spring-managed bean, allowing Spring to detect and register it as a bean in the application context. The @ComponentScan annotation is used to specify base packages that Spring should scan for @Component-annotated during configuration.\nSHOW CODE Java package com.example.myapp @Component public class MyService { public void performTask() { System.out.println(\"Task performed!\"); } } @Configuration @ComponentScan(basePackages = \"com.example.myapp\") public class AppConfig { } @Value \u0026 @Autowired \u0026 @Qualifier @Value The @Value annotation is used to inject values into fields, mathod parameters, and constructor arguments.\nSHOW CODE Java // Injects literal values @Value(\"Hello, World!\") private String message; // Injects from a properties file app.name=MySpringApp @Value(\"${app.name}\") private String appName; // Injects default values @Value(\"${app.version:1.0.0}\") private String appVersion; // Injects expression @Value(\"#{T(java.lang.Math).random() * 100}\") private double randomValue; @Autowired The @Autowired annotation is used for automatic dependency injection. It allows Spring resolve and inject the required bean into a class automatically by type.\nSHOW CODE Java // Field Injection @Component public class ServiceA { @Autowired private RepositoryA repositoryA; public void performTask() { repositoryA.doSomething(); } } // Setter Injection @Component public class ServiceB { private RepositoryB repositoryB; @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } // Constructor Injection @Component public class ServiceB { private RepositoryB repositoryB; @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } @Qualifier The @Qualifier annotation in Spring is used for resolve ambiguities when multiple beans of the same type are available in the application context.\nSHOW CODE Java @Component(\"repositoryImpl1\") public class RepositoryImpl1 implements Repository {} @Component(\"repositoryImpl2\") public class RepositoryImpl2 implements Repository {} @Component public class Service { @Autowired @Qualifier(\"repositoryImpl2\") private Repository repository; } Components of Spring Boot Spring Boot Starter: Simplifies dependency management by building commonly used dependencies, reducing the need for manual configuration.\nAuto Configuration: Automatically configures Spring Boot application beans and settings based on the libraries on the classpath, eliminating the need for extensive configuration in application.properties or XML files.\nSpring Boot Atuator: Provides production-ready features like monitoring, metrics, and health checks to ensure better application insights and management.\nEmbedded Server: Includes servers like Tomcat and Jetty, allowing applications to run as standalone programs, simplifying development and deployment.\nSpring Boot DevTools: A collection of tools that enhance the development experience by enabling features like hot reload and live reload for faster feedback.\nSpring Boot Auto Configuration Common Annotations Transformation between Object and Spring In Spring Boot, the transformation between objects and JSON is handled by the Jackson library which allows for easy serialization (converting an object to JSON) and deserialization (converting JSON to an object).\nSHOW CODE Java // When a controller returns an object, Spring Boot automatically // converts it to JSON @RestController public class UserController { @GetMapping(\"/user\") public User getUser() { return new User(1, \"John Doe\", \"john.doe@example.com\"); } } // When accessed via /user, the response is: { \"id\": 1, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\" } // Spring Boot automatically converts the incoming JSON data into // an object when the object is a parameter in the controller method. @RestController public class UserController { @PostMapping(\"/user\") public String createUser(@RequestBody User user) { return \"User \" + user.getName() + \" created!\"; } } // Input JOSN: { \"id\": 2, \"name\": \"Jane Doe\", \"email\": \"jane.doe@example.com\" } ",
+  "wordCount" : "1004",
+  "inLanguage": "en",
+  "datePublished": "2024-11-18T15:44:50+08:00",
+  "dateModified": "2024-11-18T15:44:50+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Spring Notes
+    </h1>
+    <div class="post-meta"><span title='2024-11-18 15:44:50 +0800 HKT'>Nov 18 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#core-concepts" aria-label="Core Concepts">Core Concepts</a><ul>
+                        
+                <li>
+                    <a href="#loose-coupling" aria-label="Loose Coupling">Loose Coupling</a></li>
+                <li>
+                    <a href="#inversion-of-control-ioc" aria-label="Inversion of Control (IoC)">Inversion of Control (IoC)</a></li>
+                <li>
+                    <a href="#dependency-injection-di" aria-label="Dependency Injection (DI)">Dependency Injection (DI)</a></li>
+                <li>
+                    <a href="#beans" aria-label="Beans">Beans</a></li></ul>
+                </li>
+                <li>
+                    <a href="#container" aria-label="Container">Container</a></li>
+                <li>
+                    <a href="#life-cycle-of-beans" aria-label="Life Cycle of Beans">Life Cycle of Beans</a></li>
+                <li>
+                    <a href="#constructor-injection--setter-injection--field-injection" aria-label="Constructor Injection &amp; Setter Injection &amp; Field Injection">Constructor Injection &amp; Setter Injection &amp; Field Injection</a><ul>
+                        
+                <li>
+                    <a href="#constructor-injection" aria-label="Constructor Injection">Constructor Injection</a></li>
+                <li>
+                    <a href="#setter-injection" aria-label="Setter Injection">Setter Injection</a></li>
+                <li>
+                    <a href="#field-injection" aria-label="Field Injection">Field Injection</a></li></ul>
+                </li>
+                <li>
+                    <a href="#component--componentscan" aria-label="@Component &amp; @ComponentScan">@Component &amp; @ComponentScan</a></li>
+                <li>
+                    <a href="#value--autowired--qualifier" aria-label="@Value &amp; @Autowired &amp; @Qualifier">@Value &amp; @Autowired &amp; @Qualifier</a><ul>
+                        
+                <li>
+                    <a href="#value" aria-label="@Value">@Value</a></li>
+                <li>
+                    <a href="#autowired" aria-label="@Autowired">@Autowired</a></li>
+                <li>
+                    <a href="#qualifier" aria-label="@Qualifier">@Qualifier</a></li></ul>
+                </li>
+                <li>
+                    <a href="#components-of-spring-boot" aria-label="Components of Spring Boot">Components of Spring Boot</a></li>
+                <li>
+                    <a href="#spring-boot-auto-configuration" aria-label="Spring Boot Auto Configuration">Spring Boot Auto Configuration</a></li>
+                <li>
+                    <a href="#common-annotations" aria-label="Common Annotations">Common Annotations</a></li>
+                <li>
+                    <a href="#transformation-between-object-and-spring" aria-label="Transformation between Object and Spring">Transformation between Object and Spring</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="core-concepts">Core Concepts<a hidden class="anchor" aria-hidden="true" href="#core-concepts">#</a></h1>
+<h2 id="loose-coupling">Loose Coupling<a hidden class="anchor" aria-hidden="true" href="#loose-coupling">#</a></h2>
+<blockquote>
+<p><strong>Loose Coupling</strong> is a design principle that aims to reduce the dependencies between components within a system.</p>
+</blockquote>
+<hr>
+<h2 id="inversion-of-control-ioc">Inversion of Control (IoC)<a hidden class="anchor" aria-hidden="true" href="#inversion-of-control-ioc">#</a></h2>
+<blockquote>
+<p><strong>Inversion of Control</strong> is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.</p>
+</blockquote>
+<hr>
+<h2 id="dependency-injection-di">Dependency Injection (DI)<a hidden class="anchor" aria-hidden="true" href="#dependency-injection-di">#</a></h2>
+<blockquote>
+<p><strong>Dependency Injection</strong> is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.</p>
+</blockquote>
+<hr>
+<h2 id="beans">Beans<a hidden class="anchor" aria-hidden="true" href="#beans">#</a></h2>
+<blockquote>
+<p>Beans are objects that are managed by the Spring framework.</p>
+</blockquote>
+<hr>
+<h1 id="container">Container<a hidden class="anchor" aria-hidden="true" href="#container">#</a></h1>
+<blockquote>
+<p>A Spring <strong>Container</strong> is responsible for managing the life cycle, configuration, and dependencies injection of the beans in a Spring Application.</p>
+</blockquote>
+<hr>
+<h1 id="life-cycle-of-beans">Life Cycle of Beans<a hidden class="anchor" aria-hidden="true" href="#life-cycle-of-beans">#</a></h1>
+<ol>
+<li><strong>Beans</strong> are objects that are managed by the Spring framework.</li>
+<li><strong>Bean Definition</strong> includes configuration meta data required by the Spring container to create and manage the bean.</li>
+<li><strong>Bean Configurations</strong> can be provided in various way, including XML configuration files, annotations, and Java-based configuration.</li>
+<li><code>Bean Instantiation</code> $\rightarrow$ <code>Population of Properties</code> $\rightarrow$ <code>Initialization</code> $\rightarrow$ <code>Ready for Use</code> $\rightarrow$ <code>Destruction</code></li>
+</ol>
+<hr>
+<p>The Difference between instantiation and initiation?</p>
+<blockquote>
+<p><strong>Instantiation</strong> occurs when a <code>new</code> keyword is used to create an object. It focus on constructing the object&rsquo;s structure and allocating memory. In contrast, <strong>initialization</strong> focus on assigning values to the object&rsquo;s fields and setting up its initial state after instantiation.</p>
+</blockquote>
+<hr>
+<h1 id="constructor-injection--setter-injection--field-injection">Constructor Injection &amp; Setter Injection &amp; Field Injection<a hidden class="anchor" aria-hidden="true" href="#constructor-injection--setter-injection--field-injection">#</a></h1>
+<h2 id="constructor-injection">Constructor Injection<a hidden class="anchor" aria-hidden="true" href="#constructor-injection">#</a></h2>
+<blockquote>
+<p><strong>Constructor Injection</strong> in Spring is a type of dependency injection where the Spring framework provides the required dependency to a class by invoking its constructor. Since dependencies are supplied via the constructor, they cannot be changed after object creation &ndash; promoting immutability. However, this approach may cause <strong>circular dependency issues</strong> if two or more beans depend on each other in a circular manner.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@Component
+public class ServiceA {
+    private final RepositoryA repositoryA;
+
+    // Constructor injection
+    @Autowired
+    public ServiceA(RepositoryA repositoryA) {
+        this.repositoryA = repositoryA;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="setter-injection">Setter Injection<a hidden class="anchor" aria-hidden="true" href="#setter-injection">#</a></h2>
+<blockquote>
+<p><strong>Setter Injection</strong> in Spring is a form of dependency injection where the Spring framework injects dependencies into a bean by calling the bean&rsquo;s setter method. This approach is flexible and commonly used to inject optional dependencies or when the dependency might change after the object is initialized.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@Component
+public class ServiceB {
+    private RepositoryB repositoryB;
+
+    // Setter injection
+    @Autowired
+    public void setRepositoryB(RepositoryB repositoryB) {
+        this.repositoryB = repositoryB;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h2 id="field-injection">Field Injection<a hidden class="anchor" aria-hidden="true" href="#field-injection">#</a></h2>
+<blockquote>
+<p><strong>Field Injection</strong> in Spring is a form of dependency injection where the Spring framework directly injects dependencies into a class&rsquo;s fields. Like constructor injection, the dependencies remain immutable after being injected. Under the hood. Spring uses <em>reflection</em> to assign values to private fields.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@Component
+public class ServiceC {
+    @Autowired
+    private RepositoryC repositoryC;
+
+    public void performAction() {
+        repositoryC.doSomething();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="component--componentscan">@Component &amp; @ComponentScan<a hidden class="anchor" aria-hidden="true" href="#component--componentscan">#</a></h1>
+<blockquote>
+<p>The <code>@Component</code> annotation in Spring is used to mark a class as spring-managed bean, allowing Spring to detect and register it as a bean in the application context. The <code>@ComponentScan</code> annotation is used to specify base packages that Spring should scan for @Component-annotated during configuration.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >package com.example.myapp
+@Component
+public class MyService {
+    public void performTask() {
+        System.out.println("Task performed!");
+    }
+}
+
+@Configuration
+@ComponentScan(basePackages = "com.example.myapp")
+public class AppConfig {
+}
+
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="value--autowired--qualifier">@Value &amp; @Autowired &amp; @Qualifier<a hidden class="anchor" aria-hidden="true" href="#value--autowired--qualifier">#</a></h1>
+<h2 id="value">@Value<a hidden class="anchor" aria-hidden="true" href="#value">#</a></h2>
+<blockquote>
+<p>The <code>@Value</code> annotation is used to inject values into fields, mathod parameters, and constructor arguments.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Injects literal values
+@Value("Hello, World!")
+private String message;
+
+// Injects from a properties file
+app.name=MySpringApp
+@Value("${app.name}")
+private String appName;
+
+// Injects default values
+@Value("${app.version:1.0.0}")
+private String appVersion;
+
+// Injects expression
+@Value("#{T(java.lang.Math).random() * 100}")
+private double randomValue;
+
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="autowired">@Autowired<a hidden class="anchor" aria-hidden="true" href="#autowired">#</a></h2>
+<blockquote>
+<p>The <code>@Autowired</code> annotation is used for automatic dependency injection. It allows Spring resolve and inject the required bean into a class automatically <em>by type</em>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Field Injection
+@Component
+public class ServiceA {
+    @Autowired
+    private RepositoryA repositoryA;
+
+    public void performTask() {
+        repositoryA.doSomething();
+    }
+}
+
+// Setter Injection
+@Component
+public class ServiceB {
+    private RepositoryB repositoryB;
+
+    @Autowired
+    public void setRepositoryB(RepositoryB repositoryB) {
+        this.repositoryB = repositoryB;
+    }
+}
+
+// Constructor Injection
+@Component
+public class ServiceB {
+    private RepositoryB repositoryB;
+
+    @Autowired
+    public void setRepositoryB(RepositoryB repositoryB) {
+        this.repositoryB = repositoryB;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h2 id="qualifier">@Qualifier<a hidden class="anchor" aria-hidden="true" href="#qualifier">#</a></h2>
+<blockquote>
+<p>The <code>@Qualifier</code> annotation in Spring is used for resolve ambiguities when multiple beans of the same type are available in the application context.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@Component("repositoryImpl1")
+public class RepositoryImpl1 implements Repository {}
+
+@Component("repositoryImpl2")
+public class RepositoryImpl2 implements Repository {}
+
+@Component
+public class Service {
+    @Autowired
+    @Qualifier("repositoryImpl2")
+    private Repository repository;
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h1 id="components-of-spring-boot">Components of Spring Boot<a hidden class="anchor" aria-hidden="true" href="#components-of-spring-boot">#</a></h1>
+<blockquote>
+<p><strong>Spring Boot Starter</strong>: Simplifies dependency management by building commonly used dependencies, reducing the need for manual configuration.</p>
+</blockquote>
+<blockquote>
+<p><strong>Auto Configuration</strong>: Automatically configures Spring Boot application beans and settings based on the libraries on the classpath, eliminating the need for extensive configuration in <code>application.properties</code> or XML files.</p>
+</blockquote>
+<blockquote>
+<p><strong>Spring Boot Atuator</strong>: Provides production-ready features like <em>monitoring</em>, <em>metrics</em>, and <em>health checks</em> to ensure better application insights and management.</p>
+</blockquote>
+<blockquote>
+<p><strong>Embedded Server</strong>: Includes servers like Tomcat and Jetty, allowing applications to run as standalone programs, simplifying development and deployment.</p>
+</blockquote>
+<blockquote>
+<p><strong>Spring Boot DevTools</strong>: A collection of tools that enhance the development experience by enabling features like hot reload and live reload for faster feedback.</p>
+</blockquote>
+<hr>
+<h1 id="spring-boot-auto-configuration">Spring Boot Auto Configuration<a hidden class="anchor" aria-hidden="true" href="#spring-boot-auto-configuration">#</a></h1>
+<hr>
+<h1 id="common-annotations">Common Annotations<a hidden class="anchor" aria-hidden="true" href="#common-annotations">#</a></h1>
+<h2 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h2>
+<hr>
+<h1 id="transformation-between-object-and-spring">Transformation between Object and Spring<a hidden class="anchor" aria-hidden="true" href="#transformation-between-object-and-spring">#</a></h1>
+<blockquote>
+<p>In Spring Boot, the transformation between objects and JSON is handled by the <code>Jackson</code> library which allows for easy <strong>serialization (converting an object to JSON)</strong> and <strong>deserialization (converting JSON to an object)</strong>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// When a controller returns an object, Spring Boot automatically 
+// converts it to JSON
+@RestController
+public class UserController {
+    @GetMapping("/user")
+    public User getUser() {
+        return new User(1, "John Doe", "john.doe@example.com");
+    }
+}
+
+// When accessed via /user, the response is:
+{
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+}
+
+// Spring Boot automatically converts the incoming JSON data into 
+// an object when the object is a parameter in the controller method.
+@RestController
+public class UserController {
+    @PostMapping("/user")
+    public String createUser(@RequestBody User user) {
+        return "User " + user.getName() + " created!";
+    }
+}
+
+// Input JOSN:
+{
+    "id": 2,
+    "name": "Jane Doe",
+    "email": "jane.doe@example.com"
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="heading-1"><a hidden class="anchor" aria-hidden="true" href="#heading-1">#</a></h1>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/spring/">Spring</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/">
+    <span class="title">NEXT »</span>
+    
+    <br>
+    <span>数据结构与算法：图</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+</body>
+</html>
