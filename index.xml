@@ -33,86 +33,11 @@ Inversion of Control (IoC) Inversion of Control is a design principle where the 
 Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.</description>
     </item>
     <item>
-      <title>数据结构与算法：图</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/</link>
-      <pubDate>Tue, 25 Jun 2024 14:40:21 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/6-graph/</guid>
-      <description>深度优先搜索 深度优先搜索算法基于栈数据结构实现 对于递归形式的深度优先搜索算法，函数调用栈充当栈数据结构 对于迭代形式的深度优先搜索算法，需要显式定义栈数据结构 深度优先搜索算法最大限度地探索每条路径，当遇到死胡同（dead end）时，将回溯到原出发点，并选择新的路径继续搜索 深度优先搜索算法的搜索顺序取决于邻居结点的被访问的顺序 递归实现 import java.util.LinkedList; class Graph { // Number of vertices private int vertices; // Adjacency list representation of the graph private LinkedList&amp;lt;Integer&amp;gt;[] adjList; public Graph(int vertices) { this.vertices = vertices; // Initialize adjacency list adjList = new LinkedList[vertices]; for (int i = 0; i &lt; vertices; i++) { adjList[i] = new LinkedList&amp;lt;&amp;gt;(); } } // Add edge to the undirected graph public void addEdge(int src, int dest) { adjList[src].</description>
-    </item>
-    <item>
-      <title>数据结构与算法：递归</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/</link>
-      <pubDate>Sun, 23 Jun 2024 09:42:24 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/3-recursion/</guid>
-      <description>递归定义 递归（Recursion）是指函数在执行过程中调用自身的过程，通常用于将问题划分为类似的子问题。递归函数通常由两部分组成：
-基本情况（Base Case(s)）：基本情况指的是函数用于避免无限递归、停止调用自身的条件。（寻找最小子问题） 递归情况（Recursive Case(s)）：递归情况是指函数使用不同参数调用自身，并逐渐向基本情况靠拢。（寻找每调用一次函数能缩小问题规模的最小单元） 例题 字符串反转 点击查看题目 字符串反转：&amp;ldquo;signal yu&amp;rdquo; 输出为 &amp;ldquo;uy langis&amp;rdquo; 基本情况：当字符串 s 为空串时返回 &amp;quot;&amp;quot;，当字符串 s 长度为 1 时，返回 s，即当字符串长度小于等于 1 时，返回 s。 递归情况：执行一次函数操作一个字符，因此每调用一次函数能缩小问题规模的最小单元为 1。 public class ReverseString { // 递归方法反转字符串 public static String reverseString(String s) { // 基本情况：如果字符串为空或只有一个字符，直接返回它 if (s.length() &lt;= 1) { return s; } // 递归情况：取出第一个字符，并将剩余字符串反转后再将第一个字符加到末尾 return reverseString(s.substring(1)) + s.charAt(0); } public static void main(String[] args) { String inputStr = &#34;signal yu&#34;; String reversedStr = reverseString(inputStr); System.</description>
-    </item>
-    <item>
-      <title>数据结构与算法：动态规划</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/2-dynamic-programming/</link>
-      <pubDate>Sun, 16 Jun 2024 11:35:47 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/2-dynamic-programming/</guid>
-      <description>动态规划相关概念 动态规划核心思想： 将原问题划分为更简单的子问题，通过子问题的解来构建问题的解。 Memoization（自上而下法）：将原问题递归地划分为更小的子问题，并在对子问题的结果进行缓存，以避免重复计算。 Tabulation（自下而上法）：从最小的子问题开始，迭代地构建原问题的解。 动态规划例题 斐波那契数列 点击查看题目 斐波那契数（通常用 $F(n)$ 表示）形成的序列称为斐波那契数列。该数列由 $0$ 和 $1$ 开始，后面的每一项数字都是前面两项数字的和。也就是：
-$F(1) = 0，F(2) = 1$
-$F(n) = F(n - 1) + F(n - 2)，其中\; n &amp;gt; 2$
-给定 $n$ ，请计算 $F(n)$。
-示例 1：
-输入：$n = 2$
-输出：$1$
-解释：$F(2) = 1$
-示例 2：
-输入：$n = 3$
-输出：$2$
-解释：$F(3) = F(2) + F(1) = 1 + 0 = 1$
-示例 3：
-输入：$n = 4$
-输出：$3$
-解释：$F(4) = F(3) + F(2) = 1 + 1 = 2$</description>
-    </item>
-    <item>
-      <title>导数与微分</title>
-      <link>https://signalyu.github.io/posts/1-natural-science/math/calculus/4-derivative-and-differential/</link>
-      <pubDate>Sun, 09 Jun 2024 13:54:08 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/1-natural-science/math/calculus/4-derivative-and-differential/</guid>
-      <description>导数 导数的定义 设函数 y = f(x) 在 x_0 的某邻域内有定义，如果极限 $$ \displaystyle\lim_{\Delta x\rightarrow 0}\frac{\Delta y}{\Delta x} = \lim_{\Delta x \rightarrow 0}\frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} $$ 存在，则称 $f(x)$ 在点 $x_0$ 处可导，并称此极限值为 $f(x)$ 在点 $x_0$ 处的导数，记为 $f^\prime(x_0)$。如果上述极限不存在，则称 $f(x)$ 在点 $x_0$ 处不可导。 记 $x = x_0 + \Delta x$，则 $\Delta x = x - x_0$，所以 $f^\prime(x_0)$ 可表示为 $\displaystyle\lim_{x\rightarrow 0}\frac{f(x) - f(x_0)}{x - x_0}$。 $f^\prime(x_0)$ 与 $f(x_0)$ 有关。 导数的本质是函数的变化率。 微分 微分的定义 微分是函数变化量的近似值。 设函数 $y = f(x)$ 在点 $x_0$ 的某一邻域内有定义，如果函数的增量 $\Delta y = f(x_0 + \Delta x) - f(x_0)$ 可以表示为 $$ \Delta y = A\Delta x + o(\Delta x)，(\Delta x \rightarrow 0) $$ 其中 $A$ 为不依赖于 $\Delta x$ 的常数，$o(\Delta x)$ 是 $\Delta x$ 的高阶无穷小，则称函数 $y = f(x)$ 在点 $x_0$ 处可微，并称 $\Delta y$ 的线性主部 $A\Delta x$ 为函数 $y = f(x)$ 在点 $x_0$ 处的微分，记作 $\mathrm{d}y$，即 $\mathrm{d}y = A\Delta x$ 微分本质是函数变化量的线性主部（$\Delta y = A\Delta x, A\;为常数$） 导数与微分的几何意义 导数是切线的斜率，微分是切线上的增量。 导数与微分的几何意义 导数 $f^\prime(x_0)$ 在几何上表示曲线 $y = f(x)$ 在点 $(x_0, f(x_0))$ 处切线的斜率。 如果函数 $f(x)$ 在点 $x_0$ 处可导，则曲线 $y = f(x)$ 在点 $(x_0, f(x_0))$ 处的切线方程为 $$ y - f(x_0) = f&amp;rsquo;(x_0)(x - x_0) $$ 如果 $f&amp;rsquo;(x_0) \ne 0$，则此曲线 $y = f(x)$ 在点 $(x_0, f(x_0))$ 处的法线方程为 $$ y - f(x_0) = -\frac{1}{f&amp;rsquo;(x_0)}(x - x_0) $$ 微积分思想 在微小的局部，用线性变化代替非线性变化。 在微小的局部，用切线上的增量代替曲线上的增量。 </description>
-    </item>
-    <item>
       <title>C 语言中的数组与指针</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/c/1-array-and-pointer-in-c/</link>
       <pubDate>Tue, 04 Jun 2024 16:17:31 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/c/1-array-and-pointer-in-c/</guid>
       <description>数组 数组基本概念 在 C 语言中，越界访问数组编译器并不会报错； 一维数组的长度计算：int length = sizeof(arr) / sizeof(arr[0]); sizeof 返回值的数据类型是 size_t ，所以 sizeof(a) / sizeof(a[0]) 的数据类型也是 size_t。在 printf() 里面的占位符，要用 %zd 或 %zu 。 一维数组的内存分析： 一维数组的内存分析 C 语言规定，数组变量一旦声明，数组名指向的地址就不可更改。因此，使用大括号赋值时，必须在数组声明时赋值，否则编译时会报错。 int nums[5]; nums = {1, 2, 3, 4, 5}; // 报错 int nums[5] = {1, 2, 3, 4, 5}; // 正确写法 数组的复制 使用循环复制数组： void copyArray(int src[], int dest[], int size) { for (int i = 0; i &lt; size; i++) { dest[i] = src[i]; } } 使用 memcopy() 函数复制数组： #include &amp;lt;string.</description>
-    </item>
-    <item>
-      <title>数据结构与算法：投票算法</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/</link>
-      <pubDate>Fri, 31 May 2024 15:40:35 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-boyer-moore-voting-algorithm/</guid>
-      <description>Boyer Moore 投票算法逻辑步骤 初始化候选人（candidate）和计票器（counter）； 遍历数组寻找可能为最大元素的候选人： count == 0 --&amp;gt; candidate = current element; count = 0 (current element == candidate) ? count++ : count-- 遍历数组验证候选人是否为多数元素（majority element）： count = 0 (current element == candidate) ? count++ 判断 count 是否过半 Boyer Moore 投票算法核心：只要数组中某元素出现次数过半，则遍历完毕后 candidate 变量必然指向该元素。 点击查看代码 majorityElement.c 测试代码 输出结果 int majorityElement(int const nums[], int size) { // 初始化候选人和计票器 int candidate = 0; int count = 0; // 遍历数组确定候选人 for (int i = 0; i &lt; size; i++) { if (count == 0) { candidate = nums[i]; count++; } else if (nums[i] == candidate) { count++; } else { count--; } } // 遍历数组判断候选人是否为多数元素 count = 0; for (int i = 0; i &lt; size; i++) { if (nums[i] == candidate) { count++; } } // 存在多数元素 if (count &gt; size / 2) { return candidate; } // 不存在多数元素 return -1; } #include &amp;lt;stdio.</description>
-    </item>
-    <item>
-      <title>常用等价无穷小的证明</title>
-      <link>https://signalyu.github.io/posts/1-natural-science/math/calculus/3-proof-of-common-equivalent-infinitesimals/</link>
-      <pubDate>Mon, 27 May 2024 06:54:33 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/1-natural-science/math/calculus/3-proof-of-common-equivalent-infinitesimals/</guid>
-      <description>基本等价无穷小 $\displaystyle\lim_{x\rightarrow 0}\frac{\sin x}{x} = 1$ 点击查看证明过程 $ 如下图可知：S_{三角形ABC} &amp;lt; S_{扇形ABC} &amp;lt; S_{三角形 ABD}\\ 即：\frac{1}{2}\sin x &amp;lt; \frac{1}{2}x&amp;lt;\frac{1}{2}\tan x\\ 即：\sin x &amp;lt; x &amp;lt; \tan x\\ 即：1 &amp;lt; \frac{x}{\sin x} &amp;lt; \frac{1}{\cos x}\\ 即：\cos x &amp;lt; \frac{\sin x}{x} &amp;lt; 1\\ 因为 \lim_{x\rightarrow 0}\cos x = \lim_{x\rightarrow 0} 1 = 1\\ 由夹逼准则可知 \lim_{x\rightarrow 0}\frac{\sin x}{x} = 1 $ 图：$\displaystyle\lim_{x\rightarrow 0}\frac{\sin x}{x}$ $\displaystyle\lim_{x\rightarrow 0}(1+x)^{\frac{1}{x}} = e$ 点击查看证明过程 $ 令\;L = \displaystyle\lim_{x\rightarrow 0}(1+x)^{\frac{1}{x}}\\ 则\;\ln L = \displaystyle\lim_{x\rightarrow 0}\ln (1+x)^{\frac{1}{x}}\\ 即：\ln L = \displaystyle\lim_{x\rightarrow 0}\frac{\ln (1+x)}{x} \xlongequal{ 洛必达法则 }\lim_{x\rightarrow 0}\frac{1}{1+x} = 1\\ 所以\;L = e $ 点击查看证明过程 $ $ $\displaystyle\lim_{x\rightarrow \infty}(1+\frac{1}{x})^x = e$ 点击查看证明过程 $ 令\;L = \displaystyle\lim_{x\rightarrow 0}(1+\frac{1}{x})^x\\ 则\;ln L = \lim_{x\rightarrow 0}x\ln(1+\frac{1}{x}) = \lim_{x\rightarrow 0}\frac{\ln(1 + \frac{1}{x})}{\frac{1}{x}} \xlongequal{洛必达法则} \lim_{x\rightarrow 0}\frac{\frac{-\frac{1}{x^2}}{1+\frac{1}{x}}}{-\frac{1}{x^2}} = \lim_{x\rightarrow 0}\frac{1}{1+\frac{1}{x}} = 1\\ 所以 \;L = e $ 常用等价无穷小证明 $x \sim \tan x$ 点击查看证明过程 $ \displaystyle\lim_{x\rightarrow 0}\frac{\tan x}{x} = \displaystyle\lim_{x\rightarrow 0}\frac{\sin x}{\cos x\cdot x} = \displaystyle\lim_{x\rightarrow 0}\frac{\sin x}{x} = 1 $ $\arcsin x \sim x$ 点击查看证明过程 $ 令 \;t = \arcsin x，则\;x = \sin t\\ 所以\;\displaystyle\lim_{x\rightarrow 0}\frac{\arcsin x}{x} = \displaystyle\lim_{t\rightarrow 0} = \frac{t}{\sin t} = 1 $ $\arctan x \sim x$ 点击查看证明过程 $ 令 \;t = \arctan x，则\;x = \tan t\\ 所以\;\displaystyle\lim_{x\rightarrow 0}\frac{\arctan x}{x} = \displaystyle\lim_{t\rightarrow 0} = \frac{t}{\tan t} = 1 $ $\log_a(1+x) \sim \frac{x}{\ln a}$ 点击查看证明过程 $</description>
-    </item>
-    <item>
-      <title>函数与复合函数</title>
-      <link>https://signalyu.github.io/posts/1-natural-science/math/calculus/2-function-definition/</link>
-      <pubDate>Sun, 26 May 2024 13:05:45 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/1-natural-science/math/calculus/2-function-definition/</guid>
-      <description>函数 设 $x$ 和 $y$ 是两个变量，$\mathcal{D}$ 是一个给定的非空集合数集。如果对于每个数 $x \in \mathcal{D}$，变量 $x$ 按照一定的对应法则 $f$ 总有一个确定的数值 $y$ 和它对应，则称 $y$ 是 $x$ 的函数，记为 $$y = f(x), x \in \mathcal{D}$$
-其中 $x$ 称为自变量，$y$ 称为因变量，$\mathcal{D}$ 称为函数的定义域，记作 $\mathcal{D}_f$，即 $\mathcal{D}_f = \mathcal{D}$。函数值 $f(x)$ 的全体所构成的集合称为函数 $f$ 的值域，记作 $\mathcal{R}_f$ 或 $f(\mathcal{D})$，即 $$\mathcal{R}_f = f(\mathcal{D}) = \{y|y=f(x), x\in \mathcal{D}\}$$
-函数定义 定义域和对应法则是函数定义的两个基本要素，若两个函数的定义域和对应法则相同，则这两个函数为同一函数。 复合函数 设函数 $y = f(u)$ 的定义域为 $\mathcal{D}_f$，函数 $u = g(x)$ 的定义域为 $\mathcal{D}_g$，值域为 $\mathcal{R}_g$，若 $\mathcal{D}_f \cap \mathcal{R}_g \ne \varnothing$，则称函数 $y = f[g(x)]$ 为函数 $y = f(u)$ 与 $u = g(x)$ 的复合函数。它的定义域为 $\{x | x \in \mathcal{D}_g，g(x) \in \mathcal{D}_f\}$。</description>
-    </item>
-    <item>
-      <title>极限的 Ɛ-N 定义</title>
-      <link>https://signalyu.github.io/posts/1-natural-science/math/calculus/1-epsilon-n-definition-of-limit/</link>
-      <pubDate>Fri, 24 May 2024 22:51:19 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/1-natural-science/math/calculus/1-epsilon-n-definition-of-limit/</guid>
-      <description>Ɛ-N 定义 数列的极限 如果 $\forall \varepsilon &amp;gt; 0$，总存在正数 $N$，当 $n &amp;gt; N$ 时，恒有 $$|x_n - a| &amp;lt; \varepsilon$$ 成立，则称常数 $a$ 为 数列 $\{x_n\}$ 当 $n$ 趋于无穷时的极限，记为 $\displaystyle \lim_{n\rightarrow \infty} x_n = a$
-$\varepsilon$ 用于刻画数列的项与常数 $a$ 的接近程度，即 $|x_n - a|$ 的大小。$\forall \varepsilon &amp;gt; 0$ 表示数列的项与常数 $a$ “要多近有多近”，即 $|x_n - a|$ 要多小有多小。 $N$ 用于刻画 $n \rightarrow \infty$ 这个动态过程。“当 $n &amp;gt; N$ 时，恒有 $|x_n - a| &amp;lt; \varepsilon$” 表示“在 $N$ 之后的无穷多个项 $x_n$ 与常数 $a$ 的距离小于 $\varepsilon$ 恒成立。 Ɛ-N 定义的几何意义 数列极限的几何意义 $\varepsilon-N$ 的几何意义：在极限值点 $a$ 任意作一个 $\varepsilon$-领域，不论该领域的半径有多么小（$\forall \varepsilon &amp;gt; 0$），对数列 $a_n$ 而言，必有一个下标 $N$，使得第 $N$ 项以后的无穷多个项对应的那些点全部落入 $a$ 点的 $\varepsilon$-邻域内，而不落入 $a$ 点的 $\varepsilon$-邻域内的点，最多是下标 $N$ 前面的有限项。 根据 $\varepsilon-N$ 的几何意义，可得出如下两个基本结论： 若 $b &amp;lt; a，\exists N$，当 $n &amp;gt; N$ 时，$a_n &amp;gt; b$（把 $b$ 当成 $a - \varepsilon$ 即可） 若 $c &amp;gt; a，\exists N$，当 $n &amp;gt; N$ 时，$a_n &amp;lt; c$（把 $c$ 当成 $a + \varepsilon$ 即可） 常用结论及其证明 $若 \displaystyle\lim_{n \rightarrow \infty} x_n = a，则 \lim_{n \rightarrow \infty} |x_n| = |a|$，但反之不成立。 点击查看证明过程 $\forall \varepsilon &amp;gt; 0，\;\exists N &amp;gt; 0，当\; n &amp;gt; N\;时，|x_n - a| &amp;lt; \varepsilon，又\;||x_n - |a|| \le |x_n - a|，则 \;\forall \varepsilon &amp;gt; 0，\exists N &amp;gt; 0，当 \; n &amp;gt; N\;时，||x_n| - |a|| &amp;lt; \varepsilon，故 \;\displaystyle\lim_{n \rightarrow \infty}|x_n| = a.</description>
     </item>
     <item>
       <title>设计模式——代理模式</title>
