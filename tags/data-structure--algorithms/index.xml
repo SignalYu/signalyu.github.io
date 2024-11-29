@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Data Structure &amp; Algorithms on Signal&#39;s Blog</title>
+    <link>https://signalyu.github.io/tags/data-structure--algorithms/</link>
+    <description>Recent content in Data Structure &amp; Algorithms on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>EN</language>
+    <lastBuildDate>Thu, 14 Nov 2024 20:29:21 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/data-structure--algorithms/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Data Structure &amp; Algorithms</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/1-data-structure-and-algorithms/</link>
+      <pubDate>Thu, 14 Nov 2024 20:29:21 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/1-data-structure-and-algorithms/</guid>
+      <description>Recursion Recursion is a programming technique where a function repeatedly calls itself until it reaches a base case, whcih stops the recursion and allows it to return a result. It is a way of breaking down complex problems into smaller, simpler subproblems that are eaiser to solve.
+Head Recursion Head Recursion is a type of recursion where a function makes its recursive call first, immediately after checking the base case, and performs all other operations only after the recursive call returns.</description>
+    </item>
+  </channel>
+</rss>

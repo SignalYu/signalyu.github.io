@@ -16,6 +16,20 @@
       <description></description>
     </item>
     <item>
+      <title>Vue</title>
+      <link>https://signalyu.github.io/tags/vue/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/vue/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Data Structure &amp; Algorithms</title>
+      <link>https://signalyu.github.io/tags/data-structure--algorithms/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/data-structure--algorithms/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Mottos</title>
       <link>https://signalyu.github.io/tags/mottos/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -23,31 +37,10 @@
       <description></description>
     </item>
     <item>
-      <title>C</title>
-      <link>https://signalyu.github.io/tags/c/</link>
+      <title>Design Patterns</title>
+      <link>https://signalyu.github.io/tags/design-patterns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/c/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tech</title>
-      <link>https://signalyu.github.io/tags/tech/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/tech/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>工程与技术</title>
-      <link>https://signalyu.github.io/tags/%E5%B7%A5%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/%E5%B7%A5%E7%A8%8B%E4%B8%8E%E6%8A%80%E6%9C%AF/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java</title>
-      <link>https://signalyu.github.io/tags/java/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/java/</guid>
+      <guid>https://signalyu.github.io/tags/design-patterns/</guid>
       <description></description>
     </item>
   </channel>
