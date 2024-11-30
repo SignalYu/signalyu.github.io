@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Database Notes | Signal&#39;s Blog</title>
+<meta name="keywords" content="Database">
+<meta name="description" content="Database Design Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.
+Databases canbe broadly categoried into two types: Relational database, primarily used for real-time data updates and transactions.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="Database Notes" />
+<meta property="og:description" content="Database Design Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.
+Databases canbe broadly categoried into two types: Relational database, primarily used for real-time data updates and transactions." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-22T21:07:21+08:00" />
+<meta property="article:modified_time" content="2024-11-22T21:07:21+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Database Notes"/>
+<meta name="twitter:description" content="Database Design Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.
+Databases canbe broadly categoried into two types: Relational database, primarily used for real-time data updates and transactions."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Database Notes",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Database Notes",
+  "name": "Database Notes",
+  "description": "Database Design Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.\nDatabases canbe broadly categoried into two types: Relational database, primarily used for real-time data updates and transactions.",
+  "keywords": [
+    "Database"
+  ],
+  "articleBody": "Database Design Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.\nDatabases canbe broadly categoried into two types: Relational database, primarily used for real-time data updates and transactions. and data warehouse, optimized for data analysis and reporting purposes.\nData Modeling Data modeling is the process of creating a conceptual representation of data structures, relationships, and rule to meet business requirements. It serves as a blueprint for designing and managing a database.\nThere are three types of data models: conceptual, logical, and physical. The conceptual data model provides a high-level overview, specifying relationships between objects without technical details. The logical data model refine the conceptual data model by adding more detail, such as fields for each object. The physical data model describe the internal schema of the database, including table structures, storage details, and implementation specifics.\n--- title: Conceptual Data Model --- erDiagram Customer ||--o{ Order : places Order ||--|{ Product : contains SHOW Logical Data Model --- title: Logical Data Model --- erDiagram Customer { int customerId string name string email } Order { int orderId date orderDate float totalAmount } Product { int productId string productName float price } Customer ||--o{ Order : places Order ||--|{ Product : contains SHOW Physical Data Model --- title: Physical Data Model --- erDiagram Customer { int customerId PK varchar name varchar email } Order { int orderId PK date orderDate float totalAmount int customerId FK } Product { int productId PK varchar productName decimal price } OrderItem { int orderItemId PK int orderId FK int productId FK int quantity } Customer ||--o{ Order : places Order ||--|{ OrderItem : includes OrderItem ||--|{ Product : contains Design Process ",
+  "wordCount" : "325",
+  "inLanguage": "en",
+  "datePublished": "2024-11-22T21:07:21+08:00",
+  "dateModified": "2024-11-22T21:07:21+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Database Notes
+    </h1>
+    <div class="post-meta"><span title='2024-11-22 21:07:21 +0800 HKT'>Nov 22 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#database-design" aria-label="Database Design">Database Design</a><ul>
+                        
+                <li>
+                    <a href="#introduction-to-databases" aria-label="Introduction to Databases">Introduction to Databases</a></li>
+                <li>
+                    <a href="#data-modeling" aria-label="Data Modeling">Data Modeling</a></li>
+                <li>
+                    <a href="#design-process" aria-label="Design Process">Design Process</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="database-design">Database Design<a hidden class="anchor" aria-hidden="true" href="#database-design">#</a></h1>
+<h2 id="introduction-to-databases">Introduction to Databases<a hidden class="anchor" aria-hidden="true" href="#introduction-to-databases">#</a></h2>
+<blockquote>
+<p>A <strong>database</strong> is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.</p>
+</blockquote>
+<blockquote>
+<p>Databases canbe broadly categoried into two types: <strong>Relational database</strong>, primarily used for real-time data updates and transactions. and <strong>data warehouse</strong>, optimized for data analysis and reporting purposes.</p>
+</blockquote>
+<hr>
+<h2 id="data-modeling">Data Modeling<a hidden class="anchor" aria-hidden="true" href="#data-modeling">#</a></h2>
+<blockquote>
+<p><strong>Data modeling</strong> is the process of creating a conceptual representation of data structures, relationships, and rule to meet business requirements. It serves as a blueprint for designing and managing a database.</p>
+</blockquote>
+<blockquote>
+<p>There are three types of data models: <strong>conceptual</strong>, <strong>logical</strong>, and <strong>physical</strong>. The <strong>conceptual data model</strong> provides a high-level overview, specifying relationships between objects without technical details. The <strong>logical data model</strong> refine the conceptual data model by adding more detail, such as fields for each object. The <strong>physical data model</strong> describe the internal schema of the database, including table structures, storage details, and implementation specifics.</p>
+</blockquote>
+<pre class="mermaid">---
+title: Conceptual Data Model
+---
+erDiagram
+    Customer ||--o{ Order : places
+    Order ||--|{ Product : contains
+</pre>
+
+
+<p><details >
+  <summary markdown="span">SHOW Logical Data Model</summary>
+  <pre class="mermaid">---
+title: Logical Data Model
+---
+erDiagram
+    Customer {
+        int customerId
+        string name
+        string email
+    }
+    Order {
+        int orderId
+        date orderDate
+        float totalAmount
+    }
+    Product {
+        int productId
+        string productName
+        float price
+    }
+    Customer ||--o{ Order : places
+    Order ||--|{ Product : contains
+</pre>
+
+</details></p>
+
+
+
+<p><details >
+  <summary markdown="span">SHOW Physical Data Model</summary>
+  <pre class="mermaid">---
+title: Physical Data Model
+---
+erDiagram
+    Customer {
+        int customerId PK
+        varchar name
+        varchar email
+    }
+    Order {
+        int orderId PK
+        date orderDate
+        float totalAmount
+        int customerId FK
+    }
+    Product {
+        int productId PK
+        varchar productName
+        decimal price
+    }
+    OrderItem {
+        int orderItemId PK
+        int orderId FK
+        int productId FK
+        int quantity
+    }
+    Customer ||--o{ Order : places
+    Order ||--|{ OrderItem : includes
+    OrderItem ||--|{ Product : contains
+</pre>
+
+</details></p>
+
+<hr>
+<h2 id="design-process">Design Process<a hidden class="anchor" aria-hidden="true" href="#design-process">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/database/">Database</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://signalyu.github.io/posts/3-humanities/personal-growth/1-mottos/">
+    <span class="title">« PREV</span>
+    
+    <br>
+    <span>Mottos</span>
+  </a>
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/">
+    <span class="title">NEXT »</span>
+    
+    <br>
+    <span>Spring Notes</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            "flowchart": { "htmlLabels": true },
+            theme: 'dark',
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        });
+    </script>
+    
+</body>
+</html>

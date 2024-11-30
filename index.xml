@@ -6,7 +6,7 @@
     <description>Recent content on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Mon, 18 Nov 2024 15:44:50 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 22 Nov 2024 21:07:21 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mottos</title>
@@ -22,6 +22,14 @@ Life is the process of cultivating your soul.
 Think first, act later.
 Speak less of what&amp;rsquo;s unnecessary, do less of what&amp;rsquo;s pointless, and waste less energy on what&amp;rsquo;s unimportant.
 In times of peace, prepare for challenges.</description>
+    </item>
+    <item>
+      <title>Database Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/</link>
+      <pubDate>Fri, 22 Nov 2024 21:07:21 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/</guid>
+      <description>Database Design Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.
+Databases canbe broadly categoried into two types: Relational database, primarily used for real-time data updates and transactions.</description>
     </item>
     <item>
       <title>Spring Notes</title>
