@@ -104,8 +104,8 @@ Dependency Injection (DI) Dependency Injection is a design pattern commonly used
   "keywords": [
     "Spring"
   ],
-  "articleBody": "Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.\nInversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.\nDependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.\nBeans Beans are objects that are managed by the Spring framework.\nContainer A Spring Container is responsible for managing the life cycle, configuration, and dependencies injection of the beans in a Spring Application.\nLife Cycle of Beans Beans are objects that are managed by the Spring framework. Bean Definition includes configuration meta data required by the Spring container to create and manage the bean. Bean Configurations can be provided in various way, including XML configuration files, annotations, and Java-based configuration. Bean Instantiation $\\rightarrow$ Population of Properties $\\rightarrow$ Initialization $\\rightarrow$ Ready for Use $\\rightarrow$ Destruction The Difference between instantiation and initiation?\nInstantiation occurs when a new keyword is used to create an object. It focus on constructing the object’s structure and allocating memory. In contrast, initialization focus on assigning values to the object’s fields and setting up its initial state after instantiation.\nConstructor Injection \u0026 Setter Injection \u0026 Field Injection Constructor Injection Constructor Injection in Spring is a type of dependency injection where the Spring framework provides the required dependency to a class by invoking its constructor. Since dependencies are supplied via the constructor, they cannot be changed after object creation – promoting immutability. However, this approach may cause circular dependency issues if two or more beans depend on each other in a circular manner.\nSHOW CODE Java @Component public class ServiceA { private final RepositoryA repositoryA; // Constructor injection @Autowired public ServiceA(RepositoryA repositoryA) { this.repositoryA = repositoryA; } } Setter Injection Setter Injection in Spring is a form of dependency injection where the Spring framework injects dependencies into a bean by calling the bean’s setter method. This approach is flexible and commonly used to inject optional dependencies or when the dependency might change after the object is initialized.\nSHOW CODE Java @Component public class ServiceB { private RepositoryB repositoryB; // Setter injection @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } Field Injection Field Injection in Spring is a form of dependency injection where the Spring framework directly injects dependencies into a class’s fields. Like constructor injection, the dependencies remain immutable after being injected. Under the hood. Spring uses reflection to assign values to private fields.\nSHOW CODE Java @Component public class ServiceC { @Autowired private RepositoryC repositoryC; public void performAction() { repositoryC.doSomething(); } } @Component \u0026 @ComponentScan The @Component annotation in Spring is used to mark a class as spring-managed bean, allowing Spring to detect and register it as a bean in the application context. The @ComponentScan annotation is used to specify base packages that Spring should scan for @Component-annotated during configuration.\nSHOW CODE Java package com.example.myapp @Component public class MyService { public void performTask() { System.out.println(\"Task performed!\"); } } @Configuration @ComponentScan(basePackages = \"com.example.myapp\") public class AppConfig { } @Value \u0026 @Autowired \u0026 @Qualifier @Value The @Value annotation is used to inject values into fields, mathod parameters, and constructor arguments.\nSHOW CODE Java // Injects literal values @Value(\"Hello, World!\") private String message; // Injects from a properties file app.name=MySpringApp @Value(\"${app.name}\") private String appName; // Injects default values @Value(\"${app.version:1.0.0}\") private String appVersion; // Injects expression @Value(\"#{T(java.lang.Math).random() * 100}\") private double randomValue; @Autowired The @Autowired annotation is used for automatic dependency injection. It allows Spring resolve and inject the required bean into a class automatically by type.\nSHOW CODE Java // Field Injection @Component public class ServiceA { @Autowired private RepositoryA repositoryA; public void performTask() { repositoryA.doSomething(); } } // Setter Injection @Component public class ServiceB { private RepositoryB repositoryB; @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } // Constructor Injection @Component public class ServiceB { private RepositoryB repositoryB; @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } @Qualifier The @Qualifier annotation in Spring is used for resolve ambiguities when multiple beans of the same type are available in the application context.\nSHOW CODE Java @Component(\"repositoryImpl1\") public class RepositoryImpl1 implements Repository {} @Component(\"repositoryImpl2\") public class RepositoryImpl2 implements Repository {} @Component public class Service { @Autowired @Qualifier(\"repositoryImpl2\") private Repository repository; } Components of Spring Boot Spring Boot Starter: Simplifies dependency management by building commonly used dependencies, reducing the need for manual configuration.\nAuto Configuration: Automatically configures Spring Boot application beans and settings based on the libraries on the classpath, eliminating the need for extensive configuration in application.properties or XML files.\nSpring Boot Atuator: Provides production-ready features like monitoring, metrics, and health checks to ensure better application insights and management.\nEmbedded Server: Includes servers like Tomcat and Jetty, allowing applications to run as standalone programs, simplifying development and deployment.\nSpring Boot DevTools: A collection of tools that enhance the development experience by enabling features like hot reload and live reload for faster feedback.\nSpring Boot Auto Configuration Common Annotations Transformation between Object and Spring In Spring Boot, the transformation between objects and JSON is handled by the Jackson library which allows for easy serialization (converting an object to JSON) and deserialization (converting JSON to an object).\nSHOW CODE Java // When a controller returns an object, Spring Boot automatically // converts it to JSON @RestController public class UserController { @GetMapping(\"/user\") public User getUser() { return new User(1, \"John Doe\", \"john.doe@example.com\"); } } // When accessed via /user, the response is: { \"id\": 1, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\" } // Spring Boot automatically converts the incoming JSON data into // an object when the object is a parameter in the controller method. @RestController public class UserController { @PostMapping(\"/user\") public String createUser(@RequestBody User user) { return \"User \" + user.getName() + \" created!\"; } } // Input JOSN: { \"id\": 2, \"name\": \"Jane Doe\", \"email\": \"jane.doe@example.com\" } ",
-  "wordCount" : "1004",
+  "articleBody": "Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.\nInversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.\nDependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.\nBeans Beans are objects that are managed by the Spring framework.\nContainer A Spring Container is responsible for managing the life cycle, configuration, and dependencies injection of the beans in a Spring Application.\nLife Cycle of Beans Beans are objects that are managed by the Spring framework. Bean Definition includes configuration meta data required by the Spring container to create and manage the bean. Bean Configurations can be provided in various way, including XML configuration files, annotations, and Java-based configuration. Bean Instantiation $\\rightarrow$ Population of Properties $\\rightarrow$ Initialization $\\rightarrow$ Ready for Use $\\rightarrow$ Destruction The Difference between instantiation and initiation?\nInstantiation occurs when a new keyword is used to create an object. It focus on constructing the object’s structure and allocating memory. In contrast, initialization focus on assigning values to the object’s fields and setting up its initial state after instantiation.\nConstructor Injection \u0026 Setter Injection \u0026 Field Injection Constructor Injection Constructor Injection in Spring is a type of dependency injection where the Spring framework provides the required dependency to a class by invoking its constructor. Since dependencies are supplied via the constructor, they cannot be changed after object creation – promoting immutability. However, this approach may cause circular dependency issues if two or more beans depend on each other in a circular manner.\nSHOW CODE Java @Component public class ServiceA { private final RepositoryA repositoryA; // Constructor injection @Autowired public ServiceA(RepositoryA repositoryA) { this.repositoryA = repositoryA; } } Setter Injection Setter Injection in Spring is a form of dependency injection where the Spring framework injects dependencies into a bean by calling the bean’s setter method. This approach is flexible and commonly used to inject optional dependencies or when the dependency might change after the object is initialized.\nSHOW CODE Java @Component public class ServiceB { private RepositoryB repositoryB; // Setter injection @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } Field Injection Field Injection in Spring is a form of dependency injection where the Spring framework directly injects dependencies into a class’s fields. Like constructor injection, the dependencies remain immutable after being injected. Under the hood. Spring uses reflection to assign values to private fields.\nSHOW CODE Java @Component public class ServiceC { @Autowired private RepositoryC repositoryC; public void performAction() { repositoryC.doSomething(); } } @Component \u0026 @ComponentScan The @Component annotation in Spring is used to mark a class as spring-managed bean, allowing Spring to detect and register it as a bean in the application context. The @ComponentScan annotation is used to specify base packages that Spring should scan for @Component-annotated during configuration.\nSHOW CODE Java package com.example.myapp @Component public class MyService { public void performTask() { System.out.println(\"Task performed!\"); } } @Configuration @ComponentScan(basePackages = \"com.example.myapp\") public class AppConfig { } @Value \u0026 @Autowired \u0026 @Qualifier @Value The @Value annotation is used to inject values into fields, mathod parameters, and constructor arguments.\nSHOW CODE Java // Injects literal values @Value(\"Hello, World!\") private String message; // Injects from a properties file app.name=MySpringApp @Value(\"${app.name}\") private String appName; // Injects default values @Value(\"${app.version:1.0.0}\") private String appVersion; // Injects expression @Value(\"#{T(java.lang.Math).random() * 100}\") private double randomValue; @Autowired The @Autowired annotation is used for automatic dependency injection. It allows Spring resolve and inject the required bean into a class automatically by type.\nSHOW CODE Java // Field Injection @Component public class ServiceA { @Autowired private RepositoryA repositoryA; public void performTask() { repositoryA.doSomething(); } } // Setter Injection @Component public class ServiceB { private RepositoryB repositoryB; @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } // Constructor Injection @Component public class ServiceB { private RepositoryB repositoryB; @Autowired public void setRepositoryB(RepositoryB repositoryB) { this.repositoryB = repositoryB; } } @Qualifier The @Qualifier annotation in Spring is used for resolve ambiguities when multiple beans of the same type are available in the application context.\nSHOW CODE Java @Component(\"repositoryImpl1\") public class RepositoryImpl1 implements Repository {} @Component(\"repositoryImpl2\") public class RepositoryImpl2 implements Repository {} @Component public class Service { @Autowired @Qualifier(\"repositoryImpl2\") private Repository repository; } Components of Spring Boot Spring Boot Starter: Simplifies dependency management by building commonly used dependencies, reducing the need for manual configuration.\nAuto Configuration: Automatically configures Spring Boot application beans and settings based on the libraries on the classpath, eliminating the need for extensive configuration in application.properties or XML files.\nSpring Boot Atuator: Provides production-ready features like monitoring, metrics, and health checks to ensure better application insights and management.\nEmbedded Server: Includes servers like Tomcat and Jetty, allowing applications to run as standalone programs, simplifying development and deployment.\nSpring Boot DevTools: A collection of tools that enhance the development experience by enabling features like hot reload and live reload for faster feedback.\nSpring Boot Auto Configuration Common Annotations @Component vs. @Bean The @Component annotation is applied to a class to mark it as a bean managed by the Spring container. There are several specialized variants of this annotation: @Controller (for web controllers), @Service (for service layer components), and @Repository (for DAO layer components). In contrast, the @Bean annotation is used to mark a method within a class annotated with @Configuration, indicating that the method should return an object to be managed by the Spring container. This apporpach provides more control over bean creation and configuration, allowing for more explicit customization of the bean.\nSHOW CODE Java // Spring will detect UserService during classpath // scanning and manage it as a bean. @Component public class UserService { public String getUser() { return \"User\"; } } @Configuration public class AppConfig { @Bean public UserService userService() { // Explicitly creating and returning the bean return new UserService(); } } @ResposeBody The @ResponseBody annotation in Spring is used to indicate that a method’s return value should be written directly to the HTTP response body, rather than being treated as a view name, which is the default behavior in traditional Spring MVC controllers. The return value is automatically serialized into a format like JSON or XML, typically using Jackson, depending on the request’s Accept header.\nSHOW CODE Java @Controller public class MyRestController { @RequestMapping(\"/user\") @ResponseBody public User getUser() { return new User(\"John\", \"Doe\"); } } public class User { private String firstName; private String lastName; // Constructor, getters, and setters } In the above code, the User object will be automatically serialized into JSON format by Jackson when returned from the getUser() method. The @ResponseBody annotation ensures that the method’s return value is written directly to the HTTP response body, and Jackson handles the conversion to JSON.\n@Controller vs. @RestController The @Controller annotation is used to declare a class as a controller in Spring MVC. By default, methods within a @Controller-annotated class return a view name (e.g., home.jsp). If a method needs to return a value directly (such as JSON or XML), it should be annotated with @ResponseBody. In contrast, the @RestController annotation is a specialized version of @Controller used to define a controller for RESTful web services. It combines @Controller and @ResponseBody, meaning that the methods in a RestController-annotated class automatically return values written directly to the HTTP response body. This response is typically serialized into JSON or XML format by Jackson.\nSHOW CODE Java @Controller public class WebController { @RequestMapping(\"/home\") public String home() { return \"home\"; // returns home.jsp } } @Controller public class MyController { @RequestMapping(\"/greeting\") @ResponseBody public String greeting() { return \"Hello, World!\"; // The return value is written directly to the response body } } @RestController public class UserController { @RequestMapping(\"/api/user\") public User getUser() { return new User(\"Alice\", \"Smith\"); } } public class User { private String firstName; private String lastName; // Constructor, getters, and setters } @RequestBody, @RequestParam, @PathVariable The @RequestBody annotation is used to bind the body of an HTTP request to a method parameter. It is typically used with HTTP methods like POST, PUT, or PATCH to send data in formats such as JSON or XML. Spring automatically deserializes the request body into an obejct using a message converter, liek Jakson.\nSHOW CODE Java @RestController public class UserController { @PostMapping(\"/user\") public ResponseEntity createUser(@RequestBody User user) { // User is automatically deserialized from the JSON request body return ResponseEntity.ok(\"User created: \" + user.getName()); } } The @RequestParam annotation binds a query parameter or form data to a method parameter. It is commonly used in GET or POST requests to retrive single query parameters. The annotation has optional attributes such as required (to specify if the parameter is mandatory) and defaultValue (to provide a default value when the parameter is absent).\nSHOW CODE Java @RestController public class SearchController { @GetMapping(\"/search\") public ResponseEntity search(@RequestParam String query, @RequestParam(defaultValue = \"10\") int limit) { // query: the search term from the query string // limit: the number of results (defaults to 10 if not provided) return ResponseEntity.ok(\"Searching for: \" + query + \", Limit: \" + limit); } } The @PathVariable annotation binds a URL path variable to a method parameter, commonly used in RESTful web service to capture dynamic segments in the URL. For example, int the URL /user/{id}, the {id} part is dynamic, and the value of {id} will be extracted and passed to the method parameter.\nSHOW CODE Java @RestController public class UserController { // Regular expression to match both with and without the path variable @GetMapping(\"/user/{id:[a-zA-Z0-9]*}\") public ResponseEntity getUser(@PathVariable(required = false) String id) { if (id == null) { return ResponseEntity.ok(\"Default User\"); } return ResponseEntity.ok(\"User ID: \" + id); } } Transformation between Object and Spring In Spring Boot, the transformation between objects and JSON is handled by the Jackson library which allows for easy serialization (converting an object to JSON) and deserialization (converting JSON to an object).\nSHOW CODE Java // When a controller returns an object, Spring Boot automatically // converts it to JSON @RestController public class UserController { @GetMapping(\"/user\") public User getUser() { return new User(1, \"John Doe\", \"john.doe@example.com\"); } } // When accessed via /user, the response is: { \"id\": 1, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\" } // Spring Boot automatically converts the incoming JSON data into // an object when the object is a parameter in the controller method. @RestController public class UserController { @PostMapping(\"/user\") public String createUser(@RequestBody User user) { return \"User \" + user.getName() + \" created!\"; } } // Input JOSN: { \"id\": 2, \"name\": \"Jane Doe\", \"email\": \"jane.doe@example.com\" } ",
+  "wordCount" : "1779",
   "inLanguage": "en",
   "datePublished": "2024-11-18T15:44:50+08:00",
   "dateModified": "2024-11-18T15:44:50+08:00",
@@ -220,7 +220,17 @@ Dependency Injection (DI) Dependency Injection is a design pattern commonly used
                 <li>
                     <a href="#spring-boot-auto-configuration" aria-label="Spring Boot Auto Configuration">Spring Boot Auto Configuration</a></li>
                 <li>
-                    <a href="#common-annotations" aria-label="Common Annotations">Common Annotations</a></li>
+                    <a href="#common-annotations" aria-label="Common Annotations">Common Annotations</a><ul>
+                        
+                <li>
+                    <a href="#component-vs-bean" aria-label="@Component vs. @Bean">@Component vs. @Bean</a></li>
+                <li>
+                    <a href="#resposebody" aria-label="@ResposeBody">@ResposeBody</a></li>
+                <li>
+                    <a href="#controller-vs-restcontroller" aria-label="@Controller vs. @RestController">@Controller vs. @RestController</a></li>
+                <li>
+                    <a href="#requestbody-requestparam-pathvariable" aria-label="@RequestBody, @RequestParam, @PathVariable">@RequestBody, @RequestParam, @PathVariable</a></li></ul>
+                </li>
                 <li>
                     <a href="#transformation-between-object-and-spring" aria-label="Transformation between Object and Spring">Transformation between Object and Spring</a>
                 </li>
@@ -852,7 +862,502 @@ public class Service {
 <h1 id="spring-boot-auto-configuration">Spring Boot Auto Configuration<a hidden class="anchor" aria-hidden="true" href="#spring-boot-auto-configuration">#</a></h1>
 <hr>
 <h1 id="common-annotations">Common Annotations<a hidden class="anchor" aria-hidden="true" href="#common-annotations">#</a></h1>
-<h2 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h2>
+<h2 id="component-vs-bean">@Component vs. @Bean<a hidden class="anchor" aria-hidden="true" href="#component-vs-bean">#</a></h2>
+<blockquote>
+<p>The <code>@Component</code> annotation is applied to a class to mark it as a bean managed by the Spring container. There are several specialized variants of this annotation: <code>@Controller</code> (for web controllers), <code>@Service</code> (for service layer components), and <code>@Repository</code> (for DAO layer components). In contrast, the <code>@Bean</code> annotation is used to mark a method within a class annotated with <code>@Configuration</code>, indicating that the method should return an object to be managed by the Spring container. This apporpach provides more control over bean creation and configuration, allowing for more explicit customization of the bean.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Spring will detect UserService during classpath 
+// scanning and manage it as a bean.
+@Component
+public class UserService {
+    public String getUser() {
+        return "User";
+    }
+}
+
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public UserService userService() {
+        // Explicitly creating and returning the bean
+        return new UserService(); 
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="resposebody">@ResposeBody<a hidden class="anchor" aria-hidden="true" href="#resposebody">#</a></h2>
+<blockquote>
+<p>The <code>@ResponseBody</code> annotation in Spring is used to indicate that a method&rsquo;s return value should be written directly to the HTTP response body, rather than being treated as a view name, which is the default behavior in traditional Spring MVC controllers. The return value is automatically serialized into a format like JSON or XML, typically using Jackson, depending on the request&rsquo;s <code>Accept</code> header.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@Controller
+public class MyRestController {
+
+    @RequestMapping("/user")
+    @ResponseBody
+    public User getUser() {
+        return new User("John", "Doe");
+    }
+}
+
+public class User {
+    private String firstName;
+    private String lastName;
+
+    // Constructor, getters, and setters
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<blockquote>
+<p>In the above code, the <code>User</code> object will be automatically serialized into JSON format by Jackson when returned from the <code>getUser()</code> method. The <code>@ResponseBody</code> annotation ensures that the method&rsquo;s return value is written directly to the HTTP response body, and Jackson handles the conversion to JSON.</p>
+</blockquote>
+<hr>
+<h2 id="controller-vs-restcontroller">@Controller vs. @RestController<a hidden class="anchor" aria-hidden="true" href="#controller-vs-restcontroller">#</a></h2>
+<blockquote>
+<p>The <code>@Controller</code> annotation is used to declare a class as a controller in Spring MVC. By default, methods within a <code>@Controller</code>-annotated class return a view name (e.g., <code>home.jsp</code>). If a method needs to return a value directly (such as JSON or XML), it should be annotated with <code>@ResponseBody</code>. In contrast, the <code>@RestController</code> annotation is a specialized version of <code>@Controller</code> used to define a controller for RESTful web services. It combines <code>@Controller</code> and <code>@ResponseBody</code>, meaning that the methods in a <code>RestController</code>-annotated class automatically return values written directly to the HTTP response body. This response is typically serialized into JSON or XML format by Jackson.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@Controller
+public class WebController {
+    @RequestMapping("/home")
+    public String home() {
+        return "home"; // returns home.jsp
+    }
+}
+
+@Controller
+public class MyController {
+
+    @RequestMapping("/greeting")
+    @ResponseBody
+    public String greeting() {
+        return "Hello, World!"; // The return value is written directly to the response body
+    }
+}
+
+
+@RestController
+public class UserController {
+
+    @RequestMapping("/api/user")
+    public User getUser() {
+        return new User("Alice", "Smith");
+    }
+}
+
+public class User {
+    private String firstName;
+    private String lastName;
+
+    // Constructor, getters, and setters
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="requestbody-requestparam-pathvariable">@RequestBody, @RequestParam, @PathVariable<a hidden class="anchor" aria-hidden="true" href="#requestbody-requestparam-pathvariable">#</a></h2>
+<blockquote>
+<p>The <code>@RequestBody</code> annotation is used to bind the body of an HTTP request to a method parameter. It is typically used with HTTP methods like POST, PUT, or PATCH to send data in formats such as JSON or XML. Spring automatically deserializes the request body into an obejct using a message converter, liek Jakson.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@RestController
+public class UserController {
+
+    @PostMapping("/user")
+    public ResponseEntity&lt;String&gt; createUser(@RequestBody User user) {
+        // User is automatically deserialized from the JSON request body
+        return ResponseEntity.ok("User created: " + user.getName());
+    }
+}
+
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p>The <code>@RequestParam</code> annotation binds a query parameter or form data to a method parameter. It is commonly used in GET or POST requests to retrive single query parameters. The annotation has optional attributes such as <code>required</code> (to specify if the parameter is mandatory) and <code>defaultValue</code> (to provide a default value when the parameter is absent).</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@RestController
+public class SearchController {
+
+    @GetMapping("/search")
+    public ResponseEntity&lt;String&gt; search(@RequestParam String query, @RequestParam(defaultValue = "10") int limit) {
+        // query: the search term from the query string
+        // limit: the number of results (defaults to 10 if not provided)
+        return ResponseEntity.ok("Searching for: " + query + ", Limit: " + limit);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p>The <code>@PathVariable</code> annotation binds a URL path variable to a method parameter, commonly used in RESTful web service to capture dynamic segments in the URL. For example, int the URL <code>/user/{id}</code>, the <code>{id}</code> part is dynamic, and the value of <code>{id}</code> will be extracted and passed to the method parameter.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@RestController
+public class UserController {
+
+    // Regular expression to match both with and without the path variable
+    @GetMapping("/user/{id:[a-zA-Z0-9]*}")
+    public ResponseEntity&lt;String&gt; getUser(@PathVariable(required = false) String id) {
+        if (id == null) {
+            return ResponseEntity.ok("Default User");
+        }
+        return ResponseEntity.ok("User ID: " + id);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
 <hr>
 <h1 id="transformation-between-object-and-spring">Transformation between Object and Spring<a hidden class="anchor" aria-hidden="true" href="#transformation-between-object-and-spring">#</a></h1>
 <blockquote>
@@ -953,7 +1458,7 @@ public class UserController {
     </details>
 </div>
 <hr>
-<h1 id="heading-1"><a hidden class="anchor" aria-hidden="true" href="#heading-1">#</a></h1>
+<h1 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h1>
 
 
   </div>
