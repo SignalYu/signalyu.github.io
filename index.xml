@@ -24,11 +24,11 @@ Speak less of what&amp;rsquo;s unnecessary, do less of what&amp;rsquo;s pointles
 In times of peace, prepare for challenges.</description>
     </item>
     <item>
-      <title>Database Notes</title>
+      <title>Database Design Notes</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/</link>
       <pubDate>Fri, 22 Nov 2024 21:07:21 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-notes/</guid>
-      <description>Database Design Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.
+      <description>Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.
 Databases can be broadly categorized into two types: Relational database, primarily used for real-time data updates and transactions, and data warehouse, optimized for data analysis and reporting purposes.</description>
     </item>
     <item>
