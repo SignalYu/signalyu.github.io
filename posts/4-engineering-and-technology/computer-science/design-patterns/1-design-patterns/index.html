@@ -102,7 +102,7 @@ SHOW CODE Single Responsibility Principle import java.io.IOException; import jav
     "Design Patterns"
   ],
   "articleBody": "1. Solid Principle 1.1 Single Responsibility Principle A class should have only one reason to change, meaning each class should focus on a single functionality or responsibility.\nSHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage. * 4. UserPersistenceService class is dedicated to save the user data. * 5. UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ /* com.fasterxml.jackson.core jackson-databind 2.18.0 */ /** * Represents a user with basic details. * User class is only used to represent entity. */ class User { private String name; private String email; private String address; public User() {} public User(String name, String email, String address) { this.name = name; this.email = email; this.address = address; } // Getters and setters public String getName() { return name; } public void setName(String name) { this.name = name; } public String getEmail() { return email; } public void setEmail(String email) { this.email = email; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } @Override public String toString() { return \"User [name=\" + name + \", email=\" + email + \", address=\" + address + \"]\"; } } /** * Handles incoming JSON requests that work on User. * UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ class UserController { private final UserPersistenceService persistenceService = new UserPersistenceService(); public String createUser(String userJson) throws IOException { ObjectMapper mapper = new ObjectMapper(); User user = mapper.readValue(userJson, User.class); UserValidator validator = new UserValidator(); if (!validator.validateUser(user)) { return \"ERROR\"; } persistenceService.saveUser(user); return \"SUCCESS\"; } } /** * Handles persistence of User objects. * UserPersistenceService class is dedicated to save the user data. */ class UserPersistenceService { private final Store store = new Store(); public void saveUser(User user) { store.store(user); } } /** * Validates User data. * UserValidator class is solely responsible for validating user objects. */ class UserValidator { public boolean validateUser(User user) { if (!isPresent(user.getName()) || !isValidAlphaNumeric(user.getName())) { return false; } user.setName(user.getName().trim()); user.setEmail(user.getEmail().trim()); return isValidEmail(user.getEmail()); } private boolean isPresent(String value) { return value != null \u0026\u0026 value.trim().length() \u003e 0; } private boolean isValidAlphaNumeric(String value) { Pattern pattern = Pattern.compile(\"[^A-Za-z0-9]\"); Matcher matcher = pattern.matcher(value); return !matcher.find(); } private boolean isValidEmail(String value) { Pattern pattern = Pattern.compile(\"^[\\\\w-\\\\.]+@[\\\\w-]+(\\\\.[\\\\w-]+)+$\"); Matcher matcher = pattern.matcher(value); return matcher.find(); } } /** * Stores User data in memory. * Store class is only used to manage user objects storage. */ class Store { private static final Map STORAGE = new HashMap\u003c\u003e(); public void store(User user) { synchronized (STORAGE) { STORAGE.put(user.getName(), user); } } public User getUser(String name) { synchronized (STORAGE) { return STORAGE.get(name); } } } /** * Main class for demonstrating the Single Responsibility Principle. */ public class Main { private static final String VALID_USER_JSON = \"{\\\"name\\\": \\\"Signal\\\", \\\"email\\\": \\\"signalyu999@gmail.com\\\", \\\"address\\\":\\\"999 Sugar lane\\\"}\"; private static final String INVALID_USER_JSON = \"{\\\"name\\\": \\\"Sam\\\", \\\"email\\\": \\\"sam@email\\\", \\\"address\\\":\\\"111 Sugar lane\\\"}\"; public static void main(String[] args) throws IOException { UserController controller = new UserController(); String response = controller.createUser(VALID_USER_JSON); System.out.println(\"Valid JSON response: \" + response); response = controller.createUser(INVALID_USER_JSON); System.out.println(\"Invalid JSON response: \" + response); } } Each class in the above code strictly adheres to the Single Responsibility Principle by focusing on a specific responsibility:\nUser for representing the user entity UserController for request handling UserPersistenceService for data persistence UserValidator for user data validation Store for managing in-memory data storage --- title: Single Responsibility Principle - Class Diagram --- classDiagram class User { - String name - String email - String address + String toString() } class Store { + void store(User user) + User getUser(String name) } class UserPersistenceService { + void saveUser(User user) } class UserValidator { - boolean isPresent(String value) - boolean isValidAlphaNumeric(String value) - boolean isValidEmail(String value) + boolean validateUser(User user) } class UserController { + String createUser(String userJson) } class Main { + void main(String[] args) } User --* Store Store --* UserPersistenceService UserPersistenceService --* UserController UserController --\u003e UserValidator : create Main --\u003e UserController : create 1.2 Open-Closed Principle A software entity (class, module, function, etc.) should be open for extension but closed for modification.\n点击查看代码 Java import java.time.LocalDateTime; import java.util.*; // Abstract base class, closed for modification but open for extension abstract class Subscriber { protected Long subscriberId; protected String address; protected Long phoneNumber; protected int baseRate; // Getter and Setter methods public Long getSubscriberId() { return subscriberId; } public void setSubscriberId(Long subscriberId) { this.subscriberId = subscriberId; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } public Long getPhoneNumber() { return phoneNumber; } public void setPhoneNumber(Long phoneNumber) { this.phoneNumber = phoneNumber; } public int getBaseRate() { return baseRate; } public void setBaseRate(int baseRate) { this.baseRate = baseRate; } // Abstract method to calculate the bill; implementation is defined in subclasses public abstract double calculateBill(); } // PhoneSubscriber class extends Subscriber, calculates the phone bill class PhoneSubscriber extends Subscriber { @Override public double calculateBill() { List calls = CallHistory.getCurrentCalls(subscriberId); long totalDuration = calls.stream().mapToLong(CallHistory.Call::getDuration).sum(); return (totalDuration * baseRate) / 100.0; } } // ISPSubscriber class extends Subscriber, calculates the internet bill class ISPSubscriber extends Subscriber { private long freeUsage; // Free usage limit in data units @Override public double calculateBill() { List sessions = InternetSessionHistory.getCurrentSessions(subscriberId); long totalData = sessions.stream().mapToLong(InternetSessionHistory.InternetSession::getDataUsed).sum(); long chargeableData = totalData - freeUsage; return chargeableData \u003c= 0 ? 0 : (chargeableData * baseRate) / 100.0; } public long getFreeUsage() { return freeUsage; } public void setFreeUsage(long freeUsage) { this.freeUsage = freeUsage; } } // InternetSessionHistory class to manage internet usage records class InternetSessionHistory { public static class InternetSession { private final LocalDateTime begin; private final Long subscriberId; private final Long dataUsed; public InternetSession(Long subscriberId, LocalDateTime begin, long dataUsed) { this.subscriberId = subscriberId; this.begin = begin; this.dataUsed = dataUsed; } public LocalDateTime getBegin() { return begin; } public long getDataUsed() { return dataUsed; } public Long getSubscriberId() { return subscriberId; } } private static final Map",
-  "wordCount" : "5745",
+  "wordCount" : "6770",
   "inLanguage": "en",
   "datePublished": "2024-11-12T14:38:17+08:00",
   "dateModified": "2024-11-12T14:38:17+08:00",
@@ -439,7 +439,7 @@ class UserValidator {
  * Store class is only used to manage user objects storage.
  */
 class Store {
-    private static final Map&lt;String, User&gt; STORAGE = new HashMap<>();
+    private static final Map&lt;String, User&gt; STORAGE = new HashMap&lt;&gt;();
 
     public void store(User user) {
         synchronized (STORAGE) {
@@ -2983,6 +2983,632 @@ classDiagram
 </pre>
 <hr>
 <h2 id="24-prototype">2.4 Prototype<a hidden class="anchor" aria-hidden="true" href="#24-prototype">#</a></h2>
+<blockquote>
+<p>The <strong>Prototype</strong> design pattern is a creational pattern that enables the creation of new objects by copying an existing object, known as the <strong>prototype</strong>. It is particularly useful when object creation is resource-intensive or when there is a need to dynamically create mana similar objects.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Point3D class representing a 3D point
+class Point3D {
+    private float x, y, z;
+
+    public static final Point3D ZERO = new Point3D(0, 0, 0);
+
+    public Point3D(float x, float y, float z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public Point3D normalize() {
+        float mag = magnitude();
+        return new Point3D(x / mag, y / mag, z / mag);
+    }
+
+    private float magnitude() {
+        return (float) Math.sqrt(x * x + y * y + z * z);
+    }
+
+    public Point3D multiply(float scale) {
+        return new Point3D(x * scale, y * scale, z * scale);
+    }
+
+    public Point3D add(Point3D vector) {
+        return new Point3D(x + vector.x, y + vector.y, z + vector.z);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ", " + z + ")";
+    }
+}
+
+// Abstract GameUnit class defining the clone method
+abstract class GameUnit implements Cloneable {
+    private Point3D position;
+
+    public GameUnit() {
+        position = Point3D.ZERO;
+    }
+
+    @Override
+    public GameUnit clone() throws CloneNotSupportedException {
+        GameUnit unit = (GameUnit) super.clone();
+        unit.initialize();
+        return unit;
+    }
+
+    protected void initialize() {
+        this.position = Point3D.ZERO;
+        reset();
+    }
+
+    protected abstract void reset();
+
+    public GameUnit(float x, float y, float z) {
+        position = new Point3D(x, y, z);
+    }
+
+    public void move(Point3D direction, float distance) {
+        Point3D finalMove = direction.normalize();
+        finalMove = finalMove.multiply(distance);
+        position = position.add(finalMove);
+    }
+
+    public Point3D getPosition() {
+        return position;
+    }
+}
+
+// Swordsman class extends GameUnit and implements specific behavior
+class Swordsman extends GameUnit {
+    private String state = "idle";
+
+    public void attack() {
+        this.state = "attacking";
+    }
+
+    @Override
+    public String toString() {
+        return "Swordsman " + state + " @ " + getPosition();
+    }
+
+    @Override
+    protected void reset() {
+        state = "idle";
+    }
+}
+
+// General class extends GameUnit but does not support cloning
+class General extends GameUnit {
+    private String state = "idle";
+
+    public void boostMorale() {
+        this.state = "MoralBoost";
+    }
+
+    @Override
+    public String toString() {
+        return "General " + state + " @ " + getPosition();
+    }
+
+    @Override
+    public GameUnit clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException("Generals are unique");
+    }
+
+    @Override
+    protected void reset() {
+        throw new UnsupportedOperationException("Reset not supported");
+    }
+}
+
+public class Main {
+    // Client code to demonstrate the Prototype Pattern
+    public static void main(String[] args) throws CloneNotSupportedException {
+        // Creating and moving a Swordsman
+        Swordsman s1 = new Swordsman();
+        s1.move(new Point3D(-10, 0, 0), 20);
+        s1.attack();
+        System.out.println(s1);
+
+        // Cloning the Swordsman
+        Swordsman s2 = (Swordsman) s1.clone();
+        System.out.println("Cloned swordsman: " + s2);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p><strong>Shallow Copy vs. Deep Copy</strong>: A <strong>shallow copy</strong> creates a new object but only copies the references of the original object&rsquo;s fields. As a result, both the original and the copied object share references to the same inner objects. Any changes made to the inner <em><strong>mutable</strong></em> objects of the copied object will affect the original object as well. In Java, the <code>clone</code> method performs a shallow copy. On the other hand, a <strong>deep copy</strong> involves recursively copying the original object and all the objects it references. As a result, the copied object is entirely independent of the original, and changes made to the copied object do not affect the original one.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Shallow Copy</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Signal Yu
+ * @since 2024-12-2
+ */
+
+class Person {
+    String name;
+    int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + '}';
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        // Original list with mutable objects (Person)
+        List&lt;Person&gt; originalList = new ArrayList&lt;&gt;();
+        originalList.add(new Person("Alice", 30));
+        originalList.add(new Person("Bob", 25));
+
+        // Shallow copy of the list
+        List&lt;Person&gt; shallowCopyList = new ArrayList&lt;&gt;(originalList);
+
+        // Modify the object in the shallow copy
+        shallowCopyList.get(1).setName("Signal");
+
+        // Print both lists
+        System.out.println("Original List: " + originalList);
+        System.out.println("Shallow Copy List: " + shallowCopyList);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT: Shallow Copy</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >Original List: [Person{name='Alice', age=30}, Person{name='Signal', age=25}]
+Shallow Copy List: [Person{name='Alice', age=30}, Person{name='Signal', age=25}]
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Deep Copy</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.ArrayList;
+import java.util.List;
+
+class Person {
+    String name;
+    int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + '}';
+    }
+
+    // Deep copy method for Person class
+    public Person deepCopy() {
+        return new Person(this.name, this.age);
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        // Original list with mutable objects (Person)
+        List&lt;Person&gt; originalList = new ArrayList&lt;&gt;();
+        originalList.add(new Person("Alice", 30));
+        originalList.add(new Person("Bob", 25));
+
+        // Deep copy of the list (creating new Person objects)
+        List&lt;Person&gt; deepCopyList = new ArrayList&lt;&gt;();
+        for (Person person : originalList) {
+            deepCopyList.add(person.deepCopy()); // Add a deep copy of each person
+        }
+
+        // Modify the object in the deep copy
+        deepCopyList.get(1).setName("Signal");
+
+        // Print both lists
+        System.out.println("Original List: " + originalList);
+        System.out.println("Deep Copy List: " + deepCopyList);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT: Deep Copy</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >Original List: [Person{name='Alice', age=30}, Person{name='Bob', age=25}]
+Deep Copy List: [Person{name='Alice', age=30}, Person{name='Signal', age=25}]
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p>It is important to note that changes made to immutable objects in a shallow copied object will not affect the original object. For example, when performing a shallow copy of an <code>ArrayList</code> that contains <code>Integer</code> values, changes made to the <code>Integer</code> of the copied object will not affect the original object because <code>Integer</code> is immutable (since it is marked as <code>final</code> and its value cannot be changed).</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Signal Yu
+ * @since 2024-12-2
+ */
+public class Solution {
+    public static void main(String[] args) {
+        // Integer is an immutable class
+        List&lt;Integer&gt; original = new ArrayList&lt;&gt;();
+        original.add(1);
+        original.add(2);
+
+        List<Integer> shallowCopy = new ArrayList&lt;&gt;(original);  // Shallow copy
+        shallowCopy.set(0, 99);  // Modify the shallow copy
+
+        System.out.println(original); // Output: [1, 2]
+        System.out.println(shallowCopy); // Output: [99, 2]
+
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
 <p>Prototype v.s. Builder</p>
 <h2 id="25-abstract-factory">2.5 Abstract Factory<a hidden class="anchor" aria-hidden="true" href="#25-abstract-factory">#</a></h2>
 <h2 id="26-singleton">2.6 Singleton<a hidden class="anchor" aria-hidden="true" href="#26-singleton">#</a></h2>
