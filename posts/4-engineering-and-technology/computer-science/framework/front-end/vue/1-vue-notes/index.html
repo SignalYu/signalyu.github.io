@@ -99,7 +99,7 @@
     "Vue"
   ],
   "articleBody": "Virtual DOM A Virtual DOM is a lightweight, in-memory representation of the real DOM. Each Node in the Virtual DOM is represented as a plain JavaScript object with properties describing the element, its attributes, and its children. The Virtual DOM will be updated whenever an application’s state changes. It minimizes real DOM updates by batching changes and applying them through an optimized process. --- title: Virtual DOM --- graph TD B[\"\\{tag: 'div'\\}\"] B --\u003e C[\"\\{tag: 'div'\\}\"] B --\u003e D[\"\\{tag: 'div'\\}\"] B --\u003e E[\"\\{tag: 'div'\\}\"] C --\u003e F[\"\\{tag: 'ul'\\}\"] D --\u003e G[\"\\{tag: 'button'\\}\"] E --\u003e H[\"\\{tag: 'text'\\}\"] E --\u003e I[\"\\{tag: 'p'\\}\"] SHOW CODE Virtual DOM Node const vnode = { tag: 'div', // The HTML tag data: { id: 'container', class: 'main' }, // Attributes and properties children: [ { tag: 'p', data: { class: 'text' }, children: ['Hello, Virtual DOM!'], // Text content as a child }, { tag: 'button', data: { onClick: handleClick }, children: ['Click Me'], // Text content inside the button }, ], }; Data Binding The v-bind directive in Vue provides one-way data binding, allows dynamically binding an element’s attribute or property to a JavaScript expression. The shorthand for v-bind is a single colon (:).\nSHOW CODE Vue const app = Vue.createApp({ data() { return { image: { src: \"image.jpg\", alt: \"A beautiful image\", class: { cat: isVisible, image: !isVisible, } }, isVisible: true }; } }); app.mount('#app'); The v-model directive in Vue is used to create two-way data binding between input form elements and the component’s data. Modifiers such as trim and number can be applied to enhance its functionality. When the input data changes, the corresponding component data updates automatically.\nSHOW CODE Vue Hello, {{ name }}!\nIterate over Collections The v-for directive in Vue is used to iterate over collections such as arrays or objects in JavaScript. It is crucial that the value assigned to the key attribute is both unique and type of string or number. The key attribute allows Vue to efficently update the DOM by tracking each item, ensuring predictable behavior when the underlying data changes.\nSHOW CODE Vue {{ index + 1 }}. {{ item }} data() { return { items: [\"Apple\", \"Banana\", \"Cherry\"] }; } {{ key }}: {{ value }} data() { return { user: { name: \"John\", age: 30, location: \"USA\" } }; } A common approach to ensure uniqueness is to assign a UUID value to the key attribute.\nAdding Event Listeners to Elements The v-on directive in Vue is used to add event listeners to elements. It listens for DOM events and executes the specified JavaScript function. The shorthand syntax for v-on is @. Vue also provides modifiers like .stop and .prevent to simplify handling common event-related tasks.\nSHOW CODE Vue Click Me Click Me Click Me Click Me Submit Event Propagation: The DOM follows a tree-like structure. Events propagate in three phases: starting from the top-most element (document) during the capture phase, moving down to the target element, where the target phase occurs and any associated JavaScript code is executed (if defined), and then propagating back up during the bubbling phase. By default, event listeners in JavaScript and Vue operate in the bubbling phase. However, switching to the capture phase is possible by using the .capture modifier.\nSHOW CODE Vue Click Me Conditional Rendering Conditional rendering in Vue is typically achieved using the v-if, v-else-if, v-else, and v-show directives. The v-if directive controls the visibility of an element by conditionally mounting or unmounting it from the DOM. The v-else-if and v-else directives are used alongside v-if to create more complex conditional redering logic. In contrast, the v-show directive is useful in scenarios where elements need to be toggled frequently. It works by toggling the CSS display property, meaning the element remains in the DOM even when the condition is false, but its visibility is controlled via CSS.\nSHOW CODE Vue This is visible!\nToggle Visibility Success!\nLoading...\nSomething went wrong.\nChange Status This is visible!\nToggle Visibility v-html The v-html directive is used to bind raw HTML to an element, enabling dynamic rendering of content. It is particularly useful for rendering rich text, such as HTML elements like ",
-  "wordCount" : "1058",
+  "wordCount" : "1402",
   "inLanguage": "en",
   "datePublished": "2024-11-16T20:53:48+08:00",
   "dateModified": "2024-11-16T20:53:48+08:00",
@@ -184,7 +184,13 @@
                 <li>
                     <a href="#v-html" aria-label="v-html">v-html</a></li>
                 <li>
-                    <a href="#v-text" aria-label="v-text">v-text</a>
+                    <a href="#v-text" aria-label="v-text">v-text</a></li>
+                <li>
+                    <a href="#v-once" aria-label="v-once">v-once</a></li>
+                <li>
+                    <a href="#v-memo" aria-label="v-memo">v-memo</a></li>
+                <li>
+                    <a href="#registering-a-global-component" aria-label="Registering a Global Component">Registering a Global Component</a>
                 </li>
             </ul>
         </div>
@@ -878,7 +884,7 @@ export default {
 <hr>
 <h1 id="v-text">v-text<a hidden class="anchor" aria-hidden="true" href="#v-text">#</a></h1>
 <blockquote>
-<p>The <code>v-text</code> directive is used to display plain text by binding a value to an element&rsquo;s text content. Unlike <code>v-html</code>, it escapes any HTML tags and renders the content as plain text. It is useful for text placeholders. as the predefined placeholder text will be replaced once the component has finished loading.</p>
+<p>The <code>v-text</code> directive is used to display plain text by binding a value to an element&rsquo;s text content. Unlike <code>v-html</code>, it escapes any HTML tags and renders the content as plain text. It is useful for text placeholders, as the predefined placeholder text will be replaced once the component has finished loading.</p>
 </blockquote>
 <head>
     <style>
@@ -1098,6 +1104,286 @@ export default {
 <blockquote>
 <p>The above code will render the application displaying <code>Placeholder Text</code> and will eventually replace it with <code>Hello, Vue!</code> received from <code>message</code>.</p>
 </blockquote>
+<hr>
+<h1 id="v-once">v-once<a hidden class="anchor" aria-hidden="true" href="#v-once">#</a></h1>
+<blockquote>
+<p>The <code>v-once</code> directive is used to render an element or a component only once. After the initial render, Vue will skip re-rendering it, even if its reactive data changes. This directive is useful for displaying static content, such as headers or footers, that do not change after the initial render.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Vue</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-html" data-lang="html" >&lt;div id=&quot;app&quot;&gt;
+  &lt;h1 v-once&gt;This header is static and won't re-render&lt;/h1&gt;
+  &lt;p&gt;{{ message }}&lt;/p&gt;
+  &lt;button @click=&quot;changeMessage&quot;&gt;Change Message&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello, Vue!'
+    },
+    methods: {
+      changeMessage() {
+        this.message = 'Message changed!';
+      }
+    }
+  });
+&lt;/script&gt;
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="v-memo">v-memo<a hidden class="anchor" aria-hidden="true" href="#v-memo">#</a></h1>
+<blockquote>
+<p>The <code>v-memo</code> directive, introduced in Vue 3, optimizes the rendering of DOM elements by memoizing their output based on specified dependencies. When the dependencies remain unchanged, the element will not be re-rendered, improving performance by avoiding unnecessary updates.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Vue</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-html" data-lang="html" >&lt;div id=&quot;app&quot;&gt;
+  &lt;p v-memo=&quot;[message]&quot;&gt;{{ message }}&lt;/p&gt;
+  &lt;button @click=&quot;changeMessage&quot;&gt;Change Message&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+  new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello, Vue!'
+    },
+    methods: {
+      changeMessage() {
+        this.message = 'Message changed!';
+      }
+    }
+  });
+&lt;/script&gt;
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<blockquote>
+<p>In the above code, <code>&lt;p&gt;</code> tag will not re-rendered unless the <code>message</code> changes.</p>
+</blockquote>
+<hr>
+<h1 id="registering-a-global-component">Registering a Global Component<a hidden class="anchor" aria-hidden="true" href="#registering-a-global-component">#</a></h1>
+<blockquote>
+<p>In Vue, registering a global component allows it to be used across all instances without needing to import it every time. To register a global component, follow these steps:</p>
+<ol>
+<li><strong>Define the component</strong> – Create the component as a standalone file.</li>
+<li><strong>Register the component</strong> – In the <code>main.js</code> or <code>main.ts</code> file, use <code>app.component</code> to globally register the component.</li>
+<li><strong>Use the component</strong> – After registration, the component can be used in any Vue instance within the application without needing to import it again.</li>
+</ol>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Vue</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-html" data-lang="html" >&lt;!-- Define the Component --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Hello from MyComponent!&lt;/h1&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: 'MyComponent'
+}
+&lt;/script&gt;
+
+&lt;!-- Register the component globally --&gt;
+import { createApp } from 'vue'
+import App from './App.vue'
+import MyComponent from './components/MyComponent.vue'
+
+const app = createApp(App)
+
+// Register MyComponent globally
+app.component('MyComponent', MyComponent)
+
+app.mount('#app')
+
+&lt;!-- Use the global component in any template --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;MyComponent /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: 'AnotherComponent'
+}
+&lt;/script&gt;
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
 <hr>
 <h1 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h1>
 
