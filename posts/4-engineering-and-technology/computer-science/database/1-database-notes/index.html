@@ -101,8 +101,8 @@ Databases can be broadly categorized into two types: Relational database, primar
   "keywords": [
     "Database"
   ],
-  "articleBody": "Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.\nDatabases can be broadly categorized into two types: Relational database, primarily used for real-time data updates and transactions, and data warehouse, optimized for data analysis and reporting purposes.\nData Modeling Data modeling is the process of creating a conceptual representation of data structures, relationships, and rule to meet business requirements. It serves as a blueprint for designing and managing a database.\nThere are three types of data models: conceptual, logical, and physical. The conceptual data model provides a high-level overview, specifying relationships between objects without technical details. The logical data model refine the conceptual data model by adding more detail, such as fields for each object. The physical data model describe the internal schema of the database, including table structures, storage details, and implementation specifics.\n--- title: Conceptual Data Model --- erDiagram Customer ||--o{ Order : places Order ||--|{ Product : contains --- title: Logical Data Model --- erDiagram Customer { int customerId string name string email } Order { int orderId date orderDate float totalAmount } Product { int productId string productName float price } Customer ||--o{ Order : places Order ||--|{ Product : contains --- title: Physical Data Model --- erDiagram Customer { int customerId PK varchar name varchar email } Order { int orderId PK date orderDate float totalAmount int customerId FK } Product { int productId PK varchar productName decimal price } OrderItem { int orderItemId PK int orderId FK int productId FK int quantity } Customer ||--o{ Order : places Order ||--|{ OrderItem : includes OrderItem ||--|{ Product : contains Example: University Enrollment Management System Entities In database design, an entity is a distinct object that typically represents real-world objects, events, or concepts. Entities are represented as tables in a relational database, and they are similar to classes in object-oriented design. Each row in the table represents an instance of the entity. Each entity has attributes that desceibe its characteristics. For example, a Student entity may have attributes like student_id, first_name, last_name, and date_of_birth, among others. Entities can be related to one another, and these relationships are often captured using foreign keys or relationship tables, which link entities together based on logical associations. For example, a Student might be linked to a Course through an enrollment relationship.\nIdentifying Entities Identifying entities in database design is a crucial step, as entities form the foundation of a database. A useful approach for identifying entities is to clarify the design objectives and look for nouns in the objective statement. For example, consider the University Enrollment Management System. The objective statement might be:\n“The University Enrollment Management System” is designed to help a university track enrolled students, the subjects they are taking, and the teachers assigned to those subjects\".\nIn this sentence, the nouns university, student, subject, and teacher are potential entities, as they represent key objects or concepts that the system needs to track.\n--- title: Identifying Entities --- erDiagram UNIVERSITY STUDENT erDiagram TEACHER SUBJECT Defining Attributes In database design, an attribute describes the characteristics of an entity. In a relational database, attributes are typically represented as columns in a table. Defining entity attributes is a crucial step in database design, as it ensures that the entity captures all the necessary details required by the system. When defining attributes, it’s important to consider what properties or characteristics the entity possesses.\nFor example, in a University Enrollment Management System, the Student entity might have attributes like first_name, last_name, date_of_birth, and address. After identifying the necessary attributes, the next step is to specify the approapriate data type for each attribute. For instance, attributes like first_name, last_name, and address would typically use the TEXT data type, while the date_of_birth attribute would be defined with the DATE data type.\n--- title: Defining Attributes --- erDiagram UNIVERSITY { string name string address } STUDENT { string first_name string last_name date date_of_birth string address } erDiagram SUBJECT { string subject_name string category string student_name } TEACHER { string first_name string last_name date date_of_birth string address string subject_taught } Normalization Normalization in database design is the process of organizing the attributes of entities and their relationships to reduce data redundency, avoid operational anomalies, and improve data integrity. Normalization involves decomposing a large, complex database into smaller, simpler tables while preserving the relationships between entities. This decomposition follows a set of rules called normal forms. In real-world database design, the three most commonly used normal normal forms are First Normal Form (1NF), Second Normal Form (2NF), and Third Normal Form (3NF).\nFirst Normal Form First Normal Form (1NF) is a property of a relational database table that ensures the table is structured properly. It follows the following conditions:\nEach column must contain atomic values, meaning that the value in a field should be indivisible and not contain sets or lists of values. Each row must be unique, which can be achieved by using a primary key to uniquely identify each record. All values in single column should be of the same data type. A Primary Key is a column (or a set of columns) in a relational database table that uniquely identifies each row in that table. It satisfies the following conditions:\nThe value in the primary key must be unique for each row. The value in the primary key must not be null for any record. The value in the primary key should generally be immutable, meaning it should not change once assigned. When designing tables, assess if any combination of columns can be used to uniquely identify a record. If such a combination exists, those columns can form the primary key. If no suitable combination is found, create a new column to serve as the primary key.\nA primary key can be a set of columns when a single column is not sufficient to uniquely identify a row. For example, in the following table, neither the StudentID nor the CourseID alone can uniquely identify a row, because a student might enroll mutiple courses, and a course can have multiple students. However, the combination of both columns can uniquely identify each enrollment record.\nStudentID CourseID EnrollmentDate 1 CS101 2024-01-01 1 MATH101 2024-01-02 2 CS101 2024-01-03 First Normal Form: Student In the following Student table, there is no single field that can uniquely identify a row. Therefore, it is necessary to add a new field. such as StudentID, to ensure each row has a unique identifier. Additionally, the Address field may contain multiple values, such as unit number, street number, street name, suburb, city, state, country, and postcode. To comply with the First Normal Form (1NF), the Address firld must be divided into multiple separate columns, ensuring that each column contains only atomic values.\n--- title: Violation of 1NF - Student --- erDiagram STUDENT { string first_name string last_name date date_of_birth string address } --- title: Comply with 1NF - Student --- erDiagram STUDENT { number student_id PK string first_name string last_name date date_of_birth number unit_number number street_number string street_name string suburb string city string state string country string postcode } First Normal Form: Subject --- title: Violation of 1NF - Subject --- erDiagram SUBJECT { string subject_name string category string student_name } --- title: Comply with 1NF - Subject --- erDiagram SUBJECT { number subject_id PK string subject_name string category string student_name } First Normal Form: Teacher --- title: Violation of 1NF - Teacher --- erDiagram TEACHER { string first_name string last_name date date_of_birth string address string subject_taught } --- title: Comply with 1NF - Teacher --- erDiagram TEACHER { number teacher_id PK string first_name string last_name date date_of_birth number unit_number number street_number string street_name string suburb string city string state string country string postcode string subject_taught } First Normal Form: University --- title: Violation of 1NF - University --- erDiagram UNIVERSITY { string name string address } --- title: Comply with 1NF - University --- erDiagram UNIVERSITY { number university_id PK string name number unit_number number street_number string street_name string suburb string city string state string country string postcode } Second Normal Form Third Normal From Design Considerations ",
-  "wordCount" : "1393",
+  "articleBody": "Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.\nDatabases can be broadly categorized into two types: Relational database, primarily used for real-time data updates and transactions, and data warehouse, optimized for data analysis and reporting purposes.\nData Modeling Data modeling is the process of creating a conceptual representation of data structures, relationships, and rule to meet business requirements. It serves as a blueprint for designing and managing a database.\nThere are three types of data models: conceptual, logical, and physical. The conceptual data model provides a high-level overview, specifying relationships between objects without technical details. The logical data model refine the conceptual data model by adding more detail, such as fields for each object. The physical data model describe the internal schema of the database, including table structures, storage details, and implementation specifics.\n--- title: Conceptual Data Model --- erDiagram Customer ||--o{ Order : places Order ||--|{ Product : contains --- title: Logical Data Model --- erDiagram Customer { int customerId string name string email } Order { int orderId date orderDate float totalAmount } Product { int productId string productName float price } Customer ||--o{ Order : places Order ||--|{ Product : contains --- title: Physical Data Model --- erDiagram Customer { int customerId PK varchar name varchar email } Order { int orderId PK date orderDate float totalAmount int customerId FK } Product { int productId PK varchar productName decimal price } OrderItem { int orderItemId PK int orderId FK int productId FK int quantity } Customer ||--o{ Order : places Order ||--|{ OrderItem : includes OrderItem ||--|{ Product : contains Example: University Enrollment Management System Entities In database design, an entity is a distinct object that typically represents real-world objects, events, or concepts. Entities are represented as tables in a relational database, and they are similar to classes in object-oriented design. Each row in the table represents an instance of the entity. Each entity has attributes that describe its characteristics. For example, a Student entity may have attributes like student_id, first_name, last_name, and date_of_birth, among others. Entities can be related to one another, and these relationships are often captured using foreign keys or relationship tables, which link entities together based on logical associations. For example, a Student might be linked to a Course through an enrollment relationship.\nIdentifying Entities Identifying entities in database design is a crucial step, as entities form the foundation of a database. A useful approach for identifying entities is to clarify the design objectives and look for nouns in the objective statement. For example, consider the University Enrollment Management System. The objective statement might be:\n“The University Enrollment Management System” is designed to help a university track enrolled students, the subjects they are taking, and the teachers assigned to those subjects\".\nIn this sentence, the nouns university, student, subject, and teacher are potential entities, as they represent key objects or concepts that the system needs to track.\n--- title: Identifying Entities --- erDiagram UNIVERSITY STUDENT erDiagram TEACHER SUBJECT Defining Attributes In database design, an attribute describes the characteristics of an entity. In a relational database, attributes are typically represented as columns in a table. Defining entity attributes is a crucial step in database design, as it ensures that the entity captures all the necessary details required by the system. When defining attributes, it’s important to consider what properties or characteristics the entity possesses.\nFor example, in a University Enrollment Management System, the Student entity might have attributes like first_name, last_name, date_of_birth, and address. After identifying the necessary attributes, the next step is to specify the approapriate data type for each attribute. For instance, attributes like first_name, last_name, and address would typically use the TEXT data type, while the date_of_birth attribute would be defined with the DATE data type.\n--- title: Defining Attributes --- erDiagram UNIVERSITY { string name string address } STUDENT { string first_name string last_name date date_of_birth string address } erDiagram SUBJECT { string subject_name string category string students_enrolled } TEACHER { string first_name string last_name date date_of_birth string address string subject_taught } Normalization Normalization in database design is the process of organizing the attributes of entities and their relationships to reduce data redundency, avoid operational anomalies, and improve data integrity. Normalization involves decomposing a large, complex database into smaller, simpler tables while preserving the relationships between entities. This decomposition follows a set of rules called normal forms. In real-world database design, the three most commonly used normal normal forms are First Normal Form (1NF), Second Normal Form (2NF), and Third Normal Form (3NF).\nFirst Normal Form First Normal Form (1NF) is a property of a relational database table that ensures the table is structured properly. It follows the following conditions:\nEach column must contain atomic values, meaning that the value in a field should be indivisible and not contain sets or lists of values. Each row must be unique, which can be achieved by using a primary key to uniquely identify each record. All values in single column should be of the same data type. A Primary Key is a column (or a set of columns) in a relational database table that uniquely identifies each row in that table. It satisfies the following conditions:\nThe value in the primary key must be unique for each row. The value in the primary key must not be null for any record. The value in the primary key should generally be immutable, meaning it should not change once assigned. When designing tables, assess if any combination of columns can be used to uniquely identify a record. If such a combination exists, those columns can form the primary key. If no suitable combination is found, create a new column to serve as the primary key.\nA primary key can be a set of columns when a single column is not sufficient to uniquely identify a row. For example, in the following table, neither the StudentID nor the CourseID alone can uniquely identify a row, because a student might enroll mutiple courses, and a course can have multiple students. However, the combination of both columns can uniquely identify each enrollment record.\nStudentID CourseID EnrollmentDate 1 CS101 2024-01-01 1 MATH101 2024-01-02 2 CS101 2024-01-03 1NF: Student In the following Student table, there is no single field that can uniquely identify a row. Therefore, it is necessary to add a new field. such as StudentID, to ensure each row has a unique identifier. Additionally, the Address field may contain multiple values, such as unit number, street number, street name, suburb, city, state, country, and postcode. To comply with the First Normal Form (1NF), the Address firld must be divided into multiple separate columns, ensuring that each column contains only atomic values.\n--- title: Violation of 1NF - Student --- erDiagram STUDENT { string first_name string last_name date date_of_birth string address } --- title: Comply with 1NF - Student --- erDiagram STUDENT { number student_id PK string first_name string last_name date date_of_birth number unit_number number street_number string street_name string suburb string city string state string country string postcode } 1NF: Subject --- title: Violation of 1NF - Subject --- erDiagram SUBJECT { string subject_name string category string students_enrolled } --- title: Comply with 1NF - Subject --- erDiagram SUBJECT { number subject_id PK string subject_name string category string students_enrolled } 1NF: Teacher --- title: Violation of 1NF - Teacher --- erDiagram TEACHER { string first_name string last_name date date_of_birth string address string subject_taught } --- title: Comply with 1NF - Teacher --- erDiagram TEACHER { number teacher_id PK string first_name string last_name date date_of_birth number unit_number number street_number string street_name string suburb string city string state string country string postcode string subject_taught } 1NF: University --- title: Violation of 1NF - University --- erDiagram UNIVERSITY { string name string address } --- title: Comply with 1NF - University --- erDiagram UNIVERSITY { number university_id PK string name number unit_number number street_number string street_name string suburb string city string state string country string postcode } Second Normal Form The Second Normal Form (2NF) in database design is a level of normalization that builds upon the First Normal Form (1NF). A table is in 2NF if every non-key attribute is fully functionally dependent on the entire primary key, not just part of it, particularly in tables with composite primary keys (a key made up of two or more columns).\nRelationships Relationship in database design refers to the association between different entities (tables) in a database. It defines how data in one table is related to data in another table, enabling efficient organization and retrival of data. Relationships are established through a foreign key, which is a column in one table that references the primary key of another table. There are four main types of relationships: One-to-One (1:1), One-to-Many (1:N), Many-to-Many (N:M), and Self-Reference.\nIn a One to One relationship, each record in one table is related to exactly one record in another table. For example, consider a Person table and a Passport table, where each person has one unique passport, and each passport is associated with only one person. This type of relationship is relatively rare in real-world database design.\nThe One to Many relationship is the most common type in real-world database design. In a 1:N relationship, one record in a table can be linked to multiple records in another table. For example, in a Department table and an Employee table, one department can have many employees, but each employee blongs to exactly one department. This is a typical relational model for most business applications.\nThe Many-to-Many relationship is common but often requires an intermediary table to properly represent the association. In an N:M relationship, multiple records in one table can be asoociated with multiple records in another table. For instance, in a Student table and a Course table, a student can enroll in many courses, and each course can have many students enrolled. This relationship is typically handled by a joining table, such as Student_Course.\nIn a Self-Referencing relationship, a table is related to itself. In other words, a record in the table is associated with another record in the same table. For example, in an Employee table, each employee has a Manager, and that manager may also have a manager. This type of relationship is useful for representing hierarchical structures, such as organizational charts.\nIn database design, a foreign key is a column that references the primary key of another table. It is used to establish a relationship between two tables, ensuring referential integrity and maintaining consistent data across the database.\n2NF: Subject \u0026 Category In the following Subject table, the subject_name is dependent on the primary key subject_id, but the category is not fully dependent on the primary key, which violates 2NF. To resolve this issue, a new Category table should be created with two fields: category_id as the primary key and subject_id as a foreign key. The two tables have a One-to-Many relationship, where each category can have many subjects, while each subject bleongs to exactly one category.\n--- title: Violation of 2NF - Subject --- erDiagram SUBJECT { number subject_id PK string subject_name string category } --- title: Comply with 2NF - Subject --- erDiagram SUBJECT { number subject_id PK string subject_name number category_id FK } CATEGORY { number category_id PK string category_name } CATEGORY ||--|{ SUBJECT : \"\" 2NF: Student \u0026 Subject In the following Subject table, the subject_id and students_enrolled create a Many-to-Many relationship. However, relational databases should not represent Many-to-Many relationships directly in s single table. This is because a single table cannot handle multiple instances of related data (such as multiple students enrolled in multiple subjects) within a single field. To resolve this issue, a junction table is introduced. It breaks down the Many-to-Many relationship into two One-to-Many relationships, ensuring data integrity and normalization.\n--- title: Violation of 2NF - Subject --- erDiagram SUBJECT { number subject_id PK string subject_name string students_enrolled } subject_id subject_name students_name 1 Math Alice, Bob, Charlie 2 History David, Emily, Frank, Grace 3 Science Helen, Ian In the above table, the students_enrolled field violates First Normal Form (1NF), which requires each column to contain only atomic values. Additionally, this design leads to data redundancy. For example, if the student Alice enrolls in multiple courses such as Math, History, and Science. her name will be repeated in each row, causing unnecessary duplication of data.\nFurthermore, this design makes data manipulation more complex. For instance, when a student drops a course or a new student enrolls in a course, the list of students in the students_enrolled column must be manually updated, which is error-prone and inefficient.\n--- title: Comply with 2NF - Subject --- erDiagram SUBJECT { number subject_id PK string subject_name } STUDENT { number student_id PK string students_enrolled } ENROLLMENT { number subject_id FK number student_id FK } SUBJECT ||--|{ ENROLLMENT : \"has\" STUDENT ||--|{ ENROLLMENT : \"enrolled in\" Comply with 2NF: Real-World Example 2NF: Teacher --- title: Violation of 2NF - Teacher (subject_taught) --- erDiagram TEACHER { number teacher_id string first_name string last_name date date_of_birth string subject_taught } --- title: Comply with 2NF - Teacher --- erDiagram TEACHER { number teacher_id string first_name string last_name date date_of_birth } SUBJECT { number subject_id PK string subject_name number category_id FK number teacher_id FK } TEACHER ||--|{ SUBJECT : \"teaches\" 2NF: University --- title: Comply with 2NF - UNIVERSITY --- erDiagram UNIVERSITY { number university_id PK string name } SUBJECT { number subject_id PK string subject_name number category_id FK number teacher_id FK number university_id FK } UNIVERSITY ||--|{ SUBJECT : \"\" Third Normal From Design Considerations Data Types \u0026 Precision ",
+  "wordCount" : "2314",
   "inLanguage": "en",
   "datePublished": "2024-11-22T21:07:21+08:00",
   "dateModified": "2024-11-22T21:07:21+08:00",
@@ -196,22 +196,39 @@ Databases can be broadly categorized into two types: Relational database, primar
                     <a href="#first-normal-form" aria-label="First Normal Form">First Normal Form</a><ul>
                         
                 <li>
-                    <a href="#first-normal-form-student" aria-label="First Normal Form: Student">First Normal Form: Student</a></li>
+                    <a href="#1nf-student" aria-label="1NF: Student">1NF: Student</a></li>
                 <li>
-                    <a href="#first-normal-form-subject" aria-label="First Normal Form: Subject">First Normal Form: Subject</a></li>
+                    <a href="#1nf-subject" aria-label="1NF: Subject">1NF: Subject</a></li>
                 <li>
-                    <a href="#first-normal-form-teacher" aria-label="First Normal Form: Teacher">First Normal Form: Teacher</a></li>
+                    <a href="#1nf-teacher" aria-label="1NF: Teacher">1NF: Teacher</a></li>
                 <li>
-                    <a href="#first-normal-form-university" aria-label="First Normal Form: University">First Normal Form: University</a></li></ul>
+                    <a href="#1nf-university" aria-label="1NF: University">1NF: University</a></li></ul>
                 </li>
                 <li>
-                    <a href="#second-normal-form" aria-label="Second Normal Form">Second Normal Form</a></li>
+                    <a href="#second-normal-form" aria-label="Second Normal Form">Second Normal Form</a><ul>
+                        
+                <li>
+                    <a href="#relationships" aria-label="Relationships">Relationships</a></li>
+                <li>
+                    <a href="#2nf-subject--category" aria-label="2NF: Subject &amp; Category">2NF: Subject &amp; Category</a></li>
+                <li>
+                    <a href="#2nf-student--subject" aria-label="2NF: Student &amp; Subject">2NF: Student &amp; Subject</a></li>
+                <li>
+                    <a href="#2nf-teacher" aria-label="2NF: Teacher">2NF: Teacher</a></li>
+                <li>
+                    <a href="#2nf-university" aria-label="2NF: University">2NF: University</a></li></ul>
+                </li>
                 <li>
                     <a href="#third-normal-from" aria-label="Third Normal From">Third Normal From</a></li></ul>
                 </li>
                 <li>
-                    <a href="#design-considerations" aria-label="Design Considerations">Design Considerations</a>
+                    <a href="#design-considerations" aria-label="Design Considerations">Design Considerations</a><ul>
+                        
+                <li>
+                    <a href="#data-types--precision" aria-label="Data Types &amp; Precision">Data Types &amp; Precision</a>
                 </li>
+            </ul>
+            </li>
             </ul>
             </li>
             </ul>
@@ -297,15 +314,15 @@ erDiagram
 <h1 id="example-university-enrollment-management-system">Example: University Enrollment Management System<a hidden class="anchor" aria-hidden="true" href="#example-university-enrollment-management-system">#</a></h1>
 <h2 id="entities">Entities<a hidden class="anchor" aria-hidden="true" href="#entities">#</a></h2>
 <blockquote>
-<p>In database design, an <strong>entity</strong> is a distinct object that typically represents real-world objects, events, or concepts. Entities are represented as tables in a relational database, and they are similar to classes in object-oriented design. Each row in the table represents an instance of the entity. Each entity has attributes that desceibe its characteristics. For example, a <code>Student</code> entity may have attributes like <code>student_id</code>, <code>first_name</code>, <code>last_name</code>, and <code>date_of_birth</code>, among others. Entities can be related to one another, and these relationships are often captured using foreign keys or relationship tables, which link entities together based on logical associations. For example, a <code>Student</code> might be linked to a <code>Course</code> through an enrollment relationship.</p>
+<p>In database design, an <strong>entity</strong> is a distinct object that typically represents real-world objects, events, or concepts. Entities are represented as tables in a relational database, and they are similar to classes in object-oriented design. Each row in the table represents an instance of the entity. Each entity has attributes that describe its characteristics. For example, a <code>Student</code> entity may have attributes like <code>student_id</code>, <code>first_name</code>, <code>last_name</code>, and <code>date_of_birth</code>, among others. Entities can be related to one another, and these relationships are often captured using foreign keys or relationship tables, which link entities together based on logical associations. For example, a <code>Student</code> might be linked to a <code>Course</code> through an enrollment relationship.</p>
 </blockquote>
 <hr>
 <h3 id="identifying-entities">Identifying Entities<a hidden class="anchor" aria-hidden="true" href="#identifying-entities">#</a></h3>
 <blockquote>
-<p><strong>Identifying entities</strong> in database design is a crucial step, as entities form the foundation of a database. A useful approach for identifying entities is to clarify the design objectives and <strong>look for nouns</strong> in the objective statement. For example, consider the <strong>University Enrollment Management System</strong>. The objective statement might be:</p>
+<p><strong>Identifying entities</strong> in database design is a crucial step, as entities form the foundation of a database. A useful approach for identifying entities is to <strong>clarify the design objectives and look for nouns</strong> in the objective statement. For example, consider the <strong>University Enrollment Management System</strong>. The objective statement might be:</p>
 </blockquote>
 <blockquote>
-<p>&ldquo;<strong>The <strong>University Enrollment Management System</strong>&rdquo; is designed to help a <em>university</em> track enrolled <em>students</em>, the <em>subjects</em> they are taking, and the <em>teachers</em> assigned to those subjects</strong>&quot;.</p>
+<p>&ldquo;The <strong>University Enrollment Management System</strong>&rdquo; is designed to help a <em><strong>university</strong></em> track enrolled <em><strong>students</strong></em>, the <em><strong>subjects</strong></em> they are taking, and the <em><strong>teachers</strong></em> assigned to those subjects&quot;.</p>
 </blockquote>
 <blockquote>
 <p>In this sentence, the nouns <code>university</code>, <code>student</code>, <code>subject</code>, and <code>teacher</code> are potential entities, as they represent key objects or concepts that the system needs to track.</p>
@@ -348,7 +365,7 @@ erDiagram
     SUBJECT {
         string subject_name
         string category
-        string student_name
+        string students_enrolled
     }
 
     TEACHER {
@@ -416,7 +433,7 @@ erDiagram
 </tbody>
 </table>
 <hr>
-<h4 id="first-normal-form-student">First Normal Form: Student<a hidden class="anchor" aria-hidden="true" href="#first-normal-form-student">#</a></h4>
+<h4 id="1nf-student">1NF: Student<a hidden class="anchor" aria-hidden="true" href="#1nf-student">#</a></h4>
 <blockquote>
 <p>In the following <code>Student</code> table, there is no single field that can uniquely identify a row. Therefore, it is necessary to add a new field. such as <code>StudentID</code>, to ensure each row has a unique identifier. Additionally, the <code>Address</code> field may contain multiple values, such as unit number, street number, street name, suburb, city, state, country, and postcode. To comply with the <strong>First Normal Form (1NF)</strong>, the <code>Address</code> firld must be divided into multiple separate columns, ensuring that each column contains only atomic values.</p>
 </blockquote>
@@ -450,7 +467,7 @@ erDiagram
         string postcode
     }    
 </pre>
-<h4 id="first-normal-form-subject">First Normal Form: Subject<a hidden class="anchor" aria-hidden="true" href="#first-normal-form-subject">#</a></h4>
+<h4 id="1nf-subject">1NF: Subject<a hidden class="anchor" aria-hidden="true" href="#1nf-subject">#</a></h4>
 <pre class="mermaid">---
 title: Violation of 1NF - Subject
 ---
@@ -458,7 +475,7 @@ erDiagram
     SUBJECT {
         string subject_name
         string category
-        string student_name
+        string students_enrolled
     }
 </pre>
 <pre class="mermaid">---
@@ -469,10 +486,10 @@ erDiagram
         number subject_id PK
         string subject_name
         string category
-        string student_name
+        string students_enrolled
     }
 </pre>
-<h4 id="first-normal-form-teacher">First Normal Form: Teacher<a hidden class="anchor" aria-hidden="true" href="#first-normal-form-teacher">#</a></h4>
+<h4 id="1nf-teacher">1NF: Teacher<a hidden class="anchor" aria-hidden="true" href="#1nf-teacher">#</a></h4>
 <pre class="mermaid">---
 title: Violation of 1NF - Teacher
 ---
@@ -505,7 +522,7 @@ erDiagram
         string subject_taught
     }    
 </pre>
-<h4 id="first-normal-form-university">First Normal Form: University<a hidden class="anchor" aria-hidden="true" href="#first-normal-form-university">#</a></h4>
+<h4 id="1nf-university">1NF: University<a hidden class="anchor" aria-hidden="true" href="#1nf-university">#</a></h4>
 <pre class="mermaid">---
 title: Violation of 1NF - University
 ---
@@ -533,8 +550,189 @@ erDiagram
     }    
 </pre>
 <h3 id="second-normal-form">Second Normal Form<a hidden class="anchor" aria-hidden="true" href="#second-normal-form">#</a></h3>
+<blockquote>
+<p>The <strong>Second Normal Form (2NF)</strong> in database design is a level of normalization that builds upon the <strong>First Normal Form (1NF)</strong>. A table is in 2NF if every non-key attribute is fully functionally dependent on the entire primary key, not just part of it, particularly in tables with composite primary keys (a key made up of two or more columns).</p>
+</blockquote>
+<h4 id="relationships">Relationships<a hidden class="anchor" aria-hidden="true" href="#relationships">#</a></h4>
+<blockquote>
+<p><strong>Relationship</strong> in database design refers to the association between different entities (tables) in a database. It defines how data in one table is related to data in another table, enabling efficient organization and retrival of data. Relationships are established through a <strong>foreign key</strong>, which is a column in one table that references the <strong>primary key</strong> of another table. There are four main types of relationships: <strong>One-to-One (1:1)</strong>, <strong>One-to-Many (1:N)</strong>, <strong>Many-to-Many (N:M)</strong>, and <strong>Self-Reference</strong>.</p>
+</blockquote>
+<blockquote>
+<p>In a <strong>One to One</strong> relationship, each record in one table is related to exactly one record in another table. For example, consider a <code>Person</code> table and a <code>Passport</code> table, where each person has one unique passport, and each passport is associated with only one person. This type of relationship is relatively rare in real-world database design.</p>
+</blockquote>
+<blockquote>
+<p>The <strong>One to Many</strong> relationship is the most common type in real-world database design. In a 1:N relationship, one record in a table can be linked to multiple records in another table. For example, in a <code>Department</code> table and an <code>Employee</code> table, one department can have many employees, but each employee blongs to exactly one department. This is a typical relational model for most business applications.</p>
+</blockquote>
+<blockquote>
+<p>The <strong>Many-to-Many</strong> relationship is common but often requires an intermediary table to properly represent the association. In an N:M relationship, multiple records in one table can be asoociated with multiple records in another table. For instance, in a <code>Student</code> table and a <code>Course</code> table, a student can enroll in many courses, and each course can have many students enrolled. This relationship is typically handled by a joining table, such as <code>Student_Course</code>.</p>
+</blockquote>
+<blockquote>
+<p>In a <strong>Self-Referencing</strong> relationship, a table is related to itself. In other words, a record in the table is associated with another record in the same table. For example, in an <code>Employee</code> table, each employee has a <code>Manager</code>, and that manager may also have a manager. This type of  relationship is useful for representing hierarchical structures, such as organizational charts.</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>In database design, a <strong>foreign key</strong> is a column that references the primary key of another table. It is used to establish a relationship between two tables, ensuring referential integrity and maintaining consistent data across the database.</p>
+</blockquote>
+<hr>
+<h4 id="2nf-subject--category">2NF: Subject &amp; Category<a hidden class="anchor" aria-hidden="true" href="#2nf-subject--category">#</a></h4>
+<blockquote>
+<p>In the following <code>Subject</code> table, the <code>subject_name</code> is dependent on the primary key <code>subject_id</code>, but the <code>category</code> is not fully dependent on the primary key, which violates 2NF. To resolve this issue, a new <code>Category</code> table should be created with two fields: <code>category_id</code> as the primary key and <code>subject_id</code> as a foreign key. The two tables have a <strong>One-to-Many</strong> relationship, where each category can have many subjects, while each subject bleongs to exactly one category.</p>
+</blockquote>
+<pre class="mermaid">---
+title: Violation of 2NF - Subject
+---
+erDiagram
+    SUBJECT {
+        number subject_id PK
+        string subject_name
+        string category
+    }
+</pre>
+<pre class="mermaid">---
+title: Comply with 2NF - Subject
+---
+erDiagram
+    SUBJECT {
+        number subject_id PK
+        string subject_name
+        number category_id FK
+    }
+    CATEGORY {
+        number category_id PK
+        string category_name
+    }
+
+    CATEGORY ||--|{ SUBJECT : ""
+</pre>
+<h4 id="2nf-student--subject">2NF: Student &amp; Subject<a hidden class="anchor" aria-hidden="true" href="#2nf-student--subject">#</a></h4>
+<blockquote>
+<p>In the following <code>Subject</code> table, the <code>subject_id</code> and <code>students_enrolled</code> create a <strong>Many-to-Many</strong> relationship. However, relational databases should not represent <strong>Many-to-Many</strong> relationships directly in s single table. This is because a single table cannot handle multiple instances of related data (such as multiple students enrolled in multiple subjects) within a single field. To resolve this issue, a <strong>junction table</strong> is introduced. It breaks down the <strong>Many-to-Many</strong> relationship into two <strong>One-to-Many</strong> relationships, ensuring data integrity and normalization.</p>
+</blockquote>
+<pre class="mermaid">---
+title: Violation of 2NF - Subject
+---
+erDiagram
+    SUBJECT {
+        number subject_id PK
+        string subject_name
+        string students_enrolled
+    }
+</pre>
+<table>
+<thead>
+<tr>
+<th>subject_id</th>
+<th>subject_name</th>
+<th>students_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Math</td>
+<td>Alice, Bob, Charlie</td>
+</tr>
+<tr>
+<td>2</td>
+<td>History</td>
+<td>David, Emily, Frank, Grace</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Science</td>
+<td>Helen, Ian</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>In the above table, the <code>students_enrolled</code> field violates <strong>First Normal Form (1NF)</strong>, which requires each column to contain only atomic values. Additionally, this design leads to <strong>data redundancy</strong>. For example, if the student <code>Alice</code> enrolls in multiple courses such as Math, History, and Science. her name will be repeated in each row, causing unnecessary duplication of data.</p>
+</blockquote>
+<blockquote>
+<p>Furthermore, this design makes data manipulation more complex. For instance, when a student drops a course or a new student enrolls in a course, the list of students in the <code>students_enrolled</code> column must be manually updated, which is error-prone and inefficient.</p>
+</blockquote>
+<hr>
+<pre class="mermaid">---
+title: Comply with 2NF - Subject
+---
+erDiagram
+    SUBJECT {
+        number subject_id PK
+        string subject_name
+    }
+    STUDENT {
+        number student_id PK
+        string students_enrolled
+    }
+    ENROLLMENT {
+        number subject_id FK
+        number student_id FK
+    }
+
+    SUBJECT ||--|{ ENROLLMENT : "has"
+    STUDENT ||--|{ ENROLLMENT : "enrolled in"
+</pre>
+<h2 id="hahahugoshortcode41s0hbhb"><figure class="align-center ">
+    <img loading="lazy" src="/img/database-design/1-comply-with-2nf.png#center" width="100%" height="100%"/> <figcaption>
+            Comply with 2NF: Real-World Example
+        </figcaption>
+</figure>
+</h2>
+<h4 id="2nf-teacher">2NF: Teacher<a hidden class="anchor" aria-hidden="true" href="#2nf-teacher">#</a></h4>
+<pre class="mermaid">---
+title: Violation of 2NF - Teacher (subject_taught)
+---
+erDiagram
+    TEACHER {
+        number teacher_id
+        string first_name
+        string last_name
+        date date_of_birth
+        string subject_taught
+    }    
+</pre>
+<pre class="mermaid">---
+title: Comply with 2NF - Teacher
+---
+erDiagram
+    TEACHER {
+        number teacher_id
+        string first_name
+        string last_name
+        date date_of_birth
+    }    
+
+    SUBJECT {
+        number subject_id PK
+        string subject_name
+        number category_id FK        
+        number teacher_id FK
+    }
+
+    TEACHER ||--|{ SUBJECT : "teaches"
+</pre>
+<h4 id="2nf-university">2NF: University<a hidden class="anchor" aria-hidden="true" href="#2nf-university">#</a></h4>
+<pre class="mermaid">---
+title: Comply with 2NF - UNIVERSITY
+---
+erDiagram
+    UNIVERSITY {
+        number university_id PK
+        string name        
+    }
+
+    SUBJECT {
+        number subject_id PK
+        string subject_name
+        number category_id FK        
+        number teacher_id FK
+        number university_id FK
+    }
+
+    UNIVERSITY ||--|{ SUBJECT : ""
+</pre>
 <h3 id="third-normal-from">Third Normal From<a hidden class="anchor" aria-hidden="true" href="#third-normal-from">#</a></h3>
 <h2 id="design-considerations">Design Considerations<a hidden class="anchor" aria-hidden="true" href="#design-considerations">#</a></h2>
+<h3 id="data-types--precision">Data Types &amp; Precision<a hidden class="anchor" aria-hidden="true" href="#data-types--precision">#</a></h3>
 
 
   </div>
