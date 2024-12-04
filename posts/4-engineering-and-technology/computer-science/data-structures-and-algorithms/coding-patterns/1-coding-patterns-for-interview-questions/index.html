@@ -9,7 +9,7 @@
 <meta name="keywords" content="Coding Patterns">
 <meta name="description" content="Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers &ndash; typically labeled &ldquo;left&rdquo; and &ldquo;right&rdquo; &ndash; are initialized and move in a specific direction based on the problem&rsquo;s requirements.">
 <meta name="author" content="Signal Yu">
-<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/coding-patterns/1-coding-patterns-for-interview-questions/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://signalyu.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/coding-patterns/1-coding-patterns-for-interview-questions/">
 <noscript>
     <style>
         #theme-toggle,
@@ -59,7 +59,7 @@
 <meta property="og:title" content="Coding Patterns for Interview Questions" />
 <meta property="og:description" content="Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers &ndash; typically labeled &ldquo;left&rdquo; and &ldquo;right&rdquo; &ndash; are initialized and move in a specific direction based on the problem&rsquo;s requirements." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/coding-patterns/1-coding-patterns-for-interview-questions/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-12-02T10:15:04+08:00" />
 <meta property="article:modified_time" content="2024-12-02T10:15:04+08:00" />
 
@@ -83,7 +83,7 @@
       "@type": "ListItem",
       "position":  2 ,
       "name": "Coding Patterns for Interview Questions",
-      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/"
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/coding-patterns/1-coding-patterns-for-interview-questions/"
     }
   ]
 }
@@ -109,7 +109,7 @@
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/"
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/coding-patterns/1-coding-patterns-for-interview-questions/"
   },
   "publisher": {
     "@type": "Organization",
@@ -177,7 +177,17 @@
                 <li>
                     <a href="#two-sum-ii---input-array-is-sorted" aria-label="Two Sum II - Input Array Is Sorted">Two Sum II - Input Array Is Sorted</a></li>
                 <li>
-                    <a href="#3sum" aria-label="3Sum">3Sum</a>
+                    <a href="#3sum" aria-label="3Sum">3Sum</a></li></ul>
+                </li>
+                <li>
+                    <a href="#fast--slow-pointers" aria-label="Fast &amp; Slow Pointers">Fast &amp; Slow Pointers</a><ul>
+                        
+                <li>
+                    <a href="#linked-list-cycle" aria-label="Linked List Cycle">Linked List Cycle</a></li>
+                <li>
+                    <a href="#middle-of-the-linkedlist" aria-label="Middle of the LinkedList">Middle of the LinkedList</a></li>
+                <li>
+                    <a href="#remove-nth-node-from-end-of-list" aria-label="Remove Nth Node From End of List">Remove Nth Node From End of List</a>
                 </li>
             </ul>
             </li>
@@ -355,7 +365,7 @@ Go to Leetcode 🔗
 </li>
 </ol>
 <p><strong>Visualization</strong></p>
-<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/1-simple-two-pointers/1-find-a-pair-sums-to-the-target.png" alt="Two Sum II - Input Array Is Sorted"  />
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/1-find-a-pair-sums-to-the-target.png" alt="Two Sum II - Input Array Is Sorted"  />
 </p>
 
 </details></p>
@@ -525,6 +535,452 @@ Go to Leetcode 🔗
 <p><details >
   <summary markdown="span">SHOW NOTES</summary>
   
+</details></p>
+
+<hr>
+<h1 id="fast--slow-pointers">Fast &amp; Slow Pointers<a hidden class="anchor" aria-hidden="true" href="#fast--slow-pointers">#</a></h1>
+<blockquote>
+<p>The <strong>Fast and Slow Pointers</strong> pattern, also known as the <strong>Tortoise and Hare Algorithm</strong>, invloves using two pointers that move at different speeds over an array or linked list. It is commonly used to solve problems related to cycle detection or finding the middle element in linked lists or arrays.</p>
+</blockquote>
+<h2 id="linked-list-cycle">Linked List Cycle<a hidden class="anchor" aria-hidden="true" href="#linked-list-cycle">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong></p>
+<p>Given the head of a singly linked list, write a function to determine whether the list contains a cycle.</p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/2-linked-list-cycle.webp" alt="Liked List Cycle"  />
+</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes in the list is between 0 and 10,000.</li>
+<li>Node values are in the range of [-10^5, 10^5].</li>
+</ul>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/linked-list-cycle" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        // Initialize slow and fast pointers at the head of the list
+        ListNode slow = head, fast = head;
+
+        // Traverse the list with fast and slow pointers
+        while (fast != null && fast.next != null) {
+            // Move slow pointer by one step and fast pointer by two steps
+            slow = slow.next;
+            fast = fast.next.next;
+
+            // If the two pointers meet, a cycle is detected
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        // If fast pointer reaches the end, there's no cycle
+        return false;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <blockquote>
+<p>The fast and slow pointers start from the same point. The fast pointer moves two steps at a time, while the slow pointer moves one step at a time. If the linked list has no cycle, the fast pointer will reach the end before the slow pointer. If the linked list has a cycle, the fast pointer will enter the cycle first, and both pointers will continue moving in the cycle. Eventually, they will meet at some point, indicating the presence of a cycle. There are two possible scenerios when both pointers are in the cycle:</p>
+</blockquote>
+<ol>
+<li>The fast pointer is one step behind the slow pointer.</li>
+<li>The fast pointer is two steps behind the slow pointer.</li>
+</ol>
+<blockquote>
+<p>In scenerio 1, after the next move, the two pointers will meet at the same position. This is the condition that confirms the presence of a cycle, as shown in the following illustration.</p>
+</blockquote>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/3-linked-list-cycle-2.webp" alt="Linked List Cycle: Slow &amp;amp; Fast Pointer"  />
+</p>
+
+</details></p>
+
+<hr>
+<h2 id="middle-of-the-linkedlist">Middle of the LinkedList<a hidden class="anchor" aria-hidden="true" href="#middle-of-the-linkedlist">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong></p>
+<p>Given the head of a singly linked list, write a method to return the middle node of the linked list.</p>
+<p>If the total number of nodes in the list is even, return the second middle node.</p>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: 1 → 2 → 3 → 4 → 5 → null</li>
+<li><strong>Output</strong>: 3</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: 1 → 2 → 3 → 4 → 5 → 6 → null</li>
+<li><strong>Output</strong>: 4</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: 1 → 2 → 3 → 4 → 5 → 6 → 7 → null</li>
+<li><strong>Output</strong>: 4</li>
+</ul>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes in the list is between 1 and 100.</li>
+<li>Node values are between 1 and 100.</li>
+</ul>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/middle-of-the-linked-list" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        // Initialize slow and fast pointers at the head of the list
+        ListNode slow = head, fast = head;
+        
+        while (fast != null && fast.next != null) {
+            slow = slow.next;          // Move slow pointer by one step
+            fast = fast.next.next;     // Move fast pointer by two steps
+        }
+
+        // When fast pointer reaches the end, slow pointer will be at the middle
+        return slow;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/4-middle-of-linked-list.svg" alt="Middle of Linked List"  />
+</p>
+<hr>
+<p>If the total number of nodes in the list is even, return <strong>the first middle node</strong>, then</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (fast <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> fast.<span style="color:#a6e22e">next</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>    fast <span style="color:#f92672">=</span> fast.<span style="color:#a6e22e">next</span>.<span style="color:#a6e22e">next</span>;     <span style="color:#75715e">// Move fast pointer by two steps</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (fast <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    slow <span style="color:#f92672">=</span> slow.<span style="color:#a6e22e">next</span>;          <span style="color:#75715e">// Move slow pointer by one step</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</details></p>
+
+<hr>
+<h2 id="remove-nth-node-from-end-of-list">Remove Nth Node From End of List<a hidden class="anchor" aria-hidden="true" href="#remove-nth-node-from-end-of-list">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong></p>
+<p>Given the head of a singly linked list, remove the nth node from the end of the list and return the head of the updated list.</p>
+<p><strong>Example 1:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/5-remove-nth-node-from-end-of-list.jpg" alt="Remove Nth Node From End of List"  />
+</p>
+<ul>
+<li><strong>Input</strong>: head = [1, 2, 3, 4, 5], n = 2</li>
+<li><strong>Output</strong>: [1, 2, 3, 5]</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: head = [1], n = 1</li>
+<li><strong>Output</strong>: []</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: head = [1, 2], n = 1</li>
+<li><strong>Output</strong>: [1]</li>
+</ul>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes in the list is between 1 and 10^5.</li>
+<li>1 &lt;= n &lt;= the number of nodes in the list.</li>
+</ul>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        // Create a dummy node to handle edge cases (e.g., removing the head)
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        // Initialize slow and fast pointers at the dummy node
+        ListNode slow = dummy, fast = dummy;
+
+        // Move the fast pointer n+1 steps ahead from the dummy node
+        for (int i = 0; i <= n; i++) {
+            fast = fast.next;
+        }
+
+        // Move both slow and fast pointers one step at a time until fast reaches the
+        // end
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        // Remove the nth node from the end by skipping it
+        slow.next = slow.next.next;
+
+        // Return the updated head
+        return dummy.next;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <blockquote>
+<p>The goal is to remove the nth node from the end of the list. The first step in solving this problem is to determine the position of the nth node from the end. This can be achieved using the <strong>slow and fast pointers</strong> techique. Initially, two pointer, <code>slow</code> and <code>fast</code>, are both set to the head of the list. The <code>fast</code> pointer is then moved <code>n</code> steps ahead from the head node.</p>
+</blockquote>
+<blockquote>
+<p>Once the <code>fast</code> pointer is <code>n</code> steps ahead, both the <code>slow</code> and <code>fast</code> pointers move one step at a time simultaneously. When the <code>fast</code> pointer reaches the end of the list, the <code>slow</code> pointer will be positioned at the nth node from the end. Since the task is to remove this node, the node before it must be idetified.</p>
+</blockquote>
+<blockquote>
+<p>However, handling the edge case where the node to be removed is the head node requires special attention. To address this issue, a <strong>dummy node</strong> is introduced. The dummy node points to the head of the list, ensuring that there is always a valid node before the one to be deleted, even if the head node itself is the target.</p>
+</blockquote>
+<blockquote>
+<p>To find the node just before the nth node from the end, the <code>fast</code> pointer is moved <code>n+1</code> steps ahead from the dummy node. This places the <code>fast</code> pointer <code>n+1</code> steps ahead of the <code>slow</code> pointer. Both pointers are then moved one step at a time until the fast pointer reaches the end of the list. At this point, the <code>slow</code> pointer will be positioned just before the nth node from the end.</p>
+</blockquote>
+<blockquote>
+<p>The removal of the nth node is accomplished by updating the <code>slow</code> pointer&rsquo;s next reference <code>slow.next = slow.next.next;</code>. When the node to be removed is the head, the <code>slow</code> pointer remains at the dummy node without moving. After executing <code>slow.next = slow.next.next;</code>, the node after the dummy node becomes the new head of the list.</p>
+</blockquote>
+<hr>
+<p><strong>Illustration</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/6-remove-nth-node-from-end-of-list.png" alt="Remove Nth Node From End of List"  />
+</p>
+<hr>
+<p><strong>Illustration: Remove Head Node</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/7-remove-head-node-from-end-of-list.png" alt="Remove Nth Node From End of List: Remove Head Node"  />
+</p>
+
 </details></p>
 
 <hr>

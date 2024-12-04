@@ -102,7 +102,7 @@ SHOW CODE Single Responsibility Principle import java.io.IOException; import jav
     "Design Patterns"
   ],
   "articleBody": "1. Solid Principle 1.1 Single Responsibility Principle A class should have only one reason to change, meaning each class should focus on a single functionality or responsibility.\nSHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage. * 4. UserPersistenceService class is dedicated to save the user data. * 5. UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ /* com.fasterxml.jackson.core jackson-databind 2.18.0 */ /** * Represents a user with basic details. * User class is only used to represent entity. */ class User { private String name; private String email; private String address; public User() {} public User(String name, String email, String address) { this.name = name; this.email = email; this.address = address; } // Getters and setters public String getName() { return name; } public void setName(String name) { this.name = name; } public String getEmail() { return email; } public void setEmail(String email) { this.email = email; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } @Override public String toString() { return \"User [name=\" + name + \", email=\" + email + \", address=\" + address + \"]\"; } } /** * Handles incoming JSON requests that work on User. * UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ class UserController { private final UserPersistenceService persistenceService = new UserPersistenceService(); public String createUser(String userJson) throws IOException { ObjectMapper mapper = new ObjectMapper(); User user = mapper.readValue(userJson, User.class); UserValidator validator = new UserValidator(); if (!validator.validateUser(user)) { return \"ERROR\"; } persistenceService.saveUser(user); return \"SUCCESS\"; } } /** * Handles persistence of User objects. * UserPersistenceService class is dedicated to save the user data. */ class UserPersistenceService { private final Store store = new Store(); public void saveUser(User user) { store.store(user); } } /** * Validates User data. * UserValidator class is solely responsible for validating user objects. */ class UserValidator { public boolean validateUser(User user) { if (!isPresent(user.getName()) || !isValidAlphaNumeric(user.getName())) { return false; } user.setName(user.getName().trim()); user.setEmail(user.getEmail().trim()); return isValidEmail(user.getEmail()); } private boolean isPresent(String value) { return value != null \u0026\u0026 value.trim().length() \u003e 0; } private boolean isValidAlphaNumeric(String value) { Pattern pattern = Pattern.compile(\"[^A-Za-z0-9]\"); Matcher matcher = pattern.matcher(value); return !matcher.find(); } private boolean isValidEmail(String value) { Pattern pattern = Pattern.compile(\"^[\\\\w-\\\\.]+@[\\\\w-]+(\\\\.[\\\\w-]+)+$\"); Matcher matcher = pattern.matcher(value); return matcher.find(); } } /** * Stores User data in memory. * Store class is only used to manage user objects storage. */ class Store { private static final Map STORAGE = new HashMap\u003c\u003e(); public void store(User user) { synchronized (STORAGE) { STORAGE.put(user.getName(), user); } } public User getUser(String name) { synchronized (STORAGE) { return STORAGE.get(name); } } } /** * Main class for demonstrating the Single Responsibility Principle. */ public class Main { private static final String VALID_USER_JSON = \"{\\\"name\\\": \\\"Signal\\\", \\\"email\\\": \\\"signalyu999@gmail.com\\\", \\\"address\\\":\\\"999 Sugar lane\\\"}\"; private static final String INVALID_USER_JSON = \"{\\\"name\\\": \\\"Sam\\\", \\\"email\\\": \\\"sam@email\\\", \\\"address\\\":\\\"111 Sugar lane\\\"}\"; public static void main(String[] args) throws IOException { UserController controller = new UserController(); String response = controller.createUser(VALID_USER_JSON); System.out.println(\"Valid JSON response: \" + response); response = controller.createUser(INVALID_USER_JSON); System.out.println(\"Invalid JSON response: \" + response); } } Each class in the above code strictly adheres to the Single Responsibility Principle by focusing on a specific responsibility:\nUser for representing the user entity UserController for request handling UserPersistenceService for data persistence UserValidator for user data validation Store for managing in-memory data storage --- title: Single Responsibility Principle - Class Diagram --- classDiagram class User { - String name - String email - String address + String toString() } class Store { + void store(User user) + User getUser(String name) } class UserPersistenceService { + void saveUser(User user) } class UserValidator { - boolean isPresent(String value) - boolean isValidAlphaNumeric(String value) - boolean isValidEmail(String value) + boolean validateUser(User user) } class UserController { + String createUser(String userJson) } class Main { + void main(String[] args) } User --* Store Store --* UserPersistenceService UserPersistenceService --* UserController UserController --\u003e UserValidator : create Main --\u003e UserController : create 1.2 Open-Closed Principle A software entity (class, module, function, etc.) should be open for extension but closed for modification.\n点击查看代码 Java import java.time.LocalDateTime; import java.util.*; // Abstract base class, closed for modification but open for extension abstract class Subscriber { protected Long subscriberId; protected String address; protected Long phoneNumber; protected int baseRate; // Getter and Setter methods public Long getSubscriberId() { return subscriberId; } public void setSubscriberId(Long subscriberId) { this.subscriberId = subscriberId; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } public Long getPhoneNumber() { return phoneNumber; } public void setPhoneNumber(Long phoneNumber) { this.phoneNumber = phoneNumber; } public int getBaseRate() { return baseRate; } public void setBaseRate(int baseRate) { this.baseRate = baseRate; } // Abstract method to calculate the bill; implementation is defined in subclasses public abstract double calculateBill(); } // PhoneSubscriber class extends Subscriber, calculates the phone bill class PhoneSubscriber extends Subscriber { @Override public double calculateBill() { List calls = CallHistory.getCurrentCalls(subscriberId); long totalDuration = calls.stream().mapToLong(CallHistory.Call::getDuration).sum(); return (totalDuration * baseRate) / 100.0; } } // ISPSubscriber class extends Subscriber, calculates the internet bill class ISPSubscriber extends Subscriber { private long freeUsage; // Free usage limit in data units @Override public double calculateBill() { List sessions = InternetSessionHistory.getCurrentSessions(subscriberId); long totalData = sessions.stream().mapToLong(InternetSessionHistory.InternetSession::getDataUsed).sum(); long chargeableData = totalData - freeUsage; return chargeableData \u003c= 0 ? 0 : (chargeableData * baseRate) / 100.0; } public long getFreeUsage() { return freeUsage; } public void setFreeUsage(long freeUsage) { this.freeUsage = freeUsage; } } // InternetSessionHistory class to manage internet usage records class InternetSessionHistory { public static class InternetSession { private final LocalDateTime begin; private final Long subscriberId; private final Long dataUsed; public InternetSession(Long subscriberId, LocalDateTime begin, long dataUsed) { this.subscriberId = subscriberId; this.begin = begin; this.dataUsed = dataUsed; } public LocalDateTime getBegin() { return begin; } public long getDataUsed() { return dataUsed; } public Long getSubscriberId() { return subscriberId; } } private static final Map",
-  "wordCount" : "6770",
+  "wordCount" : "8026",
   "inLanguage": "en",
   "datePublished": "2024-11-12T14:38:17+08:00",
   "dateModified": "2024-11-12T14:38:17+08:00",
@@ -1820,7 +1820,7 @@ classDiagram
     class Builder {
         +buildPartA()
         +buildPartB()
-        +getResult()*
+        +getResult()
     }
     
     class ConcreteBuilder1 {
@@ -3611,6 +3611,598 @@ public class Solution {
 <hr>
 <p>Prototype v.s. Builder</p>
 <h2 id="25-abstract-factory">2.5 Abstract Factory<a hidden class="anchor" aria-hidden="true" href="#25-abstract-factory">#</a></h2>
+<blockquote>
+<p>The <strong>Abstract Factory</strong> design pattern is a creational pattern that creates families of related objects without specifying their concrete classes. It allows the client to instantiate objects from a group of related products while ensuring that these objects are compatible with each other. This pattern is particularly useful when a system needs to be independent of how objects are created, composed, and represented. However, a limitation of this pattern is that when a new product type is added, the base factory typically needs to be modified, which can increase the maintainence overhead.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Represents an abstract product
+interface Storage {
+    String getId();
+}
+
+// Represents a concrete product in a family "Amazon Web Services"
+class S3Storage implements Storage {
+    public S3Storage(int capacityInMib) {
+        System.out.println("Allocated " + capacityInMib + " on S3");
+    }
+
+    @Override
+    public String getId() {
+        return "S31";
+    }
+
+    @Override
+    public String toString() {
+        return "S3 Storage";
+    }
+}
+
+// Represents a concrete product in a family "Google Cloud Platform"
+class GoogleCloudStorage implements Storage {
+    public GoogleCloudStorage(int capacityInMib) {
+        System.out.println("Allocated " + capacityInMib + " on Google Cloud Storage");
+    }
+
+    @Override
+    public String getId() {
+        return "gcpcs1";
+    }
+
+    @Override
+    public String toString() {
+        return "Google cloud storage";
+    }
+}
+
+// Represents an abstract product
+interface Instance {
+    enum Capacity {micro, small, large}
+
+    void start();
+
+    void attachStorage(Storage storage);
+
+    void stop();
+}
+
+// Represents a concrete product in a family "Amazon Web Services"
+class Ec2Instance implements Instance {
+    public Ec2Instance(Capacity capacity) {
+        System.out.println("Created Ec2Instance");
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Ec2Instance started");
+    }
+
+    @Override
+    public void attachStorage(Storage storage) {
+        System.out.println("Attached " + storage + " to Ec2Instance");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Ec2Instance stopped");
+    }
+
+    @Override
+    public String toString() {
+        return "EC2Instance";
+    }
+}
+
+// Represents a concrete product in a family "Google Cloud Platform"
+class GoogleComputeEngineInstance implements Instance {
+    public GoogleComputeEngineInstance(Capacity capacity) {
+        System.out.println("Created Google Compute Engine instance");
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Compute engine instance started");
+    }
+
+    @Override
+    public void attachStorage(Storage storage) {
+        System.out.println("Attached " + storage + " to Compute engine instance");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Compute engine instance stopped");
+    }
+}
+
+// Abstract factory with methods defined for each object type.
+interface ResourceFactory {
+    Instance createInstance(Instance.Capacity capacity);
+
+    Storage createStorage(int capMib);
+}
+
+// Factory implementation for Amazon Web Services resources
+class AwsResourceFactory implements ResourceFactory {
+
+    @Override
+    public Instance createInstance(Instance.Capacity capacity) {
+        return new Ec2Instance(capacity);
+    }
+
+    @Override
+    public Storage createStorage(int capMib) {
+        return new S3Storage(capMib);
+    }
+}
+
+// Factory implementation for Google Cloud Platform resources
+class GoogleResourceFactory implements ResourceFactory {
+
+    @Override
+    public Instance createInstance(Instance.Capacity capacity) {
+        return new GoogleComputeEngineInstance(capacity);
+    }
+
+    @Override
+    public Storage createStorage(int capMib) {
+        return new GoogleCloudStorage(capMib);
+    }
+}
+
+// Client class
+public class Client {
+
+    private ResourceFactory factory;
+
+    public Client(ResourceFactory factory) {
+        this.factory = factory;
+    }
+
+    public Instance createServer(Instance.Capacity cap, int storageMib) {
+        Instance instance = factory.createInstance(cap);
+        Storage storage = factory.createStorage(storageMib);
+        instance.attachStorage(storage);
+        return instance;
+    }
+
+    public static void main(String[] args) {
+        Client aws = new Client(new AwsResourceFactory());
+        Instance i1 = aws.createServer(Instance.Capacity.micro, 20480);
+        i1.start();
+        i1.stop();
+
+        System.out.println("***************************************");
+        Client gcp = new Client(new GoogleResourceFactory());
+        i1 = gcp.createServer(Instance.Capacity.micro, 20480);
+        i1.start();
+        i1.stop();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >Created Ec2Instance
+Allocated 20480 on S3
+Attached S3 Storage to Ec2Instance
+Ec2Instance started
+Ec2Instance stopped
+***************************************
+Created Google Compute Engine instance
+Allocated 20480 on Google Cloud Storage
+Attached Google cloud storage to Compute engine instance
+Compute engine instance started
+Compute engine instance stopped
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<p><img loading="lazy" src="/img/design-patterns/1-abstract-factory.png" alt="URL Diagram of Abstract Factory Pattern"  />
+</p>
+<hr>
+<blockquote>
+<p>Adding a new product type, such as <code>Engine</code>, may require modifications to the base factory. This is because the new <code>Engine</code> product froms a new combination with <code>Storage</code> and <code>Instance</code>, and the base factory is responsible for creating all the products (i.e., <code>Storage</code>, <code>Instance</code>, and <code>Engine</code>). As a result, the base factory needs to include a new method, <code>createEngine</code>. This modification violates the <strong>Open/Closed Principle (OCP)</strong>, which states that classes should be open for extension but closed for modification.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Represents an abstract product for Storage
+interface Storage {
+    String getId();
+}
+
+// Represents a concrete product in a family "Amazon Web Services" for Storage
+class S3Storage implements Storage {
+    public S3Storage(int capacityInMib) {
+        System.out.println("Allocated " + capacityInMib + " on S3");
+    }
+
+    @Override
+    public String getId() {
+        return "S31";
+    }
+
+    @Override
+    public String toString() {
+        return "S3 Storage";
+    }
+}
+
+// Represents a concrete product in a family "Google Cloud Platform" for Storage
+class GoogleCloudStorage implements Storage {
+    public GoogleCloudStorage(int capacityInMib) {
+        System.out.println("Allocated " + capacityInMib + " on Google Cloud Storage");
+    }
+
+    @Override
+    public String getId() {
+        return "gcpcs1";
+    }
+
+    @Override
+    public String toString() {
+        return "Google Cloud Storage";
+    }
+}
+
+// Represents an abstract product for Engine
+interface Engine {
+    String getName();
+}
+
+// Represents a concrete product in a family "Amazon Web Services" for Engine
+class Ec2Engine implements Engine {
+    String name;
+
+    public Ec2Engine(String name) {
+        this.name = name;
+        System.out.println(name + " engine selected.");
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+}
+
+// Represents a concrete product in a family "Google Cloud Platform" for Engine
+class GoogleComputeEngine implements Engine {
+    String name;
+
+    public GoogleComputeEngine(String name) {
+        this.name = name;
+        System.out.println(name + " engine selected.");
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+}
+
+// Represents an abstract product for Instance
+interface Instance {
+    enum Capacity {micro, small, large}
+
+    void start();
+
+    void attachStorage(Storage storage);
+
+    void stop();
+
+    void useEngine(Engine engine);
+}
+
+// Represents a concrete product in a family "Amazon Web Services" for Instance
+class Ec2Instance implements Instance {
+    public Ec2Instance(Instance.Capacity capacity) {
+        System.out.println("Created Ec2Instance");
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Ec2Instance started");
+    }
+
+    @Override
+    public void attachStorage(Storage storage) {
+        System.out.println("Attached " + storage + " to Ec2Instance");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Ec2Instance stopped");
+    }
+
+    @Override
+    public void useEngine(Engine engine) {
+        System.out.println("Ec2Instance uses " + engine.getName() + " engine.");
+    }
+
+    @Override
+    public String toString() {
+        return "EC2Instance";
+    }
+}
+
+// Represents a concrete product in a family "Google Cloud Platform" for Instance
+class GoogleComputeEngineInstance implements Instance {
+
+    public GoogleComputeEngineInstance(Instance.Capacity capacity) {
+        System.out.println("Created Google Compute Engine instance");
+    }
+
+    @Override
+    public void start() {
+        System.out.println("Compute engine instance started");
+    }
+
+    @Override
+    public void attachStorage(Storage storage) {
+        System.out.println("Attached " + storage + " to Compute engine instance");
+    }
+
+    @Override
+    public void stop() {
+        System.out.println("Compute engine instance stopped");
+    }
+
+    @Override
+    public void useEngine(Engine engine) {
+        System.out.println("Google compute engine instance uses " + engine.getName() + " engine.");
+    }
+}
+
+// Abstract factory with methods defined for each object type
+interface ResourceFactory {
+    Instance createInstance(Instance.Capacity capacity);
+
+    Storage createStorage(int capMib);
+
+    Engine createEngine(String name);
+}
+
+// Factory implementation for Amazon Web Services resources
+class AwsResourceFactory implements ResourceFactory {
+
+    @Override
+    public Instance createInstance(Instance.Capacity capacity) {
+        return new Ec2Instance(capacity); // Pass engine to the Ec2Instance
+    }
+
+    @Override
+    public Storage createStorage(int capMib) {
+        return new S3Storage(capMib);
+    }
+
+    @Override
+    public Engine createEngine(String name) {
+        return new Ec2Engine(name);
+    }
+}
+
+// Factory implementation for Google Cloud Platform resources
+class GoogleResourceFactory implements ResourceFactory {
+    @Override
+    public Instance createInstance(Instance.Capacity capacity) {
+        return new GoogleComputeEngineInstance(capacity);
+    }
+
+    @Override
+    public Storage createStorage(int capMib) {
+        return new GoogleCloudStorage(capMib);
+    }
+
+    @Override
+    public Engine createEngine(String name) {
+        return new GoogleComputeEngine(name);
+    }
+}
+
+// Client class to test the code
+public class Client {
+
+    private ResourceFactory factory;
+
+    public Client(ResourceFactory factory) {
+        this.factory = factory;
+    }
+
+    public Instance createServer(Instance.Capacity cap, int storageMib, String name) {
+        Instance instance = factory.createInstance(cap); // Pass engine to instance creation
+        Storage storage = factory.createStorage(storageMib);
+        Engine engine = factory.createEngine(name);
+        instance.attachStorage(storage);
+        instance.useEngine(engine); // Call useEngine() on instance, which delegates to engine's getName()
+        return instance;
+    }
+
+    public static void main(String[] args) {
+        Client aws = new Client(new AwsResourceFactory());
+        Instance i1 = aws.createServer(Instance.Capacity.micro, 20480, "Ec2");
+        i1.start();
+        i1.stop();
+
+        System.out.println("***************************************");
+
+        Client gcp = new Client(new GoogleResourceFactory());
+        i1 = gcp.createServer(Instance.Capacity.micro, 20480, "GCE");
+        i1.start();
+        i1.stop();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
 <h2 id="26-singleton">2.6 Singleton<a hidden class="anchor" aria-hidden="true" href="#26-singleton">#</a></h2>
 <h2 id="27-object-pool">2.7 Object Pool<a hidden class="anchor" aria-hidden="true" href="#27-object-pool">#</a></h2>
 <h1 id="3-structural-design-patterns">3. Structural Design Patterns<a hidden class="anchor" aria-hidden="true" href="#3-structural-design-patterns">#</a></h1>

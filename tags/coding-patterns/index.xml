@@ -10,9 +10,9 @@
     <atom:link href="https://signalyu.github.io/tags/coding-patterns/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coding Patterns for Interview Questions</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/coding-patterns/1-coding-patterns-for-interview-questions/</link>
       <pubDate>Mon, 02 Dec 2024 10:15:04 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/coding-patterns/1-coding-patterns-for-interview-questions/</guid>
       <description>Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers &amp;ndash; typically labeled &amp;ldquo;left&amp;rdquo; and &amp;ldquo;right&amp;rdquo; &amp;ndash; are initialized and move in a specific direction based on the problem&amp;rsquo;s requirements.</description>
     </item>
   </channel>
