@@ -37,6 +37,13 @@
       <description></description>
     </item>
     <item>
+      <title>Photography</title>
+      <link>https://signalyu.github.io/tags/photography/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/photography/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Spring</title>
       <link>https://signalyu.github.io/tags/spring/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -69,6 +76,13 @@
       <link>https://signalyu.github.io/tags/design-patterns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://signalyu.github.io/tags/design-patterns/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Java</title>
+      <link>https://signalyu.github.io/tags/java/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/java/</guid>
       <description></description>
     </item>
   </channel>

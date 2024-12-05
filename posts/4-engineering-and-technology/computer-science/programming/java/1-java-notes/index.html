@@ -1,0 +1,2661 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Java Programming Notes | Signal&#39;s Blog</title>
+<meta name="keywords" content="Java">
+<meta name="description" content="Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&lt;Integer&gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; &#43; num); } } /** * ?">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="Java Programming Notes" />
+<meta property="og:description" content="Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&lt;Integer&gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; &#43; num); } } /** * ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-08T11:36:53+08:00" />
+<meta property="article:modified_time" content="2024-11-08T11:36:53+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Programming Notes"/>
+<meta name="twitter:description" content="Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&lt;Integer&gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; &#43; num); } } /** * ?"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Java Programming Notes",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Java Programming Notes",
+  "name": "Java Programming Notes",
+  "description": "Generics SHOW CODE Java public class Test { public static void main(String[] args) { List\u0026lt;Integer\u0026gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(\"Hello Integer!\", intList); // Double 是 Number 的子类 processItems(\"Hello, Double!\", List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static \u0026lt;T, V extends Number\u0026gt; void processItems(T item, List\u0026lt;V\u0026gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(\"num: \" + num); } } /** * ?",
+  "keywords": [
+    "Java"
+  ],
+  "articleBody": "Generics SHOW CODE Java public class Test { public static void main(String[] args) { List intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(\"Hello Integer!\", intList); // Double 是 Number 的子类 processItems(\"Hello, Double!\", List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static void processItems(T item, List nums) { System.out.println(item); for (V num : nums) { System.out.println(\"num: \" + num); } } /** * ? extends 与 ? super 的区别 * 1、? extends T：表示上界通配符，用于类型的上限，只能读取，不能写入。适用于不修改集合内容的情景。 * 2、? super T：表示下界通配符，用于类型的下限，可以写入，适用于添加数据的情景。 */ } Lambda Expression Runnable SHOW CODE Java public class Test { public static void main(String[] args) { // Java 8 之前 Runnable runnable = new Runnable() { @Override public void run() { System.out.println(\"Inside Runnable 1\"); } }; new Thread(runnable).start(); // Java 8 - Lambda 语法 Runnable runnableLambda = () -\u003e {System.out.println(\"Inside Runnable 2\");}; new Thread(runnableLambda).start(); new Thread(() -\u003e System.out.println(\"Inside Runnable 3\")).start(); } } Comparator SHOW CODE Java public class Test { public static void main(String[] args) { // JAVA 8 之前 Comparator comparator = new Comparator() { @Override public int compare(Integer o1, Integer o2) { /** * o1 \u003c o2 -\u003e -1 * o1 == o2 -\u003e 0 * o1 \u003e o2 -\u003e 1 */ return o1.compareTo(o2); } }; System.out.println(comparator.compare(1, 2)); // -1 /** * JAVA 8 */ // Comparator comparatorLambda1 = (Integer a, Integer b) -\u003e a.compareTo(b); Comparator comparatorLambda1 = Comparator.naturalOrder(); System.out.println(comparatorLambda1.compare(1, 2)); // -1 // Comparator comparatorLambda2 = (a, b) -\u003e b.compareTo(a); Comparator comparatorLambda2 = Comparator.reverseOrder(); System.out.println(comparatorLambda2.compare(1, 2)); // 1 int[] nums = new int[]{2, 1, 4, 3}; System.out.println(\"nums = \" + Arrays.toString(nums)); Arrays.sort(nums); // 默认为升序排序 // 倒序排序 Integer[] newNums = Arrays.stream(nums).boxed().toArray(Integer[]::new); Arrays.sort(newNums, Comparator.reverseOrder()); } } Local Variables in Lambda Expression SHOW CODE Java public class Test { public static void main(String[] args) { /** * 1. The variable used in a lambda expression must be effectively final, * meaning its value cannot change after it has been assigned. * 2. A lambda captures the values of local variables, not the variables * themselves. * 3. Local variables in a lambda cannot have the same name as variables * in the enclosing scope to avoid shadowing. */ int num = 10; // effectively final Runnable r = () -\u003e System.out.println(num); r.run(); // Error: Variable num is already defined in the scope // Runnable r = () -\u003e { // int num = 20; // Compile-time error // System.out.println(num); // }; } } Functional Interface Consumer SHOW CODE Java import java.util.Arrays; import java.util.List; import java.util.function.Consumer; public class Test { public static void main(String[] args) { List items = Arrays.asList(\"One\", \"Two\", \"Three\"); /** * Consumer 接收一个参数并执行一些操作，不返回结果 * Consumer 有 accept 和 andThen 两个方法 * accept 用于接收参数，andThen 用于链接多个 Consumer */ // 示例1：定义一个 Consumer，它将打印传入的字符串 Consumer printConsumer = s -\u003e System.out.println(\"打印消息: \" + s); printConsumer.accept(\"Hello, World!\"); // 输出: 打印消息: Hello, World! // 示例 2：Consumer 链式操作 Consumer printItem = item -\u003e System.out.print(\"打印: \" + item + \"\\t\"); Consumer printLength = item -\u003e System.out.println(\"长度: \" + item.length()); Consumer combined = printItem.andThen(printLength); // 将两个 Consumer 组合在一起 // 使用 forEach 遍历集合并执行组合操作 items.forEach(combined); // items.forEach(item -\u003e { // System.out.print(\"打印: \" + item + \"\\t\"); // System.out.println(\"长度: \" + item.length()); // }); } } BiConsumer SHOW CODE Java import java.util.Arrays; import java.util.List; import java.util.function.BiConsumer; // 定义 Student 记录类，包含学生的姓名和活动列表 record Student(String name, List activities) { } //class Student { // private final String name; // private final List activities; // // public Student(String name, List activities) { // this.name = name; // this.activities = activities; // } // // public String getName() { // return name; // } // // public List getActivities() { // return activities; // } //} class StudentDataBase { // 提供学生数据，返回一个包含多个学生的列表 public static List getAllStudents() { return Arrays.asList( new Student(\"Alice\", Arrays.asList(\"Swimming\", \"Basketball\")), new Student(\"Bob\", Arrays.asList(\"Cycling\", \"Chess\")), new Student(\"Charlie\", Arrays.asList(\"Running\", \"Reading\")) ); } } class Test { public static void main(String[] args) { /** * BiConsumer 适用于对两个参数执行操作，但不需要返回结果的场景。 */ // BiConsumer 接口用于处理学生姓名和活动列表 BiConsumer\u003c",
+  "wordCount" : "2690",
+  "inLanguage": "en",
+  "datePublished": "2024-11-08T11:36:53+08:00",
+  "dateModified": "2024-11-08T11:36:53+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Java Programming Notes
+    </h1>
+    <div class="post-meta"><span title='2024-11-08 11:36:53 +0800 HKT'>Nov 8 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#generics" aria-label="Generics">Generics</a></li>
+                <li>
+                    <a href="#lambda-expression" aria-label="Lambda Expression">Lambda Expression</a><ul>
+                        
+                <li>
+                    <a href="#runnable" aria-label="Runnable">Runnable</a></li>
+                <li>
+                    <a href="#comparator" aria-label="Comparator">Comparator</a></li>
+                <li>
+                    <a href="#local-variables-in-lambda-expression" aria-label="Local Variables in Lambda Expression">Local Variables in Lambda Expression</a></li></ul>
+                </li>
+                <li>
+                    <a href="#functional-interface" aria-label="Functional Interface">Functional Interface</a><ul>
+                        
+                <li>
+                    <a href="#consumer" aria-label="Consumer">Consumer</a></li>
+                <li>
+                    <a href="#biconsumer" aria-label="BiConsumer">BiConsumer</a></li>
+                <li>
+                    <a href="#predicate" aria-label="Predicate">Predicate</a></li>
+                <li>
+                    <a href="#bipredicate" aria-label="BiPredicate">BiPredicate</a></li>
+                <li>
+                    <a href="#function" aria-label="Function">Function</a></li>
+                <li>
+                    <a href="#bifunction" aria-label="BiFunction">BiFunction</a></li></ul>
+                </li>
+                <li>
+                    <a href="#method-reference" aria-label="Method Reference">Method Reference</a></li>
+                <li>
+                    <a href="#stream-api" aria-label="Stream API">Stream API</a><ul>
+                        
+                <li>
+                    <a href="#introduction-to-stream-api" aria-label="Introduction to Stream API">Introduction to Stream API</a></li>
+                <li>
+                    <a href="#flatmap" aria-label="flatMap">flatMap</a></li>
+                <li>
+                    <a href="#distinct-count-sorted" aria-label="distinct(), count(), sorted()">distinct(), count(), sorted()</a></li>
+                <li>
+                    <a href="#reduce" aria-label="reduce()">reduce()</a></li>
+                <li>
+                    <a href="#limit-skip" aria-label="limit(), skip()">limit(), skip()</a></li>
+                <li>
+                    <a href="#allmatch-anymatch-nonematch" aria-label="allMatch(), anyMatch(), noneMatch()">allMatch(), anyMatch(), noneMatch()</a></li>
+                <li>
+                    <a href="#findany-findfirst" aria-label="findAny(), findFirst()">findAny(), findFirst()</a></li>
+                <li>
+                    <a href="#factory-methods-of-generate-iterate" aria-label="Factory Methods: Of(), generate(), iterate()">Factory Methods: Of(), generate(), iterate()</a></li>
+                <li>
+                    <a href="#terminal-operations-joining-counting-mapping" aria-label="Terminal Operations: joining(), counting(), mapping()">Terminal Operations: joining(), counting(), mapping()</a></li>
+                <li>
+                    <a href="#terminal-operations-minby-maxby-groupingby" aria-label="Terminal Operations: minBy(), maxBy(), groupingBy()">Terminal Operations: minBy(), maxBy(), groupingBy()</a></li>
+                <li>
+                    <a href="#numeric-stream" aria-label="Numeric Stream">Numeric Stream</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="generics">Generics<a hidden class="anchor" aria-hidden="true" href="#generics">#</a></h1>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Test {
+    public static void main(String[] args) {
+        List&lt;Integer&gt; intList = List.of(1, 2, 3);
+        // Integer 是 Number 的子类
+        processItems("Hello Integer!", intList);
+        // Double 是 Number 的子类
+        processItems("Hello, Double!", List.of(1.1, 2.2, 3.3));
+    }
+
+    // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类
+    private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) {
+        System.out.println(item);
+        for (V num : nums) {
+            System.out.println("num: " + num);
+        }
+    }
+
+    /**
+     * ? extends 与 ? super 的区别
+     *   1、? extends T：表示上界通配符，用于类型的上限，只能读取，不能写入。适用于不修改集合内容的情景。
+     *   2、? super T：表示下界通配符，用于类型的下限，可以写入，适用于添加数据的情景。
+     */
+}
+
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="lambda-expression">Lambda Expression<a hidden class="anchor" aria-hidden="true" href="#lambda-expression">#</a></h1>
+<h2 id="runnable">Runnable<a hidden class="anchor" aria-hidden="true" href="#runnable">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Test {
+    public static void main(String[] args) {
+
+        // Java 8 之前
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Inside Runnable 1");
+            }
+        };
+        new Thread(runnable).start();
+
+        // Java 8 - Lambda 语法
+        Runnable runnableLambda = () -> {System.out.println("Inside Runnable 2");};
+        new Thread(runnableLambda).start();
+
+        new Thread(() -> System.out.println("Inside Runnable 3")).start();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="comparator">Comparator<a hidden class="anchor" aria-hidden="true" href="#comparator">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Test {
+    public static void main(String[] args) {
+        // JAVA 8 之前
+        Comparator&lt;Integer&gt; comparator = new Comparator&lt;Integer&gt;() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                /**
+                 * o1 < o2 -> -1
+                 * o1 == o2 -> 0
+                 * o1 > o2 -> 1
+                 */
+                return o1.compareTo(o2);
+            }
+        };
+        System.out.println(comparator.compare(1, 2)); // -1
+
+        /**
+         * JAVA 8
+         */
+        // Comparator&lt;Integer&gt; comparatorLambda1 = (Integer a, Integer b) -> a.compareTo(b);
+        Comparator&lt;Integer&gt; comparatorLambda1 = Comparator.naturalOrder();
+        System.out.println(comparatorLambda1.compare(1, 2)); // -1
+
+        // Comparator&lt;Integer&gt; comparatorLambda2 = (a, b) -> b.compareTo(a);
+        Comparator&lt;Integer&gt; comparatorLambda2 = Comparator.reverseOrder();
+        System.out.println(comparatorLambda2.compare(1, 2)); // 1
+
+        int[] nums = new int[]{2, 1, 4, 3};
+        System.out.println("nums = " + Arrays.toString(nums));
+        Arrays.sort(nums); // 默认为升序排序
+
+        // 倒序排序
+        Integer[] newNums = Arrays.stream(nums).boxed().toArray(Integer[]::new);
+        Arrays.sort(newNums, Comparator.reverseOrder());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="local-variables-in-lambda-expression">Local Variables in Lambda Expression<a hidden class="anchor" aria-hidden="true" href="#local-variables-in-lambda-expression">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Test {
+    public static void main(String[] args) {
+        /**
+         * 1. The variable used in a lambda expression must be effectively final,
+         * meaning its value cannot change after it has been assigned.
+         * 2. A lambda captures the values of local variables, not the variables
+         * themselves.
+         * 3. Local variables in a lambda cannot have the same name as variables
+         * in the enclosing scope to avoid shadowing.
+         */
+        int num = 10; // effectively final
+        Runnable r = () -> System.out.println(num);
+        r.run();
+
+        // Error: Variable num is already defined in the scope
+//        Runnable r = () -> {
+//            int num = 20; // Compile-time error
+//            System.out.println(num);
+//        };
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="functional-interface">Functional Interface<a hidden class="anchor" aria-hidden="true" href="#functional-interface">#</a></h1>
+<h2 id="consumer">Consumer<a hidden class="anchor" aria-hidden="true" href="#consumer">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+
+public class Test {
+    public static void main(String[] args) {
+        List&lt;String&gt; items = Arrays.asList("One", "Two", "Three");
+
+        /**
+         * Consumer 接收一个参数并执行一些操作，不返回结果
+         * Consumer 有 accept 和 andThen 两个方法
+         * accept 用于接收参数，andThen 用于链接多个 Consumer
+         */
+        // 示例1：定义一个 Consumer，它将打印传入的字符串
+        Consumer&lt;String&gt; printConsumer = s -> System.out.println("打印消息: " + s);
+        printConsumer.accept("Hello, World!"); // 输出: 打印消息: Hello, World!
+
+        // 示例 2：Consumer 链式操作
+        Consumer&lt;String&gt; printItem = item -> System.out.print("打印: " + item + "\t");
+        Consumer&lt;String&gt; printLength = item -> System.out.println("长度: " + item.length());
+        Consumer&lt;String&gt; combined = printItem.andThen(printLength); // 将两个 Consumer 组合在一起
+        // 使用 forEach 遍历集合并执行组合操作
+        items.forEach(combined);
+//        items.forEach(item -> {
+//            System.out.print("打印: " + item + "\t");
+//            System.out.println("长度: " + item.length());
+//        });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="biconsumer">BiConsumer<a hidden class="anchor" aria-hidden="true" href="#biconsumer">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+import java.util.List;
+import java.util.function.BiConsumer;
+
+// 定义 Student 记录类，包含学生的姓名和活动列表
+record Student(String name, List&lt;String&gt; activities) {
+}
+
+//class Student {
+//    private final String name;
+//    private final  List&lt;String&gt; activities;
+//
+//    public Student(String name, List&lt;String&gt; activities) {
+//        this.name = name;
+//        this.activities = activities;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public List&lt;String&gt; getActivities() {
+//        return activities;
+//    }
+//}
+
+class StudentDataBase {
+    // 提供学生数据，返回一个包含多个学生的列表
+    public static List&lt;Student&gt; getAllStudents() {
+        return Arrays.asList(
+                new Student("Alice", Arrays.asList("Swimming", "Basketball")),
+                new Student("Bob", Arrays.asList("Cycling", "Chess")),
+                new Student("Charlie", Arrays.asList("Running", "Reading"))
+        );
+    }
+}
+
+class Test {
+    public static void main(String[] args) {
+        /**
+         * BiConsumer 适用于对两个参数执行操作，但不需要返回结果的场景。
+         */
+        
+        // BiConsumer 接口用于处理学生姓名和活动列表
+        BiConsumer&lt;&lt;String, List&lt;String&gt;&gt; studentBiConsumer = (name, activities) ->
+                System.out.println(name + " : " + activities);
+
+        // 获取学生列表
+        List&lt;Student&gt; students = StudentDataBase.getAllStudents();
+
+        // 使用 forEach 遍历每个学生对象并输出其姓名和活动列表
+        students.forEach(student ->
+                studentBiConsumer.accept(student.name(), student.activities()));
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="predicate">Predicate<a hidden class="anchor" aria-hidden="true" href="#predicate">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+
+class Test {
+    public static void main(String[] args) {
+        /*
+           Predicate 用于测试输入对象是否满足某种条件，常用于过滤、条件判断等场景
+           Predicate 提供了 and, or 和 negate 三个默认方法
+           Predicate 提供了 isEqual 和 not (Java 11) 两个静态方法
+         */
+
+        // 示例 1:
+        Predicate&lt;Integer&gt; isEven = num -> num % 2 == 0;
+        List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List&lt;Integer&gt; evenNumbers = numbers.stream()
+                .filter(isEven)
+                .toList();
+        System.out.println("偶数: " + evenNumbers); // 输出: 偶数: [2, 4, 6]
+
+        // 示例 2:
+        Predicate&lt;Integer&gt; isOdd = num -> num % 2 == 0;
+        Predicate&lt;Integer&gt; isGreaterThanFive = num -> num > 5;
+        // 使用 and() 方法组合两个条件
+        Predicate&lt;Integer&gt; isOddAndGreaterThanFive = isOdd.and(isGreaterThanFive);
+        System.out.println(isOddAndGreaterThanFive.test(7)); // 输出: true
+        System.out.println(isOddAndGreaterThanFive.test(3)); // 输出: false
+
+        // 示例 3
+        List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie", "Alice");
+
+        // 使用 isEqual 和 not 来筛选出不等于 "Alice" 的名字
+        List&lt;String&gt; filteredNames = names.stream()
+                                          .filter(Predicate.not(Predicate.isEqual("Alice")))
+                                          .toList();
+        System.out.println(filteredNames); // Output: [Bob, Charlie]
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="bipredicate">BiPredicate<a hidden class="anchor" aria-hidden="true" href="#bipredicate">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.function.BiPredicate;
+
+class Test {
+    public static void main(String[] args) {
+        // BiPredicate 适合需要对两个参数进行测试或判断的情况
+
+        // 示例 1        
+        BiPredicate&lt;Integer, Integer&gt; isSumGreaterThanTen = (a, b) -> (a + b) > 10;
+        BiPredicate&lt;Integer, Integer&gt; isProductEven = (a, b) -> (a * b) % 2 == 0;
+
+        BiPredicate&lt;Integer, Integer&gt; combined = isSumGreaterThanTen.and(isProductEven);
+        System.out.println(combined.test(5, 6)); // 输出: true，因为和大于10且乘积为偶数
+        System.out.println(combined.test(5, 5)); // 输出: false，因为乘积为奇数
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="function">Function<a hidden class="anchor" aria-hidden="true" href="#function">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.function.Function;
+
+class Test {
+    public static void main(String[] args) {
+        /**
+         *  Function 接受一个参数并返回一个结果
+         *  apply(T t)：对给定的参数执行函数操作并返回结果
+         *  andThen()：在当前函数之后执行另一个函数
+         *  compose()：在当前函数之前执行另一个函数
+         */
+
+        // 示例 1
+        Function&lt;Integer, Integer&gt; squareFunction = x -> x * x;
+        Integer result = squareFunction.apply(5);
+        System.out.println("5 的平方是: " + result);
+
+        // 示例 2
+        Function&lt;Integer, Integer&gt; multiplyBy2 = x -> x * 2;
+        Function&lt;Integer, Integer&gt; add3 = x -> x + 3;
+        // 使用 andThen：先乘以 2，再加 3
+        Integer result1 = multiplyBy2.andThen(add3).apply(5);
+        System.out.println("(5 * 2) + 3 的结果是: " + result1);
+        // 使用 compose：先加 3，再乘以 2
+        Integer result2 = multiplyBy2.compose(add3).apply(5);
+        System.out.println("(5 + 3) * 2 的结果是: " + result2);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="bifunction">BiFunction<a hidden class="anchor" aria-hidden="true" href="#bifunction">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.function.BiFunction;
+
+class Test {
+    public static void main(String[] args) {
+        // BiFunction takes two arguments and returns a result
+        BiFunction&lt;Integer, Integer, Integer&gt; sum = (a, b) -> a + b;
+        int result = sum.apply(5, 3);  // Returns 8
+        System.out.println("Result: " + result);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="method-reference">Method Reference<a hidden class="anchor" aria-hidden="true" href="#method-reference">#</a></h1>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+public class Test {
+    public static void main(String[] args) {
+        /**
+         * Method reference is a shortcut for writing the lambda function
+         */
+
+        // 示例 1
+        List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie");
+        // 使用 Lambda 表达式
+        names.stream().map(name -> name.toUpperCase()).forEach(name -> System.out.println(name));
+        // 使用Method Reference
+        names.stream().map(String::toUpperCase).forEach(System.out::println);
+
+        /**
+         * 构造器引用是Method Reference的特例
+         * 用法如下：
+         *  () -> new Person() <--> Person::new;
+         *  (name) -> new Person() <--> Person::new;
+         */
+        // 示例 2
+        // Using () -> new Person()
+        Supplier&lt;Person&gt; personSupplier = () -> new Person();
+        Person p1 = personSupplier.get();
+        System.out.println(p1); // Output: Person{name='Default'}
+        // Using Person::new
+        Supplier&lt;Person&gt; personSupplierRef = Person::new;
+        Person p2 = personSupplierRef.get();
+        System.out.println(p2); // Output: Person{name='Default'}
+
+        // 示例 3
+        // Using (name) -> new Person(name)
+        Function&lt;String, Person&gt; personFunction = (name) -> new Person(name);
+        Person p3 = personFunction.apply("Alice");
+        System.out.println(p3); // Output: Person{name='Alice'}
+        // Using Person::new
+        Function&lt;String, Person&gt; personFunctionRef = Person::new;
+        Person p4 = personFunctionRef.apply("Bob");
+        System.out.println(p4); // Output: Person{name='Bob'}
+    }
+}
+
+class Person {
+    private String name;
+
+    // Default constructor
+    public Person() {
+        this.name = "Default";
+    }
+
+    // Constructor with a parameter
+    public Person(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "'}";
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="stream-api">Stream API<a hidden class="anchor" aria-hidden="true" href="#stream-api">#</a></h1>
+<h2 id="introduction-to-stream-api">Introduction to Stream API<a hidden class="anchor" aria-hidden="true" href="#introduction-to-stream-api">#</a></h2>
+<blockquote>
+<p>A <strong>Stream</strong> is a sequence of elements designed for processing in a functional and sequential manner. Stream operations are lazy, meaning they are not executed until a terminal operation (e.g., <code>collect</code>, <code>forEach</code>, <code>reduce</code>, <code>count</code>) is invoked. Streams are <strong>immutable</strong>, allowing access to elements without modifying the source. Java provides two types of streams: <strong>stream</strong> (for sequential processing) and <strong>parallel stream</strong> (for concurrent processing).</p>
+</blockquote>
+<p><strong>Collections</strong> V.S. <strong>Stream</strong></p>
+<ol>
+<li>In Java, <strong>Collections</strong> are data structures designed for storing and manipulating data, whereas <strong>Streams</strong> are a sequence of elements which enable functional-style operations on data.</li>
+<li><strong>Collections</strong> allow data modification, whereas <strong>Streams</strong> provide read-only access to elements.</li>
+<li>Operations on <strong>Collections</strong> are executed eagerly, while <strong>Streams</strong> operations are lazy and only executed when a terminal operation is invoked.</li>
+<li><strong>Collections</strong> can be reused multiple times, but <strong>Streams</strong> are single-use and cannot be reused after processing.</li>
+</ol>
+<blockquote>
+<p><strong>Debugging Streams</strong>: the <code>peek()</code> method can be used to inspect the intermediate results during stream operations.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Arrays.<span style="color:#a6e22e">asList</span>(<span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#e6db74">&#34;hi&#34;</span>).<span style="color:#a6e22e">stream</span>()
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">peek</span>(System.<span style="color:#a6e22e">out</span>::println)
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">filter</span>(s <span style="color:#f92672">-&gt;</span> s.<span style="color:#a6e22e">length</span>() <span style="color:#f92672">&gt;</span> 2)
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">peek</span>(s <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Filtered: &#34;</span> <span style="color:#f92672">+</span> s))
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">map</span>(String::toUpperCase)
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">peek</span>(s <span style="color:#f92672">-&gt;</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>(<span style="color:#e6db74">&#34;Mapped: &#34;</span> <span style="color:#f92672">+</span> s))
+</span></span><span style="display:flex;"><span>                .<span style="color:#a6e22e">collect</span>(Collectors.<span style="color:#a6e22e">toList</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello
+</span></span><span style="display:flex;"><span>Filtered: hello
+</span></span><span style="display:flex;"><span>Mapped: HELLO
+</span></span><span style="display:flex;"><span>hi
+</span></span></code></pre></div><hr>
+<h2 id="flatmap">flatMap<a hidden class="anchor" aria-hidden="true" href="#flatmap">#</a></h2>
+<blockquote>
+<p>The <code>flatMap</code> method is used to transform each element in a stream into another stream and then flatten the resulting streams into a single stream.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Test {
+    public static void main(String[] args) {
+        List&lt;List&lt;String&gt; nestedList = Arrays.asList(
+                Arrays.asList("A", "B"),
+                Arrays.asList("C", "D"),
+                Arrays.asList("E", "F")
+        );
+
+        List&lt;String&gt; flattenedList = nestedList.stream()
+                .flatMap(List::stream) // Flatten the nested lists
+                .map(String::toLowerCase) // Convert each string to lowercase
+                .collect(Collectors.toList());
+
+        System.out.println(flattenedList); // Output: [a, b, c, d, e, f]
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<blockquote>
+<p>The <code>map</code> method transforms each element into another type, while the <code>flatMap</code> method transforms and flaten streams into a single stream.</p>
+</blockquote>
+<hr>
+<h2 id="distinct-count-sorted">distinct(), count(), sorted()<a hidden class="anchor" aria-hidden="true" href="#distinct-count-sorted">#</a></h2>
+<blockquote>
+<p>The <code>distinct()</code> method eliminates duplicate elements from the stream. The <code>count()</code> method calculates the total number of elements in the stream. The <code>sorted()</code> method sorts the elements of the stream.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Alice", "Charlie");
+long count = names.stream()
+                  .distinct() // Optional: Count unique elements
+                  .count();
+System.out.println(count); // Output: 3
+
+List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie");
+List&lt;String&gt; sortedByLength = names.stream()
+                                   .sorted(Comparator.comparingInt(String::length))
+                                   .collect(Collectors.toList());
+System.out.println(sortedByLength); // Output: [Bob, Alice, Charlie]
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h2 id="reduce">reduce()<a hidden class="anchor" aria-hidden="true" href="#reduce">#</a></h2>
+<blockquote>
+<p>The <code>reduce()</code> method in Java 8 Streams is a terminal operation used to combine elements in a stream into a single result by repeatedly applying a binary operator.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Summing numbers
+List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);
+int sum = numbers.stream().reduce(0, Integer::sum);
+System.out.println(sum); // Output: 15
+
+// Finding maximum values
+List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);
+int max = numbers.stream().reduce(Integer.MIN_VALUE, Integer::max);
+System.out.println(max); // Output: 5
+
+// Concatenating Strings
+List&lt;String&gt; words = Arrays.asList("Java", "Stream", "Reduce");
+String concatenated = words.stream().reduce("", String::concat);
+System.out.println(concatenated); // Output: JavaStreamReduce
+
+// Product of numbers
+List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4);
+int product = numbers.stream().reduce(1, (a, b) -> a * b);
+System.out.println(product); // Output: 24
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="limit-skip">limit(), skip()<a hidden class="anchor" aria-hidden="true" href="#limit-skip">#</a></h2>
+<blockquote>
+<p>The <code>limit()</code> method retrieves a specified number of elements from a stream. The <code>skip()</code> method discards the first specified number of elements in a stream.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eve");
+List&lt;String&gt; paginatedNames = names.stream()
+                                   .skip(2)   // Skip the first 2 elements
+                                   .limit(2)  // Take the next 2 elements
+                                   .collect(Collectors.toList());
+System.out.println(paginatedNames); // Output: [Charlie, David]
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="allmatch-anymatch-nonematch">allMatch(), anyMatch(), noneMatch()<a hidden class="anchor" aria-hidden="true" href="#allmatch-anymatch-nonematch">#</a></h2>
+<blockquote>
+<p>The <code>allMatch()</code> method verifies if <em><strong>all elements</strong></em> in a stream satisfy the given predicate. The <code>anyMatch()</code> method determines if <em><strong>any element</strong></em> in the stream matches the specified predicate. The <code>noneMatch()</code> method confirms if <em><strong>no element</strong></em> in the stream matches the specified predicate.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie");
+
+// Check if all names are longer than 3 characters
+boolean allLongNames = names.stream().allMatch(name -> name.length() > 3);
+System.out.println(allLongNames); // Output: true
+
+// Check if any name starts with 'A'
+boolean anyStartsWithA = names.stream().anyMatch(name -> name.startsWith("A"));
+System.out.println(anyStartsWithA); // Output: true
+
+// Check if no name is shorter than 3 characters
+boolean noneShortNames = names.stream().noneMatch(name -> name.length() < 3);
+System.out.println(noneShortNames); // Output: true
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="findany-findfirst">findAny(), findFirst()<a hidden class="anchor" aria-hidden="true" href="#findany-findfirst">#</a></h2>
+<blockquote>
+<p>The <code>findAny()</code> method retrieves an arbitrary element from a stream, particularly useful for parallel processing. The <code>findFirst()</code> method fetches the first element from a stream based on its encounter order.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie");
+Optional&lt;String&gt; anyName = names.stream().findAny();
+System.out.println(anyName.orElse("No names found")); // Output: Alice (or any other element)
+
+List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie");
+Optional&lt;String&gt; firstName = names.stream().findFirst();
+System.out.println(firstName.orElse("No names found")); // Output: Alice
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h2 id="factory-methods-of-generate-iterate">Factory Methods: Of(), generate(), iterate()<a hidden class="anchor" aria-hidden="true" href="#factory-methods-of-generate-iterate">#</a></h2>
+<blockquote>
+<p><code>Stream.of()</code> is used to create a stream from a fixed set of elements.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.stream.Stream;
+
+public class Main {
+    public static void main(String[] args) {
+        Stream&lt;String&gt; stream = Stream.of("Apple", "Banana", "Cherry");
+        stream.forEach(System.out::println);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p><code>Stream.generate()</code> method is used to create an infinite stream of elements generated by a <code>Supplier</code>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.stream.Stream;
+
+public class Main {
+    public static void main(String[] args) {
+        Stream&lt;String&gt; infiniteStream = Stream.generate(() -> "Hello");
+        infiniteStream.limit(5).forEach(System.out::println);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p><code>Stream.iterate()</code> is used to create an infinite stream by applying a function repeatedly to a seed value.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.Random;
+
+Stream&lt;Integer&gt; randomNumbers = Stream.generate(() -> new Random().nextInt(100));
+randomNumbers.limit(5).forEach(System.out::println);
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<blockquote>
+<p><strong>When working with infinite streams, such as those created by <code>Stream.generate()</code> or <code>Stream.iterate()</code>, always use operations like <code>limit()</code> to prevent infinite processing.</strong></p>
+</blockquote>
+<h2 id="terminal-operations-joining-counting-mapping">Terminal Operations: joining(), counting(), mapping()<a hidden class="anchor" aria-hidden="true" href="#terminal-operations-joining-counting-mapping">#</a></h2>
+<blockquote>
+<p>The <code>joining</code> method is a terminal operation used to concatenate the elements of a stream into a single <code>String</code>. By default, the elements are joined without a delimiter, but a custom delimiter, prefix, and suffix can also be specified.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.*;
+import java.util.stream.Collectors;
+
+public class JoiningExample {
+    public static void main(String[] args) {
+        List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Simple joining
+        String result1 = names.stream().collect(Collectors.joining());
+        System.out.println(result1); // AliceBobCharlie
+
+        // Joining with a delimiter
+        String result2 = names.stream().collect(Collectors.joining(", "));
+        System.out.println(result2); // Alice, Bob, Charlie
+
+        // Joining with delimiter, prefix, and suffix
+        String result3 = names.stream().collect(Collectors.joining(", ", "[", "]"));
+        System.out.println(result3); // [Alice, Bob, Charlie]
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p>The <code>counting()</code> method is a terminal operation used to count the number of elements in a stream and return the count as a <code>long</code>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.*;
+import java.util.stream.Collectors;
+
+public class CountingExample {
+    public static void main(String[] args) {
+        List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Counting the elements in the stream
+        long count = numbers.stream().collect(Collectors.counting());
+        System.out.println(count); // 5
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p>The <code>mapping()</code> method is an intermediate collector that applies a function to the elements of a stream before passing the transformed elements to another collector for final processing.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.*;
+import java.util.stream.Collectors;
+
+public class MappingExample {
+    public static void main(String[] args) {
+        List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie");
+
+        // Convert names to uppercase and join them
+        String result = names.stream()
+                .collect(Collectors.mapping(String::toUpperCase, Collectors.joining(", ")));
+        System.out.println(result); // ALICE, BOB, CHARLIE
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="terminal-operations-minby-maxby-groupingby">Terminal Operations: minBy(), maxBy(), groupingBy()<a hidden class="anchor" aria-hidden="true" href="#terminal-operations-minby-maxby-groupingby">#</a></h2>
+<blockquote>
+<p>The <code>minBy()</code> collector finds the minimum element in a stream based on a specified <strong>Comparator</strong> and returns the result as an <code>Optional</code>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >Optional<Integer> min = Stream.of(3, 5, 1, 2)
+    .collect(Collectors.minBy(Comparator.naturalOrder()));
+System.out.println(min.orElse(-1)); // Output: 1
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p>The <code>maxBy()</code> collector finds the maximum element in a stream based on a specified <strong>Comparator</strong> and returns the result as an <code>Optional</code>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >Optional<Integer> max = Stream.of(3, 5, 1, 2)
+    .collect(Collectors.maxBy(Comparator.naturalOrder()));
+System.out.println(max.orElse(-1)); // Output: 5
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p>The <code>groupingBy()</code> collector groups the elements of a stream based on a classification function and returns the grouped data as a <code>Map</code>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >Map&lt;Integer, List&lt;String&gt;&gt; groupedByLength = Stream.of("cat", "dog", "bird", "fox")
+    .collect(Collectors.groupingBy(String::length));
+System.out.println(groupedByLength);
+// Output: {3=[cat, dog, fox], 4=[bird]}
+
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="numeric-stream">Numeric Stream<a hidden class="anchor" aria-hidden="true" href="#numeric-stream">#</a></h2>
+<blockquote>
+<p>A <strong>Numeric Stream</strong> in Java is a specialized type of stream that operates specifically on numeric values. There are three types of numeric streams: <code>IntStream</code>, <code>LongStream</code>, and <code>Double Stream</code>, which handle <code>int</code>, <code>long</code>, and <code>double</code> values, respectively. Numeric streams eliminate the overhead of autoboxing and provide commonly used methods such as <code>sum()</code> and <code>max()</code> for performing operations on numeric data, making them more efficient compared to regular <code>Stream</code> types.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >IntStream.range(1, 5).forEach(System.out::println);
+// Output: 1 2 3 4
+
+IntStream.rangeClosed(1, 5).forEach(System.out::println);
+// Output: 1 2 3 4 5
+
+long count = IntStream.range(1, 10).count();
+System.out.println(count);  // Output: 9
+
+int sum = IntStream.range(1, 5).sum();
+System.out.println(sum);  // Output: 10 (1 + 2 + 3 + 4)
+
+OptionalInt max = IntStream.range(1, 5).max();
+max.ifPresent(System.out::println);  // Output: 4
+
+OptionalInt min = IntStream.range(1, 5).min();
+min.ifPresent(System.out::println);  // Output: 1
+
+OptionalDouble average = IntStream.range(1, 5).average();
+average.ifPresent(System.out::println);  // Output: 2.5
+
+List&lt;String&gt; numbers = Arrays.asList("1", "2", "3", "4");
+IntStream intStream = numbers.stream().mapToInt(Integer::parseInt);
+intStream.forEach(System.out::println);  // Output: 1, 2, 3, 4
+
+List&lt;String&gt; numbers = Arrays.asList("1.1", "2.2", "3.3", "4.4");
+DoubleStream doubleStream = numbers.stream().mapToDouble(Double::parseDouble);
+doubleStream.forEach(System.out::println);  // Output: 1.1, 2.2, 3.3, 4.4
+
+List&lt;String&gt; numbers = Arrays.asList("10", "20", "30", "40");
+LongStream longStream = numbers.stream().mapToLong(Long::parseLong);
+longStream.forEach(System.out::println);  // Output: 10, 20, 30, 40
+
+IntStream intStream = IntStream.range(1, 5);
+Stream&lt;String&gt; stringStream = intStream.mapToObj(Integer::toString);
+stringStream.forEach(System.out::println);  // Output: "1", "2", "3", "4"
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/java/">Java</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/design-patterns/1-design-patterns/">
+    <span class="title">« PREV</span>
+    
+    <br>
+    <span>Design Patterns</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+</body>
+</html>
