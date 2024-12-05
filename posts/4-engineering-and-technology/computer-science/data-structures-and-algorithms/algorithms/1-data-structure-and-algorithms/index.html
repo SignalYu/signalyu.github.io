@@ -101,8 +101,8 @@ Head Recursion Head Recursion is a type of recursion where a function makes its 
   "keywords": [
     "Data Structure \u0026 Algorithms"
   ],
-  "articleBody": "Recursion Recursion is a programming technique where a function repeatedly calls itself until it reaches a base case, whcih stops the recursion and allows it to return a result. It is a way of breaking down complex problems into smaller, simpler subproblems that are eaiser to solve.\nHead Recursion Head Recursion is a type of recursion where a function makes its recursive call first, immediately after checking the base case, and performs all other operations only after the recursive call returns.\nSHOW CODE: Head Recursion Head Recursion void printNumbers(int n) { if (n == 0) { return; // Base case } printNumbers(n - 1); // Recursive call printf(\"%d\\n\", n); // Processing after recursion } Call Stack Operation Current Value of n headRecursion(3) Call function 3 headRecursion(2) Call function 2 headRecursion(1) Call function 1 headRecursion(0) Base case, exit 0 Unwinding begins: printf(1) Print 1 1 printf(2) Print 2 2 printf(3) Print 3 3 Tail Recursion Tail Recursion is a type of recursion where a function makes its recursive call as the last operation in its body. with no further operations after the call. This type of recursion can be optimized by the compiler into an iterative loop through tail call optimization (TCO), which help reduce memory consumption by the reusing the stack frame.\nSHOW CODE: Tail Recursion Tail Recursion void tailRecursion(int n) { if (n \u003e 0) { printf(\"%d \", n); // Operation first tailRecursion(n - 1); // Recursive call at the end } } Call Stack Operation Current Value of n tailRecursion(3) Print 3 3 tailRecursion(2) Print 2 2 tailRecursion(1) Print 1 1 tailRecursion(0) Base case, exit 0 Tail recursion is generally perfered for performance when recursion depth is large because it can be optimized into an iterative process.\nSHOW CODE: Tail Recursion Optimization Tail Recursion Optimization void tailRecursionOptimized(int n) { while (n \u003e 0) { printf(\"%d \", n); // Operation first n--; // Decrement n, same as `tailRecursion(n - 1)` } } In the above code, optimized Loop replaces recursion with a loop, ensuring only a single stack frame is used.\nConditions for Tail Recursion: The recursive call must be the last operation in the function, and its result must be immediately returned without any further computation after the call.\nSHOW CODE: Tail Recursive Function Tail Recursive Function // Tail recursive function to calculate factorial int factorialTailRecursion(int n, int accumulator) { if (n == 0) { return accumulator; // Base case: return accumulated result } return factorialTailRecursion(n - 1, accumulator * n); // Recursive call is the last operation } SHOW CODE: Non-tail Recursive Function Non-tail recursive // Non-tail recursive function to calculate factorial int factorialNonTailRecursion(int n) { if (n == 0) { return 1; // Base case } return n * factorialNonTailRecursion(n - 1); // Recursive call is not the last operation } Tree Recursion Tree recursion is a type of recursion in which a function makes multiple recursive calls to itself in its body, it creates a tree-like data structure, as each call can branch into multiple additional calls.\nSHOW CODE C public int fib(int n) { if (n \u003c= 1) { return n; } return fib(n - 1) + fib(n - 2); } Recursion Tree Analysis:\n--- title: Recursion Tree Analysis - fibonacci sequence --- graph TD L0((\"fib\\(5\\)\")) --\u003e L1((\"fib\\(4\\)\")) L0 --\u003e L2((\"fib\\(3\\)\")) L1 --\u003e L3((\"fib\\(3\\)\")) L1 --\u003e L4((\"fib\\(2\\)\")) L2 --\u003e L5((\"fib\\(2\\)\")) L2 --\u003e L6((\"fib\\(1\\)\")) L3 --\u003e L7((\"fib\\(2\\)\")) L3 --\u003e L8((\"fib\\(1\\)\")) L4 --\u003e L9((\"fib\\(1\\)\")) L4 --\u003e L10((\"fib\\(0\\)\")) L5 --\u003e L11((\"fib\\(1\\)\")) L5 --\u003e L12((\"fib\\(0\\)\")) L7 --\u003e L13((\"fib\\(1\\)\")) L7 --\u003e L14((\"fib\\(0\\)\")) Array An array is a data structure that stores a collection of elements of the same type in a fixed-size, continguous block of memory. Arrays can be categorized into two types: static arrays and dynamic arrays.\nA static array has a fixed size that cannot be changed after its declaration. Memory for a static array is allocated at compile time, and its size must be explicitly specified.\nIn contrast, a dynamic array allows its size to be adjusted during runtime, enabling it to grow or shrink as needed. Unlike static arrays, the size of a dynamic array does not need to be specified at the time of declaration, and memory is allocated dynamically from the heap.\nImplementation of Static Arrays Implementation of Dynamic Arrays Compiler’s Memory Layout for Arrays The address of an array element is determined at runtime. Array elements are stored in a continguous block of memory, and the compiler calculates each element’s address using its index and the size of each element.\n1-Dimentional Array Element Access Formula (0-based index): $\\text{Addr}_{A[i]} = B + i \\times W$\nB: Base Address i: Zero-based Index of Each Element W: Size of Each Element SHOW CODE C #include int main() { int arr[5] = {10, 20, 30, 40, 50}; for (int i = 0; i \u003c 5; i++) { void *addr_i = (void *) arr + (i * sizeof(int)); printf(\"Element at index %d: %d \\t Address: %p\\n\", i, arr[i], addr_i); } return 0; } SHOW OUTPUT Output Element at index 0: 10 Address: 0x7ff7bb0b7170 Element at index 1: 20 Address: 0x7ff7bb0b7174 Element at index 2: 30 Address: 0x7ff7bb0b7178 Element at index 3: 40 Address: 0x7ff7bb0b717c Element at index 4: 50 Address: 0x7ff7bb0b7180 2-Dimentional Array Element Access Formula (Row Major Order): $\\text{Addr}_{A[i][j]} = \\text{B} + [(i \\times \\text{C}) + j] \\times \\text{W}$\nB: Base Address i: Zero-based Row Index of Each Element j: Zero-based Column Index of Each ELement C: Number of Columns W: Size of Each Element SHOW CODE C #include int main() { int arr[2][3] = {{1, 2, 3}, {4, 5, 6}}; for (int i = 0; i \u003c 2; i++) { for (int j = 0; j \u003c 3; j++) { void *addr_ij = (void *) \u0026arr + (i * 3 + j) * sizeof(int); printf(\"Element at [%d][%d]: %d, Address: %p\\n\", i, j, arr[i][j], addr_ij); } } return 0; } SHOW OUTPUT Output Element at [0][0]: 1, Address: 0x7ff7b2c64170 Element at [0][1]: 2, Address: 0x7ff7b2c64174 Element at [0][2]: 3, Address: 0x7ff7b2c64178 Element at [1][0]: 4, Address: 0x7ff7b2c6417c Element at [1][1]: 5, Address: 0x7ff7b2c64180 Element at [1][2]: 6, Address: 0x7ff7b2c64184 Why do most compilers use 0-based indexing? Take a 1-dimentional array as an example, the element access formula for a 0-based index is $\\text{Addr}_{A[i]} = B + i \\times W$. This formula requires two operations (multiplication and addition) to access each element in the array.\nIn contract, the formula for 1-based indexing is $\\text{Addr}_{A[i]} = B + (i - 1) \\times W$. This requires three operations (multiplication. subtraction, and addition). Compared to 0-based indexing, 1-based indexing introduces one additional operation, which becomes a significant overhead when dealing with large size arrays.\nString Matrix Linked List Stack Queue A Queue is a linear data structure that follows the First In, First Out (FIFO) principle, meaning elements are added to the back and removed from the front. There are four main types of queues: Simple Queue, Circular Queue, Double-Ended Queue (Deque), and Priority Queue.\nSimple Queue A Simple Queue is a basic type of queue data structure in which elements are added to the back and removed from the front, following the First In, First Out (FIFO) principle.\nImplementation of Simple Queue Array with a single pointer SHOW CODE Java class SimpleQueue { private final int[] queue; private final int capacity; private int rear; public SimpleQueue(int capacity) { this.queue = new int[capacity]; this.capacity = capacity; this.rear = -1; } public boolean isEmpty() { return rear == -1; } private boolean isFull() { return rear == capacity - 1; } public int size() { return rear + 1; } public void enqueue(int element) { if (this.isFull()) { System.out.println(\"Queue is full.\"); } else { rear++; queue[rear] = element; } } public int dequeue() { if (this.isEmpty()) { System.out.println(\"Queue is empty.\"); return -1; } int frontElement = queue[0]; // Shift all elements to the left for (int i = 0; i \u003c rear; i++) { queue[i] = queue[i + 1]; } rear--; return frontElement; } public int peek() { if (this.isEmpty()) { System.out.println(\"Queue is empty.\"); return -1; } return queue[0]; } } public class Main { public static void main(String[] args) { SimpleQueue queue = new SimpleQueue(5); queue.enqueue(10); queue.enqueue(20); queue.enqueue(30); System.out.println(\"Front element: \" + queue.peek()); // Expected: 10 System.out.println(\"Dequeued: \" + queue.dequeue()); // Expected: 10 queue.enqueue(40); queue.enqueue(50); System.out.println(\"Queue size: \" + queue.size()); // Expected: 4 System.out.println(\"Dequeued: \" + queue.dequeue()); // Expected: 20 } } The implementation of a queue using an array with a single pointer (rear) is inefficient for deletion because the remaining elements need to be shifted left after every dequeue operation.\nArray with two pointers SHOW CODE Java class SimpleQueue { private final int[] queue; private final int capacity; private int front; private int rear; public SimpleQueue(int capacity) { this.capacity = capacity; queue = new int[capacity]; this.front = -1; this.rear = -1; } public boolean isEmpty() { return front == -1; } private boolean isFull() { return rear + 1 == capacity; } public int size() { if (this.isEmpty()) { return 0; } return rear - front + 1; } public void enqueue(int element) { if (this.isFull()) { System.out.println(\"Queue is full.\"); } else { // Set front to 0 when the first element is added if (front == -1) { front = 0; } rear++; queue[rear] = element; } } public int dequeue() { if (this.isEmpty()) { System.out.println(\"Queue is empty.\"); return -1; } else { int frontElement = queue[front]; // Reset both pointers to -1 when the queue has only one element if (front == rear) { front = -1; rear = -1; } else { // Move front to the next element front++; } return frontElement; } } public int peek() { if (this.isEmpty()) { System.out.println(\"Queue is empty.\"); return -1; } else { return queue[front]; } } } public class Main { public static void main(String[] args) { SimpleQueue queue = new SimpleQueue(5); queue.enqueue(10); queue.enqueue(20); queue.enqueue(30); System.out.println(\"Front element: \" + queue.peek()); // Expected: 10 System.out.println(\"Dequeued: \" + queue.dequeue()); // Expected: 10 queue.enqueue(40); queue.enqueue(50); System.out.println(\"Queue size: \" + queue.size()); // Expected: 3 System.out.println(\"Dequeued: \" + queue.dequeue()); // Expected: 20 } } Implementing a queue using an array with two pointers (front and rear) is more efficient for deletion compared to using a single pointer (rear), as it eliminates the need to shift elements to the left after each dequeue operation. However, this approach has drawback: the space in front of the front pointer cannot be reused until the array is empty, leading to potential wasted memory.\nLinked List with a pointer Linked List with two pointers Circular Queue Double Ended Queue Priority Queue Tree Graph A graph is a fundamental data structure used to represent the connections or relationships between entities. It consists of vertices (also called node) and edges (also called arcs). A vertex represents a single entity in the graph, while an edge represents a connection or relationship between two vertices. Edges may have additional properties, such as weight (to indicate the cost or distance of the connection) or direction (to indicate the direction of the relationship).\nTypes of Graph Undirected Graph vs. Directed Graph In an undirected graph, the connection between two vertices is bidrectional. For example, if there is an edge between vertex A and vertex B, traversal is possible from A to B and from B to A. In contrast, in a directed graph, the relationships are one-way. For instance, if there is an edge from vertex A to vertex B, traversal is possible from A to B, but not from B to A unless there is a separate edge in the opposite direction.\nUnweighted Graph vs. Weighted Graph In an unweighted graph, the relationships between vertices have no additional properties, and all edges are treated equally. In contrast, a weighted graph assigns a weight to each node, which can represent attributes such as distance, time, cost, eetc. The weight provides more information about the connection between vertices and is often used in problems like shortest path or network flow.\nCyclic Graph vs. Acyclic Graph A cyclic graph contains at least one cycle, which is a path that starts and ends at the same vertex. In contrast, an acyclic graph doest not contain any cycles. A special case of an acyclic graph is the directed acyclic graph (DAG), which has directed edges and no cycles.\nConnected Graph vs. Disconnected Graph A connected graph is a graph in which there is a path between every pair of vertices. In contrast, a disconnected graph is a graph where at least one pair of vertices is not connected by any path.\nGraph Terminology The degree of a vertex is the number of edges incident to that vertex. In an undirected graph, the degree is simply the number of edges connected to the vertex. In a directed graph, the degree is the sum of the in-degree (number of incoming edges) and the out-degree (number of outgoing edges) of the vertex.\nA path is a sequence of vertices where each consecutive pair of vertices is connected by an edge.\nA cycle is a path that starts and ends at the same vertex, with no repeated vertices except for the starting or ending vertex. For example, in a cycle with $A \\rightarrow B \\rightarrow C \\rightarrow D \\rightarrow A$, the path starts and ends at the same vertex $A$, but each of the other vertices $(B, C, and D)$ is visited exactly once.\nConnectivity refers to whether there exists a path between any pair of vertices in the graph.\nA subgraph is a graph formd by a subset of the vertices and edges of the original graph.\nA component is a subgraph where there is a path between every pair of vertices in that subgraph.\nGraph Representation Adjacency Matrix An Adjacency Matrix ia a 2-dimentional array where each element at position [i][j] represents an edge between vertex i and j. In a weighted graph, the value at position [i][j] stores the weight of the edge between the two vertices. In an unweight graph, the value at position [i][j] typically stores 1 to indicate an edge exists between the vertices, and 0 to indicate no edge exists. The space complexity of an adjacency matrix is $O(V^2)$, where $V$ is the number of vertices, as it requires a matrix of size $V \\times V$ to represent the graph.\nAdjacency List An Adjacency List is a collection of lists, where each position i stores a list of nerighbors of vertex i. In a weighted graph. each element in the list typically represents a pair (neighbor, weight), where neighbor is a vertex connected to i, and weight is the weight of the edge between i and neighbor. The space complexity of an adjacency list is $O(V + E)$, where $V$ is the number of vertices and $E$ is the number of edges. This is because each vertex has a list of neighbors, and the total number of entries in all lists is proportional to the number of edges.\nEdge List An Edge List is a collection of pairs, where each pair (i, j) represents an edge between vertex i and vertex j. In a weighted graph. each element may also include the weight of the edge. typically represented as (i, j, weight). The space complexity of an edge list is $O(E)$, where $E$ is the number of edges, as each edge is stored as a separate entry in the list.\nGraph Traversal Breadth First Search Breadth-First Search (BFS) explores all the neighbors of a vertex before moving on to their neighbors. It proceeds level by level, ensuring that all vertices at a given distance from the starting vertex are visited before moving on to vertices at a greater distance. BFS is commonly used to find the shortest path in an unweighted graph.\nDepth First Search Depth-First Search (DFS) explores as far as possible alone a branch of the graph before backtracking to explore other branches. It follows a path from the starting vertex to a dead end, then retrace its steps and explores alternative paths. DFS is useful for finding all paths between vertices, detecting cycles, or performing topological sorting in directed acyclic graphs (DAGs).\nSpanning Tree A spanning tree is a subset of a graph that includes all the vertices and contains exactly $V - 1$ edges, where $V$ is the number of vertices in the graph. A connected graph can have multiple spanning trees, whereas a disconnected graph does not have a spanning tree because there is at least one pair of vertices that are not connected, making it impossible to form a tree that spans all the vertices.\nMinimum Spanning Tree (MST) A minimum spanning tree is a type of spanning tree that connects all the vertices of a graph with the smallest possible total edge weight, compared to all other possible spanning trees.\nPrim’s Algorithm Prim’s Algorithm is used to find the minimum spanning tree (MST) that connects all the vertices of a graph without forming a cycle, while minimizing the total edge weight. This algorithm is efficient for solving problems related to undirected, weighted graphs. The algorithm steps are as follows:\nInitialize an inMST array to track the vertices included in the MST, and a priority queue (min-heap) to process the edges with the smallest weight. Select an arbitrary starting vertex. Add all edges connected to this vertex into the priority queue and mark the vertex as included in the inMST array. Extract the edge with the minimum weight from the priority queue. If the destination vertex of this edge is not yet in the inMST array, include it, and add all edges connected to this newly included vertex (whose destination is not in the MST) to the priority queue. Repeat step 3 until all vertices are included in the MST. SHOW CODE Java import java.util.*; /** * @author Signal Yu * @since 2024-12-1 */ class Edge implements Comparable { int src; int dest; int weight; public Edge(int src, int dest, int weight) { this.src = src; this.dest = dest; this.weight = weight; } @Override public int compareTo(Edge other) { // Sort edges based on weight return this.weight - other.weight; } } class Graph { int vertices; int edges; ListEdge\u003e\u003e adjacencyList; public Graph(int vertices) { this.vertices = vertices; adjacencyList = new ArrayList\u003c\u003e(); for (int i = 0; i \u003c vertices; i++) { adjacencyList.add(new ArrayList\u003c\u003e()); } } void addEdge(int src, int dest, int weight) { // Add edge for undirected graph Edge edge1 = new Edge(src, dest, weight); Edge edge2 = new Edge(dest, src, weight); adjacencyList.get(src).add(edge1); adjacencyList.get(dest).add(edge2); } void primMST() { // Step 1: Initialize an `inMST` array to track the vertices // included in the MST, and a priority queue (min-heap) to // process the edges with the smallest weight. boolean[] inMST = new boolean[vertices]; Queue priorityQ = new PriorityQueue\u003c\u003e(); // Step 2: Select an arbitrary starting vertex. Add all edges // connected to this vertex into the priority queue and mark // the vertex as included in the `inMST` array. int start = 0; for (Edge edge : adjacencyList.get(start)) { priorityQ.offer(edge); } inMST[start] = true; // Step 4: Repeat step 3 until all vertices are included in the MST. while (!priorityQ.isEmpty()) { // Step 3: Extract the edge with the minimum weight from the // priority queue. If the destination vertex of this edge is // not yet in the `inMST` array, include it, and add all edges // connected to this newly included vertex (whose destination // is not in the MST) to the priority queue. Edge edge = priorityQ.poll(); int u = edge.src, v = edge.dest; if (!inMST[v]) { System.out.println(u + \"---[\" + edge.weight + \"]---\" + v); inMST[v] = true; // Add all edges from the newly included vertex (whose destination // is not included in `inMST`) to the priority queue for (Edge nextEdge : adjacencyList.get(v)) { if (!inMST[nextEdge.dest]) { priorityQ.offer(nextEdge); } } } } } } public class Solution { public static void main(String[] args) { int vertices = 4; // Number of vertices in the graph Graph graph = new Graph(vertices); // Create a graph with specified vertices // Add edges to the graph graph.addEdge(0, 1, 10); graph.addEdge(0, 2, 6); graph.addEdge(0, 3, 5); graph.addEdge(1, 3, 15); graph.addEdge(2, 3, 4); // Run Prim's algorithm to construct MST graph.primMST(); } } ",
-  "wordCount" : "3368",
+  "articleBody": "Recursion Recursion is a programming technique where a function repeatedly calls itself until it reaches a base case, whcih stops the recursion and allows it to return a result. It is a way of breaking down complex problems into smaller, simpler subproblems that are eaiser to solve.\nHead Recursion Head Recursion is a type of recursion where a function makes its recursive call first, immediately after checking the base case, and performs all other operations only after the recursive call returns.\nSHOW CODE: Head Recursion Head Recursion void printNumbers(int n) { if (n == 0) { return; // Base case } printNumbers(n - 1); // Recursive call printf(\"%d\\n\", n); // Processing after recursion } Call Stack Operation Current Value of n headRecursion(3) Call function 3 headRecursion(2) Call function 2 headRecursion(1) Call function 1 headRecursion(0) Base case, exit 0 Unwinding begins: printf(1) Print 1 1 printf(2) Print 2 2 printf(3) Print 3 3 Tail Recursion Tail Recursion is a type of recursion where a function makes its recursive call as the last operation in its body. with no further operations after the call. This type of recursion can be optimized by the compiler into an iterative loop through tail call optimization (TCO), which help reduce memory consumption by the reusing the stack frame.\nSHOW CODE: Tail Recursion Tail Recursion void tailRecursion(int n) { if (n \u003e 0) { printf(\"%d \", n); // Operation first tailRecursion(n - 1); // Recursive call at the end } } Call Stack Operation Current Value of n tailRecursion(3) Print 3 3 tailRecursion(2) Print 2 2 tailRecursion(1) Print 1 1 tailRecursion(0) Base case, exit 0 Tail recursion is generally perfered for performance when recursion depth is large because it can be optimized into an iterative process.\nSHOW CODE: Tail Recursion Optimization Tail Recursion Optimization void tailRecursionOptimized(int n) { while (n \u003e 0) { printf(\"%d \", n); // Operation first n--; // Decrement n, same as `tailRecursion(n - 1)` } } In the above code, optimized Loop replaces recursion with a loop, ensuring only a single stack frame is used.\nConditions for Tail Recursion: The recursive call must be the last operation in the function, and its result must be immediately returned without any further computation after the call.\nSHOW CODE: Tail Recursive Function Tail Recursive Function // Tail recursive function to calculate factorial int factorialTailRecursion(int n, int accumulator) { if (n == 0) { return accumulator; // Base case: return accumulated result } return factorialTailRecursion(n - 1, accumulator * n); // Recursive call is the last operation } SHOW CODE: Non-tail Recursive Function Non-tail recursive // Non-tail recursive function to calculate factorial int factorialNonTailRecursion(int n) { if (n == 0) { return 1; // Base case } return n * factorialNonTailRecursion(n - 1); // Recursive call is not the last operation } Tree Recursion Tree recursion is a type of recursion in which a function makes multiple recursive calls to itself in its body, it creates a tree-like data structure, as each call can branch into multiple additional calls.\nSHOW CODE C public int fib(int n) { if (n \u003c= 1) { return n; } return fib(n - 1) + fib(n - 2); } Recursion Tree Analysis:\n--- title: Recursion Tree Analysis - fibonacci sequence --- graph TD L0((\"fib\\(5\\)\")) --\u003e L1((\"fib\\(4\\)\")) L0 --\u003e L2((\"fib\\(3\\)\")) L1 --\u003e L3((\"fib\\(3\\)\")) L1 --\u003e L4((\"fib\\(2\\)\")) L2 --\u003e L5((\"fib\\(2\\)\")) L2 --\u003e L6((\"fib\\(1\\)\")) L3 --\u003e L7((\"fib\\(2\\)\")) L3 --\u003e L8((\"fib\\(1\\)\")) L4 --\u003e L9((\"fib\\(1\\)\")) L4 --\u003e L10((\"fib\\(0\\)\")) L5 --\u003e L11((\"fib\\(1\\)\")) L5 --\u003e L12((\"fib\\(0\\)\")) L7 --\u003e L13((\"fib\\(1\\)\")) L7 --\u003e L14((\"fib\\(0\\)\")) Array An array is a data structure that stores a collection of elements of the same type in a fixed-size, continguous block of memory. Arrays can be categorized into two types: static arrays and dynamic arrays.\nA static array has a fixed size that cannot be changed after its declaration. Memory for a static array is allocated at compile time, and its size must be explicitly specified.\nIn contrast, a dynamic array allows its size to be adjusted during runtime, enabling it to grow or shrink as needed. Unlike static arrays, the size of a dynamic array does not need to be specified at the time of declaration, and memory is allocated dynamically from the heap.\nImplementation of Static Arrays Implementation of Dynamic Arrays Compiler’s Memory Layout for Arrays The address of an array element is determined at runtime. Array elements are stored in a continguous block of memory, and the compiler calculates each element’s address using its index and the size of each element.\n1-Dimentional Array Element Access Formula (0-based index): $\\text{Addr}_{A[i]} = B + i \\times W$\nB: Base Address i: Zero-based Index of Each Element W: Size of Each Element SHOW CODE C #include int main() { int arr[5] = {10, 20, 30, 40, 50}; for (int i = 0; i \u003c 5; i++) { void *addr_i = (void *) arr + (i * sizeof(int)); printf(\"Element at index %d: %d \\t Address: %p\\n\", i, arr[i], addr_i); } return 0; } SHOW OUTPUT Output Element at index 0: 10 Address: 0x7ff7bb0b7170 Element at index 1: 20 Address: 0x7ff7bb0b7174 Element at index 2: 30 Address: 0x7ff7bb0b7178 Element at index 3: 40 Address: 0x7ff7bb0b717c Element at index 4: 50 Address: 0x7ff7bb0b7180 2-Dimentional Array Element Access Formula (Row Major Order): $\\text{Addr}_{A[i][j]} = \\text{B} + [(i \\times \\text{C}) + j] \\times \\text{W}$\nB: Base Address i: Zero-based Row Index of Each Element j: Zero-based Column Index of Each ELement C: Number of Columns W: Size of Each Element SHOW CODE C #include int main() { int arr[2][3] = {{1, 2, 3}, {4, 5, 6}}; for (int i = 0; i \u003c 2; i++) { for (int j = 0; j \u003c 3; j++) { void *addr_ij = (void *) \u0026arr + (i * 3 + j) * sizeof(int); printf(\"Element at [%d][%d]: %d, Address: %p\\n\", i, j, arr[i][j], addr_ij); } } return 0; } SHOW OUTPUT Output Element at [0][0]: 1, Address: 0x7ff7b2c64170 Element at [0][1]: 2, Address: 0x7ff7b2c64174 Element at [0][2]: 3, Address: 0x7ff7b2c64178 Element at [1][0]: 4, Address: 0x7ff7b2c6417c Element at [1][1]: 5, Address: 0x7ff7b2c64180 Element at [1][2]: 6, Address: 0x7ff7b2c64184 Why do most compilers use 0-based indexing? Take a 1-dimentional array as an example, the element access formula for a 0-based index is $\\text{Addr}_{A[i]} = B + i \\times W$. This formula requires two operations (multiplication and addition) to access each element in the array.\nIn contract, the formula for 1-based indexing is $\\text{Addr}_{A[i]} = B + (i - 1) \\times W$. This requires three operations (multiplication. subtraction, and addition). Compared to 0-based indexing, 1-based indexing introduces one additional operation, which becomes a significant overhead when dealing with large size arrays.\nString Matrix Linked List Stack Queue A Queue is a linear data structure that follows the First In, First Out (FIFO) principle, meaning elements are added to the back and removed from the front. There are four main types of queues: Simple Queue, Circular Queue, Double-Ended Queue (Deque), and Priority Queue.\nSimple Queue A Simple Queue is a basic type of queue data structure in which elements are added to the back and removed from the front, following the First In, First Out (FIFO) principle.\nImplementation of Simple Queue Array with a single pointer SHOW CODE Java class SimpleQueue { private final int[] queue; private final int capacity; private int rear; public SimpleQueue(int capacity) { this.queue = new int[capacity]; this.capacity = capacity; this.rear = -1; } public boolean isEmpty() { return rear == -1; } private boolean isFull() { return rear == capacity - 1; } public int size() { return rear + 1; } public void enqueue(int element) { if (this.isFull()) { System.out.println(\"Queue is full.\"); } else { rear++; queue[rear] = element; } } public int dequeue() { if (this.isEmpty()) { System.out.println(\"Queue is empty.\"); return -1; } int frontElement = queue[0]; // Shift all elements to the left for (int i = 0; i \u003c rear; i++) { queue[i] = queue[i + 1]; } rear--; return frontElement; } public int peek() { if (this.isEmpty()) { System.out.println(\"Queue is empty.\"); return -1; } return queue[0]; } } public class Main { public static void main(String[] args) { SimpleQueue queue = new SimpleQueue(5); queue.enqueue(10); queue.enqueue(20); queue.enqueue(30); System.out.println(\"Front element: \" + queue.peek()); // Expected: 10 System.out.println(\"Dequeued: \" + queue.dequeue()); // Expected: 10 queue.enqueue(40); queue.enqueue(50); System.out.println(\"Queue size: \" + queue.size()); // Expected: 4 System.out.println(\"Dequeued: \" + queue.dequeue()); // Expected: 20 } } The implementation of a queue using an array with a single pointer (rear) is inefficient for deletion because the remaining elements need to be shifted left after every dequeue operation.\nArray with two pointers SHOW CODE Java class SimpleQueue { private final int[] queue; private final int capacity; private int front; private int rear; public SimpleQueue(int capacity) { this.capacity = capacity; queue = new int[capacity]; this.front = -1; this.rear = -1; } public boolean isEmpty() { return front == -1; } private boolean isFull() { return rear + 1 == capacity; } public int size() { if (this.isEmpty()) { return 0; } return rear - front + 1; } public void enqueue(int element) { if (this.isFull()) { System.out.println(\"Queue is full.\"); } else { // Set front to 0 when the first element is added if (front == -1) { front = 0; } rear++; queue[rear] = element; } } public int dequeue() { if (this.isEmpty()) { System.out.println(\"Queue is empty.\"); return -1; } else { int frontElement = queue[front]; // Reset both pointers to -1 when the queue has only one element if (front == rear) { front = -1; rear = -1; } else { // Move front to the next element front++; } return frontElement; } } public int peek() { if (this.isEmpty()) { System.out.println(\"Queue is empty.\"); return -1; } else { return queue[front]; } } } public class Main { public static void main(String[] args) { SimpleQueue queue = new SimpleQueue(5); queue.enqueue(10); queue.enqueue(20); queue.enqueue(30); System.out.println(\"Front element: \" + queue.peek()); // Expected: 10 System.out.println(\"Dequeued: \" + queue.dequeue()); // Expected: 10 queue.enqueue(40); queue.enqueue(50); System.out.println(\"Queue size: \" + queue.size()); // Expected: 3 System.out.println(\"Dequeued: \" + queue.dequeue()); // Expected: 20 } } Implementing a queue using an array with two pointers (front and rear) is more efficient for deletion compared to using a single pointer (rear), as it eliminates the need to shift elements to the left after each dequeue operation. However, this approach has drawback: the space in front of the front pointer cannot be reused until the array is empty, leading to potential wasted memory.\nLinked List with a pointer SHOW CODE Java class Node { int data; Node next; public Node(int data) { this.data = data; this.next = null; } } class SimpleQueue { private Node front; private int size; public SimpleQueue() { front = null; size = 0; } // Check if the queue is empty public boolean isEmpty() { return size == 0; } // Get the current size of the queue public int size() { return size; } // Display the elements of the queue public void display() { if (isEmpty()) { System.out.println(\"Queue is empty.\"); return; } // Traverse through the queue and print its elements Node temp = front; // Use StringBuilder to efficiently build the string StringBuilder builder = new StringBuilder(); while (temp != null) { builder.append(temp.data).append(\"\u003c-\"); temp = temp.next; } // Remove the last \"\u003c-\" (extra arrow at the end) builder.setLength(builder.length() - 2); System.out.println(builder); } // Add an element to the rear (end) of the queue public void enqueue(int data) { Node node = new Node(data); // If the queue is empty, the new node becomes the front of the queue if (isEmpty()) { front = node; } else { Node temp = front; // Traverse the list to find the last node (rear of the queue) while (temp.next != null) { temp = temp.next; } temp.next = node; // Link the new node at the end of the queue } size++; // Increment the size of the queue } // Remove and return the element from the front of the queue public int dequeue() { if (isEmpty()) { throw new IllegalStateException(\"Queue is empty.\"); } int dequeued = front.data; front = front.next; size--; return dequeued; } // Return the element from the front of the queue without removing it public int peek() { if (isEmpty()) { throw new IllegalStateException(\"Queue is empty.\"); } return front.data; } } public class Main { public static void main(String[] args) { SimpleQueue queue = new SimpleQueue(); // Enqueue some elements into the queue queue.enqueue(10); queue.enqueue(20); queue.enqueue(30); queue.enqueue(40); System.out.println(\"Queue after enqueuing elements:\"); queue.display(); // Display the current state of the queue // Dequeue two elements and print them System.out.println(\"Dequeued: \" + queue.dequeue()); System.out.println(\"Dequeued: \" + queue.dequeue()); System.out.println(\"Queue after dequeuing elements:\"); queue.display(); // Display the queue after dequeuing elements // Peek at the front element without removing it System.out.println(\"Peek front: \" + queue.peek()); // Print the current size of the queue System.out.println(\"Queue size: \" + queue.size()); } } Linked List with two pointers SHOW CODE Java // Node class representing each element in the queue class Node { int data; Node next; public Node(int data) { this.data = data; this.next = null; } } // SimpleQueue class implementing queue operations using a linked list class SimpleQueue { private Node front; private Node rear; private int size; // Constructor to initialize the queue public SimpleQueue() { front = rear = null; size = 0; } // Check if the queue is empty public boolean isEmpty() { return size == 0; } // Get the size of the queue public int size() { return size; } // Display the elements in the queue public void display() { if (isEmpty()) { System.out.println(\"Queue is empty.\"); return; } // Build a string representation of the queue StringBuilder builder = new StringBuilder(); Node temp = front; while (temp != null) { builder.append(temp.data).append(\"\u003c-\"); temp = temp.next; } // Remove the trailing \" \u003c- \" builder.setLength(builder.length() - 2); System.out.println(builder); } // Enqueue: Add an element to the rear of the queue public void enqueue(int data) { Node newNode = new Node(data); // If the queue is empty, both front and rear point to the new node if (isEmpty()) { front = rear = newNode; } else { // Add new node at the end and update the rear pointer rear.next = newNode; rear = newNode; } size++; } // Dequeue: Remove and return the element from the front of the queue public int dequeue() { if (isEmpty()) { throw new IllegalStateException(\"Queue is empty.\"); } // Get the front element and update the front pointer int dequeuedData = front.data; front = front.next; // If the queue becomes empty, reset the rear to null if (front == null) { rear = null; } size--; return dequeuedData; } // Peek: Get the front element without removing it public int peek() { if (isEmpty()) { throw new IllegalStateException(\"Queue is empty.\"); } return front.data; } } // Main class to test the queue implementation public class Main { public static void main(String[] args) { SimpleQueue queue = new SimpleQueue(); // Enqueue elements into the queue queue.enqueue(10); queue.enqueue(20); queue.enqueue(30); queue.enqueue(40); // Display the queue after enqueuing elements System.out.println(\"Queue after enqueuing elements:\"); queue.display(); // Dequeue elements from the queue System.out.println(\"Dequeued: \" + queue.dequeue()); System.out.println(\"Dequeued: \" + queue.dequeue()); // Display the queue after dequeuing elements System.out.println(\"Queue after dequeuing elements:\"); queue.display(); // Peek the front element and show the queue size System.out.println(\"Peek front: \" + queue.peek()); System.out.println(\"Queue size: \" + queue.size()); } } Circular Queue A Circular Queue is a variation of the standard queue data structure that reuses the space freed by dequeue operations by connecting the last position back to the front position. It overcomes the limitation of a simple fixed-size queue, where the space at the front of the queue cannot be reused after dequeueing elements.\nArray Implementation SHOW CODE Java class CircularQueue { private final int[] queue; private int front; private int rear; private final int capacity; private int size; public CircularQueue(int capacity) { this.capacity = capacity; queue = new int[capacity]; front = rear = -1; // Initialize both front and rear as -1 to indicate the queue is empty size = 0; } // Check if the queue is empty public boolean isEmpty() { return size == 0; } // Check is the queue is full public boolean isFull() { return size == capacity; } // Get the current size of the queue public int size() { return size; } // Display the elements of the queue public void display() { if (isEmpty()) { System.out.println(\"Queue is empty.\"); return; } StringBuilder builder = new StringBuilder(); for (int i = 0; i \u003c size; i++) { builder.append(queue[(front + i) % capacity]); if (i != size - 1) { builder.append(\"\u003c-\"); } } System.out.println(builder); } public void enqueue(int data) { if (isFull()) { throw new IllegalStateException(\"Queue is full.\"); } if (isEmpty()) { front = 0; } // Move the rear pointer in a circular manner rear = (rear + 1) % capacity; // Add the data to the rear of the queue queue[rear] = data; // Increase the size size++; } public int dequeue() { if (isEmpty()) { throw new IllegalStateException(\"Queue is empty.\"); } int dequeued = queue[front]; if (front == rear) { // If the queue become empty, reset both front and rear to -1 front = rear = -1; } else { // Move the front pointer in a circular manner front = (front + 1) % capacity; } size--; // Decrease the size return dequeued; } public int peek() { if (isEmpty()) { throw new IllegalStateException(\"Queue is empty.\"); } return queue[front]; } } public class Main { public static void main(String[] args) { CircularQueue queue = new CircularQueue(5); queue.enqueue(10); queue.enqueue(20); queue.enqueue(30); queue.enqueue(40); queue.enqueue(50); System.out.println(\"Queue after enqueuing 5 elements:\"); queue.display(); // Attempt to enqueue an element to a full queue (throws exception) try { queue.enqueue(60); } catch (IllegalStateException e) { System.out.println(e.getMessage()); } // Dequeue two elements System.out.println(\"Dequeued: \" + queue.dequeue()); System.out.println(\"Dequeued: \" + queue.dequeue()); System.out.println(\"Queue after dequeuing 2 elements:\"); queue.display(); // Enqueue two more elements queue.enqueue(60); queue.enqueue(70); System.out.println(\"Queue after enqueuing 2 more elements:\"); queue.display(); // Peek at the front element System.out.println(\"Front element: \" + queue.peek()); // Display the current size of the queue System.out.println(\"Queue size: \" + queue.size()); } } Linked List Implementation SHOW CODE Java class Node { int data; Node next; public Node(int data) { this.data = data; this.next = null; } } class CircularQueue { private Node front; private Node rear; private int size; public CircularQueue() { front = rear = null; size = 0; } // Check if the queue is empty public boolean isEmpty() { return size == 0; } // Get the size of the queue public int size() { return size; } // Display the elements of the queue public void display() { if (isEmpty()) { System.out.println(\"Queue is empty.\"); return; } Node temp = front; StringBuilder builder = new StringBuilder(); do { builder.append(temp.data).append(\"\u003c-\"); temp = temp.next; } while (temp != front); // Loop until reach the front newNode again builder.setLength(builder.length() - 2); System.out.println(builder); } // Add an element to the queue public void enqueue(int data) { Node newNode = new Node(data); // Both front and rear will point to the new node if queue is empty if (isEmpty()) { front = rear = newNode; } else { rear.next = newNode; // Connect the current rear to the new node rear = newNode; // Move the rear to the new node } rear.next = front; // Connect the rear's next to the front size++; } // Remove the front element in the queue public int dequeue() { if (isEmpty()) { throw new IllegalStateException(\"Queue is empty\"); } int dequeued = front.data; // Set both front and rear to null if there is only one element if (front == rear) { front = rear = null; } else { front = front.next; // Move the front node to the next rear.next = front; // Maintain the circular link } size--; return dequeued; } // Get the front element without removing it public int peek() { if (isEmpty()) { throw new IllegalStateException(\"Queue is empty.\"); } return front.data; } } public class Main { public static void main(String[] args) { CircularQueue queue = new CircularQueue(); // Enqueue elements queue.enqueue(10); queue.enqueue(20); queue.enqueue(30); queue.enqueue(40); // Display queue elements System.out.println(\"Queue after enqueuing elements:\"); queue.display(); // Dequeue elements System.out.println(\"Dequeued: \" + queue.dequeue()); System.out.println(\"Dequeued: \" + queue.dequeue()); // Display queue elements after dequeueing System.out.println(\"Queue after dequeuing elements:\"); queue.display(); // Peek front element System.out.println(\"Peek front: \" + queue.peek()); // Display the size of the queue System.out.println(\"Queue size: \" + queue.size()); } } Double Ended Queue Priority Queue Tree Graph A graph is a fundamental data structure used to represent the connections or relationships between entities. It consists of vertices (also called node) and edges (also called arcs). A vertex represents a single entity in the graph, while an edge represents a connection or relationship between two vertices. Edges may have additional properties, such as weight (to indicate the cost or distance of the connection) or direction (to indicate the direction of the relationship).\nTypes of Graph Undirected Graph vs. Directed Graph In an undirected graph, the connection between two vertices is bidrectional. For example, if there is an edge between vertex A and vertex B, traversal is possible from A to B and from B to A. In contrast, in a directed graph, the relationships are one-way. For instance, if there is an edge from vertex A to vertex B, traversal is possible from A to B, but not from B to A unless there is a separate edge in the opposite direction.\nUnweighted Graph vs. Weighted Graph In an unweighted graph, the relationships between vertices have no additional properties, and all edges are treated equally. In contrast, a weighted graph assigns a weight to each node, which can represent attributes such as distance, time, cost, eetc. The weight provides more information about the connection between vertices and is often used in problems like shortest path or network flow.\nCyclic Graph vs. Acyclic Graph A cyclic graph contains at least one cycle, which is a path that starts and ends at the same vertex. In contrast, an acyclic graph doest not contain any cycles. A special case of an acyclic graph is the directed acyclic graph (DAG), which has directed edges and no cycles.\nConnected Graph vs. Disconnected Graph A connected graph is a graph in which there is a path between every pair of vertices. In contrast, a disconnected graph is a graph where at least one pair of vertices is not connected by any path.\nGraph Terminology The degree of a vertex is the number of edges incident to that vertex. In an undirected graph, the degree is simply the number of edges connected to the vertex. In a directed graph, the degree is the sum of the in-degree (number of incoming edges) and the out-degree (number of outgoing edges) of the vertex.\nA path is a sequence of vertices where each consecutive pair of vertices is connected by an edge.\nA cycle is a path that starts and ends at the same vertex, with no repeated vertices except for the starting or ending vertex. For example, in a cycle with $A \\rightarrow B \\rightarrow C \\rightarrow D \\rightarrow A$, the path starts and ends at the same vertex $A$, but each of the other vertices $(B, C, and D)$ is visited exactly once.\nConnectivity refers to whether there exists a path between any pair of vertices in the graph.\nA subgraph is a graph formd by a subset of the vertices and edges of the original graph.\nA component is a subgraph where there is a path between every pair of vertices in that subgraph.\nGraph Representation Adjacency Matrix An Adjacency Matrix ia a 2-dimentional array where each element at position [i][j] represents an edge between vertex i and j. In a weighted graph, the value at position [i][j] stores the weight of the edge between the two vertices. In an unweight graph, the value at position [i][j] typically stores 1 to indicate an edge exists between the vertices, and 0 to indicate no edge exists. The space complexity of an adjacency matrix is $O(V^2)$, where $V$ is the number of vertices, as it requires a matrix of size $V \\times V$ to represent the graph.\nAdjacency List An Adjacency List is a collection of lists, where each position i stores a list of nerighbors of vertex i. In a weighted graph. each element in the list typically represents a pair (neighbor, weight), where neighbor is a vertex connected to i, and weight is the weight of the edge between i and neighbor. The space complexity of an adjacency list is $O(V + E)$, where $V$ is the number of vertices and $E$ is the number of edges. This is because each vertex has a list of neighbors, and the total number of entries in all lists is proportional to the number of edges.\nEdge List An Edge List is a collection of pairs, where each pair (i, j) represents an edge between vertex i and vertex j. In a weighted graph. each element may also include the weight of the edge. typically represented as (i, j, weight). The space complexity of an edge list is $O(E)$, where $E$ is the number of edges, as each edge is stored as a separate entry in the list.\nGraph Traversal Breadth First Search Breadth-First Search (BFS) explores all the neighbors of a vertex before moving on to their neighbors. It proceeds level by level, ensuring that all vertices at a given distance from the starting vertex are visited before moving on to vertices at a greater distance. BFS is commonly used to find the shortest path in an unweighted graph.\nDepth First Search Depth-First Search (DFS) explores as far as possible alone a branch of the graph before backtracking to explore other branches. It follows a path from the starting vertex to a dead end, then retrace its steps and explores alternative paths. DFS is useful for finding all paths between vertices, detecting cycles, or performing topological sorting in directed acyclic graphs (DAGs).\nSpanning Tree A spanning tree is a subset of a graph that includes all the vertices and contains exactly $V - 1$ edges, where $V$ is the number of vertices in the graph. A connected graph can have multiple spanning trees, whereas a disconnected graph does not have a spanning tree because there is at least one pair of vertices that are not connected, making it impossible to form a tree that spans all the vertices.\nMinimum Spanning Tree (MST) A minimum spanning tree is a type of spanning tree that connects all the vertices of a graph with the smallest possible total edge weight, compared to all other possible spanning trees.\nPrim’s Algorithm Prim’s Algorithm is used to find the minimum spanning tree (MST) that connects all the vertices of a graph without forming a cycle, while minimizing the total edge weight. This algorithm is efficient for solving problems related to undirected, weighted graphs. The algorithm steps are as follows:\nInitialize an inMST array to track the vertices included in the MST, and a priority queue (min-heap) to process the edges with the smallest weight. Select an arbitrary starting vertex. Add all edges connected to this vertex into the priority queue and mark the vertex as included in the inMST array. Extract the edge with the minimum weight from the priority queue. If the destination vertex of this edge is not yet in the inMST array, include it, and add all edges connected to this newly included vertex (whose destination is not in the MST) to the priority queue. Repeat step 3 until all vertices are included in the MST. SHOW CODE Java import java.util.*; /** * @author Signal Yu * @since 2024-12-1 */ class Edge implements Comparable { int src; int dest; int weight; public Edge(int src, int dest, int weight) { this.src = src; this.dest = dest; this.weight = weight; } @Override public int compareTo(Edge other) { // Sort edges based on weight return this.weight - other.weight; } } class Graph { int vertices; int edges; ListEdge\u003e\u003e adjacencyList; public Graph(int vertices) { this.vertices = vertices; adjacencyList = new ArrayList\u003c\u003e(); for (int i = 0; i \u003c vertices; i++) { adjacencyList.add(new ArrayList\u003c\u003e()); } } void addEdge(int src, int dest, int weight) { // Add edge for undirected graph Edge edge1 = new Edge(src, dest, weight); Edge edge2 = new Edge(dest, src, weight); adjacencyList.get(src).add(edge1); adjacencyList.get(dest).add(edge2); } void primMST() { // Step 1: Initialize an `inMST` array to track the vertices // included in the MST, and a priority queue (min-heap) to // process the edges with the smallest weight. boolean[] inMST = new boolean[vertices]; Queue priorityQ = new PriorityQueue\u003c\u003e(); // Step 2: Select an arbitrary starting vertex. Add all edges // connected to this vertex into the priority queue and mark // the vertex as included in the `inMST` array. int start = 0; for (Edge edge : adjacencyList.get(start)) { priorityQ.offer(edge); } inMST[start] = true; // Step 4: Repeat step 3 until all vertices are included in the MST. while (!priorityQ.isEmpty()) { // Step 3: Extract the edge with the minimum weight from the // priority queue. If the destination vertex of this edge is // not yet in the `inMST` array, include it, and add all edges // connected to this newly included vertex (whose destination // is not in the MST) to the priority queue. Edge edge = priorityQ.poll(); int u = edge.src, v = edge.dest; if (!inMST[v]) { System.out.println(u + \"---[\" + edge.weight + \"]---\" + v); inMST[v] = true; // Add all edges from the newly included vertex (whose destination // is not included in `inMST`) to the priority queue for (Edge nextEdge : adjacencyList.get(v)) { if (!inMST[nextEdge.dest]) { priorityQ.offer(nextEdge); } } } } } } public class Solution { public static void main(String[] args) { int vertices = 4; // Number of vertices in the graph Graph graph = new Graph(vertices); // Create a graph with specified vertices // Add edges to the graph graph.addEdge(0, 1, 10); graph.addEdge(0, 2, 6); graph.addEdge(0, 3, 5); graph.addEdge(1, 3, 15); graph.addEdge(2, 3, 4); // Run Prim's algorithm to construct MST graph.primMST(); } } ",
+  "wordCount" : "5025",
   "inLanguage": "en",
   "datePublished": "2024-11-14T20:29:21+08:00",
   "dateModified": "2024-11-14T20:29:21+08:00",
@@ -230,7 +230,15 @@ Head Recursion Head Recursion is a type of recursion where a function makes its 
                 </li></ul>
                 </li>
                 <li>
-                    <a href="#circular-queue" aria-label="Circular Queue">Circular Queue</a></li>
+                    <a href="#circular-queue" aria-label="Circular Queue">Circular Queue</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#array-implementation" aria-label="Array Implementation">Array Implementation</a></li>
+                <li>
+                    <a href="#linked-list-implementation" aria-label="Linked List Implementation">Linked List Implementation</a></li></ul>
+                    </ul>
+                </li>
                 <li>
                     <a href="#double-ended-queue" aria-label="Double Ended Queue">Double Ended Queue</a></li>
                 <li>
@@ -1166,6 +1174,7 @@ Element at [1][2]: 6, Address: 0x7ff7b2c64184
 <blockquote>
 <p>A <strong>Simple Queue</strong> is a basic type of queue data structure in which elements are added to the back and removed from the front, following the <strong>First In, First Out (FIFO)</strong> principle.</p>
 </blockquote>
+<hr>
 <h3 id="implementation-of-simple-queue">Implementation of Simple Queue<a hidden class="anchor" aria-hidden="true" href="#implementation-of-simple-queue">#</a></h3>
 <h4 id="array-with-a-single-pointer">Array with a single pointer<a hidden class="anchor" aria-hidden="true" href="#array-with-a-single-pointer">#</a></h4>
 <head>
@@ -1465,8 +1474,758 @@ public class Main {
 </blockquote>
 <hr>
 <h4 id="linked-list-with-a-pointer">Linked List with a pointer<a hidden class="anchor" aria-hidden="true" href="#linked-list-with-a-pointer">#</a></h4>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Node {
+    int data;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class SimpleQueue {
+    private Node front;
+    private int size;
+
+    public SimpleQueue() {
+        front = null;
+        size = 0;
+    }
+
+    // Check if the queue is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Get the current size of the queue
+    public int size() {
+        return size;
+    }
+
+    // Display the elements of the queue
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        // Traverse through the queue and print its elements
+        Node temp = front;
+        // Use StringBuilder to efficiently build the string
+        StringBuilder builder = new StringBuilder();
+        while (temp != null) {
+            builder.append(temp.data).append("<-");
+            temp = temp.next;
+        }
+
+        // Remove the last "<-" (extra arrow at the end)
+        builder.setLength(builder.length() - 2);
+
+        System.out.println(builder);
+    }
+
+    // Add an element to the rear (end) of the queue
+    public void enqueue(int data) {
+        Node node = new Node(data);
+
+        // If the queue is empty, the new node becomes the front of the queue
+        if (isEmpty()) {
+            front = node;
+        } else {
+            Node temp = front;
+            // Traverse the list to find the last node (rear of the queue)
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = node; // Link the new node at the end of the queue
+        }
+        size++; // Increment the size of the queue
+    }
+
+    // Remove and return the element from the front of the queue
+    public int dequeue() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty.");
+        }
+
+        int dequeued = front.data;
+        front = front.next;
+        size--;
+
+        return dequeued;
+    }
+
+    // Return the element from the front of the queue without removing it
+    public int peek() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty.");
+        }
+
+        return front.data;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SimpleQueue queue = new SimpleQueue();
+
+        // Enqueue some elements into the queue
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+
+        System.out.println("Queue after enqueuing elements:");
+        queue.display(); // Display the current state of the queue
+
+        // Dequeue two elements and print them
+        System.out.println("Dequeued: " + queue.dequeue());
+        System.out.println("Dequeued: " + queue.dequeue());
+
+        System.out.println("Queue after dequeuing elements:");
+        queue.display(); // Display the queue after dequeuing elements
+
+        // Peek at the front element without removing it
+        System.out.println("Peek front: " + queue.peek());
+
+        // Print the current size of the queue
+        System.out.println("Queue size: " + queue.size());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
 <h4 id="linked-list-with-two-pointers">Linked List with two pointers<a hidden class="anchor" aria-hidden="true" href="#linked-list-with-two-pointers">#</a></h4>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Node class representing each element in the queue
+class Node {
+    int data;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+// SimpleQueue class implementing queue operations using a linked list
+class SimpleQueue {
+    private Node front;
+    private Node rear;
+    private int size;
+
+    // Constructor to initialize the queue
+    public SimpleQueue() {
+        front = rear = null;
+        size = 0;
+    }
+
+    // Check if the queue is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Get the size of the queue
+    public int size() {
+        return size;
+    }
+
+    // Display the elements in the queue
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        // Build a string representation of the queue
+        StringBuilder builder = new StringBuilder();
+        Node temp = front;
+        while (temp != null) {
+            builder.append(temp.data).append("<-");
+            temp = temp.next;
+        }
+
+        // Remove the trailing " <- "
+        builder.setLength(builder.length() - 2);
+        System.out.println(builder);
+    }
+
+    // Enqueue: Add an element to the rear of the queue
+    public void enqueue(int data) {
+        Node newNode = new Node(data);
+
+        // If the queue is empty, both front and rear point to the new node
+        if (isEmpty()) {
+            front = rear = newNode;
+        } else {
+            // Add new node at the end and update the rear pointer
+            rear.next = newNode;
+            rear = newNode;
+        }
+        size++;
+    }
+
+    // Dequeue: Remove and return the element from the front of the queue
+    public int dequeue() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty.");
+        }
+
+        // Get the front element and update the front pointer
+        int dequeuedData = front.data;
+        front = front.next;
+
+        // If the queue becomes empty, reset the rear to null
+        if (front == null) {
+            rear = null;
+        }
+
+        size--;
+        return dequeuedData;
+    }
+
+    // Peek: Get the front element without removing it
+    public int peek() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty.");
+        }
+        return front.data;
+    }
+}
+
+// Main class to test the queue implementation
+public class Main {
+    public static void main(String[] args) {
+        SimpleQueue queue = new SimpleQueue();
+
+        // Enqueue elements into the queue
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+
+        // Display the queue after enqueuing elements
+        System.out.println("Queue after enqueuing elements:");
+        queue.display();
+
+        // Dequeue elements from the queue
+        System.out.println("Dequeued: " + queue.dequeue());
+        System.out.println("Dequeued: " + queue.dequeue());
+
+        // Display the queue after dequeuing elements
+        System.out.println("Queue after dequeuing elements:");
+        queue.display();
+
+        // Peek the front element and show the queue size
+        System.out.println("Peek front: " + queue.peek());
+        System.out.println("Queue size: " + queue.size());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
 <h2 id="circular-queue">Circular Queue<a hidden class="anchor" aria-hidden="true" href="#circular-queue">#</a></h2>
+<blockquote>
+<p>A <strong>Circular Queue</strong> is a variation of the standard queue data structure that reuses the space freed by dequeue operations by connecting the last position back to the front position. It overcomes the limitation of a simple fixed-size queue, where the space at the front of the queue cannot be reused after dequeueing elements.</p>
+</blockquote>
+<hr>
+<h4 id="array-implementation">Array Implementation<a hidden class="anchor" aria-hidden="true" href="#array-implementation">#</a></h4>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class CircularQueue {
+    private final int[] queue;
+    private int front;
+    private int rear;
+    private final int capacity;
+    private int size;
+
+    public CircularQueue(int capacity) {
+        this.capacity = capacity;
+        queue = new int[capacity];
+        front = rear = -1; // Initialize both front and rear as -1 to indicate the queue is empty
+        size = 0;
+    }
+
+    // Check if the queue is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Check is the queue is full
+    public boolean isFull() {
+        return size == capacity;
+    }
+
+    // Get the current size of the queue
+    public int size() {
+        return size;
+    }
+
+    // Display the elements of the queue
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            builder.append(queue[(front + i) % capacity]);
+            if (i != size - 1) {
+                builder.append("<-");
+            }
+        }
+
+        System.out.println(builder);
+    }
+
+    public void enqueue(int data) {
+        if (isFull()) {
+            throw new IllegalStateException("Queue is full.");
+        }
+
+        if (isEmpty()) {
+            front = 0;
+        }
+
+        // Move the rear pointer in a circular manner
+        rear = (rear + 1) % capacity;
+        // Add the data to the rear of the queue
+        queue[rear] = data;
+        // Increase the size
+        size++;
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty.");
+        }
+
+        int dequeued = queue[front];
+        if (front == rear) {
+            // If the queue become empty, reset both front and rear to -1
+            front = rear = -1;
+        } else {
+            // Move the front pointer in a circular manner
+            front = (front + 1) % capacity;
+        }
+        size--; // Decrease the size
+
+        return dequeued;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty.");
+        }
+
+        return queue[front];
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        CircularQueue queue = new CircularQueue(5);
+
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+        queue.enqueue(50);
+
+        System.out.println("Queue after enqueuing 5 elements:");
+        queue.display();
+
+        // Attempt to enqueue an element to a full queue (throws exception)
+        try {
+            queue.enqueue(60);
+        } catch (IllegalStateException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Dequeue two elements
+        System.out.println("Dequeued: " + queue.dequeue());
+        System.out.println("Dequeued: " + queue.dequeue());
+
+        System.out.println("Queue after dequeuing 2 elements:");
+        queue.display();
+
+        // Enqueue two more elements
+        queue.enqueue(60);
+        queue.enqueue(70);
+
+        System.out.println("Queue after enqueuing 2 more elements:");
+        queue.display();
+
+        // Peek at the front element
+        System.out.println("Front element: " + queue.peek());
+
+        // Display the current size of the queue
+        System.out.println("Queue size: " + queue.size());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h4 id="linked-list-implementation">Linked List Implementation<a hidden class="anchor" aria-hidden="true" href="#linked-list-implementation">#</a></h4>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Node {
+    int data;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class CircularQueue {
+    private Node front;
+    private Node rear;
+    private int size;
+
+    public CircularQueue() {
+        front = rear = null;
+        size = 0;
+    }
+
+    // Check if the queue is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Get the size of the queue
+    public int size() {
+        return size;
+    }
+
+    // Display the elements of the queue
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        Node temp = front;
+        StringBuilder builder = new StringBuilder();
+        do {
+            builder.append(temp.data).append("<-");
+            temp = temp.next;
+        } while (temp != front); // Loop until reach the front newNode again
+
+        builder.setLength(builder.length() - 2);
+        System.out.println(builder);
+    }
+
+    // Add an element to the queue
+    public void enqueue(int data) {
+        Node newNode = new Node(data);
+
+        // Both front and rear will point to the new node if queue is empty
+        if (isEmpty()) {
+            front = rear = newNode;
+        } else {
+            rear.next = newNode; // Connect the current rear to the new node
+            rear = newNode; // Move the rear to the new node
+        }
+        rear.next = front; // Connect the rear's next to the front
+        size++;
+    }
+
+    // Remove the front element in the queue
+    public int dequeue() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty");
+        }
+
+        int dequeued = front.data;
+        // Set both front and rear to null if there is only one element
+        if (front == rear) {
+            front = rear = null;
+        } else {
+            front = front.next; // Move the front node to the next
+            rear.next = front; // Maintain the circular link
+        }
+
+        size--;
+        return dequeued;
+    }
+
+    // Get the front element without removing it
+    public int peek() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Queue is empty.");
+        }
+
+        return front.data;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        CircularQueue queue = new CircularQueue();
+
+        // Enqueue elements
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+
+        // Display queue elements
+        System.out.println("Queue after enqueuing elements:");
+        queue.display();
+
+        // Dequeue elements
+        System.out.println("Dequeued: " + queue.dequeue());
+        System.out.println("Dequeued: " + queue.dequeue());
+
+        // Display queue elements after dequeueing
+        System.out.println("Queue after dequeuing elements:");
+        queue.display();
+
+        // Peek front element
+        System.out.println("Peek front: " + queue.peek());
+
+        // Display the size of the queue
+        System.out.println("Queue size: " + queue.size());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
 <h2 id="double-ended-queue">Double Ended Queue<a hidden class="anchor" aria-hidden="true" href="#double-ended-queue">#</a></h2>
 <h2 id="priority-queue">Priority Queue<a hidden class="anchor" aria-hidden="true" href="#priority-queue">#</a></h2>
 <h1 id="tree">Tree<a hidden class="anchor" aria-hidden="true" href="#tree">#</a></h1>
