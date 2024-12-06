@@ -198,7 +198,27 @@
                     <a href="#longest-substring-with-at-most-k-distinct-characters" aria-label="Longest Substring with At Most K Distinct Characters">Longest Substring with At Most K Distinct Characters</a></li></ul>
                 </li>
                 <li>
-                    <a href="#merge-intervals" aria-label="Merge Intervals">Merge Intervals</a>
+                    <a href="#merge-intervals" aria-label="Merge Intervals">Merge Intervals</a><ul>
+                        
+                <li>
+                    <a href="#merge-intervals-1" aria-label="Merge Intervals">Merge Intervals</a></li>
+                <li>
+                    <a href="#insert-interval" aria-label="Insert Interval">Insert Interval</a></li>
+                <li>
+                    <a href="#intervals-intersection" aria-label="Intervals Intersection">Intervals Intersection</a></li></ul>
+                </li>
+                <li>
+                    <a href="#in-place-reversal-of-a-linked-list" aria-label="In-place Reversal of a Linked List">In-place Reversal of a Linked List</a></li>
+                <li>
+                    <a href="#hash-maps" aria-label="Hash Maps">Hash Maps</a></li>
+                <li>
+                    <a href="#prefix-sum" aria-label="Prefix Sum">Prefix Sum</a></li>
+                <li>
+                    <a href="#monotonic-stack" aria-label="Monotonic Stack">Monotonic Stack</a></li>
+                <li>
+                    <a href="#tree-breadth-first-search" aria-label="Tree Breadth First Search">Tree Breadth First Search</a></li>
+                <li>
+                    <a href="#tree-depth-first-search" aria-label="Tree Depth First Search">Tree Depth First Search</a>
                 </li>
             </ul>
         </div>
@@ -1511,6 +1531,634 @@ class Solution {
 
 <hr>
 <h1 id="merge-intervals">Merge Intervals<a hidden class="anchor" aria-hidden="true" href="#merge-intervals">#</a></h1>
+<blockquote>
+<p>The <strong>Merge Interval Pattern</strong> is a technique used to solve problems involving a list of intervals, where each interval is represented by a pair $[\text{start}_i, \text{end}_i]$. Common tasks following this pattern include merging overlapping intervals, inserting a new interval into an existing list, or finding the intersection of two interval lists.</p>
+</blockquote>
+<blockquote>
+<p>To solve problems related to the merge interval pattern, the first step is to understand how two disjoint intervals can relate to each other. Given two intervals &ldquo;a&rdquo; and &ldquo;b&rdquo;, there are six possible relationships between them, as illustrated in the following image.</p>
+</blockquote>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/11-merge-interval-pattern.png" alt="Merge Interval Pattern"  />
+</p>
+<blockquote>
+<p>Assuming <code>a.start &lt;= b.start</code> (which can be achieved by sorting the intervals based on their starting points), there are only four possible scenatios:</p>
+</blockquote>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/12-merge-interval-altb.png" alt="Merge Interval Pattern: a.start &amp;lt;= b.start"  />
+</p>
+<blockquote>
+<p>By observing the above image, for two intervals to overlap, the condition <code>a.start &lt;= b.start &amp;&amp; b.start &lt;= a.end</code> must hold true. In this case, the merged interval becomes $[\text{a.start}, \text{max}\{\text{a.end, b.end}\}]$.</p>
+</blockquote>
+<h2 id="merge-intervals-1">Merge Intervals<a hidden class="anchor" aria-hidden="true" href="#merge-intervals-1">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong></p>
+<p>Given a list of intervals, merge all overlapping intervals to produce a list of mutually exclusive intervals.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>[[1, 4], [2, 5], [7, 9]]</code></li>
+<li><strong>Output</strong>: <code>[[1, 5], [7, 9]]</code></li>
+<li><strong>Explanation</strong>: The first two intervals <code>[1, 4]</code> and <code>[2, 5]</code> overlap, so they are merged into one interval <code>[1, 5]</code>.</li>
+</ul>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/10-merge-interval.png" alt="Merge Intervals"  />
+</p>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>[[6, 7], [2, 4], [5, 9]]</code></li>
+<li><strong>Output</strong>: <code>[[2, 4], [5, 9]]</code></li>
+<li><strong>Explanation</strong>: The intervals <code>[6, 7]</code> and <code>[5, 9]</code> overlap, so they are merged into <code>[5, 9]</code>.</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>[[1, 4], [2, 6], [3, 5]]</code></li>
+<li><strong>Output</strong>: <code>[[1, 6]]</code></li>
+<li><strong>Explanation</strong>: All the given intervals overlap, so they are merged into one interval <code>[1, 6]</code>.</li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>$1 &lt;= \text{intervals.length} &lt;= 10^4$</li>
+<li>$\text{intervals[i].length} == 2$</li>
+<li>$0 &lt;= \text{start}_i &lt;= \text{end}_i &lt;= 10^4$</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/merge-intervals" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int[][] merge(int[][] intervals) {
+        // Sort intervals by their start point
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+
+        // List to store merged intervals
+        List<int[]> mergedIntervals = new ArrayList<>();
+
+        // Initialize the first interval as the current interval
+        mergedIntervals.add(intervals[0]);
+
+        // Iterate through the intervals
+        for (int i = 1; i < intervals.length; i++) {
+            int[] currentInterval = mergedIntervals.get(mergedIntervals.size() - 1);
+            int[] nextInterval = intervals[i];
+
+            // If the next interval overlaps with the current interval
+            if (nextInterval[0] <= currentInterval[1]) {
+                // Merge by updating the end point of the current interval
+                currentInterval[1] = Math.max(currentInterval[1], nextInterval[1]);
+            } else {
+                // No overlap, add the next interval as a new interval
+                mergedIntervals.add(nextInterval);
+            }
+        }
+
+        // Convert the list to a 2D array and return
+        return mergedIntervals.toArray(new int[mergedIntervals.size()][]);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p><strong>Algorithm Walkthrough</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>[[1, 4], [2, 5], [7, 9]]</code></li>
+</ul>
+<ol>
+<li>
+<p><strong>Sort Intervals</strong>:</p>
+<ul>
+<li><strong>Original intervals</strong>: <code>[[1, 4], [2, 5], [7, 9]]</code></li>
+<li><strong>Sorted intervals</strong>: <code>[[1, 4], [2, 5], [7, 9]]</code> (already sorted)</li>
+</ul>
+</li>
+<li>
+<p><strong>Initialize Merged List</strong>:</p>
+<ul>
+<li><code>mergedIntervals = [[1, 4]]</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Iterate Through Intervals</strong>:</p>
+<ul>
+<li>
+<p><strong>First Iteration</strong>:</p>
+<ul>
+<li><strong>Current interval</strong>: <code>[1, 4]</code></li>
+<li><strong>Next interval</strong>: <code>[2, 5]</code></li>
+<li><strong>Check overlap</strong>: <code>2 &lt;= 4</code> (True)</li>
+<li><strong>Merged intervals</strong>: <code>[[1, 5]]</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Second Iteration</strong>:</p>
+<ul>
+<li><strong>Current interval</strong>: <code>[1, 5]</code></li>
+<li><strong>Next interval</strong>: <code>[7, 9]</code></li>
+<li><strong>Check overlap</strong>: <code>7 &lt;= 5</code> (False)</li>
+<li><strong>Merged intervals</strong>: <code>[[1, 5], [7, 9]]</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Result</strong>:</p>
+<ul>
+<li><strong>Result</strong>: <code>[[1, 5], [7, 9]]</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>Visulization</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/13-merge-intervals.png" alt="Merge Intervals"  />
+</p>
+
+</details></p>
+
+<hr>
+<h2 id="insert-interval">Insert Interval<a hidden class="anchor" aria-hidden="true" href="#insert-interval">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong></p>
+<p>Given a list of non-overlapping intervals sorted by their start time, insert a given interval at the correct position and merge all overlapping intervals to produce a list of mutually exclusive intervals.</p>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>Intervals = [[1, 3], [5, 7], [8, 12]], New Interval = [4, 6]</code></li>
+<li><strong>Output</strong>: <code>[[1, 3], [4, 7], [8, 12]]</code></li>
+<li><strong>Explanation</strong>: After inserting <code>[4, 6]</code>, it overlaps with <code>[5, 7]</code>, so they are merged into <code>[4, 7]</code>.</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>Intervals = [[1, 3], [5, 7], [8, 12]], New Interval = [4, 10]</code></li>
+<li><strong>Output</strong>: <code>[[1, 3], [4, 12]]</code></li>
+<li><strong>Explanation</strong>: After inserting <code>[4, 10]</code>, it overlaps with <code>[5, 7]</code> and <code>[8, 12]</code>, so they are merged into <code>[4, 12]</code>.</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>Intervals = [[2, 3], [5, 7]], New Interval = [1, 4]</code></li>
+<li><strong>Output</strong>: <code>[[1, 4], [5, 7]]</code></li>
+<li><strong>Explanation</strong>: After inserting <code>[1, 4]</code>, it overlaps with <code>[2, 3]</code>, so they are merged into <code>[1, 4]</code>.</li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= intervals.length &lt;= 10^4</code></li>
+<li><code>intervals[i].length == 2</code></li>
+<li><code>0 &lt;= start_i &lt;= end_i &lt;= 10^5</code></li>
+<li><code>intervals</code> is sorted by <code>start_i</code> in ascending order.</li>
+<li><code>newInterval.length == 2</code></li>
+<li><code>0 &lt;= start &lt;= end &lt;= 10^5</code></li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/insert-interval" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        List&lt;int[]&gt; mergedIntervals = new ArrayList&lt;&gt;();
+
+        int i = 0;
+        // Add all intervals that ends before the new interval starts
+        while (i < intervals.length && intervals[i][1] < newInterval[0]) {
+            mergedIntervals.add(intervals[i]);
+            i++;
+        }
+
+        // Merge the overlapping intervals with the new interval
+        while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
+            newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
+            i++;
+        }
+
+        // Add the merged new interval to the result list
+        mergedIntervals.add(newInterval);
+
+        // Add all intervals that don't overlap with the new interval to the result list
+        while (i < intervals.length) {
+            mergedIntervals.add(intervals[i]);
+            i++;
+        }
+
+        // Convert the list to a 2-D array and return
+        return mergedIntervals.toArray(new int[mergedIntervals.size()][]);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <blockquote>
+<p>Since the interval list is sorted, the first step is to skip all intervals that satisfy the condition <code>intervals[i].end &lt; newInterval.start</code>. After that, there  are five possible ways the new interval can relate to the next interval in the list (where &ldquo;a&rdquo; represents <code>newInterval</code>, and &ldquo;b&rdquo; represents the next interval in the list), as shown in the following image.</p>
+</blockquote>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/14-insert-interval.png" alt="Insert Interval"  />
+</p>
+<blockquote>
+<p>By observing the above image, for two intervals to overlap, the condition <code>interval.start &lt;= newInterval.end</code> must hold true. In this case, the merged interval will be $[\text{min\{a.start, b.start\}}, \text{max\{a.end, b.end\}}]$.</p>
+</blockquote>
+<p><strong>Algorithm Walkthrough</strong></p>
+<ul>
+<li><strong>Intervals</strong> = <code>[[1, 3], [5, 7], [8, 12]]</code></li>
+<li><strong>New Interval</strong> = <code>[4, 10]</code></li>
+</ul>
+<ol>
+<li><strong>Initialize Merged List</strong>:<br>
+<code>mergedIntervals = []</code></li>
+<li><strong>Iterate Through Intervals:</strong>
+<ol>
+<li><strong>Process the first interval [1, 3]</strong>:</li>
+</ol>
+<ul>
+<li>Ends before <code>[4, 10]</code> starts.</li>
+<li>Add to <code>mergedIntervals</code>: <code>[[1, 3]]</code></li>
+</ul>
+<ol start="2">
+<li><strong>Process the second interval [5, 7]</strong>:
+<ul>
+<li>Overlaps with <code>[4, 10]</code>.</li>
+<li>No change to the new interval: <code>[4, 10] -&gt; [4, 10]</code></li>
+<li>No change to <code>mergedIntervals</code>.</li>
+</ul>
+</li>
+<li><strong>Process the third interval [8, 12]</strong>:
+<ul>
+<li>Overlaps with <code>[4, 10]</code>.</li>
+<li>Adjust new interval: <code>[4, 10] -&gt; [4, 12]</code></li>
+<li>Add the merged interval <code>[4, 12]</code> to <code>mergedIntervals</code>: <code>[[1, 3], [4, 12]]</code></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>No more intervals left to process</strong>.</li>
+<li><strong>Final merged intervals</strong>: <code>[[1, 3], [4, 12]]</code></li>
+</ol>
+<hr>
+<p><strong>Visulization</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/14-insert-interval-2.png" alt="Insert Interval"  />
+</p>
+
+</details></p>
+
+<hr>
+<h2 id="intervals-intersection">Intervals Intersection<a hidden class="anchor" aria-hidden="true" href="#intervals-intersection">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong></p>
+<p>Given two lists of disjoint intervals, find their intersection. Each list is sorted by the start time of the intervals.</p>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> <code>arr1 = [[1, 3], [5, 6], [7, 9]], arr2 = [[2, 3], [5, 7]]</code></li>
+<li><strong>Output:</strong> <code>[[2, 3], [5, 6], [7, 7]]</code></li>
+<li><strong>Explanation:</strong> The output list contains the common intervals between the two lists.</li>
+</ul>
+<p>Example 2:</p>
+<ul>
+<li><strong>Input:</strong> <code>arr1 = [[1, 3], [5, 7], [9, 12]], arr2 = [[5, 10]]</code></li>
+<li><strong>Output:</strong> <code>[[5, 7], [9, 10]]</code></li>
+<li><strong>Explanation:</strong> The output list contains the common intervals between the two lists.</li>
+</ul>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>0 &lt;= arr1.length, arr2.length &lt;= 1000</code></li>
+<li><code>arr1.length + arr2.length &gt;= 1</code></li>
+<li>$0 \le \text{start}_i &lt; \text{end}_i \le 10^9$</li>
+<li>$end_i &lt; \text{start}_{i+1}$ for all intervals in <code>arr1</code></li>
+<li>$0 \le \text{start}_j &lt; \text{end}_j \le 10^9$</li>
+<li>$end_j &lt; \text{start}_{j+1}$ for all intervals in <code>arr2</code></li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/interval-list-intersections" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+
+
+<button class="tab_btn ">Optimization</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int[][] intervalIntersection(int[][] arr1, int[][] arr2) {
+        List<int[]> intersections = new ArrayList<>();
+        int i = 0, j = 0;
+
+        // Iterate over both interval lists to find all intersections
+        while (i < arr1.length && j < arr2.length) {
+            // Check if both intervals are overlapped
+            if ((arr1[i][0] >= arr2[j][0] && arr1[i][0] <= arr2[j][1])
+                    || (arr2[j][0] >= arr1[i][0] && arr2[j][0] <= arr1[i][1])) {
+                
+                // Store the intersection part
+                intersections.add(new int[]{Math.max(arr1[i][0], arr2[j][0]),
+                        Math.min(arr1[i][1], arr2[j][1])});
+            }
+
+            // Move the pointer of the interval that ends first
+            if (arr1[i][1] < arr2[j][1]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+
+        // Return the intersections as a 2D array
+        return intersections.toArray(new int[intersections.size()][]);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int[][] intervalIntersection(int[][] arr1, int[][] arr2) {
+        List&lt;int[]&gt; intersections = new ArrayList&lt;&gt;();
+        int i = 0, j = 0;
+        
+        // Iterate over both interval lists to find all intersections
+        while (i < arr1.length && j < arr2.length) {
+            int start = Math.max(arr1[i][0], arr2[j][0]);
+            int end = Math.min(arr1[i][1], arr2[j][1]);
+
+            // Add the intersection to the result if valid
+            if (start <= end) {
+                intersections.add(new int[] { start, end });
+            }
+
+            // Move the pointer of the interval that ends first
+            if (arr1[i][1] < arr2[j][1]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+
+        // Return the result as a 2D array
+        return intersections.toArray(new int[intersections.size()][]);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <blockquote>
+<p><strong>Two Interval List</strong>: <code>arr1</code> and <code>arr2</code></p>
+</blockquote>
+<blockquote>
+<p><strong>Pointer Initialization</strong>: Initialize two pointers <code>i</code> and <code>j</code>, both set to 0, to track the current positions in <code>arr1</code> and <code>arr2</code>, respectively.</p>
+</blockquote>
+<blockquote>
+<p><strong>Overlapping Check</strong>: For two intervals <code>a</code> and <code>b</code> to overlap, at least one of the following conditions must hold true:</p>
+</blockquote>
+<ol>
+<li><code>a.start &lt;= b.start &amp;&amp; b.start &lt;= a.end</code></li>
+<li><code>b.start &lt;= a.start &amp;&amp; a.start &lt;= b.end</code></li>
+</ol>
+<blockquote>
+<p><strong>Interval Calculation</strong>: If a and b overlap (follows overlapping check), the intersection is calculated as:</p>
+</blockquote>
+<ul>
+<li>$[\text{max}\{\text{a.start, b.start}\}, \text{min}\{\text{a.end, b.end}\}]$</li>
+</ul>
+<blockquote>
+<p><strong>Interval Caculation (Optimization)</strong>: Based on the <strong>Overlapping Check</strong> and <strong>Interval Calculation</strong>, the calculation can be optimized as follows:</p>
+</blockquote>
+<ol>
+<li><code>maxStart = max{a.start, b.start}</code></li>
+<li><code>minEnd = min{a.end, b.end}</code></li>
+<li>An intersection <code>[maxStart, minEnd]</code> exists if <code>maxStart &lt;= minEnd</code></li>
+</ol>
+<blockquote>
+<p><strong>Pointer Movement</strong>: Increment the pointer that ends first. For example, if <code>arr1[i].end &lt; arr2[j].end</code>, increment <code>i</code>; otherwise increment <code>j</code>.</p>
+</blockquote>
+
+</details></p>
+
+<hr>
+<h1 id="in-place-reversal-of-a-linked-list">In-place Reversal of a Linked List<a hidden class="anchor" aria-hidden="true" href="#in-place-reversal-of-a-linked-list">#</a></h1>
+<hr>
+<h1 id="hash-maps">Hash Maps<a hidden class="anchor" aria-hidden="true" href="#hash-maps">#</a></h1>
+<hr>
+<h1 id="prefix-sum">Prefix Sum<a hidden class="anchor" aria-hidden="true" href="#prefix-sum">#</a></h1>
+<hr>
+<h1 id="monotonic-stack">Monotonic Stack<a hidden class="anchor" aria-hidden="true" href="#monotonic-stack">#</a></h1>
+<hr>
+<hr>
+<h1 id="tree-breadth-first-search">Tree Breadth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-breadth-first-search">#</a></h1>
+<hr>
+<h1 id="tree-depth-first-search">Tree Depth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-depth-first-search">#</a></h1>
+<hr>
+<h1 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h1>
 
 
   </div>
@@ -1520,12 +2168,6 @@ class Solution {
       <li><a href="https://signalyu.github.io/tags/coding-patterns/">Coding Patterns</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/coding-problems/1-cocoding-problem-set/">
-    <span class="title">« PREV</span>
-    
-    <br>
-    <span>Coding Problem Set</span>
-  </a>
   <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design-notes/">
     <span class="title">NEXT »</span>
     

@@ -2,29 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://signalyu.github.io/posts/3-humanities/personal-growth/mottos/1-mottos/</loc>
-    <lastmod>2024-11-13T21:25:35+08:00</lastmod>
-  </url><url>
     <loc>https://signalyu.github.io/posts/</loc>
-    <lastmod>2024-12-04T07:58:31+08:00</lastmod>
+    <lastmod>2024-12-06T18:09:20+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/</loc>
-    <lastmod>2024-12-04T07:58:31+08:00</lastmod>
-  </url><url>
-    <loc>https://signalyu.github.io/tags/concepts/</loc>
-    <lastmod>2024-12-03T20:32:22+08:00</lastmod>
-  </url><url>
-    <loc>https://signalyu.github.io/posts/3-humanities/personal-growth/concepts/1-concepts-explained/</loc>
-    <lastmod>2024-12-03T20:32:22+08:00</lastmod>
-  </url><url>
-    <loc>https://signalyu.github.io/tags/</loc>
-    <lastmod>2024-12-03T20:32:22+08:00</lastmod>
-  </url><url>
-    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/coding-problems/1-cocoding-problem-set/</loc>
-    <lastmod>2024-12-02T15:15:55+08:00</lastmod>
-  </url><url>
-    <loc>https://signalyu.github.io/tags/programing/</loc>
-    <lastmod>2024-12-02T15:15:55+08:00</lastmod>
+    <lastmod>2024-12-06T18:09:20+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/coding-patterns/</loc>
     <lastmod>2024-12-02T10:15:04+08:00</lastmod>
@@ -32,17 +14,14 @@
     <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/</loc>
     <lastmod>2024-12-02T10:15:04+08:00</lastmod>
   </url><url>
+    <loc>https://signalyu.github.io/tags/</loc>
+    <lastmod>2024-12-02T10:15:04+08:00</lastmod>
+  </url><url>
     <loc>https://signalyu.github.io/tags/database/</loc>
     <lastmod>2024-11-22T21:07:21+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design-notes/</loc>
     <lastmod>2024-11-22T21:07:21+08:00</lastmod>
-  </url><url>
-    <loc>https://signalyu.github.io/tags/photography/</loc>
-    <lastmod>2024-11-18T20:37:01+08:00</lastmod>
-  </url><url>
-    <loc>https://signalyu.github.io/posts/3-humanities/arts/photography/1-photography-notes/</loc>
-    <lastmod>2024-11-18T20:37:01+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/spring/</loc>
     <lastmod>2024-11-18T15:44:50+08:00</lastmod>
@@ -61,9 +40,6 @@
   </url><url>
     <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/</loc>
     <lastmod>2024-11-14T20:29:21+08:00</lastmod>
-  </url><url>
-    <loc>https://signalyu.github.io/tags/mottos/</loc>
-    <lastmod>2024-11-13T21:25:35+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/design-patterns/</loc>
     <lastmod>2024-11-12T14:38:17+08:00</lastmod>
