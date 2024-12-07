@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Junit &amp; Mockito Notes | Signal&#39;s Blog</title>
+<meta name="keywords" content="Unit Testing">
+<meta name="description" content="JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
+SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 &#43; 1 should be 2&#34;); } } assertTure &amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="Junit &amp; Mockito Notes" />
+<meta property="og:description" content="JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
+SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 &#43; 1 should be 2&#34;); } } assertTure &amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-12-07T01:26:33+08:00" />
+<meta property="article:modified_time" content="2024-12-07T01:26:33+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Junit &amp; Mockito Notes"/>
+<meta name="twitter:description" content="JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
+SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 &#43; 1 should be 2&#34;); } } assertTure &amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Junit \u0026 Mockito Notes",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Junit \u0026 Mockito Notes",
+  "name": "Junit \u0026 Mockito Notes",
+  "description": "JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.\nSHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, \"The result of 1 + 1 should be 2\"); } } assertTure \u0026amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.",
+  "keywords": [
+    "Unit Testing"
+  ],
+  "articleBody": "JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.\nSHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, \"The result of 1 + 1 should be 2\"); } } assertTure \u0026 assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.\nSHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertFalse; import static org.junit.jupiter.api.Assertions.assertTrue; public class UnitTest { @Test void testIsOdd() { int n = 5; assertTrue(n % 2 == 1, \"Number should be an odd\"); assertFalse(n % 2 == 0, \"Number should not be an even\"); } } @BeforeEach \u0026 @AfterEach In JUnit, the @BeforeEach and @AfterEach annotations are used to specify methods that should run before or after each test method, respectively. These annotations are useful for setting up resources before each test and cleaning up resources after each test.\nSHOW CODE Java import org.junit.jupiter.api.AfterEach; import org.junit.jupiter.api.BeforeEach; import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { private Calculator calculator; @BeforeEach void setup() { calculator = new Calculator(); } @Test void testAddition() { assertEquals(2, calculator.add(1, 1), \"The result of 1 + 1 should be 2.\"); } @AfterEach void teardown() { calculator = null; } } @BeforeAll \u0026 @AfterAll In JUnit, the @BeforeAll and @AfterAll annotations are used to specify methods that run once before and after all the test methods in a test class, respectively. These methods are commonly used for expensive setup and cleanup.\nSHOW CODE Java import org.junit.jupiter.api.AfterAll; import org.junit.jupiter.api.BeforeAll; import org.junit.jupiter.api.Test; public class UnitTest { @BeforeAll public static void setUpBeforeClass() { System.out.println(\"Executed before all tests are run.\"); } @AfterAll public static void tearDownAfterClass() { System.out.println(\"Executed after all tests are run.\"); } @Test public void testMethod1() { System.out.println(\"Test 1 executed.\"); } @Test public void testMethod2() { System.out.println(\"Test 2 executed.\"); } } SHOW OUTPUT Output Executed before all tests are run. Test 1 executed. Test 2 executed. Executed after all tests are run. assertArrayEquals \u0026 assertNotEquals In JUnit, the assertArrayEquals and assertNotEquals methods are used to check if both arrays are equal in sizeand whether each corresponding element is equal or not. For arrays containing objects, JUnit will use the equals method of the objects for the comparison.\nSHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertArrayEquals; import static org.junit.jupiter.api.Assertions.assertNotEquals; public class UnitTest { @Test void testArrayEquality() { int[] expected = {1, 2, 3}; int[] actual = {1, 2, 3}; assertArrayEquals(expected, actual, \"Arrays should be equal\"); String[] expected2 = {\"apple\", \"banana\", \"cherry\"}; String[] actual2 = {\"apple\", \"banana\", \"cherry\"}; // Compare arrays of objects (Strings in this case) assertArrayEquals(expected2, actual2); } @Test void testArrayNotEquality() { int[] expected = {1, 2, 3}; int[] actual = {1, 2, 4}; assertNotEquals(expected, actual, \"Arrays should not be equal\"); } } assertThrows In Junit, the assertThrows is a method used to assert that a specific exception is throwing during the execution of a piece of code.\nSHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; import static org.junit.jupiter.api.Assertions.assertThrows; public class UnitTest { @Test void testDivision() { Calculator calculator = new Calculator(); ArithmeticException exception = assertThrows(ArithmeticException.class, () -\u003e { calculator.divide(1, 0); }); assertEquals(\"/ by zero\", exception.getMessage()); } } assertTimeout \u0026 assertTimeoutPreemptively In JUnit, the assertTimeout and assertTimeoutPreemptively methods are used to ensure that a unit test finishes within a specified time limit. The key difference between them is that the assertTimeoutPreemptively method will terminate the test as soon as the excution time exceeds the specified limit. In contrast, the assertTimeout method allows the test to complete before checking if the time limit was exceeded.\nSHOW CODE Java import org.junit.jupiter.api.Test; import java.time.Duration; import static org.junit.jupiter.api.Assertions.*; public class UnitTest { @Test void testExecutionWithinTimeoutPreemptively() { assertTimeoutPreemptively(Duration.ofMillis(1000), () -\u003e { // Simulate a task that takes more time than allowed Thread.sleep(1500); // Task that takes more than 1000ms }); } @Test void testExecutionWithinTimeout() { assertTimeout(Duration.ofMillis(1000), () -\u003e { // Simulate a task that takes some time Thread.sleep(500); // Task that takes less than 1000ms }); } } Parameterized Tests In JUnit, Parameterized Tests allow a test to be run with different parameters and expected results, which reduces repetitive code and increases test coverage. Common parameter sources include @ValueSource, which passes a group of values to the test; @CsvSource, which allows passing multiple values separated by commmas; @MethodSource, which generates values dynamically from a method; and @EnumSource, which passes enum constants from an enum class.\nSHOW CODE Java import org.junit.jupiter.params.ParameterizedTest; import org.junit.jupiter.params.provider.CsvSource; import org.junit.jupiter.params.provider.EnumSource; import org.junit.jupiter.params.provider.MethodSource; import org.junit.jupiter.params.provider.ValueSource; import java.util.stream.Stream; import static org.junit.jupiter.api.Assertions.assertEquals; import static org.junit.jupiter.api.Assertions.assertTrue; public class UnitTest { @ParameterizedTest @ValueSource(strings = {\"apple\", \"banana\", \"cherry\"}) void testWithStringParameter(String fruit) { assertTrue(fruit.length() \u003e 3); } @ParameterizedTest @CsvSource({ \"apple, 5\", \"banana, 6\", \"cherry, 6\" }) void testWithCsvSource(String fruit, int length) { assertEquals(fruit.length(), length); } static Stream stringProvider() { return Stream.of(\"apple\", \"banana\", \"cherry\"); } @ParameterizedTest @MethodSource(\"stringProvider\") void testWithMethodSource(String fruit) { assertTrue(fruit.length() \u003e 3); } enum FRUIT {APPLE, BANANA, CHERRY} @ParameterizedTest @EnumSource(FRUIT.class) void testWithEnumSource(FRUIT fruit) { assertTrue(fruit.name().length() \u003e 3); } } Mockito System Under Test The System Under Test (SUT) refers to the specific part of the software being tested in a given test case. It can range from a single method in unit testing to larger components in integration or system testing based on different context. The SUT is typically isolated using mocking and stubbing to test its behavior independently.\nSHOW CODE Java public class Calculator { public int add(int a, int b) { return a + b; } } public class CalculatorTest { @Test void testAdd() { Calculator calculator = new Calculator(); // SUT int result = calculator.add(2, 3); // The add method is the System Under Test assertEquals(5, result); } } Mocking vs. Stubbing In unit testing, Mocking and Stubbing are used to simulate and control the behavior of external dependencies. Mocking is commonly used for behavior verification, where objects are created to simulate the behavior of real-world components in a controlled manner. On the other hand, Stubbing is typically used to isolate the SUT by controlling the return values or responses from dependencies.\nSHOW CODE: Mocking Java public class Calculator { private Logger logger; public Calculator(Logger logger) { this.logger = logger; } public int add(int a, int b) { int result = a + b; logger.log(\"Addition performed: \" + result); return result; } } @Test void testAdd() { Logger mockLogger = mock(Logger.class); Calculator calculator = new Calculator(mockLogger); calculator.add(2, 3); // Verifying the interaction with the mock: was log method called? verify(mockLogger).log(\"Addition performed: 5\"); } SHOW CODE: Stubbing Java public class Calculator { private DatabaseService databaseService; public Calculator(DatabaseService databaseService) { this.databaseService = databaseService; } public int getProductPrice(int productId) { Product product = databaseService.getProduct(productId); return product.getPrice(); } } @Test void testGetProductPrice() { // Stub the DatabaseService to return a fixed product DatabaseService stubbedService = mock(DatabaseService.class); Product stubProduct = new Product(1, \"Laptop\", 1000); when(stubbedService.getProduct(1)).thenReturn(stubProduct); Calculator calculator = new Calculator(stubbedService); int price = calculator.getProductPrice(1); assertEquals(1000, price); } mock(), when().thenReturn(), verify() In Mockito, the mock() method is used to create a mock object, which allows simulating the behavior of an object without invoking its real methods. The when() method is used to define the behavior of a mock object’s method when it is called with specific arguments. The thenReturn() method specifies the return value of a mocked method. The verify() method is used to check whether a specified method on a mock object was called during the test execution.\nSHOW CODE Java import org.junit.jupiter.api.Test; import java.util.List; import static org.junit.jupiter.api.Assertions.assertTrue; import static org.mockito.Mockito.*; public class UnitTest { @Test public void testMockingBehavior() { // Create a mock List object List mockList = mock(List.class); // Specify behavior for when add() is called when(mockList.add(\"Hello\")).thenReturn(true); // Return true when \"Hello\" is added // Call the mock method boolean result = mockList.add(\"Hello\"); // Verify the behavior assertTrue(result); // The add method should return true verify(mockList).add(\"Hello\"); // Verify that add(\"Hello\") was called // Verify that add(\"World\") was never called verify(mockList, never()).add(\"World\"); } } Argument Matchers In Mockito, argument matchers are used to specify conditions for method arguments when stubbing methods. They are commonly used in the when() and thenReturn() methods when the exact method argument is not critical. Some commonly used argument marchers include:\nany(): Matches any argument of the specified type. eq(): Matches a specified argument. anyString(): Matches any argument of type String. anyInt(): Matches any argument of type Integer. isA(): Matches an argument of a specified class type. argThat(): Allows for custom argument matching logic. SHOW CODE Java import org.junit.jupiter.api.Test; import java.util.List; import static org.junit.jupiter.api.Assertions.*; import static org.mockito.ArgumentMatchers.anyInt; import static org.mockito.Mockito.*; public class UnitTest { @Test public void testAnyMatcher() { List mockList = mock(List.class); // Stub behavior using argument matcher when(mockList.get(anyInt())).thenReturn(\"Signal\"); // Verify that any argument passed to get will return \"Signal\" assertEquals(\"Signal\", mockList.get(9)); assertEquals(\"Signal\", mockList.get(999)); } @Test public void testEqMatcher() { Calculator calculator = mock(Calculator.class); when(calculator.add(eq(1), eq(1))).thenReturn(2); assertEquals(2, calculator.add(1, 1)); assertNotEquals(3, calculator.add(1, 1)); } @Test public void testAnyStringMatcher() { // Create a mock List List mockList = mock(List.class); // Stub the method to return \"Hello\" for any string argument when(mockList.contains(anyString())).thenReturn(true); // Verify that the mock returns true for any string passed as an argument assertTrue(mockList.contains(\"Test\")); // Matches any string assertTrue(mockList.contains(\"Hello\")); // Matches any string assertTrue(mockList.contains(\"World\")); // Matches any string } @Test public void testAnyIntMatcher() { // Create a mock List List mockList = mock(List.class); // Stub the method to return \"Found\" for any integer argument when(mockList.get(anyInt())).thenReturn(\"Found\"); // Verify that the mock returns \"Found\" regardless of the argument assertEquals(\"Found\", mockList.get(1)); // Matches any integer assertEquals(\"Found\", mockList.get(999)); // Matches any integer } @Test public void testArgThatMatcher() { // Create a mock List List mockList = mock(List.class); // Use argThat to match arguments that are not null and have length greater than 3 when(mockList.add(argThat(argument -\u003e argument != null \u0026\u0026 argument.length() \u003e 3))) .thenReturn(true); // Verify that the mock behaves correctly assertTrue(mockList.add(\"Hello\")); // Matches: length \u003e 3 assertFalse(mockList.add(\"\")); // Does not match: empty string } } Essential Mockito Annotaitons ",
+  "wordCount" : "1644",
+  "inLanguage": "en",
+  "datePublished": "2024-12-07T01:26:33+08:00",
+  "dateModified": "2024-12-07T01:26:33+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Junit &amp; Mockito Notes
+    </h1>
+    <div class="post-meta"><span title='2024-12-07 01:26:33 +0800 HKT'>Dec 7 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#junit" aria-label="JUnit">JUnit</a><ul>
+                        
+                <li>
+                    <a href="#assertequals" aria-label="assertEquals">assertEquals</a></li>
+                <li>
+                    <a href="#assertture--assertfalse" aria-label="assertTure &amp; assertFalse">assertTure &amp; assertFalse</a></li>
+                <li>
+                    <a href="#beforeeach--aftereach" aria-label="@BeforeEach &amp; @AfterEach">@BeforeEach &amp; @AfterEach</a></li>
+                <li>
+                    <a href="#beforeall--afterall" aria-label="@BeforeAll &amp; @AfterAll">@BeforeAll &amp; @AfterAll</a></li>
+                <li>
+                    <a href="#assertarrayequals--assertnotequals" aria-label="assertArrayEquals &amp; assertNotEquals">assertArrayEquals &amp; assertNotEquals</a></li>
+                <li>
+                    <a href="#assertthrows" aria-label="assertThrows">assertThrows</a></li>
+                <li>
+                    <a href="#asserttimeout--asserttimeoutpreemptively" aria-label="assertTimeout &amp; assertTimeoutPreemptively">assertTimeout &amp; assertTimeoutPreemptively</a></li>
+                <li>
+                    <a href="#parameterized-tests" aria-label="Parameterized Tests">Parameterized Tests</a></li></ul>
+                </li>
+                <li>
+                    <a href="#mockito" aria-label="Mockito">Mockito</a><ul>
+                        
+                <li>
+                    <a href="#system-under-test" aria-label="System Under Test">System Under Test</a></li>
+                <li>
+                    <a href="#mocking-vs-stubbing" aria-label="Mocking vs. Stubbing">Mocking vs. Stubbing</a></li>
+                <li>
+                    <a href="#mock-whenthenreturn-verify" aria-label="mock(), when().thenReturn(), verify()">mock(), when().thenReturn(), verify()</a></li>
+                <li>
+                    <a href="#argument-matchers" aria-label="Argument Matchers">Argument Matchers</a></li>
+                <li>
+                    <a href="#essential-mockito-annotaitons" aria-label="Essential Mockito Annotaitons">Essential Mockito Annotaitons</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="junit">JUnit<a hidden class="anchor" aria-hidden="true" href="#junit">#</a></h1>
+<h2 id="assertequals">assertEquals<a hidden class="anchor" aria-hidden="true" href="#assertequals">#</a></h2>
+<blockquote>
+<p>In JUnit, <code>assertEquals</code> is a method used to check if the expected value and the actual value are equal in unit tests.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UnitTest {
+    @Test
+    void addition() {
+        Calculator calculator = new Calculator();
+        int result = calculator.add(1, 1);
+        assertEquals(2, result, "The result of 1 + 1 should be 2");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="assertture--assertfalse">assertTure &amp; assertFalse<a hidden class="anchor" aria-hidden="true" href="#assertture--assertfalse">#</a></h2>
+<blockquote>
+<p>In JUnit, the <code>assertTrue</code> and the <code>assertFalse</code> methods are used to validate boolean expressions in unit tests.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class UnitTest {
+    @Test
+    void testIsOdd() {
+        int n = 5;
+        assertTrue(n % 2 == 1, "Number should be an odd");
+        assertFalse(n % 2 == 0, "Number should not be an even");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="beforeeach--aftereach">@BeforeEach &amp; @AfterEach<a hidden class="anchor" aria-hidden="true" href="#beforeeach--aftereach">#</a></h2>
+<blockquote>
+<p>In JUnit, the <code>@BeforeEach</code> and <code>@AfterEach</code> annotations are used to specify methods that should run before or after each test method, respectively. These annotations are useful for setting up resources <em><strong>before each test</strong></em> and cleaning up resources <em><strong>after each test</strong></em>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UnitTest {
+    private Calculator calculator;
+
+    @BeforeEach
+    void setup() {
+        calculator = new Calculator();
+    }
+
+    @Test
+    void testAddition() {
+        assertEquals(2, calculator.add(1, 1),
+                "The result of 1 + 1 should be 2.");
+    }
+
+    @AfterEach
+    void teardown() {
+        calculator = null;
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="beforeall--afterall">@BeforeAll &amp; @AfterAll<a hidden class="anchor" aria-hidden="true" href="#beforeall--afterall">#</a></h2>
+<blockquote>
+<p>In JUnit, the <code>@BeforeAll</code> and <code>@AfterAll</code> annotations are used to specify methods that run once <em><strong>before and after all the test methods</strong></em> in a test class, respectively. These methods are commonly used for expensive setup and cleanup.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+public class UnitTest {
+    @BeforeAll
+    public static void setUpBeforeClass() {
+        System.out.println("Executed before all tests are run.");
+    }
+
+    @AfterAll
+    public static void tearDownAfterClass() {
+        System.out.println("Executed after all tests are run.");
+    }
+
+    @Test
+    public void testMethod1() {
+        System.out.println("Test 1 executed.");
+    }
+
+    @Test
+    public void testMethod2() {
+        System.out.println("Test 2 executed.");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >Executed before all tests are run.
+Test 1 executed.
+Test 2 executed.
+Executed after all tests are run.
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="assertarrayequals--assertnotequals">assertArrayEquals &amp; assertNotEquals<a hidden class="anchor" aria-hidden="true" href="#assertarrayequals--assertnotequals">#</a></h2>
+<blockquote>
+<p>In JUnit, the <code>assertArrayEquals</code> and <code>assertNotEquals</code> methods are used to check if both arrays are equal in sizeand whether each corresponding element is equal or not. For arrays containing objects, JUnit will use the <code>equals</code> method of the objects for the comparison.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+public class UnitTest {
+    @Test
+    void testArrayEquality() {
+        int[] expected = {1, 2, 3};
+        int[] actual = {1, 2, 3};
+        assertArrayEquals(expected, actual, "Arrays should be equal");
+
+        String[] expected2 = {"apple", "banana", "cherry"};
+        String[] actual2 = {"apple", "banana", "cherry"};
+
+        // Compare arrays of objects (Strings in this case)
+        assertArrayEquals(expected2, actual2);
+    }
+
+    @Test
+    void testArrayNotEquality() {
+        int[] expected = {1, 2, 3};
+        int[] actual = {1, 2, 4};
+        assertNotEquals(expected, actual, "Arrays should not be equal");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="assertthrows">assertThrows<a hidden class="anchor" aria-hidden="true" href="#assertthrows">#</a></h2>
+<blockquote>
+<p>In Junit, the <code>assertThrows</code> is a method used to assert that a specific exception is throwing during the execution of a piece of code.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public class UnitTest {
+    @Test
+    void testDivision() {
+        Calculator calculator = new Calculator();
+
+        ArithmeticException exception = assertThrows(ArithmeticException.class, () -> {
+            calculator.divide(1, 0);
+        });
+
+        assertEquals("/ by zero", exception.getMessage());
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="asserttimeout--asserttimeoutpreemptively">assertTimeout &amp; assertTimeoutPreemptively<a hidden class="anchor" aria-hidden="true" href="#asserttimeout--asserttimeoutpreemptively">#</a></h2>
+<blockquote>
+<p>In JUnit, the <code>assertTimeout</code> and <code>assertTimeoutPreemptively</code> methods are used to ensure that a unit test finishes within a specified time limit. The key difference between them is that the <code>assertTimeoutPreemptively</code> method will terminate the test as soon as the excution time exceeds the specified limit. In contrast, the <code>assertTimeout</code> method allows the test to complete before checking if the time limit was exceeded.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class UnitTest {
+    @Test
+    void testExecutionWithinTimeoutPreemptively() {
+        assertTimeoutPreemptively(Duration.ofMillis(1000), () -> {
+            // Simulate a task that takes more time than allowed
+            Thread.sleep(1500); // Task that takes more than 1000ms
+        });
+    }
+
+    @Test
+    void testExecutionWithinTimeout() {
+        assertTimeout(Duration.ofMillis(1000), () -> {
+            // Simulate a task that takes some time
+            Thread.sleep(500); // Task that takes less than 1000ms
+        });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="parameterized-tests">Parameterized Tests<a hidden class="anchor" aria-hidden="true" href="#parameterized-tests">#</a></h2>
+<blockquote>
+<p>In JUnit, <strong>Parameterized Tests</strong> allow a test to be run with different parameters and expected results, which reduces repetitive code and increases test coverage. Common parameter sources include <code>@ValueSource</code>, which passes a group of values to the test; <code>@CsvSource</code>, which allows passing multiple values separated by commmas; <code>@MethodSource</code>, which generates values dynamically from a method; and <code>@EnumSource</code>, which passes enum constants from an enum class.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+
+public class UnitTest {
+    @ParameterizedTest
+    @ValueSource(strings = {"apple", "banana", "cherry"})
+    void testWithStringParameter(String fruit) {
+        assertTrue(fruit.length() > 3);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "apple, 5",
+            "banana, 6",
+            "cherry, 6"
+    })
+    void testWithCsvSource(String fruit, int length) {
+        assertEquals(fruit.length(), length);
+    }
+
+    static Stream&lt;String&gt; stringProvider() {
+        return Stream.of("apple", "banana", "cherry");
+    }
+
+    @ParameterizedTest
+    @MethodSource("stringProvider")
+    void testWithMethodSource(String fruit) {
+        assertTrue(fruit.length() > 3);
+    }
+
+    enum FRUIT {APPLE, BANANA, CHERRY}
+
+    @ParameterizedTest
+    @EnumSource(FRUIT.class)
+    void testWithEnumSource(FRUIT fruit) {
+        assertTrue(fruit.name().length() > 3);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h1 id="mockito">Mockito<a hidden class="anchor" aria-hidden="true" href="#mockito">#</a></h1>
+<h2 id="system-under-test">System Under Test<a hidden class="anchor" aria-hidden="true" href="#system-under-test">#</a></h2>
+<blockquote>
+<p>The <strong>System Under Test</strong> (SUT) refers to the specific part of the software being tested in a given test case. It can range from a single method in unit testing to larger components in integration or system testing based on different context. The SUT is typically isolated using <strong>mocking</strong> and <strong>stubbing</strong> to test its behavior independently.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+
+public class CalculatorTest {
+    @Test
+    void testAdd() {
+        Calculator calculator = new Calculator();  // SUT
+        int result = calculator.add(2, 3);  // The add method is the System Under Test
+        assertEquals(5, result);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="mocking-vs-stubbing">Mocking vs. Stubbing<a hidden class="anchor" aria-hidden="true" href="#mocking-vs-stubbing">#</a></h2>
+<blockquote>
+<p>In unit testing, <strong>Mocking</strong> and <strong>Stubbing</strong> are used to simulate and control the behavior of external dependencies. <strong>Mocking</strong> is commonly used for <strong>behavior verification</strong>, where objects are created to simulate the behavior of real-world components in a controlled manner. On the other hand, <strong>Stubbing</strong> is typically used to isolate the SUT by controlling the return values or responses from dependencies.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Mocking</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Calculator {
+    private Logger logger;
+
+    public Calculator(Logger logger) {
+        this.logger = logger;
+    }
+
+    public int add(int a, int b) {
+        int result = a + b;
+        logger.log("Addition performed: " + result);
+        return result;
+    }
+}
+
+@Test
+void testAdd() {
+    Logger mockLogger = mock(Logger.class);
+    Calculator calculator = new Calculator(mockLogger);
+    
+    calculator.add(2, 3);
+    
+    // Verifying the interaction with the mock: was log method called?
+    verify(mockLogger).log("Addition performed: 5");
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Stubbing</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Calculator {
+    private DatabaseService databaseService;
+
+    public Calculator(DatabaseService databaseService) {
+        this.databaseService = databaseService;
+    }
+
+    public int getProductPrice(int productId) {
+        Product product = databaseService.getProduct(productId);
+        return product.getPrice();
+    }
+}
+
+@Test
+void testGetProductPrice() {
+    // Stub the DatabaseService to return a fixed product
+    DatabaseService stubbedService = mock(DatabaseService.class);
+    Product stubProduct = new Product(1, "Laptop", 1000);
+    when(stubbedService.getProduct(1)).thenReturn(stubProduct);
+    
+    Calculator calculator = new Calculator(stubbedService);
+    int price = calculator.getProductPrice(1);
+    
+    assertEquals(1000, price);
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="mock-whenthenreturn-verify">mock(), when().thenReturn(), verify()<a hidden class="anchor" aria-hidden="true" href="#mock-whenthenreturn-verify">#</a></h2>
+<blockquote>
+<p>In Mockito, the <code>mock()</code> method is used to create a mock object, which allows simulating the behavior of an object without invoking its real methods. The <code>when()</code> method is used to define the behavior of a mock object&rsquo;s method when it is called with specific arguments. The <code>thenReturn()</code> method specifies the return value of a mocked method. The <code>verify()</code> method is used to check whether a specified method on a mock object was called during the test execution.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
+
+public class UnitTest {
+    @Test
+    public void testMockingBehavior() {
+        // Create a mock List object
+        List&lt;String&gt; mockList = mock(List.class);
+
+        // Specify behavior for when add() is called
+        when(mockList.add("Hello")).thenReturn(true);  // Return true when "Hello" is added
+
+        // Call the mock method
+        boolean result = mockList.add("Hello");
+
+        // Verify the behavior
+        assertTrue(result);  // The add method should return true
+        verify(mockList).add("Hello");  // Verify that add("Hello") was called
+
+        // Verify that add("World") was never called
+        verify(mockList, never()).add("World");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="argument-matchers">Argument Matchers<a hidden class="anchor" aria-hidden="true" href="#argument-matchers">#</a></h2>
+<blockquote>
+<p>In Mockito, <strong>argument matchers</strong> are used to specify conditions for method arguments when stubbing methods. They are commonly used in the <code>when()</code> and <code>thenReturn()</code> methods when the exact method argument is not critical. Some commonly used argument marchers include:</p>
+</blockquote>
+<ul>
+<li><code>any()</code>: Matches any argument of the specified type.</li>
+<li><code>eq()</code>: Matches a specified argument.</li>
+<li><code>anyString()</code>: Matches any argument of type <code>String</code>.</li>
+<li><code>anyInt()</code>: Matches any argument of type <code>Integer</code>.</li>
+<li><code>isA()</code>: Matches an argument of a specified class type.</li>
+<li><code>argThat()</code>: Allows for custom argument matching logic.</li>
+</ul>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
+
+public class UnitTest {
+    @Test
+    public void testAnyMatcher() {
+        List mockList = mock(List.class);
+
+        // Stub behavior using argument matcher
+        when(mockList.get(anyInt())).thenReturn("Signal");
+
+        // Verify that any argument passed to get will return "Signal"
+        assertEquals("Signal", mockList.get(9));
+        assertEquals("Signal", mockList.get(999));
+    }
+
+    @Test
+    public void testEqMatcher() {
+        Calculator calculator = mock(Calculator.class);
+
+        when(calculator.add(eq(1), eq(1))).thenReturn(2);
+
+        assertEquals(2, calculator.add(1, 1));
+        assertNotEquals(3, calculator.add(1, 1));
+    }
+
+    @Test
+    public void testAnyStringMatcher() {
+        // Create a mock List
+        List&lt;String&gt; mockList = mock(List.class);
+
+        // Stub the method to return "Hello" for any string argument
+        when(mockList.contains(anyString())).thenReturn(true);
+
+        // Verify that the mock returns true for any string passed as an argument
+        assertTrue(mockList.contains("Test"));    // Matches any string
+        assertTrue(mockList.contains("Hello"));   // Matches any string
+        assertTrue(mockList.contains("World"));   // Matches any string
+    }
+
+    @Test
+    public void testAnyIntMatcher() {
+        // Create a mock List
+        List mockList = mock(List.class);
+
+        // Stub the method to return "Found" for any integer argument
+        when(mockList.get(anyInt())).thenReturn("Found");
+
+        // Verify that the mock returns "Found" regardless of the argument
+        assertEquals("Found", mockList.get(1));   // Matches any integer
+        assertEquals("Found", mockList.get(999)); // Matches any integer
+    }
+
+    @Test
+    public void testArgThatMatcher() {
+        // Create a mock List
+        List&lt;String&gt; mockList = mock(List.class);
+
+        // Use argThat to match arguments that are not null and have length greater than 3
+        when(mockList.add(argThat(argument ->
+                argument != null && argument.length() > 3)))
+                .thenReturn(true);
+
+        // Verify that the mock behaves correctly
+        assertTrue(mockList.add("Hello"));   // Matches: length > 3
+        assertFalse(mockList.add(""));       // Does not match: empty string
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="essential-mockito-annotaitons">Essential Mockito Annotaitons<a hidden class="anchor" aria-hidden="true" href="#essential-mockito-annotaitons">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/unit-testing/">Unit Testing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/">
+    <span class="title">NEXT »</span>
+    
+    <br>
+    <span>Coding Patterns for Interview Questions</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+</body>
+</html>
