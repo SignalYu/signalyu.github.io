@@ -60,8 +60,8 @@
 <meta property="og:description" content="Virtual DOM A Virtual DOM is a lightweight, in-memory representation of the real DOM. Each Node in the Virtual DOM is represented as a plain JavaScript object with properties describing the element, its attributes, and its children. The Virtual DOM will be updated whenever an application&rsquo;s state changes. It minimizes real DOM updates by batching changes and applying them through an optimized process. --- title: Virtual DOM --- graph TD B[&#34;" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/vue/1-vue-notes/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-11-16T20:53:48+08:00" />
-<meta property="article:modified_time" content="2024-11-16T20:53:48+08:00" />
+<meta property="article:published_time" content="2021-11-16T20:53:48+08:00" />
+<meta property="article:modified_time" content="2021-11-16T20:53:48+08:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Vue Notes"/>
@@ -101,8 +101,8 @@
   "articleBody": "Virtual DOM A Virtual DOM is a lightweight, in-memory representation of the real DOM. Each Node in the Virtual DOM is represented as a plain JavaScript object with properties describing the element, its attributes, and its children. The Virtual DOM will be updated whenever an application’s state changes. It minimizes real DOM updates by batching changes and applying them through an optimized process. --- title: Virtual DOM --- graph TD B[\"\\{tag: 'div'\\}\"] B --\u003e C[\"\\{tag: 'div'\\}\"] B --\u003e D[\"\\{tag: 'div'\\}\"] B --\u003e E[\"\\{tag: 'div'\\}\"] C --\u003e F[\"\\{tag: 'ul'\\}\"] D --\u003e G[\"\\{tag: 'button'\\}\"] E --\u003e H[\"\\{tag: 'text'\\}\"] E --\u003e I[\"\\{tag: 'p'\\}\"] SHOW CODE Virtual DOM Node const vnode = { tag: 'div', // The HTML tag data: { id: 'container', class: 'main' }, // Attributes and properties children: [ { tag: 'p', data: { class: 'text' }, children: ['Hello, Virtual DOM!'], // Text content as a child }, { tag: 'button', data: { onClick: handleClick }, children: ['Click Me'], // Text content inside the button }, ], }; Data Binding The v-bind directive in Vue provides one-way data binding, allows dynamically binding an element’s attribute or property to a JavaScript expression. The shorthand for v-bind is a single colon (:).\nSHOW CODE Vue const app = Vue.createApp({ data() { return { image: { src: \"image.jpg\", alt: \"A beautiful image\", class: { cat: isVisible, image: !isVisible, } }, isVisible: true }; } }); app.mount('#app'); The v-model directive in Vue is used to create two-way data binding between input form elements and the component’s data. Modifiers such as trim and number can be applied to enhance its functionality. When the input data changes, the corresponding component data updates automatically.\nSHOW CODE Vue Hello, {{ name }}!\nIterate over Collections The v-for directive in Vue is used to iterate over collections such as arrays or objects in JavaScript. It is crucial that the value assigned to the key attribute is both unique and type of string or number. The key attribute allows Vue to efficently update the DOM by tracking each item, ensuring predictable behavior when the underlying data changes.\nSHOW CODE Vue {{ index + 1 }}. {{ item }} data() { return { items: [\"Apple\", \"Banana\", \"Cherry\"] }; } {{ key }}: {{ value }} data() { return { user: { name: \"John\", age: 30, location: \"USA\" } }; } A common approach to ensure uniqueness is to assign a UUID value to the key attribute.\nAdding Event Listeners to Elements The v-on directive in Vue is used to add event listeners to elements. It listens for DOM events and executes the specified JavaScript function. The shorthand syntax for v-on is @. Vue also provides modifiers like .stop and .prevent to simplify handling common event-related tasks.\nSHOW CODE Vue Click Me Click Me Click Me Click Me Submit Event Propagation: The DOM follows a tree-like structure. Events propagate in three phases: starting from the top-most element (document) during the capture phase, moving down to the target element, where the target phase occurs and any associated JavaScript code is executed (if defined), and then propagating back up during the bubbling phase. By default, event listeners in JavaScript and Vue operate in the bubbling phase. However, switching to the capture phase is possible by using the .capture modifier.\nSHOW CODE Vue Click Me Conditional Rendering Conditional rendering in Vue is typically achieved using the v-if, v-else-if, v-else, and v-show directives. The v-if directive controls the visibility of an element by conditionally mounting or unmounting it from the DOM. The v-else-if and v-else directives are used alongside v-if to create more complex conditional redering logic. In contrast, the v-show directive is useful in scenarios where elements need to be toggled frequently. It works by toggling the CSS display property, meaning the element remains in the DOM even when the condition is false, but its visibility is controlled via CSS.\nSHOW CODE Vue This is visible!\nToggle Visibility Success!\nLoading...\nSomething went wrong.\nChange Status This is visible!\nToggle Visibility v-html The v-html directive is used to bind raw HTML to an element, enabling dynamic rendering of content. It is particularly useful for rendering rich text, such as HTML elements like ",
   "wordCount" : "1402",
   "inLanguage": "en",
-  "datePublished": "2024-11-16T20:53:48+08:00",
-  "dateModified": "2024-11-16T20:53:48+08:00",
+  "datePublished": "2021-11-16T20:53:48+08:00",
+  "dateModified": "2021-11-16T20:53:48+08:00",
   "author":{
     "@type": "Person",
     "name": "Signal Yu"
@@ -161,7 +161,7 @@
     <h1 class="post-title entry-hint-parent">
       Vue Notes
     </h1>
-    <div class="post-meta"><span title='2024-11-16 20:53:48 +0800 HKT'>Nov 16 2024</span>&nbsp;·&nbsp;Signal Yu
+    <div class="post-meta"><span title='2021-11-16 20:53:48 +0800 HKT'>Nov 16 2021</span>&nbsp;·&nbsp;Signal Yu
 
 </div>
   </header> <div class="toc">
@@ -1395,17 +1395,17 @@ export default {
       <li><a href="https://signalyu.github.io/tags/vue/">Vue</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/react/1-react-notes/">
     <span class="title">« PREV</span>
     
     <br>
-    <span>Spring Notes</span>
+    <span>React Notes</span>
   </a>
-  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/">
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/">
     <span class="title">NEXT »</span>
     
     <br>
-    <span>Data Structure &amp; Algorithms</span>
+    <span>Java Programming Notes</span>
   </a>
 </nav>
 

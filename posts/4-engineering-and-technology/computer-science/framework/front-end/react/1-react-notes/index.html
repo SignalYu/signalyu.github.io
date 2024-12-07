@@ -62,8 +62,8 @@ SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&
 SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&#39;, title: &#39;React&#39; }; function getName(name) { return name; } function App() { return ( &lt;div&gt; &lt;h1&gt;{welcome.greeting} {welcome.title}!&lt;/h1&gt; &lt;h1&gt;I am {getName(&#39;Signal&#39;)}!&lt;/h1&gt; &lt;label htmlFor=&quot;search&quot;&gt;Search: &lt;/label&gt; &lt;input id=&quot;search&quot; type=&quot;text&quot;&gt;&lt;/input&gt; &lt;/div&gt; ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/react/1-react-notes/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-11-19T20:58:33+08:00" />
-<meta property="article:modified_time" content="2024-11-19T20:58:33+08:00" />
+<meta property="article:published_time" content="2022-06-19T20:58:33+08:00" />
+<meta property="article:modified_time" content="2022-06-19T20:58:33+08:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="React Notes"/>
@@ -104,8 +104,8 @@ SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&
   "articleBody": "JSX JSX (JavaScript XML) is a syntax extension for JavaScript commonly used in React to describe what the UI should look like.\nSHOW CODE React import './App.css' const welcome = { greeting: 'Hey', title: 'React' }; function getName(name) { return name; } function App() { return ( {welcome.greeting} {welcome.title}! I am {getName('Signal')}! Search: ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data. This typically involves using the map() function. Providing a unique key prop for each rendered item is crucial to avoid unexpected behavior. For static content, the item’s index can be used as a key. To enhance redability, it is recommended to move complex inline logic to a seperate function.\nSHOW CODE React import React from \"react\"; const App = () =\u003e { const users = [ { id: 1, name: \"Alice\", age: 25 }, { id: 2, name: \"Bob\", age: 30 }, { id: 3, name: \"Charlie\", age: 35 }, ]; return ( {users.map((user) =\u003e ( {user.name} - Age: {user.age} ))} ); }; export default App; Event Handlers In React, event handlers are used to manage user interactions, such as clicks, input changes, or form submissions.\nSHOW CODE React const Example = () =\u003e { const handleClick = () =\u003e { console.log('Clicked'); }; return Click Me; }; const handleClick = (id) =\u003e { console.log(`Button ${id} clicked`); }; ",
   "wordCount" : "508",
   "inLanguage": "en",
-  "datePublished": "2024-11-19T20:58:33+08:00",
-  "dateModified": "2024-11-19T20:58:33+08:00",
+  "datePublished": "2022-06-19T20:58:33+08:00",
+  "dateModified": "2022-06-19T20:58:33+08:00",
   "author":{
     "@type": "Person",
     "name": "Signal Yu"
@@ -164,7 +164,7 @@ SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&
     <h1 class="post-title entry-hint-parent">
       React Notes
     </h1>
-    <div class="post-meta"><span title='2024-11-19 20:58:33 +0800 HKT'>Nov 19 2024</span>&nbsp;·&nbsp;Signal Yu
+    <div class="post-meta"><span title='2022-06-19 20:58:33 +0800 HKT'>Jun 19 2022</span>&nbsp;·&nbsp;Signal Yu
 
 </div>
   </header> <div class="toc">
@@ -625,17 +625,17 @@ export default Counter;
       <li><a href="https://signalyu.github.io/tags/react/">React</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design-notes/">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/">
     <span class="title">« PREV</span>
     
     <br>
-    <span>Database Design Notes</span>
+    <span>Junit &amp; Mockito Notes</span>
   </a>
-  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/">
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/vue/1-vue-notes/">
     <span class="title">NEXT »</span>
     
     <br>
-    <span>Spring Notes</span>
+    <span>Vue Notes</span>
   </a>
 </nav>
 

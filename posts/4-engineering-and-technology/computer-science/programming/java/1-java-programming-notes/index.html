@@ -9,7 +9,7 @@
 <meta name="keywords" content="Java">
 <meta name="description" content="Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&lt;Integer&gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; &#43; num); } } /** * ?">
 <meta name="author" content="Signal Yu">
-<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://signalyu.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/">
 <noscript>
     <style>
         #theme-toggle,
@@ -59,9 +59,9 @@
 <meta property="og:title" content="Java Programming Notes" />
 <meta property="og:description" content="Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&lt;Integer&gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; &#43; num); } } /** * ?" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-11-08T11:36:53+08:00" />
-<meta property="article:modified_time" content="2024-11-08T11:36:53+08:00" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-08T11:36:53+08:00" />
+<meta property="article:modified_time" content="2021-11-08T11:36:53+08:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Java Programming Notes"/>
@@ -83,7 +83,7 @@
       "@type": "ListItem",
       "position":  2 ,
       "name": "Java Programming Notes",
-      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/"
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/"
     }
   ]
 }
@@ -101,15 +101,15 @@
   "articleBody": "Generics SHOW CODE Java public class Test { public static void main(String[] args) { List intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(\"Hello Integer!\", intList); // Double 是 Number 的子类 processItems(\"Hello, Double!\", List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static void processItems(T item, List nums) { System.out.println(item); for (V num : nums) { System.out.println(\"num: \" + num); } } /** * ? extends 与 ? super 的区别 * 1、? extends T：表示上界通配符，用于类型的上限，只能读取，不能写入。适用于不修改集合内容的情景。 * 2、? super T：表示下界通配符，用于类型的下限，可以写入，适用于添加数据的情景。 */ } Lambda Expression Runnable SHOW CODE Java public class Test { public static void main(String[] args) { // Java 8 之前 Runnable runnable = new Runnable() { @Override public void run() { System.out.println(\"Inside Runnable 1\"); } }; new Thread(runnable).start(); // Java 8 - Lambda 语法 Runnable runnableLambda = () -\u003e {System.out.println(\"Inside Runnable 2\");}; new Thread(runnableLambda).start(); new Thread(() -\u003e System.out.println(\"Inside Runnable 3\")).start(); } } Comparator SHOW CODE Java public class Test { public static void main(String[] args) { // JAVA 8 之前 Comparator comparator = new Comparator() { @Override public int compare(Integer o1, Integer o2) { /** * o1 \u003c o2 -\u003e -1 * o1 == o2 -\u003e 0 * o1 \u003e o2 -\u003e 1 */ return o1.compareTo(o2); } }; System.out.println(comparator.compare(1, 2)); // -1 /** * JAVA 8 */ // Comparator comparatorLambda1 = (Integer a, Integer b) -\u003e a.compareTo(b); Comparator comparatorLambda1 = Comparator.naturalOrder(); System.out.println(comparatorLambda1.compare(1, 2)); // -1 // Comparator comparatorLambda2 = (a, b) -\u003e b.compareTo(a); Comparator comparatorLambda2 = Comparator.reverseOrder(); System.out.println(comparatorLambda2.compare(1, 2)); // 1 int[] nums = new int[]{2, 1, 4, 3}; System.out.println(\"nums = \" + Arrays.toString(nums)); Arrays.sort(nums); // 默认为升序排序 // 倒序排序 Integer[] newNums = Arrays.stream(nums).boxed().toArray(Integer[]::new); Arrays.sort(newNums, Comparator.reverseOrder()); } } Local Variables in Lambda Expression SHOW CODE Java public class Test { public static void main(String[] args) { /** * 1. The variable used in a lambda expression must be effectively final, * meaning its value cannot change after it has been assigned. * 2. A lambda captures the values of local variables, not the variables * themselves. * 3. Local variables in a lambda cannot have the same name as variables * in the enclosing scope to avoid shadowing. */ int num = 10; // effectively final Runnable r = () -\u003e System.out.println(num); r.run(); // Error: Variable num is already defined in the scope // Runnable r = () -\u003e { // int num = 20; // Compile-time error // System.out.println(num); // }; } } Functional Interface Consumer SHOW CODE Java import java.util.Arrays; import java.util.List; import java.util.function.Consumer; public class Test { public static void main(String[] args) { List items = Arrays.asList(\"One\", \"Two\", \"Three\"); /** * Consumer 接收一个参数并执行一些操作，不返回结果 * Consumer 有 accept 和 andThen 两个方法 * accept 用于接收参数，andThen 用于链接多个 Consumer */ // 示例1：定义一个 Consumer，它将打印传入的字符串 Consumer printConsumer = s -\u003e System.out.println(\"打印消息: \" + s); printConsumer.accept(\"Hello, World!\"); // 输出: 打印消息: Hello, World! // 示例 2：Consumer 链式操作 Consumer printItem = item -\u003e System.out.print(\"打印: \" + item + \"\\t\"); Consumer printLength = item -\u003e System.out.println(\"长度: \" + item.length()); Consumer combined = printItem.andThen(printLength); // 将两个 Consumer 组合在一起 // 使用 forEach 遍历集合并执行组合操作 items.forEach(combined); // items.forEach(item -\u003e { // System.out.print(\"打印: \" + item + \"\\t\"); // System.out.println(\"长度: \" + item.length()); // }); } } BiConsumer SHOW CODE Java import java.util.Arrays; import java.util.List; import java.util.function.BiConsumer; // 定义 Student 记录类，包含学生的姓名和活动列表 record Student(String name, List activities) { } //class Student { // private final String name; // private final List activities; // // public Student(String name, List activities) { // this.name = name; // this.activities = activities; // } // // public String getName() { // return name; // } // // public List getActivities() { // return activities; // } //} class StudentDataBase { // 提供学生数据，返回一个包含多个学生的列表 public static List getAllStudents() { return Arrays.asList( new Student(\"Alice\", Arrays.asList(\"Swimming\", \"Basketball\")), new Student(\"Bob\", Arrays.asList(\"Cycling\", \"Chess\")), new Student(\"Charlie\", Arrays.asList(\"Running\", \"Reading\")) ); } } class Test { public static void main(String[] args) { /** * BiConsumer 适用于对两个参数执行操作，但不需要返回结果的场景。 */ // BiConsumer 接口用于处理学生姓名和活动列表 BiConsumer\u003c",
   "wordCount" : "2690",
   "inLanguage": "en",
-  "datePublished": "2024-11-08T11:36:53+08:00",
-  "dateModified": "2024-11-08T11:36:53+08:00",
+  "datePublished": "2021-11-08T11:36:53+08:00",
+  "dateModified": "2021-11-08T11:36:53+08:00",
   "author":{
     "@type": "Person",
     "name": "Signal Yu"
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/"
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/"
   },
   "publisher": {
     "@type": "Organization",
@@ -161,7 +161,7 @@
     <h1 class="post-title entry-hint-parent">
       Java Programming Notes
     </h1>
-    <div class="post-meta"><span title='2024-11-08 11:36:53 +0800 HKT'>Nov 8 2024</span>&nbsp;·&nbsp;Signal Yu
+    <div class="post-meta"><span title='2021-11-08 11:36:53 +0800 HKT'>Nov 8 2021</span>&nbsp;·&nbsp;Signal Yu
 
 </div>
   </header> <div class="toc">
@@ -2546,17 +2546,11 @@ stringStream.forEach(System.out::println);  // Output: "1", "2", "3", "4"
       <li><a href="https://signalyu.github.io/tags/java/">Java</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/design-patterns/1-design-patterns/">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/vue/1-vue-notes/">
     <span class="title">« PREV</span>
     
     <br>
-    <span>Design Patterns</span>
-  </a>
-  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/">
-    <span class="title">NEXT »</span>
-    
-    <br>
-    <span>Junit &amp; Mockito Notes</span>
+    <span>Vue Notes</span>
   </a>
 </nav>
 

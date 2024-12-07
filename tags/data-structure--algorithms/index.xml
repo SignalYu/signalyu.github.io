@@ -6,12 +6,12 @@
     <description>Recent content in Data Structure &amp; Algorithms on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Thu, 14 Nov 2024 20:29:21 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 14 Oct 2022 20:29:21 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/data-structure--algorithms/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Data Structure &amp; Algorithms</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/</link>
-      <pubDate>Thu, 14 Nov 2024 20:29:21 +0800</pubDate>
+      <pubDate>Fri, 14 Oct 2022 20:29:21 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/</guid>
       <description>Recursion Recursion is a programming technique where a function repeatedly calls itself until it reaches a base case, whcih stops the recursion and allows it to return a result. It is a way of breaking down complex problems into smaller, simpler subproblems that are eaiser to solve.
 Head Recursion Head Recursion is a type of recursion where a function makes its recursive call first, immediately after checking the base case, and performs all other operations only after the recursive call returns.</description>

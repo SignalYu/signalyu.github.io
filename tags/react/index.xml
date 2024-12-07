@@ -6,12 +6,12 @@
     <description>Recent content in React on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Tue, 19 Nov 2024 20:58:33 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jun 2022 20:58:33 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/react/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>React Notes</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/react/1-react-notes/</link>
-      <pubDate>Tue, 19 Nov 2024 20:58:33 +0800</pubDate>
+      <pubDate>Sun, 19 Jun 2022 20:58:33 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/react/1-react-notes/</guid>
       <description>JSX JSX (JavaScript XML) is a syntax extension for JavaScript commonly used in React to describe what the UI should look like.
 SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&#39;, title: &#39;React&#39; }; function getName(name) { return name; } function App() { return ( &amp;lt;div&amp;gt; &amp;lt;h1&amp;gt;{welcome.greeting} {welcome.title}!&amp;lt;/h1&amp;gt; &amp;lt;h1&amp;gt;I am {getName(&#39;Signal&#39;)}!&amp;lt;/h1&amp;gt; &amp;lt;label htmlFor=&amp;quot;search&amp;quot;&amp;gt;Search: &amp;lt;/label&amp;gt; &amp;lt;input id=&amp;quot;search&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/input&amp;gt; &amp;lt;/div&amp;gt; ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data.</description>

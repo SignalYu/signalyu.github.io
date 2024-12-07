@@ -6,13 +6,13 @@
     <description>Recent content in Tags on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Mon, 02 Dec 2024 10:15:04 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 18 Nov 2024 15:44:50 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Coding Patterns</title>
-      <link>https://signalyu.github.io/tags/coding-patterns/</link>
+      <title>Spring</title>
+      <link>https://signalyu.github.io/tags/spring/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/coding-patterns/</guid>
+      <guid>https://signalyu.github.io/tags/spring/</guid>
       <description></description>
     </item>
     <item>
@@ -23,24 +23,17 @@
       <description></description>
     </item>
     <item>
-      <title>React</title>
-      <link>https://signalyu.github.io/tags/react/</link>
+      <title>Design Patterns</title>
+      <link>https://signalyu.github.io/tags/design-patterns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/react/</guid>
+      <guid>https://signalyu.github.io/tags/design-patterns/</guid>
       <description></description>
     </item>
     <item>
-      <title>Spring</title>
-      <link>https://signalyu.github.io/tags/spring/</link>
+      <title>Coding Patterns</title>
+      <link>https://signalyu.github.io/tags/coding-patterns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/spring/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vue</title>
-      <link>https://signalyu.github.io/tags/vue/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/vue/</guid>
+      <guid>https://signalyu.github.io/tags/coding-patterns/</guid>
       <description></description>
     </item>
     <item>
@@ -51,10 +44,24 @@
       <description></description>
     </item>
     <item>
-      <title>Design Patterns</title>
-      <link>https://signalyu.github.io/tags/design-patterns/</link>
+      <title>Unit Testing</title>
+      <link>https://signalyu.github.io/tags/unit-testing/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/design-patterns/</guid>
+      <guid>https://signalyu.github.io/tags/unit-testing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>React</title>
+      <link>https://signalyu.github.io/tags/react/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/react/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vue</title>
+      <link>https://signalyu.github.io/tags/vue/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/vue/</guid>
       <description></description>
     </item>
     <item>
@@ -62,13 +69,6 @@
       <link>https://signalyu.github.io/tags/java/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://signalyu.github.io/tags/java/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Unit Testing</title>
-      <link>https://signalyu.github.io/tags/unit-testing/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/unit-testing/</guid>
       <description></description>
     </item>
   </channel>

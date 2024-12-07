@@ -6,13 +6,13 @@
     <description>Recent content in Java on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Fri, 08 Nov 2024 11:36:53 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 08 Nov 2021 11:36:53 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java Programming Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/</link>
-      <pubDate>Fri, 08 Nov 2024 11:36:53 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/</guid>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/</link>
+      <pubDate>Mon, 08 Nov 2021 11:36:53 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/</guid>
       <description>Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&amp;lt;Integer&amp;gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &amp;lt;T, V extends Number&amp;gt; void processItems(T item, List&amp;lt;V&amp;gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; + num); } } /** * ?</description>
     </item>
   </channel>
