@@ -6,16 +6,8 @@
     <description>Recent content on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Sat, 07 Dec 2024 01:26:33 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 02 Dec 2024 10:15:04 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Junit &amp; Mockito Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
-      <pubDate>Sat, 07 Dec 2024 01:26:33 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
-      <description>JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
-SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
-    </item>
     <item>
       <title>Coding Patterns for Interview Questions</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/</link>
@@ -49,6 +41,13 @@ Inversion of Control (IoC) Inversion of Control is a design principle where the 
 Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.</description>
     </item>
     <item>
+      <title>Vue Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/vue/1-vue-notes/</link>
+      <pubDate>Sat, 16 Nov 2024 20:53:48 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/vue/1-vue-notes/</guid>
+      <description>Virtual DOM A Virtual DOM is a lightweight, in-memory representation of the real DOM. Each Node in the Virtual DOM is represented as a plain JavaScript object with properties describing the element, its attributes, and its children. The Virtual DOM will be updated whenever an application&amp;rsquo;s state changes. It minimizes real DOM updates by batching changes and applying them through an optimized process. --- title: Virtual DOM --- graph TD B[&#34;</description>
+    </item>
+    <item>
       <title>Data Structure &amp; Algorithms</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/</link>
       <pubDate>Thu, 14 Nov 2024 20:29:21 +0800</pubDate>
@@ -70,6 +69,14 @@ SHOW CODE Single Responsibility Principle import java.io.IOException; import jav
       <pubDate>Fri, 08 Nov 2024 11:36:53 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-notes/</guid>
       <description>Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&amp;lt;Integer&amp;gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &amp;lt;T, V extends Number&amp;gt; void processItems(T item, List&amp;lt;V&amp;gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; + num); } } /** * ?</description>
+    </item>
+    <item>
+      <title>Junit &amp; Mockito Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
+      <pubDate>Wed, 07 Jul 2021 01:26:33 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
+      <description>JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
+SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
     </item>
   </channel>
 </rss>
