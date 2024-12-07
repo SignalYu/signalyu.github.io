@@ -6,17 +6,8 @@
     <description>Recent content in Posts on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Mon, 18 Nov 2024 15:44:50 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 22 May 2024 21:07:21 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Spring Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/</link>
-      <pubDate>Mon, 18 Nov 2024 15:44:50 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/</guid>
-      <description>Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.
-Inversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.
-Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.</description>
-    </item>
     <item>
       <title>Database Design Notes</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design-notes/</link>
@@ -63,6 +54,15 @@ SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupite
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/react/1-react-notes/</guid>
       <description>JSX JSX (JavaScript XML) is a syntax extension for JavaScript commonly used in React to describe what the UI should look like.
 SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&#39;, title: &#39;React&#39; }; function getName(name) { return name; } function App() { return ( &amp;lt;div&amp;gt; &amp;lt;h1&amp;gt;{welcome.greeting} {welcome.title}!&amp;lt;/h1&amp;gt; &amp;lt;h1&amp;gt;I am {getName(&#39;Signal&#39;)}!&amp;lt;/h1&amp;gt; &amp;lt;label htmlFor=&amp;quot;search&amp;quot;&amp;gt;Search: &amp;lt;/label&amp;gt; &amp;lt;input id=&amp;quot;search&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/input&amp;gt; &amp;lt;/div&amp;gt; ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data.</description>
+    </item>
+    <item>
+      <title>Spring Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/</link>
+      <pubDate>Thu, 18 Nov 2021 15:44:50 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/</guid>
+      <description>Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.
+Inversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.
+Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.</description>
     </item>
     <item>
       <title>Vue Notes</title>
