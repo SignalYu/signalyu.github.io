@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <title>Java Programming Notes | Signal&#39;s Blog</title>
 <meta name="keywords" content="Java">
-<meta name="description" content="Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&lt;Integer&gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; &#43; num); } } /** * ?">
+<meta name="description" content="Enum In Java, an enum (short for &ldquo;enumeration&rdquo;) is used to define a collection of constants, such as days of the week or months of the year. An enum provides a type-safe way to handle constant values, and it can be used in a switch statement or for comparison using ==. Compared to a final constant in Java, an enum can contain fields, methods, and constructors. The values() method is used to retrive all the constants in an enum, and the valueOf() method is used to convert a string into an enum constant.">
 <meta name="author" content="Signal Yu">
 <link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
@@ -57,7 +57,7 @@
   
 
 <meta property="og:title" content="Java Programming Notes" />
-<meta property="og:description" content="Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&lt;Integer&gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; &#43; num); } } /** * ?" />
+<meta property="og:description" content="Enum In Java, an enum (short for &ldquo;enumeration&rdquo;) is used to define a collection of constants, such as days of the week or months of the year. An enum provides a type-safe way to handle constant values, and it can be used in a switch statement or for comparison using ==. Compared to a final constant in Java, an enum can contain fields, methods, and constructors. The values() method is used to retrive all the constants in an enum, and the valueOf() method is used to convert a string into an enum constant." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-11-08T11:36:53+08:00" />
@@ -65,7 +65,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Java Programming Notes"/>
-<meta name="twitter:description" content="Generics SHOW CODE Java public class Test { public static void main(String[] args) { List&lt;Integer&gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(&#34;Hello Integer!&#34;, intList); // Double 是 Number 的子类 processItems(&#34;Hello, Double!&#34;, List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(&#34;num: &#34; &#43; num); } } /** * ?"/>
+<meta name="twitter:description" content="Enum In Java, an enum (short for &ldquo;enumeration&rdquo;) is used to define a collection of constants, such as days of the week or months of the year. An enum provides a type-safe way to handle constant values, and it can be used in a switch statement or for comparison using ==. Compared to a final constant in Java, an enum can contain fields, methods, and constructors. The values() method is used to retrive all the constants in an enum, and the valueOf() method is used to convert a string into an enum constant."/>
 
 
 <script type="application/ld+json">
@@ -94,12 +94,12 @@
   "@type": "BlogPosting",
   "headline": "Java Programming Notes",
   "name": "Java Programming Notes",
-  "description": "Generics SHOW CODE Java public class Test { public static void main(String[] args) { List\u0026lt;Integer\u0026gt; intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(\"Hello Integer!\", intList); // Double 是 Number 的子类 processItems(\"Hello, Double!\", List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static \u0026lt;T, V extends Number\u0026gt; void processItems(T item, List\u0026lt;V\u0026gt; nums) { System.out.println(item); for (V num : nums) { System.out.println(\"num: \" + num); } } /** * ?",
+  "description": "Enum In Java, an enum (short for \u0026ldquo;enumeration\u0026rdquo;) is used to define a collection of constants, such as days of the week or months of the year. An enum provides a type-safe way to handle constant values, and it can be used in a switch statement or for comparison using ==. Compared to a final constant in Java, an enum can contain fields, methods, and constructors. The values() method is used to retrive all the constants in an enum, and the valueOf() method is used to convert a string into an enum constant.",
   "keywords": [
     "Java"
   ],
-  "articleBody": "Generics SHOW CODE Java public class Test { public static void main(String[] args) { List intList = List.of(1, 2, 3); // Integer 是 Number 的子类 processItems(\"Hello Integer!\", intList); // Double 是 Number 的子类 processItems(\"Hello, Double!\", List.of(1.1, 2.2, 3.3)); } // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类 private static void processItems(T item, List nums) { System.out.println(item); for (V num : nums) { System.out.println(\"num: \" + num); } } /** * ? extends 与 ? super 的区别 * 1、? extends T：表示上界通配符，用于类型的上限，只能读取，不能写入。适用于不修改集合内容的情景。 * 2、? super T：表示下界通配符，用于类型的下限，可以写入，适用于添加数据的情景。 */ } Lambda Expression Runnable SHOW CODE Java public class Test { public static void main(String[] args) { // Java 8 之前 Runnable runnable = new Runnable() { @Override public void run() { System.out.println(\"Inside Runnable 1\"); } }; new Thread(runnable).start(); // Java 8 - Lambda 语法 Runnable runnableLambda = () -\u003e {System.out.println(\"Inside Runnable 2\");}; new Thread(runnableLambda).start(); new Thread(() -\u003e System.out.println(\"Inside Runnable 3\")).start(); } } Comparator SHOW CODE Java public class Test { public static void main(String[] args) { // JAVA 8 之前 Comparator comparator = new Comparator() { @Override public int compare(Integer o1, Integer o2) { /** * o1 \u003c o2 -\u003e -1 * o1 == o2 -\u003e 0 * o1 \u003e o2 -\u003e 1 */ return o1.compareTo(o2); } }; System.out.println(comparator.compare(1, 2)); // -1 /** * JAVA 8 */ // Comparator comparatorLambda1 = (Integer a, Integer b) -\u003e a.compareTo(b); Comparator comparatorLambda1 = Comparator.naturalOrder(); System.out.println(comparatorLambda1.compare(1, 2)); // -1 // Comparator comparatorLambda2 = (a, b) -\u003e b.compareTo(a); Comparator comparatorLambda2 = Comparator.reverseOrder(); System.out.println(comparatorLambda2.compare(1, 2)); // 1 int[] nums = new int[]{2, 1, 4, 3}; System.out.println(\"nums = \" + Arrays.toString(nums)); Arrays.sort(nums); // 默认为升序排序 // 倒序排序 Integer[] newNums = Arrays.stream(nums).boxed().toArray(Integer[]::new); Arrays.sort(newNums, Comparator.reverseOrder()); } } Local Variables in Lambda Expression SHOW CODE Java public class Test { public static void main(String[] args) { /** * 1. The variable used in a lambda expression must be effectively final, * meaning its value cannot change after it has been assigned. * 2. A lambda captures the values of local variables, not the variables * themselves. * 3. Local variables in a lambda cannot have the same name as variables * in the enclosing scope to avoid shadowing. */ int num = 10; // effectively final Runnable r = () -\u003e System.out.println(num); r.run(); // Error: Variable num is already defined in the scope // Runnable r = () -\u003e { // int num = 20; // Compile-time error // System.out.println(num); // }; } } Functional Interface Consumer SHOW CODE Java import java.util.Arrays; import java.util.List; import java.util.function.Consumer; public class Test { public static void main(String[] args) { List items = Arrays.asList(\"One\", \"Two\", \"Three\"); /** * Consumer 接收一个参数并执行一些操作，不返回结果 * Consumer 有 accept 和 andThen 两个方法 * accept 用于接收参数，andThen 用于链接多个 Consumer */ // 示例1：定义一个 Consumer，它将打印传入的字符串 Consumer printConsumer = s -\u003e System.out.println(\"打印消息: \" + s); printConsumer.accept(\"Hello, World!\"); // 输出: 打印消息: Hello, World! // 示例 2：Consumer 链式操作 Consumer printItem = item -\u003e System.out.print(\"打印: \" + item + \"\\t\"); Consumer printLength = item -\u003e System.out.println(\"长度: \" + item.length()); Consumer combined = printItem.andThen(printLength); // 将两个 Consumer 组合在一起 // 使用 forEach 遍历集合并执行组合操作 items.forEach(combined); // items.forEach(item -\u003e { // System.out.print(\"打印: \" + item + \"\\t\"); // System.out.println(\"长度: \" + item.length()); // }); } } BiConsumer SHOW CODE Java import java.util.Arrays; import java.util.List; import java.util.function.BiConsumer; // 定义 Student 记录类，包含学生的姓名和活动列表 record Student(String name, List activities) { } //class Student { // private final String name; // private final List activities; // // public Student(String name, List activities) { // this.name = name; // this.activities = activities; // } // // public String getName() { // return name; // } // // public List getActivities() { // return activities; // } //} class StudentDataBase { // 提供学生数据，返回一个包含多个学生的列表 public static List getAllStudents() { return Arrays.asList( new Student(\"Alice\", Arrays.asList(\"Swimming\", \"Basketball\")), new Student(\"Bob\", Arrays.asList(\"Cycling\", \"Chess\")), new Student(\"Charlie\", Arrays.asList(\"Running\", \"Reading\")) ); } } class Test { public static void main(String[] args) { /** * BiConsumer 适用于对两个参数执行操作，但不需要返回结果的场景。 */ // BiConsumer 接口用于处理学生姓名和活动列表 BiConsumer\u003c",
-  "wordCount" : "2690",
+  "articleBody": "Enum In Java, an enum (short for “enumeration”) is used to define a collection of constants, such as days of the week or months of the year. An enum provides a type-safe way to handle constant values, and it can be used in a switch statement or for comparison using ==. Compared to a final constant in Java, an enum can contain fields, methods, and constructors. The values() method is used to retrive all the constants in an enum, and the valueOf() method is used to convert a string into an enum constant.\nSHOW CODE Java enum Day { SUNDAY(1), MONDAY(2), TUESDAY(3), WEDNESDA(4), THURSDAY(5), FRIDAY(6), SATURDAY(7); private final int dayNum; Day(int dayNum) { this.dayNum = dayNum; } public int getDayNum() { return dayNum; } public static Day fromNumber(int num) { for (Day day : Day.values()) { if (day.getDayNum() == num) { return day; } } throw new IllegalArgumentException(\"Invalid day number: \" + num); } @Override public String toString() { return name() + \"(\" + dayNum + \")\"; } } public class Solution { public static void main(String[] args) { for (Day d : Day.values()) { System.out.print(d + \"\\t\"); } System.out.println(\"\\n\" + Day.fromNumber(1)); // System.out.println(Day.fromNumber(8)); // Converts a string to enum constant System.out.println(Day.valueOf(\"MONDAY\")); } } Generics In Java, Generics is a mechanism that allows writing classes, interfaces, and methods with type parameters, often represented by T, E, K, and V, and allows calling them with different type parameters. It provides strong type safety checks at compile time, enhances code reusability, and eliminates the need for casting.\nBasic Generics SHOW CODE Java interface Pair { K getKey(); V getValue(); } class SimplePair implements Pair { private final K key; private final V value; public SimplePair(K key, V value) { this.key = key; this.value = value; } @Override public K getKey() { return key; } @Override public V getValue() { return value; } @Override public String toString() { return \"(\" + key + \",\" + value + \")\"; } } public class Main { public static void main(String[] args) { SimplePair pair = new SimplePair\u003c\u003e(\"Signal\", 27); System.out.println(\"pair = \" + pair); String key = pair.getKey(); System.out.println(\"key = \" + key); Integer value = pair.getValue(); System.out.println(\"value = \" + value); } } Bounded Type Parameters Bounded Type Parameters in Java allow restricting the range of types when writing generic code. It can be categorized into four types: Upper Bounded Type, Lower Bounded Type, Unbounded Type, and Multiple Bounds.\nUpper Bounded Type In Java, Upper Bounded Wildcards are used to define upper bounded types. The syntax for an upper bounded wildcard is , which indicates that the argument type T must be a subclass of SomeClassOrInterface or SomeClassOrInterface itself.\nSHOW CODE Java import java.util.List; public class Main { // Method that accepts a list of elements that are of type Number or its subclasses public static void printNumbers(List\u003c? extends Number\u003e list) { for (Number number : list) { System.out.println(number); } } public static void main(String[] args) { List intList = List.of(1, 2, 3, 4); List doubleList = List.of(1.1, 2.2, 3.3); printNumbers(intList); // Valid, Integer is a subclass of Number printNumbers(doubleList); // Valid, Double is a subclass of Number } } Lower Bounded Type In Java, Lower Bounded Wildcards are used to define lower bounded types. The syntax for a lower bounded wildcard is , which indicates that the argument type T must be a super class of SomeClassOrInterface or SomeClassOrInterface itself.\nSHOW CODE Java import java.util.ArrayList; import java.util.List; // Custom class Person class Person { String name; Person(String name) { this.name = name; } @Override public String toString() { return \"Person{name='\" + name + \"'}\"; } } // Subclass Employee extends Person class Employee extends Person { double salary; Employee(String name, double salary) { super(name); this.salary = salary; } @Override public String toString() { return \"Employee{name='\" + name + \"', salary=\" + salary + \"}\"; } } public class Main { // Method that accepts a list of Person or its superclasses (e.g., Object) // This method can add Employee objects to the list. public static void addEmployees(List\u003c? super Employee\u003e list) { list.add(new Employee(\"Alice\", 50000)); list.add(new Employee(\"Bob\", 60000)); list.add(new Employee(\"Charlie\", 70000)); } public static void main(String[] args) { // Create a list of Person, which is a superclass of Employee List personList = new ArrayList\u003c\u003e(); // Add Employee objects to the personList using the addEmployees method addEmployees(personList); // Print the list to see the added Employee objects for (Person person : personList) { System.out.println(person); } } } SHOW OUTPUT Output Employee{name='Alice', salary=50000.0} Employee{name='Bob', salary=60000.0} Employee{name='Charlie', salary=70000.0} Unbounded Type Multiple Bounds Lambda Expression Runnable SHOW CODE Java public class Test { public static void main(String[] args) { // Java 8 之前 Runnable runnable = new Runnable() { @Override public void run() { System.out.println(\"Inside Runnable 1\"); } }; new Thread(runnable).start(); // Java 8 - Lambda 语法 Runnable runnableLambda = () -\u003e {System.out.println(\"Inside Runnable 2\");}; new Thread(runnableLambda).start(); new Thread(() -\u003e System.out.println(\"Inside Runnable 3\")).start(); } } Comparator SHOW CODE Java public class Test { public static void main(String[] args) { // JAVA 8 之前 Comparator comparator = new Comparator() { @Override public int compare(Integer o1, Integer o2) { /** * o1 \u003c o2 -\u003e -1 * o1 == o2 -\u003e 0 * o1 \u003e o2 -\u003e 1 */ return o1.compareTo(o2); } }; System.out.println(comparator.compare(1, 2)); // -1 /** * JAVA 8 */ // Comparator comparatorLambda1 = (Integer a, Integer b) -\u003e a.compareTo(b); Comparator comparatorLambda1 = Comparator.naturalOrder(); System.out.println(comparatorLambda1.compare(1, 2)); // -1 // Comparator comparatorLambda2 = (a, b) -\u003e b.compareTo(a); Comparator comparatorLambda2 = Comparator.reverseOrder(); System.out.println(comparatorLambda2.compare(1, 2)); // 1 int[] nums = new int[]{2, 1, 4, 3}; System.out.println(\"nums = \" + Arrays.toString(nums)); Arrays.sort(nums); // 默认为升序排序 // 倒序排序 Integer[] newNums = Arrays.stream(nums).boxed().toArray(Integer[]::new); Arrays.sort(newNums, Comparator.reverseOrder()); } } Local Variables in Lambda Expression SHOW CODE Java public class Test { public static void main(String[] args) { /** * 1. The variable used in a lambda expression must be effectively final, * meaning its value cannot change after it has been assigned. * 2. A lambda captures the values of local variables, not the variables * themselves. * 3. Local variables in a lambda cannot have the same name as variables * in the enclosing scope to avoid shadowing. */ int num = 10; // effectively final Runnable r = () -\u003e System.out.println(num); r.run(); // Error: Variable num is already defined in the scope // Runnable r = () -\u003e { // int num = 20; // Compile-time error // System.out.println(num); // }; } } Functional Interface Consumer SHOW CODE Java import java.util.Arrays; import java.util.List; import java.util.function.Consumer; public class Test { public static void main(String[] args) { List items = Arrays.asList(\"One\", \"Two\", \"Three\"); /** * Consumer 接收一个参数并执行一些操作，不返回结果 * Consumer 有 accept 和 andThen 两个方法 * accept 用于接收参数，andThen 用于链接多个 Consumer */ // 示例1：定义一个 Consumer，它将打印传入的字符串 Consumer printConsumer = s -\u003e System.out.println(\"打印消息: \" + s); printConsumer.accept(\"Hello, World!\"); // 输出: 打印消息: Hello, World! // 示例 2：Consumer 链式操作 Consumer printItem = item -\u003e System.out.print(\"打印: \" + item + \"\\t\"); Consumer printLength = item -\u003e System.out.println(\"长度: \" + item.length()); Consumer combined = printItem.andThen(printLength); // 将两个 Consumer 组合在一起 // 使用 forEach 遍历集合并执行组合操作 items.forEach(combined); // items.forEach(item -\u003e { // System.out.print(\"打印: \" + item + \"\\t\"); // System.out.println(\"长度: \" + item.length()); // }); } } BiConsumer SHOW CODE Java import java.util.Arrays; import java.util.List; import java.util.function.BiConsumer; // 定义 Student 记录类，包含学生的姓名和活动列表 record Student(String name, List activities) { } //class Student { // private final String name; // private final List activities; // // public Student(String name, List activities) { // this.name = name; // this.activities = activities; // } // // public String getName() { // return name; // } // // public List getActivities() { // return activities; // } //} class StudentDataBase { // 提供学生数据，返回一个包含多个学生的列表 public static List getAllStudents() { return Arrays.asList( new Student(\"Alice\", Arrays.asList(\"Swimming\", \"Basketball\")), new Student(\"Bob\", Arrays.asList(\"Cycling\", \"Chess\")), new Student(\"Charlie\", Arrays.asList(\"Running\", \"Reading\")) ); } } class Test { public static void main(String[] args) { /** * BiConsumer 适用于对两个参数执行操作，但不需要返回结果的场景。 */ // BiConsumer 接口用于处理学生姓名和活动列表 BiConsumer\u003c",
+  "wordCount" : "3362",
   "inLanguage": "en",
   "datePublished": "2021-11-08T11:36:53+08:00",
   "dateModified": "2021-11-08T11:36:53+08:00",
@@ -172,7 +172,25 @@
 
         <div class="inner"><ul>
                 <li>
-                    <a href="#generics" aria-label="Generics">Generics</a></li>
+                    <a href="#enum" aria-label="Enum">Enum</a></li>
+                <li>
+                    <a href="#generics" aria-label="Generics">Generics</a><ul>
+                        
+                <li>
+                    <a href="#basic-generics" aria-label="Basic Generics">Basic Generics</a></li>
+                <li>
+                    <a href="#bounded-type-parameters" aria-label="Bounded Type Parameters">Bounded Type Parameters</a><ul>
+                        
+                <li>
+                    <a href="#upper-bounded-type" aria-label="Upper Bounded Type">Upper Bounded Type</a></li>
+                <li>
+                    <a href="#lower-bounded-type" aria-label="Lower Bounded Type">Lower Bounded Type</a></li>
+                <li>
+                    <a href="#unbounded-type" aria-label="Unbounded Type">Unbounded Type</a></li>
+                <li>
+                    <a href="#multiple-bounds" aria-label="Multiple Bounds">Multiple Bounds</a></li></ul>
+                </li></ul>
+                </li>
                 <li>
                     <a href="#lambda-expression" aria-label="Lambda Expression">Lambda Expression</a><ul>
                         
@@ -234,7 +252,10 @@
     </details>
 </div>
 
-  <div class="post-content"><h1 id="generics">Generics<a hidden class="anchor" aria-hidden="true" href="#generics">#</a></h1>
+  <div class="post-content"><h1 id="enum">Enum<a hidden class="anchor" aria-hidden="true" href="#enum">#</a></h1>
+<blockquote>
+<p>In Java, an <code>enum</code> (short for &ldquo;enumeration&rdquo;) is used to define a collection of constants, such as days of the week or months of the year. An <code>enum</code> provides a type-safe way to handle constant values, and it can be used in a <code>switch</code> statement or for comparison using <code>==</code>. Compared to a <code>final</code> constant in Java, an <code>enum</code> can contain fields, methods, and constructors. The <code>values()</code> method is used to retrive all the constants in an enum, and the <code>valueOf()</code> method is used to convert a string into an enum constant.</p>
+</blockquote>
 <head>
     <style>
          
@@ -285,30 +306,54 @@
 
 <div class="code_blocks">
     <div class="code_block active">
-        <pre><code class="language-java" data-lang="java" >public class Test {
-    public static void main(String[] args) {
-        List&lt;Integer&gt; intList = List.of(1, 2, 3);
-        // Integer 是 Number 的子类
-        processItems("Hello Integer!", intList);
-        // Double 是 Number 的子类
-        processItems("Hello, Double!", List.of(1.1, 2.2, 3.3));
+        <pre><code class="language-java" data-lang="java" >enum Day {
+    SUNDAY(1),
+    MONDAY(2),
+    TUESDAY(3),
+    WEDNESDA(4),
+    THURSDAY(5),
+    FRIDAY(6),
+    SATURDAY(7);
+
+    private final int dayNum;
+
+    Day(int dayNum) {
+        this.dayNum = dayNum;
     }
 
-    // 定义泛型方法，T 是任何类型，V 限制为 Number 或其子类
-    private static &lt;T, V extends Number&gt; void processItems(T item, List&lt;V&gt; nums) {
-        System.out.println(item);
-        for (V num : nums) {
-            System.out.println("num: " + num);
+    public int getDayNum() {
+        return dayNum;
+    }
+
+    public static Day fromNumber(int num) {
+        for (Day day : Day.values()) {
+            if (day.getDayNum() == num) {
+                return day;
+            }
         }
+        throw new IllegalArgumentException("Invalid day number: " + num);
     }
 
-    /**
-     * ? extends 与 ? super 的区别
-     *   1、? extends T：表示上界通配符，用于类型的上限，只能读取，不能写入。适用于不修改集合内容的情景。
-     *   2、? super T：表示下界通配符，用于类型的下限，可以写入，适用于添加数据的情景。
-     */
+    @Override
+    public String toString() {
+        return name() + "(" + dayNum + ")";
+    }
 }
 
+public class Solution {
+    public static void main(String[] args) {
+        for (Day d : Day.values()) {
+            System.out.print(d + "\t");
+        }
+
+        System.out.println("\n" + Day.fromNumber(1));
+//        System.out.println(Day.fromNumber(8));
+
+        // Converts a string to enum constant
+        System.out.println(Day.valueOf("MONDAY"));
+
+    }
+}
 </code></pre>
     </div>
 </div>
@@ -320,6 +365,391 @@
         </div>
     </details>
 </div>
+<hr>
+<h1 id="generics">Generics<a hidden class="anchor" aria-hidden="true" href="#generics">#</a></h1>
+<blockquote>
+<p>In Java, <strong>Generics</strong> is a mechanism that allows writing classes, interfaces, and methods with type parameters, often represented by <code>T</code>, <code>E</code>, <code>K</code>, and <code>V</code>, and allows calling them with different type parameters. It provides strong type safety checks at compile time, enhances code reusability, and eliminates the need for casting.</p>
+</blockquote>
+<h2 id="basic-generics">Basic Generics<a hidden class="anchor" aria-hidden="true" href="#basic-generics">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >interface Pair<K, V> {
+    K getKey();
+    V getValue();
+}
+
+class SimplePair&lt;K,V&gt; implements Pair&lt;K,V&gt; {
+
+    private final K key;
+    private final V value;
+
+    public SimplePair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    @Override
+    public K getKey() {
+        return key;
+    }
+
+    @Override
+    public V getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + key + "," + value + ")";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SimplePair&lt;String, Integer&gt; pair = new SimplePair&lt;&gt;("Signal", 27);
+        System.out.println("pair = " + pair);
+        String key = pair.getKey();
+        System.out.println("key = " + key);
+        Integer value = pair.getValue();
+        System.out.println("value = " + value);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="bounded-type-parameters">Bounded Type Parameters<a hidden class="anchor" aria-hidden="true" href="#bounded-type-parameters">#</a></h2>
+<blockquote>
+<p><strong>Bounded Type Parameters</strong> in Java allow <strong>restricting the range of types</strong> when writing generic code. It can be categorized into four types: <strong>Upper Bounded Type</strong>, <strong>Lower Bounded Type</strong>, <strong>Unbounded Type</strong>, and <strong>Multiple Bounds</strong>.</p>
+</blockquote>
+<hr>
+<h3 id="upper-bounded-type">Upper Bounded Type<a hidden class="anchor" aria-hidden="true" href="#upper-bounded-type">#</a></h3>
+<blockquote>
+<p>In Java, <strong>Upper Bounded Wildcards</strong> are used to define upper bounded types. The syntax for an upper bounded wildcard is <code>&lt;T extends SomeClassOrInterface&gt;</code>, which indicates that the argument type <code>T</code> must be a subclass of <code>SomeClassOrInterface</code> or <code>SomeClassOrInterface</code> itself.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.List;
+
+public class Main {
+    // Method that accepts a list of elements that are of type Number or its subclasses
+    public static void printNumbers(List&lt;? extends Number&gt; list) {
+        for (Number number : list) {
+            System.out.println(number);
+        }
+    }
+
+    public static void main(String[] args) {
+        List&lt;Integer&gt; intList = List.of(1, 2, 3, 4);
+        List&lt;Double&gt; doubleList = List.of(1.1, 2.2, 3.3);
+
+        printNumbers(intList);   // Valid, Integer is a subclass of Number
+        printNumbers(doubleList); // Valid, Double is a subclass of Number
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h3 id="lower-bounded-type">Lower Bounded Type<a hidden class="anchor" aria-hidden="true" href="#lower-bounded-type">#</a></h3>
+<blockquote>
+<p>In Java, <strong>Lower Bounded Wildcards</strong> are used to define lower bounded types. The syntax for a lower bounded wildcard is <code>&lt;T super SomeClassOrInterface&gt;</code>, which indicates that the argument type <code>T</code> must be a super class of <code>SomeClassOrInterface</code> or <code>SomeClassOrInterface</code> itself.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.ArrayList;
+import java.util.List;
+
+// Custom class Person
+class Person {
+    String name;
+
+    Person(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "'}";
+    }
+}
+
+// Subclass Employee extends Person
+class Employee extends Person {
+    double salary;
+
+    Employee(String name, double salary) {
+        super(name);
+        this.salary = salary;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{name='" + name + "', salary=" + salary + "}";
+    }
+}
+
+public class Main {
+    // Method that accepts a list of Person or its superclasses (e.g., Object)
+    // This method can add Employee objects to the list.
+    public static void addEmployees(List&lt;? super Employee&gt; list) {
+        list.add(new Employee("Alice", 50000));
+        list.add(new Employee("Bob", 60000));
+        list.add(new Employee("Charlie", 70000));
+    }
+
+    public static void main(String[] args) {
+        // Create a list of Person, which is a superclass of Employee
+        List&lt;Person&gt; personList = new ArrayList&lt;&gt;();
+
+        // Add Employee objects to the personList using the addEmployees method
+        addEmployees(personList);
+
+        // Print the list to see the added Employee objects
+        for (Person person : personList) {
+            System.out.println(person);
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >Employee{name='Alice', salary=50000.0}
+Employee{name='Bob', salary=60000.0}
+Employee{name='Charlie', salary=70000.0}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h3 id="unbounded-type">Unbounded Type<a hidden class="anchor" aria-hidden="true" href="#unbounded-type">#</a></h3>
+<hr>
+<h3 id="multiple-bounds">Multiple Bounds<a hidden class="anchor" aria-hidden="true" href="#multiple-bounds">#</a></h3>
 <hr>
 <h1 id="lambda-expression">Lambda Expression<a hidden class="anchor" aria-hidden="true" href="#lambda-expression">#</a></h1>
 <h2 id="runnable">Runnable<a hidden class="anchor" aria-hidden="true" href="#runnable">#</a></h2>
