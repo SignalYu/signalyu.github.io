@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Multithreading Notes | Signal&#39;s Blog</title>
+<meta name="keywords" content="Multithreading">
+<meta name="description" content="Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.
+Asynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9ddf6c021b47a5a861a7c6af241af938775e0fc65a762930d3a2426fc59e9a5c.css" integrity="sha256-nd9sAhtHpahhp8avJBr5OHdeD8Zadikw06JCb8Wemlw=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="Multithreading Notes" />
+<meta property="og:description" content="Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.
+Asynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-12-11T12:13:32+08:00" />
+<meta property="article:modified_time" content="2024-12-11T12:13:32+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Multithreading Notes"/>
+<meta name="twitter:description" content="Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.
+Asynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Multithreading Notes",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Multithreading Notes",
+  "name": "Multithreading Notes",
+  "description": "Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.\nAsynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting.",
+  "keywords": [
+    "Multithreading"
+  ],
+  "articleBody": "Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.\nAsynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting. In contrast, parallelism involves running tasks on multiple threads across multiple cores at exactly the same time, maximizing computational power.\nIn Java, there are four ways to create threads: extending the Thread class, implementing the Runnable interface, using the Callable interface, and employing executors. Among these, it is recommended to use executors for managing thread pools to ensure better resource utilization.\nEvery thread in Java goes through six states: new, runnable, blocked, waiting, timed waiting, and terminated. A thread is in the new state when created but not yet started. In the runnable state, it is ready to run but waiting for CPU time. The blocked state occurs when a thread is waiting for a monitor lock. A thread in the waiting state waits indefinitely for a signal, whereas a thread in the timed waiting state waits for a signal for a specified duration. Finally, a thread moves to the terminated state after completing its execution.\nA race condition occurs when multiple threads access shared data simultaneously, and the result depends on the execution order determined by the thread scheduler. This can lead to unedpected results. To avoid race conditions, it is essential to use synchronized blocks, locks, or the volatile keyword for thread-safe operations.\nThread communication is common scenerio in the multithreading. The methods wait() and notify() are used for thread coordination when accessing shared resources. Additionally, blocking queues are often employed for producer-consumer patterns, enabling threads to communicate safely.\nJava provides robust concurency utilities under the java.util.concurrent package. These include thread pools created using Executors, as well as classes like CountDownLatch, Semaphore, CyclicBarrier, ConcurrentHashMap, and CopyOnWriteArrayList, all designed to simplify multithreading tasks.\nDespite its advantages, multithreading presents challenges such as deadlock, where two or more threads wait indefinitely for resources; livelocks, where threads keep changing states without making progress; and starvation, where a thread is unable to gain access to necessary resources due to priority or resource allocation.\nThread Creation In Java Extending Thread Class SHOW CODE Java class MyThread extends Thread { @Override public void run() { System.out.println(this.getName() + \" is running.\"); } } public class Main { public static void main(String[] args) { MyThread myThread = new MyThread(); myThread.setName(\"MYTHREAD-0\"); myThread.start(); } } Implementing Runnable Interface SHOW CODE Java public class Main { public static void main(String[] args) { Thread thread = new Thread(() -\u003e System.out.println(Thread.currentThread().getName() + \" is running.\")); thread.start(); } } //class MyRunnable implements Runnable { // @Override // public void run() { // System.out.println(\"Thread is running\"); // } //} // //public class Main { // public static void main(String[] args) { // Thread thread = new Thread(new MyRunnable()); // thread.start(); // Starts a new thread // } //} Using the Callable Interface SHOW CODE Java import java.util.concurrent.*; public class Main { public static void main(String[] args) throws Exception { ExecutorService executor = Executors.newSingleThreadExecutor(); Future future = executor.submit(() -\u003e Thread.currentThread().getName() + \" is running.\"); System.out.println(future.get()); executor.shutdown(); } } class MyCallable implements Callable { // @Override // public String call() { // return \"Thread executed\"; // } //} // //public class Main { // public static void main(String[] args) throws Exception { // ExecutorService executor = Executors.newSingleThreadExecutor(); // Future future = executor.submit(new MyCallable()); // System.out.println(future.get()); // Retrieves the result // executor.shutdown(); // } //} Using Executors SHOW CODE Java import java.util.concurrent.*; public class Main { public static void main(String[] args) { ExecutorService executor = Executors.newFixedThreadPool(2); Runnable task1 = () -\u003e System.out.println(Thread.currentThread().getName() + \" executed\"); Runnable task2 = () -\u003e System.out.println(Thread.currentThread().getName() + \" executed\"); executor.execute(task1); executor.execute(task2); executor.shutdown(); } } Thread Termination In Java Using a flag SHOW CODE Java class Task implements Runnable { // Use volatile to ensure visibility between thread private volatile boolean running = true; @Override public void run() { while (running) { System.out.println(\"Thread is running.\"); try { Thread.sleep(1000); } catch (InterruptedException e) { Thread.currentThread().interrupt(); } } System.out.println(\"Thread is stopping.\"); } public void stop() { running = false; } } public class Main { public static void main(String[] args) throws InterruptedException { Task task = new Task(); Thread thread = new Thread(task); thread.start(); Thread.sleep(3000); // Allow thread to run for a while task.stop(); // Signal thread to stop } } Interrupting a Thread SHOW CODE Java public class Main { public static void main(String[] args) throws InterruptedException { Thread thread = new Thread(() -\u003e { try { while (!Thread.currentThread().isInterrupted()) { System.out.println(\"Thread is running\"); Thread.sleep(1000); } } catch (InterruptedException e) { System.out.println(\"Thread is interrupted\"); } }); thread.start(); Thread.sleep(3000); // Allow thread to run for a while thread.interrupt(); // Interrupt the thread } } Daemon Threads A daemon thread in Java is a low-priority thread that runs in the background, typically handling tasks such as garbage collection or other housekeeping operations. The JVM terminates when all non-daemon threads have completed execution, even if daemon threads are still active. To create a daemon thread, the setDaemon(true) method is used on a Thread object before it is started.\nSHOW CODE Java public class Main { public static void main(String[] args) { Thread daemonThread = new Thread(() -\u003e { while (true) { System.out.println(\"Daemon thread is running\"); try { Thread.sleep(1000); } catch (InterruptedException e) { Thread.currentThread().interrupt(); } } }); daemonThread.setDaemon(true); // Mark as daemon daemonThread.start(); System.out.println(\"Main thread is ending\"); } } SHOW OUTPUT Output Main thread is ending Daemon thread is running ",
+  "wordCount" : "945",
+  "inLanguage": "en",
+  "datePublished": "2024-12-11T12:13:32+08:00",
+  "dateModified": "2024-12-11T12:13:32+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Multithreading Notes
+    </h1>
+    <div class="post-meta"><span title='2024-12-11 12:13:32 +0800 HKT'>Dec 11 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction-to-multithreading" aria-label="Introduction to Multithreading">Introduction to Multithreading</a><ul>
+                        
+                <li>
+                    <a href="#thread-creation-in-java" aria-label="Thread Creation In Java">Thread Creation In Java</a><ul>
+                        
+                <li>
+                    <a href="#extending-thread-class" aria-label="Extending Thread Class">Extending Thread Class</a></li>
+                <li>
+                    <a href="#implementing-runnable-interface" aria-label="Implementing Runnable Interface">Implementing Runnable Interface</a></li>
+                <li>
+                    <a href="#using-the-callable-interface" aria-label="Using the Callable Interface">Using the Callable Interface</a></li>
+                <li>
+                    <a href="#using-executors" aria-label="Using Executors">Using Executors</a></li></ul>
+                </li>
+                <li>
+                    <a href="#thread-termination-in-java" aria-label="Thread Termination In Java">Thread Termination In Java</a><ul>
+                        
+                <li>
+                    <a href="#using-a-flag" aria-label="Using a flag">Using a flag</a></li>
+                <li>
+                    <a href="#interrupting-a-thread" aria-label="Interrupting a Thread">Interrupting a Thread</a></li></ul>
+                </li>
+                <li>
+                    <a href="#daemon-threads" aria-label="Daemon Threads">Daemon Threads</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="introduction-to-multithreading">Introduction to Multithreading<a hidden class="anchor" aria-hidden="true" href="#introduction-to-multithreading">#</a></h1>
+<blockquote>
+<p>A <strong>process</strong> is a program in execution, while a <strong>thread</strong> is the smallest unit of execution within a process. <strong>Multithreading</strong> enables multiple threads to run almost simultaneously by using <em>context switching</em>, allowing them to share the resources of a process. This capability is commonly used to execute <em>asynchronous</em> or <em>parallel</em> operations efficiently.</p>
+</blockquote>
+<blockquote>
+<p><strong>Asynchonization</strong> refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting. In contrast, parallelism involves running tasks on multiple threads across multiple cores at exactly the same time, maximizing computational power.</p>
+</blockquote>
+<blockquote>
+<p>In Java, there are four ways to create threads: extending the <code>Thread</code> class, implementing the <code>Runnable</code> interface, using the <code>Callable</code> interface, and employing executors. Among these, <em>it is recommended to use executors</em> for managing thread pools to ensure better resource utilization.</p>
+</blockquote>
+<blockquote>
+<p>Every thread in Java goes through six states: new, runnable, blocked, waiting, timed waiting, and terminated. A thread is in the <code>new</code> state when created but not yet started. In the <code>runnable</code> state, it is ready to run but waiting for CPU time. The <code>blocked</code> state occurs when a thread is waiting for a monitor lock. A thread in the <code>waiting</code> state waits indefinitely for a signal, whereas a thread in the <code>timed waiting</code> state waits for a signal for a specified duration. Finally, a thread moves to the <code>terminated</code> state after completing its execution.</p>
+</blockquote>
+<blockquote>
+<p>A <strong>race condition</strong> occurs when multiple threads access shared data simultaneously, and the result depends on the execution order determined by the thread scheduler. This can lead to unedpected results. To avoid race conditions, it is essential to use <code>synchronized</code> blocks, <code>locks</code>, or the <code>volatile</code> keyword for thread-safe operations.</p>
+</blockquote>
+<blockquote>
+<p>Thread communication is common scenerio in the multithreading. The methods <code>wait()</code> and <code>notify()</code> are used for thread coordination when accessing shared resources. Additionally, blocking queues are often employed for producer-consumer patterns, enabling threads to communicate safely.</p>
+</blockquote>
+<blockquote>
+<p>Java provides robust concurency utilities under the <code>java.util.concurrent</code> package. These include thread pools created using <code>Executors</code>, as well as classes like <code>CountDownLatch</code>, <code>Semaphore</code>, <code>CyclicBarrier</code>, <code>ConcurrentHashMap</code>, and <code>CopyOnWriteArrayList</code>, all designed to simplify multithreading tasks.</p>
+</blockquote>
+<blockquote>
+<p>Despite its advantages, multithreading presents challenges such as <strong>deadlock</strong>, where two or more threads wait indefinitely for resources; <strong>livelocks</strong>, where threads keep changing states without making progress; and <strong>starvation</strong>, where a thread is unable to gain access to necessary resources due to priority or resource allocation.</p>
+</blockquote>
+<h2 id="thread-creation-in-java">Thread Creation In Java<a hidden class="anchor" aria-hidden="true" href="#thread-creation-in-java">#</a></h2>
+<h3 id="extending-thread-class">Extending Thread Class<a hidden class="anchor" aria-hidden="true" href="#extending-thread-class">#</a></h3>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class MyThread extends Thread {
+    @Override
+    public void run() {
+        System.out.println(this.getName() + " is running.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyThread myThread = new MyThread();
+        myThread.setName("MYTHREAD-0");
+        myThread.start();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h3 id="implementing-runnable-interface">Implementing Runnable Interface<a hidden class="anchor" aria-hidden="true" href="#implementing-runnable-interface">#</a></h3>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Main {
+    public static void main(String[] args) {
+        Thread thread = new Thread(() ->
+                System.out.println(Thread.currentThread().getName() + " is running."));
+        thread.start();
+    }
+}
+
+//class MyRunnable implements Runnable {
+//    @Override
+//    public void run() {
+//        System.out.println("Thread is running");
+//    }
+//}
+//
+//public class Main {
+//    public static void main(String[] args) {
+//        Thread thread = new Thread(new MyRunnable());
+//        thread.start(); // Starts a new thread
+//    }
+//}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h3 id="using-the-callable-interface">Using the Callable Interface<a hidden class="anchor" aria-hidden="true" href="#using-the-callable-interface">#</a></h3>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future&lt;String&gt; future = executor.submit(() ->
+                Thread.currentThread().getName() + " is running.");
+        System.out.println(future.get());
+        executor.shutdown();
+    }
+}
+
+class MyCallable implements Callable&lt;String&gt; {
+//    @Override
+//    public String call() {
+//        return "Thread executed";
+//    }
+//}
+//
+//public class Main {
+//    public static void main(String[] args) throws Exception {
+//        ExecutorService executor = Executors.newSingleThreadExecutor();
+//        Future&lt;String&gt; future = executor.submit(new MyCallable());
+//        System.out.println(future.get()); // Retrieves the result
+//        executor.shutdown();
+//    }
+//}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h3 id="using-executors">Using Executors<a hidden class="anchor" aria-hidden="true" href="#using-executors">#</a></h3>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        Runnable task1 = () -> System.out.println(Thread.currentThread().getName() + " executed");
+        Runnable task2 = () -> System.out.println(Thread.currentThread().getName() + " executed");
+
+        executor.execute(task1);
+        executor.execute(task2);
+
+        executor.shutdown();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="thread-termination-in-java">Thread Termination In Java<a hidden class="anchor" aria-hidden="true" href="#thread-termination-in-java">#</a></h2>
+<h3 id="using-a-flag">Using a flag<a hidden class="anchor" aria-hidden="true" href="#using-a-flag">#</a></h3>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Task implements Runnable {
+    // Use volatile to ensure visibility between thread
+    private volatile boolean running = true;
+
+
+    @Override
+    public void run() {
+        while (running) {
+            System.out.println("Thread is running.");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        System.out.println("Thread is stopping.");
+    }
+
+    public void stop() {
+        running = false;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Task task = new Task();
+        Thread thread = new Thread(task);
+        thread.start();
+
+        Thread.sleep(3000); // Allow thread to run for a while
+        task.stop(); // Signal thread to stop
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h3 id="interrupting-a-thread">Interrupting a Thread<a hidden class="anchor" aria-hidden="true" href="#interrupting-a-thread">#</a></h3>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new Thread(() -> {
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    System.out.println("Thread is running");
+                    Thread.sleep(1000);
+                }
+            } catch (InterruptedException e) {
+                System.out.println("Thread is interrupted");
+            }
+        });
+
+        thread.start();
+        Thread.sleep(3000); // Allow thread to run for a while
+        thread.interrupt(); // Interrupt the thread
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="daemon-threads">Daemon Threads<a hidden class="anchor" aria-hidden="true" href="#daemon-threads">#</a></h2>
+<blockquote>
+<p>A <strong>daemon thread</strong> in Java is a low-priority thread that runs in the background, typically handling tasks such as garbage collection or other housekeeping operations. The JVM terminates when all non-daemon threads have completed execution, even if daemon threads are still active. To create a daemon thread, the <code>setDaemon(true)</code> method is used on a <code>Thread</code> object before it is started.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >public class Main {
+    public static void main(String[] args) {
+        Thread daemonThread = new Thread(() -> {
+            while (true) {
+                System.out.println("Daemon thread is running");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+
+        daemonThread.setDaemon(true); // Mark as daemon
+        daemonThread.start();
+
+        System.out.println("Main thread is ending");
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >Main thread is ending
+Daemon thread is running
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/multithreading/">Multithreading</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design-notes/">
+    <span class="title">NEXT »</span>
+    
+    <br>
+    <span>Database Design Notes</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+</body>
+</html>

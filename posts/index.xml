@@ -6,8 +6,16 @@
     <description>Recent content in Posts on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Wed, 22 May 2024 21:07:21 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Dec 2024 12:13:32 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multithreading Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/</link>
+      <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/</guid>
+      <description>Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.
+Asynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting.</description>
+    </item>
     <item>
       <title>Database Design Notes</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design-notes/</link>

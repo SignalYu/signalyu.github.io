@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Multithreading on Signal&#39;s Blog</title>
+    <link>https://signalyu.github.io/tags/multithreading/</link>
+    <description>Recent content in Multithreading on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>EN</language>
+    <lastBuildDate>Wed, 11 Dec 2024 12:13:32 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/multithreading/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multithreading Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/</link>
+      <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/</guid>
+      <description>Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.
+Asynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting.</description>
+    </item>
+  </channel>
+</rss>
