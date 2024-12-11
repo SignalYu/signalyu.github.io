@@ -33,13 +33,6 @@ Databases can be broadly categorized into two types: Relational database, primar
 SHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage.</description>
     </item>
     <item>
-      <title>Technical Scenario Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/technical-scenario/technical-scenario/</link>
-      <pubDate>Wed, 10 May 2023 20:27:19 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/technical-scenario/technical-scenario/</guid>
-      <description>Design Repsonse Entity Global Exception Login Interception </description>
-    </item>
-    <item>
       <title>Coding Patterns for Interview Questions</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/</link>
       <pubDate>Fri, 02 Dec 2022 10:15:04 +0800</pubDate>
