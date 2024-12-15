@@ -208,7 +208,11 @@
                     <a href="#intervals-intersection" aria-label="Intervals Intersection">Intervals Intersection</a></li></ul>
                 </li>
                 <li>
-                    <a href="#in-place-reversal-of-a-linked-list" aria-label="In-place Reversal of a Linked List">In-place Reversal of a Linked List</a></li>
+                    <a href="#in-place-reversal-of-a-linked-list" aria-label="In-place Reversal of a Linked List">In-place Reversal of a Linked List</a><ul>
+                        
+                <li>
+                    <a href="#reverse-linked-list" aria-label="Reverse Linked List">Reverse Linked List</a></li></ul>
+                </li>
                 <li>
                     <a href="#hash-maps" aria-label="Hash Maps">Hash Maps</a></li>
                 <li>
@@ -2146,6 +2150,151 @@ Go to Leetcode 🔗
 
 <hr>
 <h1 id="in-place-reversal-of-a-linked-list">In-place Reversal of a Linked List<a hidden class="anchor" aria-hidden="true" href="#in-place-reversal-of-a-linked-list">#</a></h1>
+<blockquote>
+<p>The <strong>In-place Reversal of a Linked List</strong> pattern is a commonly used approach to solve linked-list-related problems efficiently without extra space. It relies on maintaining three pointers:</p>
+</blockquote>
+<ol>
+<li><code>prev</code>: Points to the previous node. Initially set to <code>null</code> since there is no node before the <code>head</code>.</li>
+<li><code>current</code>: Points to the node currently being processed.</li>
+<li><code>next</code>: Points to the next node, ensuring the remaining list is not lost during the reversal process.</li>
+</ol>
+<blockquote>
+<p>This pattern typically involves the following three steps:</p>
+</blockquote>
+<ol>
+<li><strong>Initialization</strong>: Set <code>prev = null</code> and <code>current = head</code> to start processing from the head of list.</li>
+<li><strong>Iteration</strong>:
+<ul>
+<li>Save the <code>next</code> node (<code>next = current.next</code>) to keep track of the remaining list.</li>
+<li>Reverse the link by updating <code>current.next</code> to point to <code>prev</code>.</li>
+<li>Move the <code>prev</code> pointer forward (<code>prev = current</code>).</li>
+<li>Move the <code>current</code> pointer forward (<code>current = next</code>);</li>
+</ul>
+</li>
+<li><strong>Termination</strong>: When <code>current</code> becomes <code>null</code>, the <code>prev</code> pointer will point to the new head of the reversed linked list.</li>
+</ol>
+<hr>
+<h2 id="reverse-linked-list">Reverse Linked List<a hidden class="anchor" aria-hidden="true" href="#reverse-linked-list">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong><br>
+Given the head of a singly linked list, reverse the list in-place and return the new head of the reversed list.</p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/15-reverse-linked-list.png" alt="Reverse Linked List"  />
+</p>
+<hr>
+<p><strong>Constraints</strong></p>
+<ul>
+<li>The number of nodes in the list is in the range: $[0, 5000]$.</li>
+<li>Each node’s value is within the range: $[-5000, 5000]$.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/reverse-linked-list" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null; // Tracks the previous node
+        ListNode current = head; // Tracks the current node
+
+        // Traverse and reverse the list
+        while (current != null) {
+            ListNode next = current.next; // Save the next node
+            current.next = prev; // Reverse the link
+            prev = current; // Move prev forward
+            current = next; // Move current forward
+        }
+
+        return prev; // New head of the reversed list
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p><strong>Visulization</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/16-reverse-linked-list-2.png" alt="Reverse Linked List Illustration"  />
+</p>
+
+</details></p>
+
 <hr>
 <h1 id="hash-maps">Hash Maps<a hidden class="anchor" aria-hidden="true" href="#hash-maps">#</a></h1>
 <hr>
