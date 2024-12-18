@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>Coding Patterns for Interview Questions | Signal&#39;s Blog</title>
-<meta name="keywords" content="Coding Patterns">
+<meta name="keywords" content="Data Structure &amp; Algorithms">
 <meta name="description" content="Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers &ndash; typically labeled &ldquo;left&rdquo; and &ldquo;right&rdquo; &ndash; are initialized and move in a specific direction based on the problem&rsquo;s requirements.">
 <meta name="author" content="Signal Yu">
 <link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/">
@@ -96,7 +96,7 @@
   "name": "Coding Patterns for Interview Questions",
   "description": "Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers \u0026ndash; typically labeled \u0026ldquo;left\u0026rdquo; and \u0026ldquo;right\u0026rdquo; \u0026ndash; are initialized and move in a specific direction based on the problem\u0026rsquo;s requirements.",
   "keywords": [
-    "Coding Patterns"
+    "Data Structure \u0026 Algorithms"
   ],
   "articleBody": "Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers – typically labeled “left” and “right” – are initialized and move in a specific direction based on the problem’s requirements.\nTwo Sum II - Input Array Is Sorted SHOW PROBLEM Problem Statement\nGiven a 1-indexed array of integers, numbers, sorted in non-decreasing order, find two numbers that add up to a specific target. Let these two numbers be numbers[index1] and numbers[index2], where 1 \u003c= index1 \u003c index2 \u003c= numbers.length.\nReturn the indices of the two numbers, index1 and index2, incremented by one, as an integer array [index1, index2] of length 2.\nThe problem guarantees that there is exactly one solution. You may not use the same element twice. Your solution must use only constant extra space. Example 1:\nInput: numbers = [2,7,11,15], target = 9 Output: [1, 2] Explanation: The sum of 2 and 7 is 9, so index1 = 1, index2 = 2. We return [1, 2]. Example 2:\nInput: numbers = [2,3,4], target = 6 Output: [1, 3] Explanation: The sum of 2 and 4 is 6, so index1 = 1, index2 = 3. We return [1, 3]. Example 3:\nInput: numbers = [-1,0], target = -1 Output: [1, 2] Explanation: The sum of -1 and 0 is -1, so index1 = 1, index2 = 2. We return [1, 2]. Constraints:\n2 \u003c= numbers.length \u003c= 30,000 -1000 \u003c= numbers[i] \u003c= 1000 numbers is sorted in non-decreasing order. -1000 \u003c= target \u003c= 1000 There is exactly one solution for each test case. Go to Leetcode 🔗 SHOW CODE Java class Solution { public int[] twoSum(int[] numbers, int target) { int left = 0, right = numbers.length - 1; // Iterate while left pointer is before right pointer while (left \u003c right) { int currentSum = numbers[left] + numbers[right]; // Check if the current sum matches the target if (currentSum == target) { break; } // Adjust the pointers to move towards the target sum if (currentSum \u003c target) { left++; // Increase sum by moving left pointer right } else { right--; // Decrease sum by moving right pointer left } } // Reture 1-indexed result return new int[] { left + 1, right + 1 }; } } SHOW NOTES Algorithm Walkthrough\nnums = [1, 2, 3, 4, 5, 8] target = 7 Initialize pointers: left = 0, right = 5 First iteration: currentSum = 1 + 8 = 9 (greater than the target) Decrease the right pointer to 4 Second iteration: currentSum = 1 + 5 = 6 (less than the target) Increase the left pointer to 1 Third iteration: currentSum = 2 + 4 = 6 (equals the target) Return the indices [1, 3]. Visualization\n3Sum SHOW PROBLEM Problem Statement\nGiven an integer array nums, return all unique triplets [nums[i], nums[j], nums[k]] such that:\ni != j, i != k, and j != k nums[i] + nums[j] + nums[k] == 0 The solution set must not contain duplicate triplets.\nExample 1:\nInput: nums = [-1, 0, 1, 2, -1, -4] Output: [[-1, -1, 2], [-1, 0, 1]] Explanation: nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 The distinct triplets are [-1, 0, 1] and [-1, -1, 2].\nNote: The order of the output and the order of the triplets does not matter.\nExample 2:\nInput: nums = [0, 1, 1] Output: [] Explanation: The only possible triplet does not sum up to 0. Example 3:\nInput: nums = [0, 0, 0] Output: [[0, 0, 0]] Explanation: The only possible triplet sums up to 0. Constraints:\n3 \u003c= nums.length \u003c= 3000 10^5 \u003c= nums[i] \u003c= 10^5 Go to Leetcode 🔗 SHOW CODE Java class Solution { public List",
   "wordCount" : "693",
@@ -211,7 +211,9 @@
                     <a href="#in-place-reversal-of-a-linked-list" aria-label="In-place Reversal of a Linked List">In-place Reversal of a Linked List</a><ul>
                         
                 <li>
-                    <a href="#reverse-linked-list" aria-label="Reverse Linked List">Reverse Linked List</a></li></ul>
+                    <a href="#reverse-linked-list" aria-label="Reverse Linked List">Reverse Linked List</a></li>
+                <li>
+                    <a href="#reverse-a-sublist" aria-label="Reverse a Sublist">Reverse a Sublist</a></li></ul>
                 </li>
                 <li>
                     <a href="#hash-maps" aria-label="Hash Maps">Hash Maps</a></li>
@@ -222,7 +224,37 @@
                 <li>
                     <a href="#tree-breadth-first-search" aria-label="Tree Breadth First Search">Tree Breadth First Search</a></li>
                 <li>
-                    <a href="#tree-depth-first-search" aria-label="Tree Depth First Search">Tree Depth First Search</a>
+                    <a href="#tree-depth-first-search" aria-label="Tree Depth First Search">Tree Depth First Search</a></li>
+                <li>
+                    <a href="#cyclic-sort" aria-label="Cyclic Sort">Cyclic Sort</a></li>
+                <li>
+                    <a href="#matrix-traversal" aria-label="Matrix Traversal">Matrix Traversal</a></li>
+                <li>
+                    <a href="#subsets" aria-label="Subsets">Subsets</a></li>
+                <li>
+                    <a href="#modified-binary-tree" aria-label="Modified Binary Tree">Modified Binary Tree</a></li>
+                <li>
+                    <a href="#bitwise-xor" aria-label="Bitwise XOR">Bitwise XOR</a></li>
+                <li>
+                    <a href="#greedy-algorithm" aria-label="Greedy Algorithm">Greedy Algorithm</a></li>
+                <li>
+                    <a href="#dynamic-programming" aria-label="Dynamic Programming">Dynamic Programming</a></li>
+                <li>
+                    <a href="#backtracking" aria-label="Backtracking">Backtracking</a></li>
+                <li>
+                    <a href="#union-find" aria-label="Union Find">Union Find</a></li>
+                <li>
+                    <a href="#topological-sort" aria-label="Topological Sort">Topological Sort</a></li>
+                <li>
+                    <a href="#ordered-set" aria-label="Ordered Set">Ordered Set</a></li>
+                <li>
+                    <a href="#trie" aria-label="Trie">Trie</a></li>
+                <li>
+                    <a href="#top-k-elements" aria-label="Top &lsquo;K&rsquo; Elements">Top &lsquo;K&rsquo; Elements</a></li>
+                <li>
+                    <a href="#k-way-merge" aria-label="K-way Merge">K-way Merge</a></li>
+                <li>
+                    <a href="#two-heaps" aria-label="Two Heaps">Two Heaps</a>
                 </li>
             </ul>
         </div>
@@ -2296,25 +2328,202 @@ class Solution {
 </details></p>
 
 <hr>
+<h2 id="reverse-a-sublist">Reverse a Sublist<a hidden class="anchor" aria-hidden="true" href="#reverse-a-sublist">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p>Given the head of a LinkedList and two positions, <strong>left</strong> and <strong>right</strong>, reverse the portion of the LinkedList from position <strong>left</strong> to position <strong>right</strong>.</p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/17-reverse-a-sub-list.png" alt="Reverse a Sub List"  />
+</p>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes in the list is <strong>n</strong>.</li>
+<li><strong>1 &lt;= n &lt;= 500</strong></li>
+<li><strong>-500 &lt;= Node.val &lt;= 500</strong></li>
+<li><strong>1 &lt;= left &lt;= right &lt;= n</strong></li>
+</ul>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/reverse-linked-list-ii" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode prev = null, current = head;
+        
+        // Skip the first left - 1 node to reach the node at position left
+        for (int i = 1; i < left && current != null; i++) {
+            prev = current;
+            current = current.next;
+        }
+
+        // Save the node at position left - 1 to reconnect the reversed sublist
+        ListNode lastNodeOfFirstPart = prev;
+        // After reversing, the left node will become the last node of the reversed sublist
+        ListNode lastNodeOfReversedList = current;
+
+        // Reverse the node from left to right
+        ListNode next = null;
+        for (int i = 1; i <= right - left + 1 && current != null; i++) {
+            next = current.next; // Save the next node
+            current.next = prev; // Reverse the link
+            prev = current; // Move the 'prev' node forward
+            current = next; // Move the 'current' node forward
+        }
+
+        // Reconnect the reversed sublist with the rest of the list
+        if (lastNodeOfFirstPart != null) {
+            // Connect with the new head of the sublist
+            lastNodeOfFirstPart.next = prev;
+        } else { // left == 1 in this case
+            head = prev;
+        }
+
+        // Connect the tail of the reversed sublist to the remaining list
+        lastNodeOfReversedList.next = current;
+
+        return head;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <ol>
+<li>Skip the first <code>left - 1</code> nodes to reach the node at position <code>left</code></li>
+<li>Save the node at position <code>left - 1</code> to later reconnect it with the reversed sublist.</li>
+<li>Save the node at position <code>left</code> before reversing, after reversing, the node will become the last node of the reversed sublist.</li>
+<li>Reverse the nodes from position <code>left</code> to <code>right</code></li>
+<li>Reconnect the node at position <code>left - 1</code> to the head of the reversed sublist, and connect the node at position <code>right + 1</code> to the tail of the reversed sublist.</li>
+</ol>
+
+</details></p>
+
+<hr>
+<h2 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h2>
 <h1 id="hash-maps">Hash Maps<a hidden class="anchor" aria-hidden="true" href="#hash-maps">#</a></h1>
 <hr>
 <h1 id="prefix-sum">Prefix Sum<a hidden class="anchor" aria-hidden="true" href="#prefix-sum">#</a></h1>
 <hr>
 <h1 id="monotonic-stack">Monotonic Stack<a hidden class="anchor" aria-hidden="true" href="#monotonic-stack">#</a></h1>
 <hr>
-<hr>
 <h1 id="tree-breadth-first-search">Tree Breadth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-breadth-first-search">#</a></h1>
 <hr>
 <h1 id="tree-depth-first-search">Tree Depth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-depth-first-search">#</a></h1>
 <hr>
-<h1 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h1>
+<h1 id="cyclic-sort">Cyclic Sort<a hidden class="anchor" aria-hidden="true" href="#cyclic-sort">#</a></h1>
+<hr>
+<h1 id="matrix-traversal">Matrix Traversal<a hidden class="anchor" aria-hidden="true" href="#matrix-traversal">#</a></h1>
+<hr>
+<h1 id="subsets">Subsets<a hidden class="anchor" aria-hidden="true" href="#subsets">#</a></h1>
+<hr>
+<h1 id="modified-binary-tree">Modified Binary Tree<a hidden class="anchor" aria-hidden="true" href="#modified-binary-tree">#</a></h1>
+<hr>
+<h1 id="bitwise-xor">Bitwise XOR<a hidden class="anchor" aria-hidden="true" href="#bitwise-xor">#</a></h1>
+<hr>
+<h1 id="greedy-algorithm">Greedy Algorithm<a hidden class="anchor" aria-hidden="true" href="#greedy-algorithm">#</a></h1>
+<hr>
+<h1 id="dynamic-programming">Dynamic Programming<a hidden class="anchor" aria-hidden="true" href="#dynamic-programming">#</a></h1>
+<hr>
+<h1 id="backtracking">Backtracking<a hidden class="anchor" aria-hidden="true" href="#backtracking">#</a></h1>
+<hr>
+<h1 id="union-find">Union Find<a hidden class="anchor" aria-hidden="true" href="#union-find">#</a></h1>
+<hr>
+<h1 id="topological-sort">Topological Sort<a hidden class="anchor" aria-hidden="true" href="#topological-sort">#</a></h1>
+<hr>
+<h1 id="ordered-set">Ordered Set<a hidden class="anchor" aria-hidden="true" href="#ordered-set">#</a></h1>
+<hr>
+<h1 id="trie">Trie<a hidden class="anchor" aria-hidden="true" href="#trie">#</a></h1>
+<hr>
+<h1 id="top-k-elements">Top &lsquo;K&rsquo; Elements<a hidden class="anchor" aria-hidden="true" href="#top-k-elements">#</a></h1>
+<hr>
+<h1 id="k-way-merge">K-way Merge<a hidden class="anchor" aria-hidden="true" href="#k-way-merge">#</a></h1>
+<hr>
+<h1 id="two-heaps">Two Heaps<a hidden class="anchor" aria-hidden="true" href="#two-heaps">#</a></h1>
+<hr>
+<h1 id="heading-1"><a hidden class="anchor" aria-hidden="true" href="#heading-1">#</a></h1>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://signalyu.github.io/tags/coding-patterns/">Coding Patterns</a></li>
+      <li><a href="https://signalyu.github.io/tags/data-structure--algorithms/">Data Structure &amp; Algorithms</a></li>
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/design-patterns/1-design-patterns/">
