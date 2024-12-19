@@ -213,7 +213,9 @@
                 <li>
                     <a href="#reverse-linked-list" aria-label="Reverse Linked List">Reverse Linked List</a></li>
                 <li>
-                    <a href="#reverse-a-sublist" aria-label="Reverse a Sublist">Reverse a Sublist</a></li></ul>
+                    <a href="#reverse-a-sublist" aria-label="Reverse a Sublist">Reverse a Sublist</a></li>
+                <li>
+                    <a href="#reverse-nodes-in-k-group" aria-label="Reverse Nodes in k-Group">Reverse Nodes in k-Group</a></li></ul>
                 </li>
                 <li>
                     <a href="#hash-maps" aria-label="Hash Maps">Hash Maps</a></li>
@@ -2475,7 +2477,180 @@ class Solution {
 </details></p>
 
 <hr>
-<h2 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h2>
+<h2 id="reverse-nodes-in-k-group">Reverse Nodes in k-Group<a hidden class="anchor" aria-hidden="true" href="#reverse-nodes-in-k-group">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong>:</p>
+<p>Given the head of a linked list, reverse the nodes of the list in groups of <strong>k</strong> at a time, and return the modified list.</p>
+<ul>
+<li><strong>k</strong> is a positive integer and is less than or equal to the length of the linked list.</li>
+<li>If the number of nodes is not a multiple of <strong>k</strong>, then the remaining nodes at the end should remain as they are (i.e., not reversed).</li>
+<li>You are not allowed to alter the values of the nodes in the list; only the nodes themselves may be rearranged.</li>
+</ul>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: head = [1, 2, 3, 4, 5], k = 2</li>
+<li><strong>Output</strong>: [2, 1, 4, 3, 5]</li>
+</ul>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/18-reverse-nodes-in-k-group-example-1.jpg" alt="Reverse Nodes in k-Group: Example 1"  />
+</p>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: head = [1, 2, 3, 4, 5], k = 3</li>
+<li><strong>Output</strong>: [3, 2, 1, 4, 5]</li>
+</ul>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/19-reverse-nodes-in-k-group-example-2.jpg" alt="Reverse Nodes in k-Group: Example 2"  />
+</p>
+<hr>
+
+</details></p>
+
+
+<a href="" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        // Return the original list if the list is empty or k is 1
+        if (head == null || k == 1) {
+            return head;
+        }
+
+        // Count the total number of the list
+        ListNode temp = head;
+        int count = 0;
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+
+        ListNode prev = null, current = head, next = null;
+        while (current != null && count >= k) {
+            ListNode lastNodeOfPrevGroup = prev;
+            // After reversing, the current node will become the last node of the reversed list
+            ListNode lastNodeOfReversedList = current;
+
+            // Reverse the list in groups of size k
+            for (int i = 0; i < k; i++) {
+                next = current.next;
+                current.next = prev;
+                prev = current;
+                current = next;
+                count--;
+            }
+
+            // Connect the last node of the reversed sublist to the start node of the
+            // remaining list
+            lastNodeOfReversedList.next = current;
+
+            // Connect with the previous group
+            if (lastNodeOfPrevGroup != null) {
+                // After reversing, the prev node is the head node of the sublist
+                lastNodeOfPrevGroup.next = prev;
+            } else {
+                // When previous group is null, the prev node becomes the head of the original list
+                head = prev;
+            }
+
+            // Break the loop when current is null or count is less than k
+            if (current == null || count < k) {
+                break;
+            }
+
+            // Update the prev node for next iteration
+            prev = lastNodeOfReversedList;
+        }
+
+        return head;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p>The first step to solve this problem is to track the last node of the previous group and the last node of the reversed sublist. When the previous group is <code>null</code>, the head of the reversed sublist becomes the new head of the original list.</p>
+<p>Before reversing, the <code>current</code> node points to the head of the sublist. After reversing, the head of the sublist becomes the last node of the reversed segment. Therefore, the last node of the reversed list can be tracked by setting <code>lastNodeOfReversedList = current</code>. To track the last node of the previous group, simply setting <code>lastNodeOfPreviousGroup = prev</code>.</p>
+<p>After the reversal, the <code>prev</code> node will point to the head of the reversed sublist, and the <code>current</code> node (if it&rsquo;s not <code>null</code>) will point to the head of the next sublist. To maintain the list structure, There are two key steps need to do, the first step is connecting the last node of the previous group to the head (<code>prev</code> after reversal) of the reversed sublist, the second step is connecting the last node of the reversed sublist to the remaining node (if any).</p>
+<p>Finally, update the <code>prev</code> node to be the last node of the reversed sublist, preparing it for the next iteration.</p>
+
+</details></p>
+
+<hr>
 <h1 id="hash-maps">Hash Maps<a hidden class="anchor" aria-hidden="true" href="#hash-maps">#</a></h1>
 <hr>
 <h1 id="prefix-sum">Prefix Sum<a hidden class="anchor" aria-hidden="true" href="#prefix-sum">#</a></h1>
@@ -2516,7 +2691,7 @@ class Solution {
 <hr>
 <h1 id="two-heaps">Two Heaps<a hidden class="anchor" aria-hidden="true" href="#two-heaps">#</a></h1>
 <hr>
-<h1 id="heading-1"><a hidden class="anchor" aria-hidden="true" href="#heading-1">#</a></h1>
+<h1 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h1>
 
 
   </div>
