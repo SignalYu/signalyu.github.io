@@ -218,7 +218,15 @@
                     <a href="#reverse-nodes-in-k-group" aria-label="Reverse Nodes in k-Group">Reverse Nodes in k-Group</a></li></ul>
                 </li>
                 <li>
-                    <a href="#hash-maps" aria-label="Hash Maps">Hash Maps</a></li>
+                    <a href="#hash-maps" aria-label="Hash Maps">Hash Maps</a><ul>
+                        
+                <li>
+                    <a href="#first-unique-character-in-a-string" aria-label="First Unique Character in a String">First Unique Character in a String</a></li>
+                <li>
+                    <a href="#maximum-number-of-balloons" aria-label="Maximum Number of Balloons">Maximum Number of Balloons</a></li>
+                <li>
+                    <a href="#longest-palindrome" aria-label="Longest Palindrome">Longest Palindrome</a></li></ul>
+                </li>
                 <li>
                     <a href="#prefix-sum" aria-label="Prefix Sum">Prefix Sum</a></li>
                 <li>
@@ -542,7 +550,7 @@ Go to Leetcode 🔗
     <div class="code_block active">
         <pre><code class="language-java" data-lang="java" >class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> triplets = new ArrayList<>();
+        List<List<Integer>> triplets = new ArrayList&lt;&gt;();
 
         // Sort the array to enable the two-pointer approach
         Arrays.sort(nums);
@@ -1684,7 +1692,7 @@ Go to Leetcode 🔗
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
 
         // List to store merged intervals
-        List<int[]> mergedIntervals = new ArrayList<>();
+        List<int[]> mergedIntervals = new ArrayList&lt;&gt;();
 
         // Initialize the first interval as the current interval
         mergedIntervals.add(intervals[0]);
@@ -2063,7 +2071,7 @@ Go to Leetcode 🔗
     <div class="code_block active">
         <pre><code class="language-java" data-lang="java" >class Solution {
     public int[][] intervalIntersection(int[][] arr1, int[][] arr2) {
-        List<int[]> intersections = new ArrayList<>();
+        List<int[]> intersections = new ArrayList&lt;&gt;();
         int i = 0, j = 0;
 
         // Iterate over both interval lists to find all intersections
@@ -2652,6 +2660,439 @@ class Solution {
 
 <hr>
 <h1 id="hash-maps">Hash Maps<a hidden class="anchor" aria-hidden="true" href="#hash-maps">#</a></h1>
+<figure class="align-center ">
+    <img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/20-hash-map-data-structure.svg#center" width="100%" height="100%"/> <figcaption>
+            Hash Map Data Structure
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>A <strong>Hash Map</strong> is a data structure that stores key-value pairs, enabling efficient <em>lookup</em>, <em>insertion</em>, and <em>deletion</em> operations. Under most conditions, it provides <strong>constant time complexity (O(1))</strong> for these operations. The <strong>Hash Map Pattern</strong> takes advantage of the hash map&rsquo;s efficiency to store and retrive data quickly. It is commonly used to solve problems involving the <strong>calculation of element frequencies in a sequency or array</strong>.</p>
+</blockquote>
+<hr>
+<h2 id="first-unique-character-in-a-string">First Unique Character in a String<a hidden class="anchor" aria-hidden="true" href="#first-unique-character-in-a-string">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong></p>
+<p>Given a string, find the position of the first character that appears only once. If no such character exists, return <code>-1</code>.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;apple&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>0</code></li>
+<li><strong>Justification</strong>: The first character <code>'a'</code> appears only once in the string, and it is located at index 0.</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;abcab&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>2</code></li>
+<li><strong>Justification</strong>: The first character that appears only once is <code>'c'</code>, which is located at index 2.</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;abab&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>-1</code></li>
+<li><strong>Justification</strong>: All characters in the string appear more than once, so there is no character that appears only once.</li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 10^5</code></li>
+<li><code>s</code> consists of only lowercase English letters.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/first-unique-character-in-a-string" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int firstUniqChar(String s) {
+        // Use a HashMap to store the frequency of each character
+        Map&lt;Character, Integer&gt; charFrequencyMap = new HashMap&lt;&gt;();
+
+        // Populate the map with the frequency of each character
+        for (char c : s.toCharArray()) {
+            charFrequencyMap.put(c, charFrequencyMap.getOrDefault(c, 0) + 1);
+        }
+
+        // Iterate over the string to find the index of the first unique character
+        for (int i = 0; i < s.length(); i++) {
+            if (charFrequencyMap.get(s.charAt(i)) == 1) {
+                return i; // Return the index of the first unique character
+            }
+        }
+
+        // No unique character found, return -1
+        return -1;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p><strong>Virsulization:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/21-first-unique-character.png" alt="First Unique Character in a String"  />
+</p>
+
+</details></p>
+
+<hr>
+<h2 id="maximum-number-of-balloons">Maximum Number of Balloons<a hidden class="anchor" aria-hidden="true" href="#maximum-number-of-balloons">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong></p>
+<p>Given a string, determine the maximum number of times the word &ldquo;balloon&rdquo; can be formed using the characters from the string. Each character in the string can be used only once.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;balloonballoon&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>2</code></li>
+<li><strong>Justification</strong>: The word &ldquo;balloon&rdquo; can be formed twice from the given string.</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;bbaall&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>0</code></li>
+<li><strong>Justification</strong>: The word &ldquo;balloon&rdquo; cannot be formed because the character &lsquo;o&rsquo; is missing twice.</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;balloonballoooon&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>2</code></li>
+<li><strong>Justification</strong>: The word &ldquo;balloon&rdquo; can be formed twice, even though there are extra &lsquo;o&rsquo; characters.</li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= text.length &lt;= 10^4</code></li>
+<li><code>text</code> consists of lowercase English letters only.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/maximum-number-of-balloons" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int maxNumberOfBalloons(String text) {
+        // Define the required frequencies of characters to form 'balloon'
+        Map&lt;Character, Integer&gt; requiredCharMap = Map.of(
+                'b', 1,
+                'a', 1,
+                'l', 2,
+                'o', 2,
+                'n', 1);
+
+        // Calculate the frequencies of characters that are part of 'balloon'
+        Map&lt;Character, Integer&gt; availableCharMap = new HashMap&lt;&gt;();
+        for (char c : text.toCharArray()) {
+            if (requiredCharMap.containsKey(c)) {
+                availableCharMap.put(c, availableCharMap.getOrDefault(c, 0) + 1);
+            }
+        }
+        
+        // Calculate the maximum available count of the word 'balloon'
+        int maxCount = Integer.MAX_VALUE;
+        if (availableCharMap.size() == requiredCharMap.size()) {
+            for (char c : availableCharMap.keySet()) {
+                int requiredCount = requiredCharMap.get(c);
+                int availableCount = availableCharMap.get(c);
+                maxCount = Math.min(maxCount, availableCount / requiredCount);
+            }
+        }
+
+        return (maxCount == Integer.MAX_VALUE) ? 0 : maxCount;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p><strong>Virsulization:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/23-longest-palindrome.png" alt="Maximum Number of Balloons"  />
+</p>
+
+</details></p>
+
+<hr>
+<h2 id="longest-palindrome">Longest Palindrome<a hidden class="anchor" aria-hidden="true" href="#longest-palindrome">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement:</strong></p>
+<p>Given a string, determine the length of the longest palindrome that can be constructed using the characters from the string. Return the maximum possible length of the palindromic string.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;applepie&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>5</code></li>
+<li><strong>Justification</strong>: The longest palindrome that can be formed is <code>&quot;pepep&quot;</code>, which has a length of 5. Other valid palindromes are also of length 5.</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;aabbcc&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>6</code></li>
+<li><strong>Justification</strong>: We can form the palindrome <code>&quot;abccba&quot;</code>, which has a length of 6.</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>&quot;bananas&quot;</code></li>
+<li><strong>Expected Output</strong>: <code>5</code></li>
+<li><strong>Justification</strong>: The longest palindrome that can be formed is <code>&quot;anana&quot;</code>, which has a length of 5.</li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 2000</code></li>
+<li><code>s</code> consists of lowercase and/or uppercase English letters only.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/longest-palindrome" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int longestPalindrome(String s) {
+        // Calculate the frequency of each character in the string
+        Map&lt;Character, Integer&gt; frequencyMap = new HashMap&lt;&gt;();
+        for (char c : s.toCharArray()) {
+            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
+        }
+
+        // Flag to track if any character has an odd frequency
+        boolean oddFound = false;
+        int maxLength = 0;
+
+        // Calculate the maximum possible length of the palindrome
+        for (int count : frequencyMap.values()) {
+            if (count % 2 == 0) {
+                // Add even counts directly to the length of the palindorme
+                maxLength += count;
+            } else {
+                maxLength += count - 1; // Add the even parts of odd counts
+                oddFound = true; // Mark an odd frequency character exists
+            }
+        }
+
+        // For characters has an odd count, one can be placed in the middle of the palindrome
+        return oddFound ? maxLength + 1 : maxLength;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <blockquote>
+<p>To solve this problem, the first step is to calculate the frequency of each character in the original string. If no character has an odd frequency, simply add the frequency of each character to the length of the palindrome. If there are characters with an odd frequency, one of those characters can be placed in the middle of the palindrome.</p>
+</blockquote>
+<blockquote>
+<p>Therefore, to get the maximum length of the palindrome, two key steps are involved. First, add the even part of each character&rsquo;s frequency to the palindrome length. Then, if there is any character with an odd count, increment the length by 1, representing the character placed in the middle of the palindrome.</p>
+</blockquote>
+<hr>
+<p><strong>Virsulization:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/23-longest-palindrome.png" alt="Longest Palindrome"  />
+</p>
+
+</details></p>
+
 <hr>
 <h1 id="prefix-sum">Prefix Sum<a hidden class="anchor" aria-hidden="true" href="#prefix-sum">#</a></h1>
 <hr>
