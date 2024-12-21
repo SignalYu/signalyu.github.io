@@ -228,7 +228,11 @@
                     <a href="#longest-palindrome" aria-label="Longest Palindrome">Longest Palindrome</a></li></ul>
                 </li>
                 <li>
-                    <a href="#prefix-sum" aria-label="Prefix Sum">Prefix Sum</a></li>
+                    <a href="#prefix-sum" aria-label="Prefix Sum">Prefix Sum</a><ul>
+                        
+                <li>
+                    <a href="#find-the-middle-index-in-array" aria-label="Find the Middle Index in Array">Find the Middle Index in Array</a></li></ul>
+                </li>
                 <li>
                     <a href="#monotonic-stack" aria-label="Monotonic Stack">Monotonic Stack</a></li>
                 <li>
@@ -3095,6 +3099,161 @@ Go to Leetcode 🔗
 
 <hr>
 <h1 id="prefix-sum">Prefix Sum<a hidden class="anchor" aria-hidden="true" href="#prefix-sum">#</a></h1>
+<blockquote>
+<p>A <strong>prefix sum</strong> refers to the cumulative sum of an array from the begining up to a specified index. The <strong>prefix sum pattern</strong> is a programming technique commonly used to solve problems related to subarrays, such as calculating the range sum, range maximum/minimum, or frequency counting.</p>
+</blockquote>
+<blockquote>
+<p>To calculate the prefix sum, the steps typically include:</p>
+</blockquote>
+<ol>
+<li>Initialze a <code>prefix</code> array with the same length as the original array.</li>
+<li>Assign <code>prefix[0] = arr[0]</code>.</li>
+<li>Iterate through the array from index <code>1</code> to <code>n - 1</code>, set <code>prefix[i] = arr[i] + prefix[i - 1]</code></li>
+</ol>
+<blockquote>
+<p>Once the prefix sum array is constructed, the time complexity for calculating the sum of any subarray is <strong>O(1)</strong>, makeing this technique very efficient.</p>
+</blockquote>
+<hr>
+<h2 id="find-the-middle-index-in-array">Find the Middle Index in Array<a hidden class="anchor" aria-hidden="true" href="#find-the-middle-index-in-array">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement:</strong></p>
+<p>Given an integer array <code>nums</code>, return the leftmost <strong>middleIndex</strong> (i.e., the smallest index among all possible middle indices).</p>
+<p>A <strong>middleIndex</strong> is an index where the sum of the numbers to the left of this index is equal to the sum of the numbers to the right of this index.</p>
+<ul>
+<li>You can consider the left sum to be 0 when <code>middleIndex == 0</code>, and the right sum to be 0 when <code>middleIndex == nums.length - 1</code>.</li>
+<li>If no middle index exists in the array, return <code>-1</code>.</li>
+</ul>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>nums = [1, 7, 3, 6, 5, 6]</code></li>
+<li><strong>Expected Output</strong>: <code>3</code></li>
+<li><strong>Justification</strong>: The sum of the numbers to the left of index 3 (<code>1 + 7 + 3 = 11</code>) is equal to the sum of the numbers to the right of index 3 (<code>5 + 6 = 11</code>).</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>nums = [2, 1, -1]</code></li>
+<li><strong>Expected Output</strong>: <code>0</code></li>
+<li><strong>Justification</strong>: The sum of the numbers to the left of index 0 is considered 0. The sum of the numbers to the right of index 0 (<code>1 + -1 = 0</code>) is also 0.</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>nums = [2, 3, 5, 5, 3, 2]</code></li>
+<li><strong>Expected Output</strong>: <code>-1</code></li>
+<li><strong>Justification</strong>: There is no index in the array where the left and right sums are equal.</li>
+</ul>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/find-the-middle-index-in-array" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int findMiddleIndex(int[] nums) {
+        // Calculate the total sum of the array
+        int totalSum = Arrays.stream(nums).sum();
+
+        int leftSum = 0;
+        // Iterate through the array to find the middle index
+        for (int i = 0; i < nums.length; i++) {
+            // Calculate the right sum
+            int rightSum = totalSum - leftSum - nums[i];
+
+            // Found the middle index if left sum equals to right sum
+            if (leftSum == rightSum) {
+                return i;
+            }
+
+            // Update the left sum for next iteration
+            leftSum += nums[i];
+        }
+
+        // Return -1 if middle index is found
+        return -1;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p><strong>Visualization:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/24-find-middle-index-of-an-array.png" alt="Find the middle index in array"  />
+</p>
+
+</details></p>
+
 <hr>
 <h1 id="monotonic-stack">Monotonic Stack<a hidden class="anchor" aria-hidden="true" href="#monotonic-stack">#</a></h1>
 <hr>
