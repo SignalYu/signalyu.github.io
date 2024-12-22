@@ -3,10 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://signalyu.github.io/posts/</loc>
-    <lastmod>2024-12-22T11:21:30+08:00</lastmod>
+    <lastmod>2024-12-22T21:29:57+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/</loc>
-    <lastmod>2024-12-22T11:21:30+08:00</lastmod>
+    <lastmod>2024-12-22T21:29:57+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/multithreading/</loc>
     <lastmod>2024-12-11T12:13:32+08:00</lastmod>
@@ -70,7 +70,11 @@
   </url><url>
     <loc>https://signalyu.github.io/archives/</loc>
   </url><url>
+    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</loc>
+  </url><url>
     <loc>https://signalyu.github.io/categories/</loc>
+  </url><url>
+    <loc>https://signalyu.github.io/tags/computer-science/</loc>
   </url><url>
     <loc>https://signalyu.github.io/search/</loc>
   </url>
