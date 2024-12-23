@@ -233,7 +233,9 @@
                 <li>
                     <a href="#find-the-middle-index-in-array" aria-label="Find the Middle Index in Array">Find the Middle Index in Array</a></li>
                 <li>
-                    <a href="#left-and-right-sum-differences" aria-label="Left and Right Sum Differences">Left and Right Sum Differences</a></li></ul>
+                    <a href="#left-and-right-sum-differences" aria-label="Left and Right Sum Differences">Left and Right Sum Differences</a></li>
+                <li>
+                    <a href="#subarray-sums-divisible-by-k" aria-label="Subarray Sums Divisible by K">Subarray Sums Divisible by K</a></li></ul>
                 </li>
                 <li>
                     <a href="#monotonic-stack" aria-label="Monotonic Stack">Monotonic Stack</a></li>
@@ -3418,6 +3420,234 @@ Go to Leetcode 🔗
     </details>
 </div>
 <hr>
+<h2 id="subarray-sums-divisible-by-k">Subarray Sums Divisible by K<a hidden class="anchor" aria-hidden="true" href="#subarray-sums-divisible-by-k">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement:</strong></p>
+<p>Given an integer array <code>nums</code> and an integer <code>k</code>, return the number of non-empty subarrays whose sum is divisible by <code>k</code>.</p>
+<p>A <strong>subarray</strong> is a contiguous part of an array.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>nums = [3, 1, 2, -2, 5, -1]</code>, <code>k = 3</code></li>
+<li><strong>Output</strong>: <code>7</code></li>
+<li><strong>Explanation</strong>: There are 7 subarrays whose sum is divisible by <code>k = 3</code>:
+<ul>
+<li><code>[3]</code>, <code>[1, 2]</code>, <code>[3, 1, 2]</code>, <code>[-2, 2]</code>, <code>[3, 1, 2, -2, 5]</code>, <code>[1, 2, -2, 5]</code>, <code>[-2, 5]</code>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>nums = [4, 5, 0, -2, -3, 1]</code>, <code>k = 5</code></li>
+<li><strong>Output</strong>: <code>7</code></li>
+<li><strong>Explanation</strong>: There are 7 subarrays whose sum is divisible by <code>k = 5</code>:
+<ul>
+<li><code>[4, 5, 0, -2, -3, 1]</code>, <code>[5]</code>, <code>[5, 0]</code>, <code>[5, 0, -2, -3]</code>, <code>[0]</code>, <code>[0, -2, -3]</code>, <code>[-2, -3]</code>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>nums = [5]</code>, <code>k = 9</code></li>
+<li><strong>Output</strong>: <code>0</code>.</li>
+</ul>
+<hr>
+<p><strong>Constraints</strong>:</p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 30,000</code></li>
+<li><code>-10,000 &lt;= nums[i] &lt;= 10,000</code></li>
+<li><code>2 &lt;= k &lt;= 10,000</code></li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/subarray-sums-divisible-by-k" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int subarraysDivByK(int[] nums, int k) {
+        // Store frequency of prefix sum modulo k
+        Map<Integer, Integer> prefixSumModCount = new HashMap<>();
+        
+        // Initialize with mod 0 having a frequency of 1 
+        // (for the case where the prefix sum itself is divisible by k)
+        prefixSumModCount.put(0, 1);
+
+        // Initialize the prefix sum and the count of valid subarrays
+        int prefixSum = 0, count = 0;
+        for (int num : nums) {
+            // Update the current prefix sum
+            prefixSum += num;
+            
+            // Ensure the modulo is always positive
+            int mod = ((prefixSum % k) + k) % k;
+
+            // If the same mod has been seen before, 
+            // it means there are subarrays whose sum is divisible by k
+            count += prefixSumModCount.getOrDefault(mod, 0);
+
+            // Update frequency of current mod
+            prefixSumModCount.put(mod, prefixSumModCount.getOrDefault(mod, 0) + 1);
+        }
+
+        return count;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p>If the sum of a subarray form index $i$ to $j$ can be divisable by $k$, then:
+$$
+(a[0] + a[1] + \dots + a[i - 1] + a[i]) \;\text{mod} \;k
+$$</p>
+<p>equals to</p>
+<p>$$
+(a[0] + a[1] + \dots + a[i] + \dots + a[j-1] + a[j]) \;\text{mod} \;k
+$$</p>
+<hr>
+<p><strong>Algorithm Walkthrough</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>nums = [3, 1, 2, -2, 5, -1]</code> and <code>k = 3</code>.</li>
+</ul>
+<ol>
+<li>
+<p><strong>Initialization:</strong></p>
+<ul>
+<li><code>remainder_count = {0: 1}</code> (We start by initializing the count of remainders with 0, assuming a subarray sum of 0 is divisible by <code>k</code>.)</li>
+<li><code>cumulative_sum = 0</code></li>
+<li><code>count = 0</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Iteration 1 (num = 3):</strong></p>
+<ul>
+<li><code>cumulative_sum = 3</code></li>
+<li><code>remainder = 3 % 3 = 0</code></li>
+<li><code>count += remainder_count[0] = 1</code> → <code>count = 1</code></li>
+<li>Update <code>remainder_count</code>: <code>{0: 2}</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Iteration 2 (num = 1):</strong></p>
+<ul>
+<li><code>cumulative_sum = 4</code></li>
+<li><code>remainder = 4 % 3 = 1</code></li>
+<li><code>count += remainder_count.get(1, 0) = 0</code> → <code>count = 1</code></li>
+<li>Update <code>remainder_count</code>: <code>{0: 2, 1: 1}</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Iteration 3 (num = 2):</strong></p>
+<ul>
+<li><code>cumulative_sum = 6</code></li>
+<li><code>remainder = 6 % 3 = 0</code></li>
+<li><code>count += remainder_count[0] = 2</code> → <code>count = 3</code></li>
+<li>Update <code>remainder_count</code>: <code>{0: 3, 1: 1}</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Iteration 4 (num = -2):</strong></p>
+<ul>
+<li><code>cumulative_sum = 4</code></li>
+<li><code>remainder = 4 % 3 = 1</code></li>
+<li><code>count += remainder_count[1] = 1</code> → <code>count = 4</code></li>
+<li>Update <code>remainder_count</code>: <code>{0: 3, 1: 2}</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Iteration 5 (num = 5):</strong></p>
+<ul>
+<li><code>cumulative_sum = 9</code></li>
+<li><code>remainder = 9 % 3 = 0</code></li>
+<li><code>count += remainder_count[0] = 3</code> → <code>count = 7</code></li>
+<li>Update <code>remainder_count</code>: <code>{0: 4, 1: 2}</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Iteration 6 (num = -1):</strong></p>
+<ul>
+<li><code>cumulative_sum = 8</code></li>
+<li><code>remainder = 8 % 3 = 2</code></li>
+<li><code>count += remainder_count.get(2, 0) = 0</code> → <code>count = 7</code></li>
+<li>Update <code>remainder_count</code>: <code>{0: 4, 1: 2, 2: 1}</code></li>
+</ul>
+</li>
+<li>
+<p><strong>The total count of subarrays whose sum is divisible by <code>k</code> is <code>7</code>.</strong></p>
+</li>
+</ol>
+
+</details></p>
+
+<hr>
 <h1 id="monotonic-stack">Monotonic Stack<a hidden class="anchor" aria-hidden="true" href="#monotonic-stack">#</a></h1>
 <hr>
 <h1 id="tree-breadth-first-search">Tree Breadth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-breadth-first-search">#</a></h1>
@@ -3470,11 +3700,11 @@ Go to Leetcode 🔗
     <br>
     <span>Design Patterns</span>
   </a>
-  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/">
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design-notes/">
     <span class="title">NEXT »</span>
     
     <br>
-    <span>Data Structure &amp; Algorithms</span>
+    <span>Database Design Notes</span>
   </a>
 </nav>
 
