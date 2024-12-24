@@ -238,7 +238,11 @@
                     <a href="#subarray-sums-divisible-by-k" aria-label="Subarray Sums Divisible by K">Subarray Sums Divisible by K</a></li></ul>
                 </li>
                 <li>
-                    <a href="#monotonic-stack" aria-label="Monotonic Stack">Monotonic Stack</a></li>
+                    <a href="#monotonic-stack" aria-label="Monotonic Stack">Monotonic Stack</a><ul>
+                        
+                <li>
+                    <a href="#next-greater-element-i" aria-label="Next Greater Element I">Next Greater Element I</a></li></ul>
+                </li>
                 <li>
                     <a href="#tree-breadth-first-search" aria-label="Tree Breadth First Search">Tree Breadth First Search</a></li>
                 <li>
@@ -3649,7 +3653,179 @@ $$</p>
 
 <hr>
 <h1 id="monotonic-stack">Monotonic Stack<a hidden class="anchor" aria-hidden="true" href="#monotonic-stack">#</a></h1>
+<blockquote>
+<p>A <strong>monotonic stack pattern</strong> is a technique commonly used to solve problems that involve finding the next greater or next smaller element in a sequence or array, or finding the largest rectangle in a histogram. There are two types of monotonic stacks: the <strong>increasing monotonic stack</strong> and the <strong>decreasing monotonic stack</strong>.</p>
+</blockquote>
+<ol>
+<li>An <strong>increasing monotonic stack</strong> maintains elements in increasing order from bottom to top (i.e., each element is greater than or equal to the element below it).</li>
+<li>An <strong>decreasing monotonic stack</strong> maintains elements in decreasing order from bottom to top (i.e., each element is smaller than or equal to the element below it).</li>
+</ol>
+<blockquote>
+<p>Creating a monotonic stack commonly involves the following steps (using  increasing monotonic stack as an example):</p>
+</blockquote>
+<ol>
+<li><strong>Initialize</strong> an empty stack.</li>
+<li><strong>Iterate</strong> over the array.</li>
+<li><strong>Compare</strong> the current element with the top element of the stack (if the stack is not empty).</li>
+<li><strong>Pop</strong> all elements from the stack that are smaller than the current element. This ensures that the stack only contains elements greater than or equal to the current element.</li>
+<li><strong>Push</strong> the current element onto the stack.</li>
+</ol>
 <hr>
+<h2 id="next-greater-element-i">Next Greater Element I<a hidden class="anchor" aria-hidden="true" href="#next-greater-element-i">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p>The <strong>next greater element</strong> for an element <code>x</code> in an array is the first element greater than <code>x</code> that appears to the right of <code>x</code> in the same array.</p>
+<p>You are given two distinct 0-indexed integer arrays, <code>nums1</code> and <code>nums2</code>, where <code>nums1</code> is a subset of <code>nums2</code>.</p>
+<p>For each <code>0 &lt;= i &lt; nums1.length</code>, find the index <code>j</code> such that <code>nums1[i] == nums2[j]</code>, and then determine the <strong>next greater element</strong> of <code>nums2[j]</code> in <code>nums2</code>. If there is no next greater element, return <code>-1</code> for that query.</p>
+<p>Return an array <code>ans</code> of length <code>nums1.length</code> such that <code>ans[i]</code> is the next greater element for <code>nums1[i]</code> as described above.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> <code>nums1 = [4, 1, 2]</code>, <code>nums2 = [1, 3, 4, 2]</code></li>
+<li><strong>Output:</strong> <code>[-1, 3, -1]</code></li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>The next greater element for <code>4</code> is not found in <code>nums2</code>, so the answer is <code>-1</code>.</li>
+<li>The next greater element for <code>1</code> is <code>3</code>.</li>
+<li>The next greater element for <code>2</code> is not found, so the answer is <code>-1</code>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong>  <code>nums1 = [2, 4]</code>, <code>nums2 = [1, 2, 3, 4]</code></li>
+<li><strong>Output:</strong>  <code>[3, -1]</code></li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>The next greater element for <code>2</code> is <code>3</code>.</li>
+<li>The next greater element for <code>4</code> is not found, so the answer is <code>-1</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= nums1.length &lt;= nums2.length &lt;= 1000</code></li>
+<li><code>0 &lt;= nums1[i], nums2[i] &lt;= 10⁴</code></li>
+<li>All integers in <code>nums1</code> and <code>nums2</code> are unique.</li>
+<li>All integers of <code>nums1</code> are also present in <code>nums2</code>.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/next-greater-element-i" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        // Initialize an empty stack to track elements in nums2
+        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
+        // Map to store the next greater element for each number in nums2
+        Map&lt;Integer, Integer&gt; nextGreaterMap = new HashMap&lt;&gt;();
+
+        // Traverse nums2 from right to left to populate the nextGreaterMap
+        for (int i = nums2.length - 1; i >= 0; i--) {
+            int num = nums2[i];
+
+            // Pop elements from stack that are less than or equal to the current number
+            while (!stack.isEmpty() && stack.peek() <= num) {
+                stack.pop();
+            }
+
+            // If stack is empty, no greater element exists, otherwise top of stack is the next greater element
+            nextGreaterMap.put(num, stack.isEmpty() ? -1 : stack.peek());
+
+            // Push the current number onto the stack for future comparisons
+            stack.push(num);
+        }
+
+        // Prepare the result array for nums1 based on nextGreaterMap
+        int[] result = new int[nums1.length];
+        // Find the next greater element for each number in nums1
+        for (int i = 0; i < nums1.length; i++) {
+            result[i] = nextGreaterMap.get(nums1[i]);
+        }
+
+        return result;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <blockquote>
+<p><strong>When iterating over an increasing monotonic stack from right to left, if the current element is greater than the top of the stack, it means the current element could be the next greater element for the previous ones. In this case, pop the stack.</strong></p>
+</blockquote>
+</details></p>
+
+<hr>
+<h2 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h2>
 <h1 id="tree-breadth-first-search">Tree Breadth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-breadth-first-search">#</a></h1>
 <hr>
 <h1 id="tree-depth-first-search">Tree Depth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-depth-first-search">#</a></h1>
@@ -3684,7 +3860,7 @@ $$</p>
 <hr>
 <h1 id="two-heaps">Two Heaps<a hidden class="anchor" aria-hidden="true" href="#two-heaps">#</a></h1>
 <hr>
-<h1 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h1>
+<h1 id="heading-1"><a hidden class="anchor" aria-hidden="true" href="#heading-1">#</a></h1>
 
 
   </div>
