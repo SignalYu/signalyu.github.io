@@ -56,6 +56,13 @@ SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupite
 Asynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting.</description>
     </item>
     <item>
+      <title>Maven 笔记</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/draft/</link>
+      <pubDate>Thu, 02 May 2024 19:26:09 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/draft/</guid>
+      <description>Maven 简介 --- title: Maven 软件的工作原理图 --- flowchart subgraph mavenRepo[Maven 依赖仓库] officialRepo[官方仓库]--&gt;|定期备份|mirrorRepo[镜像仓库] mirrorRepo[镜像仓库]--&gt;|下载|localRepo[本地仓库] end subgraph dependencyManage[依赖管理] dispatch[依赖传递]~~~conflict[依赖冲突]~~~inheritence[依赖继承]~~~cohesion[依赖聚合] end subgraph settings[配置 settings.xml] localRepository~~~mirror~~~jdk end subgraph lifeCircle[生命周期] clean ~~~ compile ~~~ test ~~~ package ~~~ install ~~~ others[...] end subgraph projects[项目] javaSE[JavaSE]~~~javaWeb[JavaWeb] pom.xml -.- javaSE &amp; javaWeb end subgraph app[包] jar ~~~ war end localRepo --&gt;|引用| maven((Maven)) --- dependencyManage maven -.- settings javaSE &amp; javaWeb --&gt; install install --&gt; localRepo package --&gt; app IntelliJ --&gt;|新建| javaSE --&gt;|war| javaWeb 依赖管理：Maven 可以管理项目的依赖，包括自动下载所需依赖库、自动下载依赖需要的依赖并且保证版本没有冲突、依赖版本管理等。 构建管理：项目构建是指将源代码、配置文件、资源文件等转化为能够运行或部署的应用程序或库的过程。Maven 可以管理项目的编译、测试、打包、部署等构建过程。通过实现标准的构建生命周期，Maven 可以确保每一个构建过程都遵循同样的的规则和最佳实践。同时，Maven 的插件机制也使得开发者可以对构建过程进行扩展和定制。 Maven 目录结构 点击查看代码 Maven 目录结构 .</description>
+    </item>
+    <item>
       <title>Asynchronous Messaging</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</link>
       <pubDate>Mon, 20 Nov 2023 13:57:02 +0800</pubDate>
