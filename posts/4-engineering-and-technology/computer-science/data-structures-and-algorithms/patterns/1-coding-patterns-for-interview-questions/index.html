@@ -241,7 +241,11 @@
                     <a href="#monotonic-stack" aria-label="Monotonic Stack">Monotonic Stack</a><ul>
                         
                 <li>
-                    <a href="#next-greater-element-i" aria-label="Next Greater Element I">Next Greater Element I</a></li></ul>
+                    <a href="#next-greater-element-i" aria-label="Next Greater Element I">Next Greater Element I</a></li>
+                <li>
+                    <a href="#remove-all-adjacent-duplicates-in-string-ii" aria-label="Remove All Adjacent Duplicates in String II">Remove All Adjacent Duplicates in String II</a></li>
+                <li>
+                    <a href="#largest-rectangle-in-histogram" aria-label="Largest Rectangle in Histogram">Largest Rectangle in Histogram</a></li></ul>
                 </li>
                 <li>
                     <a href="#tree-breadth-first-search" aria-label="Tree Breadth First Search">Tree Breadth First Search</a></li>
@@ -3825,7 +3829,271 @@ Go to Leetcode 🔗
 </details></p>
 
 <hr>
-<h2 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h2>
+<h2 id="remove-all-adjacent-duplicates-in-string-ii">Remove All Adjacent Duplicates in String II<a hidden class="anchor" aria-hidden="true" href="#remove-all-adjacent-duplicates-in-string-ii">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p>You are given a string <strong><code>s</code></strong> and an integer <strong><code>k</code></strong>. A <strong>k-duplicate removal</strong> consists of selecting <strong>k</strong> adjacent and identical letters from <strong><code>s</code></strong> and removing them, causing the left and right sides of the deleted substring to merge together.</p>
+<p>You must repeatedly perform k-duplicate removals on <strong><code>s</code></strong> until no further removals are possible.</p>
+<p>Return the final string after all such duplicate removals have been made. It is guaranteed that the answer is unique.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>s = &quot;abcd&quot;, k = 2</code></li>
+<li><strong>Output</strong>: <code>&quot;abcd&quot;</code></li>
+<li><strong>Explanation</strong>:
+<ul>
+<li>There are no adjacent duplicate characters, so no removal happens.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>s = &quot;deeedbbcccbdaa&quot;, k = 3</code><br>
+<strong>Output</strong>: <code>&quot;aa&quot;</code></li>
+<li><strong>Explanation</strong>:
+<ul>
+<li>First, delete &ldquo;eee&rdquo; and &ldquo;ccc&rdquo;, which results in <code>&quot;ddbbbdaa&quot;</code>.</li>
+<li>Then, delete &ldquo;bbb&rdquo;, resulting in <code>&quot;dddaa&quot;</code>.</li>
+<li>Finally, delete &ldquo;ddd&rdquo;, resulting in <code>&quot;aa&quot;</code>.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<p><strong>Input</strong>: <code>s = &quot;pbbcggttciiippooaais&quot;, k = 2</code><br>
+<strong>Output</strong>: <code>&quot;ps&quot;</code></p>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 10^5</code></li>
+<li><code>2 &lt;= k &lt;= 10^4</code></li>
+<li><strong>s</strong> only contains lowercase English letters.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >class Solution {
+    public String removeDuplicates(String s, int k) {
+        // Stack to store characters along with their consecutive count
+        Stack&lt;int[]&gt; stack = new Stack&lt;&gt;();
+
+        // Iterate over each character in the string
+        for (char c : s.toCharArray()) {
+            // Check if the stack is not empty and the current character is the same as the top character
+            if (!stack.isEmpty() && stack.peek()[0] == c) {
+                // Increment the count of top character by 1
+                stack.peek()[1]++;
+            } else {
+                // Otherwise, push the current character onto the stack with count 1
+                stack.push(new int[]{c, 1});
+            }
+
+            // If the top character's count reaches k, remove it from the stack
+            if (stack.peek()[1] == k) {
+                stack.pop();
+            }
+        }
+
+        // Construct result string from the stack
+        StringBuilder builder = new StringBuilder();
+        for (int[] entry : stack) {
+            builder.append(String.valueOf((char) entry[0]).repeat(entry[1]));
+        }
+
+        return builder.toString();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="largest-rectangle-in-histogram">Largest Rectangle in Histogram<a hidden class="anchor" aria-hidden="true" href="#largest-rectangle-in-histogram">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement:</strong></p>
+<p>Given an array of integers <code>heights</code> representing the heights of the histogram&rsquo;s bars, where the width of each bar is 1, return the area of the largest rectangle that can be formed in the histogram.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> <code>heights = [2, 1, 5, 6, 2, 3]</code></li>
+<li><strong>Output:</strong> <code>10</code></li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>The above is a histogram where each bar has a width of 1.</li>
+<li>The largest rectangle is formed by the bars of height <code>5</code> and <code>6</code>, with a width of 2, yielding an area of <code>10</code> units.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong> <code>heights = [2, 4]</code></li>
+<li><strong>Output:</strong> <code>4</code></li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>The largest rectangle is formed by the bar of height <code>4</code>, yielding an area of <code>4</code> units.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><code>1 &lt;= heights.length &lt;= 10^5</code></li>
+<li><code>1 &lt;= heights[i] &lt;= 10^4</code></li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/largest-rectangle-in-histogram" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <blockquote>
+<p>To solve this problem, an <strong>increasing monotonic stack</strong> can be used. When the height of the current bar is less than the height of the bar at the top of the stack, the index of the top bar is popped to calculate the maximal area. <em><strong>Since the elements in the stack are in increasing order, the bar at the top always forms a rectangle with the bar below it, as illustrated in the follow image.</strong></em></p>
+</blockquote>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/25-largest-rectangle-in-histogram.png" alt="Largest Rectangel in Histogram"  />
+</p>
+<blockquote>
+<p>For example, consider an increasing monotonic stack containing the elements <code>2, 5, 6</code>, and the current element is <code>2</code> with index <code>4</code>. The indices of the three elements in the stack are <code>0, 2, 3</code>, respectively. First, pop the bar with height <code>6</code>. The area is calculated as <code>height x width = 6 x (4 - 2 - 1)</code>. In this case, <code>2</code> is the index of element <code>5</code>, because after popping the element <code>6</code>, the top of the stack becomes index <code>2</code>. Therefore, the width is calculated as the index of the current element minus <code>stack.peek()</code> minus <code>1</code>, if the stack is not empty after popping.</p>
+</blockquote>
+
+</details></p>
+
+<hr>
 <h1 id="tree-breadth-first-search">Tree Breadth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-breadth-first-search">#</a></h1>
 <hr>
 <h1 id="tree-depth-first-search">Tree Depth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-depth-first-search">#</a></h1>
@@ -3860,7 +4128,7 @@ Go to Leetcode 🔗
 <hr>
 <h1 id="two-heaps">Two Heaps<a hidden class="anchor" aria-hidden="true" href="#two-heaps">#</a></h1>
 <hr>
-<h1 id="heading-1"><a hidden class="anchor" aria-hidden="true" href="#heading-1">#</a></h1>
+<h1 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h1>
 
 
   </div>
