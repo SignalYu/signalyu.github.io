@@ -4048,7 +4048,45 @@ Go to Leetcode 🔗
 
 
 
-<button class="tab_btn active">Java</button>
+<button class="tab_btn active">Java</button>import java.util.Stack;
+
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        // Stack to store indices of the bars
+        Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
+        int maxArea = 0;
+
+        // Inerate through all the bars    
+        for (int i = 0; i < heights.length; i++) {
+            // While the stack is not empty and the current bar is shorter than the bar at the stack's top
+            while (!stack.isEmpty() && heights[i] < heights[stack.peek()]) {
+                // Pop the top index from the stack
+                int height = heights[stack.pop()];
+                
+                // Calculate the width of the rectangle formed by the popped bar
+                // If the stack is empty, it means the popped bar was the smallest so far, 
+                // so the width is 'i'
+                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
+                
+                // Calculate the area with the popped bar as the shortest bar
+                maxArea = Math.max(maxArea, height * width);
+            }
+            
+            // Push the current bar's index onto the stack
+            stack.push(i);
+        }
+        
+        // Process the remaining bars in the stack
+        while (!stack.isEmpty()) {
+            int height = heights[stack.pop()];
+            // If the stack is empty, it means the popped bar was the smallest so far
+            int width = stack.isEmpty() ? heights.length : heights.length - stack.peek() - 1;
+            maxArea = Math.max(maxArea, height * width);
+        }
+        
+        return maxArea;
+    }
+}
 
 </div>
 
