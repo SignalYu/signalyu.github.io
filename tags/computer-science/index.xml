@@ -6,7 +6,7 @@
     <description>Recent content in Computer Science on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Mon, 20 Nov 2023 13:57:02 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Dec 2024 16:03:23 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -22,6 +22,14 @@ SHOW CODE Single Responsibility Principle import java.io.IOException; import jav
       <pubDate>Fri, 02 Dec 2022 10:15:04 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/</guid>
       <description>Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers &amp;ndash; typically labeled &amp;ldquo;left&amp;rdquo; and &amp;ldquo;right&amp;rdquo; &amp;ndash; are initialized and move in a specific direction based on the problem&amp;rsquo;s requirements.</description>
+    </item>
+    <item>
+      <title>Idea &amp; Maven &amp; Postman Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/1-idea-maven-postman-notes/</link>
+      <pubDate>Tue, 24 Dec 2024 16:03:23 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/1-idea-maven-postman-notes/</guid>
+      <description>IDEA Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects. It follows the concept of Project Object Model (POM), which is defined in an XML file (pom.xml) at the root of the project.
+settings.xml Configuration ./ ├── bin/ │ ├── m2.conf │ ├── mvn* │ ├── mvn.cmd │ ├── mvnDebug* │ ├── mvnDebug.cmd │ └── mvnyjp* ├── boot/ │ ├── plexus-classworlds-2.7.0.jar │ └── plexus-classworlds.</description>
     </item>
     <item>
       <title>Asynchronous Messaging</title>

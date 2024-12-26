@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Wed, 11 Dec 2024 12:13:32 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Dec 2024 16:03:23 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -48,19 +48,20 @@ Head Recursion Head Recursion is a type of recursion where a function makes its 
 SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
     </item>
     <item>
+      <title>Idea &amp; Maven &amp; Postman Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/1-idea-maven-postman-notes/</link>
+      <pubDate>Tue, 24 Dec 2024 16:03:23 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/1-idea-maven-postman-notes/</guid>
+      <description>IDEA Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects. It follows the concept of Project Object Model (POM), which is defined in an XML file (pom.xml) at the root of the project.
+settings.xml Configuration ./ ├── bin/ │ ├── m2.conf │ ├── mvn* │ ├── mvn.cmd │ ├── mvnDebug* │ ├── mvnDebug.cmd │ └── mvnyjp* ├── boot/ │ ├── plexus-classworlds-2.7.0.jar │ └── plexus-classworlds.</description>
+    </item>
+    <item>
       <title>Multithreading Notes</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/</link>
       <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/</guid>
       <description>Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.
 Asynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting.</description>
-    </item>
-    <item>
-      <title>Maven 笔记</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/draft/</link>
-      <pubDate>Thu, 02 May 2024 19:26:09 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/draft/</guid>
-      <description>Maven 简介 --- title: Maven 软件的工作原理图 --- flowchart subgraph mavenRepo[Maven 依赖仓库] officialRepo[官方仓库]--&gt;|定期备份|mirrorRepo[镜像仓库] mirrorRepo[镜像仓库]--&gt;|下载|localRepo[本地仓库] end subgraph dependencyManage[依赖管理] dispatch[依赖传递]~~~conflict[依赖冲突]~~~inheritence[依赖继承]~~~cohesion[依赖聚合] end subgraph settings[配置 settings.xml] localRepository~~~mirror~~~jdk end subgraph lifeCircle[生命周期] clean ~~~ compile ~~~ test ~~~ package ~~~ install ~~~ others[...] end subgraph projects[项目] javaSE[JavaSE]~~~javaWeb[JavaWeb] pom.xml -.- javaSE &amp; javaWeb end subgraph app[包] jar ~~~ war end localRepo --&gt;|引用| maven((Maven)) --- dependencyManage maven -.- settings javaSE &amp; javaWeb --&gt; install install --&gt; localRepo package --&gt; app IntelliJ --&gt;|新建| javaSE --&gt;|war| javaWeb 依赖管理：Maven 可以管理项目的依赖，包括自动下载所需依赖库、自动下载依赖需要的依赖并且保证版本没有冲突、依赖版本管理等。 构建管理：项目构建是指将源代码、配置文件、资源文件等转化为能够运行或部署的应用程序或库的过程。Maven 可以管理项目的编译、测试、打包、部署等构建过程。通过实现标准的构建生命周期，Maven 可以确保每一个构建过程都遵循同样的的规则和最佳实践。同时，Maven 的插件机制也使得开发者可以对构建过程进行扩展和定制。 Maven 目录结构 点击查看代码 Maven 目录结构 .</description>
     </item>
     <item>
       <title>Asynchronous Messaging</title>
