@@ -102,7 +102,7 @@ SHOW CODE Single Responsibility Principle import java.io.IOException; import jav
     "Computer Science", "Design Patterns"
   ],
   "articleBody": "1. Solid Principle 1.1 Single Responsibility Principle A class should have only one reason to change, meaning each class should focus on a single functionality or responsibility.\nSHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage. * 4. UserPersistenceService class is dedicated to save the user data. * 5. UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ /* com.fasterxml.jackson.core jackson-databind 2.18.0 */ /** * Represents a user with basic details. * User class is only used to represent entity. */ class User { private String name; private String email; private String address; public User() {} public User(String name, String email, String address) { this.name = name; this.email = email; this.address = address; } // Getters and setters public String getName() { return name; } public void setName(String name) { this.name = name; } public String getEmail() { return email; } public void setEmail(String email) { this.email = email; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } @Override public String toString() { return \"User [name=\" + name + \", email=\" + email + \", address=\" + address + \"]\"; } } /** * Handles incoming JSON requests that work on User. * UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ class UserController { private final UserPersistenceService persistenceService = new UserPersistenceService(); public String createUser(String userJson) throws IOException { ObjectMapper mapper = new ObjectMapper(); User user = mapper.readValue(userJson, User.class); UserValidator validator = new UserValidator(); if (!validator.validateUser(user)) { return \"ERROR\"; } persistenceService.saveUser(user); return \"SUCCESS\"; } } /** * Handles persistence of User objects. * UserPersistenceService class is dedicated to save the user data. */ class UserPersistenceService { private final Store store = new Store(); public void saveUser(User user) { store.store(user); } } /** * Validates User data. * UserValidator class is solely responsible for validating user objects. */ class UserValidator { public boolean validateUser(User user) { if (!isPresent(user.getName()) || !isValidAlphaNumeric(user.getName())) { return false; } user.setName(user.getName().trim()); user.setEmail(user.getEmail().trim()); return isValidEmail(user.getEmail()); } private boolean isPresent(String value) { return value != null \u0026\u0026 value.trim().length() \u003e 0; } private boolean isValidAlphaNumeric(String value) { Pattern pattern = Pattern.compile(\"[^A-Za-z0-9]\"); Matcher matcher = pattern.matcher(value); return !matcher.find(); } private boolean isValidEmail(String value) { Pattern pattern = Pattern.compile(\"^[\\\\w-\\\\.]+@[\\\\w-]+(\\\\.[\\\\w-]+)+$\"); Matcher matcher = pattern.matcher(value); return matcher.find(); } } /** * Stores User data in memory. * Store class is only used to manage user objects storage. */ class Store { private static final Map STORAGE = new HashMap\u003c\u003e(); public void store(User user) { synchronized (STORAGE) { STORAGE.put(user.getName(), user); } } public User getUser(String name) { synchronized (STORAGE) { return STORAGE.get(name); } } } /** * Main class for demonstrating the Single Responsibility Principle. */ public class Main { private static final String VALID_USER_JSON = \"{\\\"name\\\": \\\"Signal\\\", \\\"email\\\": \\\"signalyu999@gmail.com\\\", \\\"address\\\":\\\"999 Sugar lane\\\"}\"; private static final String INVALID_USER_JSON = \"{\\\"name\\\": \\\"Sam\\\", \\\"email\\\": \\\"sam@email\\\", \\\"address\\\":\\\"111 Sugar lane\\\"}\"; public static void main(String[] args) throws IOException { UserController controller = new UserController(); String response = controller.createUser(VALID_USER_JSON); System.out.println(\"Valid JSON response: \" + response); response = controller.createUser(INVALID_USER_JSON); System.out.println(\"Invalid JSON response: \" + response); } } Each class in the above code strictly adheres to the Single Responsibility Principle by focusing on a specific responsibility:\nUser for representing the user entity UserController for request handling UserPersistenceService for data persistence UserValidator for user data validation Store for managing in-memory data storage --- title: Single Responsibility Principle - Class Diagram --- classDiagram class User { - String name - String email - String address + String toString() } class Store { + void store(User user) + User getUser(String name) } class UserPersistenceService { + void saveUser(User user) } class UserValidator { - boolean isPresent(String value) - boolean isValidAlphaNumeric(String value) - boolean isValidEmail(String value) + boolean validateUser(User user) } class UserController { + String createUser(String userJson) } class Main { + void main(String[] args) } User --* Store Store --* UserPersistenceService UserPersistenceService --* UserController UserController --\u003e UserValidator : create Main --\u003e UserController : create 1.2 Open-Closed Principle A software entity (class, module, function, etc.) should be open for extension but closed for modification.\n点击查看代码 Java import java.time.LocalDateTime; import java.util.*; // Abstract base class, closed for modification but open for extension abstract class Subscriber { protected Long subscriberId; protected String address; protected Long phoneNumber; protected int baseRate; // Getter and Setter methods public Long getSubscriberId() { return subscriberId; } public void setSubscriberId(Long subscriberId) { this.subscriberId = subscriberId; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } public Long getPhoneNumber() { return phoneNumber; } public void setPhoneNumber(Long phoneNumber) { this.phoneNumber = phoneNumber; } public int getBaseRate() { return baseRate; } public void setBaseRate(int baseRate) { this.baseRate = baseRate; } // Abstract method to calculate the bill; implementation is defined in subclasses public abstract double calculateBill(); } // PhoneSubscriber class extends Subscriber, calculates the phone bill class PhoneSubscriber extends Subscriber { @Override public double calculateBill() { List calls = CallHistory.getCurrentCalls(subscriberId); long totalDuration = calls.stream().mapToLong(CallHistory.Call::getDuration).sum(); return (totalDuration * baseRate) / 100.0; } } // ISPSubscriber class extends Subscriber, calculates the internet bill class ISPSubscriber extends Subscriber { private long freeUsage; // Free usage limit in data units @Override public double calculateBill() { List sessions = InternetSessionHistory.getCurrentSessions(subscriberId); long totalData = sessions.stream().mapToLong(InternetSessionHistory.InternetSession::getDataUsed).sum(); long chargeableData = totalData - freeUsage; return chargeableData \u003c= 0 ? 0 : (chargeableData * baseRate) / 100.0; } public long getFreeUsage() { return freeUsage; } public void setFreeUsage(long freeUsage) { this.freeUsage = freeUsage; } } // InternetSessionHistory class to manage internet usage records class InternetSessionHistory { public static class InternetSession { private final LocalDateTime begin; private final Long subscriberId; private final Long dataUsed; public InternetSession(Long subscriberId, LocalDateTime begin, long dataUsed) { this.subscriberId = subscriberId; this.begin = begin; this.dataUsed = dataUsed; } public LocalDateTime getBegin() { return begin; } public long getDataUsed() { return dataUsed; } public Long getSubscriberId() { return subscriberId; } } private static final Map",
-  "wordCount" : "11283",
+  "wordCount" : "11737",
   "inLanguage": "en",
   "datePublished": "2023-11-12T14:38:17+08:00",
   "dateModified": "2023-11-12T14:38:17+08:00",
@@ -5730,6 +5730,232 @@ classDiagram
 </pre>
 <hr>
 <h2 id="34-composite">3.4 Composite<a hidden class="anchor" aria-hidden="true" href="#34-composite">#</a></h2>
+<blockquote>
+<p>The <strong>Composite Design Pattern</strong> is a structural pattern that enables treating both individual objects and compositions of objects uniformly. It is designed to represent <strong>part-whole</strong> hierarchies, where individual objects (leaf nodes) and their composites are handled in the same way. This pattern is often used for managing complex hierarchical structures, such as file systems or organization structures.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.ArrayList;
+import java.util.List;
+
+// The component base class for composite pattern
+// Defines operations applicable both leaf & composite
+abstract class File {
+
+    private String name;
+
+    public File(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public abstract void ls();
+
+    public abstract void addFile(File file);
+
+    public abstract File[] getFiles();
+
+    public abstract boolean removeFile(File file);
+}
+
+// Leaf node in composite pattern
+class BinaryFile extends File {
+
+    private long size;
+
+    public BinaryFile(String name, long size) {
+        super(name);
+        this.size = size;
+    }
+
+    @Override
+    public void ls() {
+        System.out.println(getName() + "\t" + size);
+    }
+
+    @Override
+    public void addFile(File file) {
+        throw new UnsupportedOperationException("Leaf node doesn't support add operation");
+    }
+
+    @Override
+    public File[] getFiles() {
+        throw new UnsupportedOperationException("Leaf node doesn't support get operation");
+    }
+
+    @Override
+    public boolean removeFile(File file) {
+        throw new UnsupportedOperationException("Leaf node doesn't support remove operation");
+    }
+}
+
+// Composite in the composite pattern
+class Directory extends File {
+
+    private List&lt;File&gt; children = new ArrayList&lt;&gt;();
+
+    public Directory(String name) {
+        super(name);
+    }
+
+    @Override
+    public void ls() {
+        System.out.println(getName());
+        children.forEach(File::ls);
+    }
+
+    @Override
+    public void addFile(File file) {
+        children.add(file);
+    }
+
+    @Override
+    public File[] getFiles() {
+        return children.toArray(new File[children.size()]);
+    }
+
+    @Override
+    public boolean removeFile(File file) {
+        return children.remove(file);
+    }
+}
+
+// Client class that creates and displays directory structure
+public class Client {
+
+    public static void main(String[] args) {
+        File root1 = createTreeOne();
+        root1.ls();
+        System.out.println("***********************************");
+        File root2 = createTreeTwo();
+        root2.ls();
+    }
+
+    // Client builds tree using leaf and composites
+    private static File createTreeOne() {
+        File file1 = new BinaryFile("file1", 1000);
+        File file2 = new BinaryFile("file2", 2000);
+        Directory dir1 = new Directory("dir1");
+        dir1.addFile(file1);
+        dir1.addFile(file2);
+
+        File file3 = new BinaryFile("file3", 3000);
+        Directory dir2 = new Directory("dir2");
+        dir2.addFile(file3);
+        dir2.addFile(dir1);
+        return dir2;
+    }
+
+    private static File createTreeTwo() {
+        return new BinaryFile("Another file", 200);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<blockquote>
+<p>In the above code, the statements <code>dir2.addFile(file3);</code> and <code>dir2.addFile(dir1);</code> demonstrate how both individual objects (<code>file3</code>) and compositions of objects (<code>file1</code> and <code>file2</code>) are treated in the same way.</p>
+</blockquote>
+<pre class="mermaid">---
+title: URL Diagram of Composite Design Pattern
+---
+classDiagram
+    class File {
+        +String name
+        +getName()
+        +setName(String name)
+        +ls()
+        +addFile(File file)
+        +getFiles()
+        +removeFile(File file)
+    }
+
+    class BinaryFile {
+        +long size
+        +BinaryFile(String name, long size)
+        +ls()
+        +addFile(File file)
+        +getFiles()
+        +removeFile(File file)
+    }
+
+    class Directory {
+        +List~File~ children
+        +Directory(String name)
+        +ls()
+        +addFile(File file)
+        +getFiles()
+        +removeFile(File file)
+    }
+
+    File <|-- BinaryFile
+    File <|-- Directory
+    Directory  *--> File : contains
+</pre>
+<hr>
 <h2 id="35-facade">3.5 Facade<a hidden class="anchor" aria-hidden="true" href="#35-facade">#</a></h2>
 <h2 id="36-flyweight">3.6 Flyweight<a hidden class="anchor" aria-hidden="true" href="#36-flyweight">#</a></h2>
 <h2 id="37-proxy">3.7 Proxy<a hidden class="anchor" aria-hidden="true" href="#37-proxy">#</a></h2>
