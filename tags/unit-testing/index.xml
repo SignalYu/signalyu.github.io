@@ -10,9 +10,9 @@
     <atom:link href="https://signalyu.github.io/tags/unit-testing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Junit &amp; Mockito Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
       <pubDate>Thu, 07 Jul 2022 01:26:33 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
       <description>JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
 SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
     </item>

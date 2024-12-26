@@ -10,9 +10,9 @@
     <atom:link href="https://signalyu.github.io/tags/vue/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Vue Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/vue/1-vue-notes/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/vue/1-vue-notes/</link>
       <pubDate>Tue, 16 Nov 2021 20:53:48 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/vue/1-vue-notes/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/vue/1-vue-notes/</guid>
       <description>Virtual DOM A Virtual DOM is a lightweight, in-memory representation of the real DOM. Each Node in the Virtual DOM is represented as a plain JavaScript object with properties describing the element, its attributes, and its children. The Virtual DOM will be updated whenever an application&amp;rsquo;s state changes. It minimizes real DOM updates by batching changes and applying them through an optimized process. --- title: Virtual DOM --- graph TD B[&#34;</description>
     </item>
   </channel>

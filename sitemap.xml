@@ -8,13 +8,13 @@
     <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/patterns/1-coding-patterns-for-interview-questions/</loc>
     <lastmod>2022-12-02T10:15:04+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design-notes/</loc>
+    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design/</loc>
     <lastmod>2024-05-22T21:07:21+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/</loc>
     <lastmod>2022-10-14T20:29:21+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/unit-testing/1-junit-and-mockito-notes/</loc>
+    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</loc>
     <lastmod>2022-07-07T01:26:33+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/posts/</loc>
@@ -26,7 +26,7 @@
     <loc>https://signalyu.github.io/tags/computer-science/</loc>
     <lastmod>2024-12-24T16:03:23+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/tools/1-idea-maven-postman-notes/</loc>
+    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/tools/1-idea-maven-postman-notes/</loc>
     <lastmod>2024-12-24T16:03:23+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/</loc>
@@ -39,6 +39,9 @@
     <lastmod>2024-12-11T12:13:32+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/database/</loc>
+    <lastmod>2024-05-22T21:07:21+08:00</lastmod>
+  </url><url>
+    <loc>https://signalyu.github.io/tags/engineering--technology/</loc>
     <lastmod>2024-05-22T21:07:21+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</loc>
@@ -56,19 +59,19 @@
     <loc>https://signalyu.github.io/tags/react/</loc>
     <lastmod>2022-06-19T20:58:33+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/react/1-react-notes/</loc>
+    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/react/1-react-notes/</loc>
     <lastmod>2022-06-19T20:58:33+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/spring/</loc>
     <lastmod>2021-11-18T15:44:50+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/backend/spring/1-spring-notes/</loc>
+    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/spring/1-spring-notes/</loc>
     <lastmod>2021-11-18T15:44:50+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/vue/</loc>
     <lastmod>2021-11-16T20:53:48+08:00</lastmod>
   </url><url>
-    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework/front-end/vue/1-vue-notes/</loc>
+    <loc>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/vue/1-vue-notes/</loc>
     <lastmod>2021-11-16T20:53:48+08:00</lastmod>
   </url><url>
     <loc>https://signalyu.github.io/tags/java/</loc>
