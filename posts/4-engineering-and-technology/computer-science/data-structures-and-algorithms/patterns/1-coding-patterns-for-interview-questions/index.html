@@ -99,7 +99,7 @@
     "Computer Science", "Data Structure \u0026 Algorithms"
   ],
   "articleBody": "Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers – typically labeled “left” and “right” – are initialized and move in a specific direction based on the problem’s requirements.\nTwo Sum II - Input Array Is Sorted SHOW PROBLEM Problem Statement\nGiven a 1-indexed array of integers, numbers, sorted in non-decreasing order, find two numbers that add up to a specific target. Let these two numbers be numbers[index1] and numbers[index2], where 1 \u003c= index1 \u003c index2 \u003c= numbers.length.\nReturn the indices of the two numbers, index1 and index2, incremented by one, as an integer array [index1, index2] of length 2.\nThe problem guarantees that there is exactly one solution. You may not use the same element twice. Your solution must use only constant extra space. Example 1:\nInput: numbers = [2,7,11,15], target = 9 Output: [1, 2] Explanation: The sum of 2 and 7 is 9, so index1 = 1, index2 = 2. We return [1, 2]. Example 2:\nInput: numbers = [2,3,4], target = 6 Output: [1, 3] Explanation: The sum of 2 and 4 is 6, so index1 = 1, index2 = 3. We return [1, 3]. Example 3:\nInput: numbers = [-1,0], target = -1 Output: [1, 2] Explanation: The sum of -1 and 0 is -1, so index1 = 1, index2 = 2. We return [1, 2]. Constraints:\n2 \u003c= numbers.length \u003c= 30,000 -1000 \u003c= numbers[i] \u003c= 1000 numbers is sorted in non-decreasing order. -1000 \u003c= target \u003c= 1000 There is exactly one solution for each test case. Go to Leetcode 🔗 SHOW CODE Java class Solution { public int[] twoSum(int[] numbers, int target) { int left = 0, right = numbers.length - 1; // Iterate while left pointer is before right pointer while (left \u003c right) { int currentSum = numbers[left] + numbers[right]; // Check if the current sum matches the target if (currentSum == target) { break; } // Adjust the pointers to move towards the target sum if (currentSum \u003c target) { left++; // Increase sum by moving left pointer right } else { right--; // Decrease sum by moving right pointer left } } // Reture 1-indexed result return new int[] { left + 1, right + 1 }; } } SHOW NOTES Algorithm Walkthrough\nnums = [1, 2, 3, 4, 5, 8] target = 7 Initialize pointers: left = 0, right = 5 First iteration: currentSum = 1 + 8 = 9 (greater than the target) Decrease the right pointer to 4 Second iteration: currentSum = 1 + 5 = 6 (less than the target) Increase the left pointer to 1 Third iteration: currentSum = 2 + 4 = 6 (equals the target) Return the indices [1, 3]. Visualization\n3Sum SHOW PROBLEM Problem Statement\nGiven an integer array nums, return all unique triplets [nums[i], nums[j], nums[k]] such that:\ni != j, i != k, and j != k nums[i] + nums[j] + nums[k] == 0 The solution set must not contain duplicate triplets.\nExample 1:\nInput: nums = [-1, 0, 1, 2, -1, -4] Output: [[-1, -1, 2], [-1, 0, 1]] Explanation: nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 The distinct triplets are [-1, 0, 1] and [-1, -1, 2].\nNote: The order of the output and the order of the triplets does not matter.\nExample 2:\nInput: nums = [0, 1, 1] Output: [] Explanation: The only possible triplet does not sum up to 0. Example 3:\nInput: nums = [0, 0, 0] Output: [[0, 0, 0]] Explanation: The only possible triplet sums up to 0. Constraints:\n3 \u003c= nums.length \u003c= 3000 10^5 \u003c= nums[i] \u003c= 10^5 Go to Leetcode 🔗 SHOW CODE Java class Solution { public List",
-  "wordCount" : "693",
+  "wordCount" : "11740",
   "inLanguage": "en",
   "datePublished": "2022-12-02T10:15:04+08:00",
   "dateModified": "2022-12-02T10:15:04+08:00",
@@ -248,7 +248,15 @@
                     <a href="#largest-rectangle-in-histogram" aria-label="Largest Rectangle in Histogram">Largest Rectangle in Histogram</a></li></ul>
                 </li>
                 <li>
-                    <a href="#tree-breadth-first-search" aria-label="Tree Breadth First Search">Tree Breadth First Search</a></li>
+                    <a href="#tree-breadth-first-search" aria-label="Tree Breadth First Search">Tree Breadth First Search</a><ul>
+                        
+                <li>
+                    <a href="#binary-tree-level-order-traversal" aria-label="Binary Tree Level Order Traversal">Binary Tree Level Order Traversal</a></li>
+                <li>
+                    <a href="#binary-tree-zigzag-level-order-traversal" aria-label="Binary Tree Zigzag Level Order Traversal">Binary Tree Zigzag Level Order Traversal</a></li>
+                <li>
+                    <a href="#populating-next-right-pointers-in-each-node" aria-label="Populating Next Right Pointers in Each Node">Populating Next Right Pointers in Each Node</a></li></ul>
+                </li>
                 <li>
                     <a href="#tree-depth-first-search" aria-label="Tree Depth First Search">Tree Depth First Search</a></li>
                 <li>
@@ -256,9 +264,11 @@
                 <li>
                     <a href="#matrix-traversal" aria-label="Matrix Traversal">Matrix Traversal</a></li>
                 <li>
+                    <a href="#2-dimensional-prefix-sum" aria-label="2-Dimensional Prefix Sum">2-Dimensional Prefix Sum</a></li>
+                <li>
                     <a href="#subsets" aria-label="Subsets">Subsets</a></li>
                 <li>
-                    <a href="#modified-binary-tree" aria-label="Modified Binary Tree">Modified Binary Tree</a></li>
+                    <a href="#modified-binary-search" aria-label="Modified Binary Search">Modified Binary Search</a></li>
                 <li>
                     <a href="#bitwise-xor" aria-label="Bitwise XOR">Bitwise XOR</a></li>
                 <li>
@@ -565,8 +575,8 @@ Go to Leetcode 🔗
 <div class="code_blocks">
     <div class="code_block active">
         <pre><code class="language-java" data-lang="java" >class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> triplets = new ArrayList&lt;&gt;();
+    public List<List&lt;Integer&gt;> threeSum(int[] nums) {
+        List<List&lt;Integer&gt;> triplets = new ArrayList&lt;&gt;();
 
         // Sort the array to enable the two-pointer approach
         Arrays.sort(nums);
@@ -584,7 +594,7 @@ Go to Leetcode 🔗
         return triplets;
     }
 
-    private static void findTwoSum(int[] nums, int target, int left, int right, List<List<Integer>> triplets) {
+    private static void findTwoSum(int[] nums, int target, int left, int right, List<List&lt;Integer&gt;> triplets) {
         while (left < right) {
             int currentSum = nums[left] + nums[right];
             if (target == currentSum) {
@@ -3530,7 +3540,7 @@ Go to Leetcode 🔗
         <pre><code class="language-java" data-lang="java" >class Solution {
     public int subarraysDivByK(int[] nums, int k) {
         // Store frequency of prefix sum modulo k
-        Map<Integer, Integer> prefixSumModCount = new HashMap<>();
+        Map<Integer, Integer> prefixSumModCount = new HashMap&lt;&gt;();
         
         // Initialize with mod 0 having a frequency of 1 
         // (for the case where the prefix sum itself is divisible by k)
@@ -4133,6 +4143,520 @@ class Solution {
 
 <hr>
 <h1 id="tree-breadth-first-search">Tree Breadth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-breadth-first-search">#</a></h1>
+<blockquote>
+<p>The <strong>Tree Breadth First Search Pattern</strong> is a programming technique used for traversing a tree or graph level by level. It explores all nodes at the current depth before moving to the next level. This approach leverages the FIFO (First-In-First-Out) principle of the queue data structure to ensure that all nodes at a given level are processed before their child nodes. It is commonly used to solve problems that require level-wise processing, such as finding the shortest path or performing level-order operations.</p>
+</blockquote>
+<blockquote>
+<p>The <strong>Tree Breadth First Search Pattern</strong> typically involves the following steps:</p>
+</blockquote>
+<ol>
+<li><strong>Empty Check</strong>: Check if the tree or graph is <code>null</code>.</li>
+<li><strong>Queue Initialization</strong>: Initialize an empty queue and enqueue the root node.</li>
+<li><strong>Process and Enqueue</strong>: While the queue is not empty, compute the current queue size, dequeue nodes one by one (dequeue times equal to the size of the current level), process each node, and enqueue its children if they exist.</li>
+<li><strong>Repeat</strong>: Continue processing nodes until the queue is empty.</li>
+</ol>
+<hr>
+<h2 id="binary-tree-level-order-traversal">Binary Tree Level Order Traversal<a hidden class="anchor" aria-hidden="true" href="#binary-tree-level-order-traversal">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement</strong>:</p>
+<p>Given the root of a binary tree, return the <strong>level order traversal</strong> of its nodes&rsquo; values. (i.e., traverse the tree from left to right, level by level).</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/26-binary-tree-level-order-traversal.jpg" alt="Binary Tree Level Order Traversal"  />
+</p>
+<ul>
+<li><strong>Input</strong>: <code>root = [3, 9, 20, null, null, 15, 7]</code></li>
+<li><strong>Output</strong>: <code>[[3], [9, 20], [15, 7]]</code></li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>root = [1]</code></li>
+<li><strong>Output</strong>: <code>[[1]]</code></li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>root = []</code></li>
+<li><strong>Output</strong>: <code>[]</code></li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes in the tree is in the range <code>[0, 2000]</code>.</li>
+<li><code>-1000 &lt;= Node.val &lt;= 1000</code>.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/binary-tree-level-order-traversal" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) {
+        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+
+        // Return an empty list if the tree is empty
+        if (root == null) {
+            return result;
+        }
+
+        // Initialize a queue for level order traversal
+        Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;();
+        queue.offer(root);  // Add the root node to the queue
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();  // Get the number of nodes at the current level
+            List&lt;Integer&gt; currentLevel = new ArrayList&lt;&gt;();
+
+            // Process all nodes at the current level
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode node = queue.poll();
+                currentLevel.add(node.val);
+
+                // Add left and right children to the queue if they exist
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+
+            // Add the current level's result to the overall result
+            result.add(currentLevel);
+        }
+
+        return result;  // Return the level order traversal result
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="binary-tree-zigzag-level-order-traversal">Binary Tree Zigzag Level Order Traversal<a hidden class="anchor" aria-hidden="true" href="#binary-tree-zigzag-level-order-traversal">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement:</strong></p>
+<p>Given the root of a binary tree, return the <strong>zigzag level order traversal</strong> of its nodes&rsquo; values. That is, traverse the tree from left to right for the first level, then right to left for the next level, and alternate between the two directions for each subsequent level.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/27-binary-tree-zigzag-level-order-traversal.jpg" alt="Binary Tree Zigzag Level Order Traversal"  />
+</p>
+<ul>
+<li><strong>Input</strong>: <code>root = [3, 9, 20, null, null, 15, 7]</code></li>
+<li><strong>Output</strong>: <code>[[3], [20, 9], [15, 7]]</code></li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>root = [1]</code></li>
+<li><strong>Output</strong>: <code>[[1]]</code></li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>root = []</code></li>
+<li><strong>Output</strong>: <code>[]</code></li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes in the tree is in the range <code>[0, 2000]</code>.</li>
+<li><code>-100 &lt;= Node.val &lt;= 100</code>.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; zigzagLevelOrder(TreeNode root) {
+        List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;&gt;();
+
+        // Return empty result if tree is empty
+        if (root == null) {
+            return result;
+        }
+
+        Queue<TreeNode> queue = new LinkedList&lt;&gt;();
+        queue.offer(root);  // Add the root node to the queue
+
+        boolean leftToRight = true;  // Flag to alternate direction of traversal
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            List&lt;Integer&gt; currentLevel = new LinkedList&lt;&gt;();
+
+            // Process each node at the current level
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode node = queue.poll();
+
+                // Add node value based on the current direction
+                if (leftToRight) {
+                    currentLevel.add(node.val);  // Left to right
+                } else {
+                    currentLevel.add(0, node.val);  // Right to left
+                }
+
+                // Enqueue left and right children if they exist
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+
+            result.add(currentLevel);
+            leftToRight = !leftToRight;  // Toggle the direction for the next level
+        }
+
+        return result;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p><strong>Visualization</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/28-zigzag-traversal.svg" alt="Binary Tree Zigzag Level Order Traversal"  />
+</p>
+
+</details></p>
+
+<hr>
+<h2 id="populating-next-right-pointers-in-each-node">Populating Next Right Pointers in Each Node<a hidden class="anchor" aria-hidden="true" href="#populating-next-right-pointers-in-each-node">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Statement:</strong></p>
+<p>You are given a <strong>perfect binary tree</strong> where all leaves are on the same level, and every parent node has two children. The binary tree is defined as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Node</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> val;
+</span></span><span style="display:flex;"><span>  Node <span style="color:#f92672">*</span>left;
+</span></span><span style="display:flex;"><span>  Node <span style="color:#f92672">*</span>right;
+</span></span><span style="display:flex;"><span>  Node <span style="color:#f92672">*</span>next;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Populate each <strong>next</strong> pointer to point to its <strong>next right node</strong>. If there is no next right node, the <strong>next</strong> pointer should be set to <code>NULL</code>.</p>
+<p>Initially, all <strong>next</strong> pointers are set to <code>NULL</code>.</p>
+<hr>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>root = [1,2,3,4,5,6,7]</code></li>
+<li><strong>Output</strong>: <code>[1,#,2,3,#,4,5,6,7,#]</code></li>
+<li><strong>Explanation</strong>: Given the above perfect binary tree (Figure A), your function should populate each <strong>next</strong> pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the <strong>next</strong> pointers, with <code>#</code> signifying the end of each level.</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>root = []</code></li>
+<li><strong>Output</strong>: <code>[]</code></li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes in the tree is in the range <code>[0, 2^12 - 1]</code>.</li>
+<li><code>-1000 &lt;= Node.val &lt;= 1000</code>.</li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/populating-next-right-pointers-in-each-node" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node left;
+    public Node right;
+    public Node next;
+
+    public Node() {}
+    
+    public Node(int _val) {
+        val = _val;
+    }
+
+    public Node(int _val, Node _left, Node _right, Node _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
+};
+*/
+
+class Solution {
+    public Node connect(Node root) {
+        // If the root is null, return null as there's nothing to connect
+        if (root == null) {
+            return root;
+        }
+
+        // Initialize a queue for level order traversal
+        Queue&lt;Node&gt; queue = new LinkedList&lt;&gt;();
+        queue.offer(root);
+
+        // Process nodes level by level
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size(); // Get the number of nodes at the current level
+
+            // Iterate through nodes at the current level
+            for (int i = 0; i < levelSize; i++) {
+                Node node = queue.poll();
+
+                // Set the next pointer for all nodes except the last node at the level
+                if (i < levelSize - 1) {
+                    node.next = queue.peek();  // Next node at the same level
+                } else {
+                    node.next = null;  // Last node points to null
+                }
+
+                // Enqueue left and right children for the next level
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+
+        // Return the root of the tree with updated next pointers
+        return root;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/29-connect-level-order-siblings.svg" alt="Populating Next Right Pointers in Each Node"  />
+</details></p>
+
 <hr>
 <h1 id="tree-depth-first-search">Tree Depth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-depth-first-search">#</a></h1>
 <hr>
@@ -4140,9 +4664,11 @@ class Solution {
 <hr>
 <h1 id="matrix-traversal">Matrix Traversal<a hidden class="anchor" aria-hidden="true" href="#matrix-traversal">#</a></h1>
 <hr>
+<h1 id="2-dimensional-prefix-sum">2-Dimensional Prefix Sum<a hidden class="anchor" aria-hidden="true" href="#2-dimensional-prefix-sum">#</a></h1>
+<hr>
 <h1 id="subsets">Subsets<a hidden class="anchor" aria-hidden="true" href="#subsets">#</a></h1>
 <hr>
-<h1 id="modified-binary-tree">Modified Binary Tree<a hidden class="anchor" aria-hidden="true" href="#modified-binary-tree">#</a></h1>
+<h1 id="modified-binary-search">Modified Binary Search<a hidden class="anchor" aria-hidden="true" href="#modified-binary-search">#</a></h1>
 <hr>
 <h1 id="bitwise-xor">Bitwise XOR<a hidden class="anchor" aria-hidden="true" href="#bitwise-xor">#</a></h1>
 <hr>
