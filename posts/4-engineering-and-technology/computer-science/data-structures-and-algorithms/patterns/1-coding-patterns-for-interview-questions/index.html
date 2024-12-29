@@ -99,7 +99,7 @@
     "Engineering \u0026 Technology", "Computer Science", "Data Structure \u0026 Algorithms"
   ],
   "articleBody": "Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers – typically labeled “left” and “right” – are initialized and move in a specific direction based on the problem’s requirements.\nTwo Sum II - Input Array Is Sorted SHOW PROBLEM Problem Statement\nGiven a 1-indexed array of integers, numbers, sorted in non-decreasing order, find two numbers that add up to a specific target. Let these two numbers be numbers[index1] and numbers[index2], where 1 \u003c= index1 \u003c index2 \u003c= numbers.length.\nReturn the indices of the two numbers, index1 and index2, incremented by one, as an integer array [index1, index2] of length 2.\nThe problem guarantees that there is exactly one solution. You may not use the same element twice. Your solution must use only constant extra space. Example 1:\nInput: numbers = [2,7,11,15], target = 9 Output: [1, 2] Explanation: The sum of 2 and 7 is 9, so index1 = 1, index2 = 2. We return [1, 2]. Example 2:\nInput: numbers = [2,3,4], target = 6 Output: [1, 3] Explanation: The sum of 2 and 4 is 6, so index1 = 1, index2 = 3. We return [1, 3]. Example 3:\nInput: numbers = [-1,0], target = -1 Output: [1, 2] Explanation: The sum of -1 and 0 is -1, so index1 = 1, index2 = 2. We return [1, 2]. Constraints:\n2 \u003c= numbers.length \u003c= 30,000 -1000 \u003c= numbers[i] \u003c= 1000 numbers is sorted in non-decreasing order. -1000 \u003c= target \u003c= 1000 There is exactly one solution for each test case. Go to Leetcode 🔗 SHOW CODE Java class Solution { public int[] twoSum(int[] numbers, int target) { int left = 0, right = numbers.length - 1; // Iterate while left pointer is before right pointer while (left \u003c right) { int currentSum = numbers[left] + numbers[right]; // Check if the current sum matches the target if (currentSum == target) { break; } // Adjust the pointers to move towards the target sum if (currentSum \u003c target) { left++; // Increase sum by moving left pointer right } else { right--; // Decrease sum by moving right pointer left } } // Reture 1-indexed result return new int[] { left + 1, right + 1 }; } } SHOW NOTES Algorithm Walkthrough\nnums = [1, 2, 3, 4, 5, 8] target = 7 Initialize pointers: left = 0, right = 5 First iteration: currentSum = 1 + 8 = 9 (greater than the target) Decrease the right pointer to 4 Second iteration: currentSum = 1 + 5 = 6 (less than the target) Increase the left pointer to 1 Third iteration: currentSum = 2 + 4 = 6 (equals the target) Return the indices [1, 3]. Visualization\n3Sum SHOW PROBLEM Problem Statement\nGiven an integer array nums, return all unique triplets [nums[i], nums[j], nums[k]] such that:\ni != j, i != k, and j != k nums[i] + nums[j] + nums[k] == 0 The solution set must not contain duplicate triplets.\nExample 1:\nInput: nums = [-1, 0, 1, 2, -1, -4] Output: [[-1, -1, 2], [-1, 0, 1]] Explanation: nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 The distinct triplets are [-1, 0, 1] and [-1, -1, 2].\nNote: The order of the output and the order of the triplets does not matter.\nExample 2:\nInput: nums = [0, 1, 1] Output: [] Explanation: The only possible triplet does not sum up to 0. Example 3:\nInput: nums = [0, 0, 0] Output: [[0, 0, 0]] Explanation: The only possible triplet sums up to 0. Constraints:\n3 \u003c= nums.length \u003c= 3000 10^5 \u003c= nums[i] \u003c= 10^5 Go to Leetcode 🔗 SHOW CODE Java class Solution { public List",
-  "wordCount" : "11740",
+  "wordCount" : "12190",
   "inLanguage": "en",
   "datePublished": "2022-12-02T10:15:04+08:00",
   "dateModified": "2022-12-02T10:15:04+08:00",
@@ -258,7 +258,13 @@
                     <a href="#populating-next-right-pointers-in-each-node" aria-label="Populating Next Right Pointers in Each Node">Populating Next Right Pointers in Each Node</a></li></ul>
                 </li>
                 <li>
-                    <a href="#tree-depth-first-search" aria-label="Tree Depth First Search">Tree Depth First Search</a></li>
+                    <a href="#tree-depth-first-search" aria-label="Tree Depth First Search">Tree Depth First Search</a><ul>
+                        
+                <li>
+                    <a href="#path-sum" aria-label="Path Sum">Path Sum</a></li>
+                <li>
+                    <a href="#path-sum-ii" aria-label="Path Sum II">Path Sum II</a></li></ul>
+                </li>
                 <li>
                     <a href="#cyclic-sort" aria-label="Cyclic Sort">Cyclic Sort</a></li>
                 <li>
@@ -4659,6 +4665,179 @@ class Solution {
 
 <hr>
 <h1 id="tree-depth-first-search">Tree Depth First Search<a hidden class="anchor" aria-hidden="true" href="#tree-depth-first-search">#</a></h1>
+<blockquote>
+<p>The <strong>Tree Depth-First Search Pattern</strong> is a programming technique commonly used to explore tree or graph data structures. It begins at the root node and explores all nodes in a single branch as far as possible before backtracking. This approach is especially useful for problems that involve tree traversal or handling hierarchical data.</p>
+</blockquote>
+<blockquote>
+<p>Implementing the <strong>Tree Depth-First Search Pattern</strong> commonly involves the following steps:</p>
+</blockquote>
+<ol>
+<li><strong>Empty Check</strong>: If the current node is <code>null</code>, return.</li>
+<li><strong>Leaf Node Check</strong>: If both the left and right children of the current node are <code>null</code>, then the current node is a leaf node.</li>
+<li><strong>Recursive Traversal</strong>: Recursively call the function on the left and right children of the current node.</li>
+<li><strong>Result Computation</strong>: Compute the result based on the results obtained from the left and right branches.</li>
+</ol>
+<hr>
+<h2 id="path-sum">Path Sum<a hidden class="anchor" aria-hidden="true" href="#path-sum">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW PROBLEM</summary>
+  <p><strong>Problem Description:</strong></p>
+<p>Given the root of a binary tree and an integer <code>targetSum</code>, return <code>true</code> if the tree has a root-to-leaf path such that the sum of all the node values along the path equals <code>targetSum</code>.</p>
+<ul>
+<li>A <strong>leaf</strong> is a node with no children.</li>
+</ul>
+<hr>
+<p><strong>Example 1:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/31-path-sum-1.jpg" alt="Path Sum"  />
+</p>
+<ul>
+<li><strong>Input</strong>: <code>root = [5,4,8,11,null,13,4,7,2,null,null,null,1], targetSum = 22</code></li>
+<li><strong>Output</strong>: <code>true</code></li>
+<li><strong>Explanation</strong>: The root-to-leaf path that sums to the target value is: <code>5 -&gt; 4 -&gt; 11 -&gt; 2</code>. This path sums to 22.</li>
+</ul>
+<p><strong>Example 2:</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/32-path-sum-2.jpg" alt="Path Sum"  />
+</p>
+<ul>
+<li><strong>Input</strong>: <code>root = [1,2,3], targetSum = 5</code></li>
+<li><strong>Output</strong>: <code>false</code></li>
+<li><strong>Explanation</strong>: There are two root-to-leaf paths:
+<ul>
+<li>(1 → 2): The sum is 3.</li>
+<li>(1 → 3): The sum is 4.</li>
+<li>Neither of these paths has a sum equal to 5.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input</strong>: <code>root = [], targetSum = 0</code></li>
+<li><strong>Output</strong>: <code>false</code></li>
+<li><strong>Explanation</strong>: Since the tree is empty, there are no root-to-leaf paths.</li>
+</ul>
+<hr>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>The number of nodes in the tree is in the range [0, 5000].</li>
+<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>
+<li><code>-1000 &lt;= targetSum &lt;= 1000</code></li>
+</ul>
+<hr>
+
+</details></p>
+
+
+<a href="https://leetcode.com/problems/path-sum" target="_blank">
+Go to Leetcode 🔗
+</a>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        // Return false if the node is null
+        if (root == null) {
+            return false;
+        }
+
+        // Check if current node is a leaf node
+        if (root.left == null && root.right == null) {
+            return root.val == targetSum;
+        }
+
+        // Recursively check left and right subtrees with the reduced target
+        targetSum -= root.val; // Reduce the target sum by the current node's value
+        return hasPathSum(root.left, targetSum) || hasPathSum(root.right, targetSum);
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <p><strong>Visulization</strong></p>
+<p><img loading="lazy" src="/img/algorithms/patterns/coding-patterns-for-interview-questions/30-path-sum.svg" alt="Path Sum"  />
+</p>
+
+</details></p>
+
+<hr>
+<h2 id="path-sum-ii">Path Sum II<a hidden class="anchor" aria-hidden="true" href="#path-sum-ii">#</a></h2>
 <hr>
 <h1 id="cyclic-sort">Cyclic Sort<a hidden class="anchor" aria-hidden="true" href="#cyclic-sort">#</a></h1>
 <hr>
