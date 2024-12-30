@@ -102,7 +102,7 @@ SHOW CODE Single Responsibility Principle import java.io.IOException; import jav
     "Engineering \u0026 Technology", "Computer Science", "Design Patterns"
   ],
   "articleBody": "1. Solid Principle 1.1 Single Responsibility Principle A class should have only one reason to change, meaning each class should focus on a single functionality or responsibility.\nSHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage. * 4. UserPersistenceService class is dedicated to save the user data. * 5. UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ /* com.fasterxml.jackson.core jackson-databind 2.18.0 */ /** * Represents a user with basic details. * User class is only used to represent entity. */ class User { private String name; private String email; private String address; public User() {} public User(String name, String email, String address) { this.name = name; this.email = email; this.address = address; } // Getters and setters public String getName() { return name; } public void setName(String name) { this.name = name; } public String getEmail() { return email; } public void setEmail(String email) { this.email = email; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } @Override public String toString() { return \"User [name=\" + name + \", email=\" + email + \", address=\" + address + \"]\"; } } /** * Handles incoming JSON requests that work on User. * UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ class UserController { private final UserPersistenceService persistenceService = new UserPersistenceService(); public String createUser(String userJson) throws IOException { ObjectMapper mapper = new ObjectMapper(); User user = mapper.readValue(userJson, User.class); UserValidator validator = new UserValidator(); if (!validator.validateUser(user)) { return \"ERROR\"; } persistenceService.saveUser(user); return \"SUCCESS\"; } } /** * Handles persistence of User objects. * UserPersistenceService class is dedicated to save the user data. */ class UserPersistenceService { private final Store store = new Store(); public void saveUser(User user) { store.store(user); } } /** * Validates User data. * UserValidator class is solely responsible for validating user objects. */ class UserValidator { public boolean validateUser(User user) { if (!isPresent(user.getName()) || !isValidAlphaNumeric(user.getName())) { return false; } user.setName(user.getName().trim()); user.setEmail(user.getEmail().trim()); return isValidEmail(user.getEmail()); } private boolean isPresent(String value) { return value != null \u0026\u0026 value.trim().length() \u003e 0; } private boolean isValidAlphaNumeric(String value) { Pattern pattern = Pattern.compile(\"[^A-Za-z0-9]\"); Matcher matcher = pattern.matcher(value); return !matcher.find(); } private boolean isValidEmail(String value) { Pattern pattern = Pattern.compile(\"^[\\\\w-\\\\.]+@[\\\\w-]+(\\\\.[\\\\w-]+)+$\"); Matcher matcher = pattern.matcher(value); return matcher.find(); } } /** * Stores User data in memory. * Store class is only used to manage user objects storage. */ class Store { private static final Map STORAGE = new HashMap\u003c\u003e(); public void store(User user) { synchronized (STORAGE) { STORAGE.put(user.getName(), user); } } public User getUser(String name) { synchronized (STORAGE) { return STORAGE.get(name); } } } /** * Main class for demonstrating the Single Responsibility Principle. */ public class Main { private static final String VALID_USER_JSON = \"{\\\"name\\\": \\\"Signal\\\", \\\"email\\\": \\\"signalyu999@gmail.com\\\", \\\"address\\\":\\\"999 Sugar lane\\\"}\"; private static final String INVALID_USER_JSON = \"{\\\"name\\\": \\\"Sam\\\", \\\"email\\\": \\\"sam@email\\\", \\\"address\\\":\\\"111 Sugar lane\\\"}\"; public static void main(String[] args) throws IOException { UserController controller = new UserController(); String response = controller.createUser(VALID_USER_JSON); System.out.println(\"Valid JSON response: \" + response); response = controller.createUser(INVALID_USER_JSON); System.out.println(\"Invalid JSON response: \" + response); } } Each class in the above code strictly adheres to the Single Responsibility Principle by focusing on a specific responsibility:\nUser for representing the user entity UserController for request handling UserPersistenceService for data persistence UserValidator for user data validation Store for managing in-memory data storage --- title: Single Responsibility Principle - Class Diagram --- classDiagram class User { - String name - String email - String address + String toString() } class Store { + void store(User user) + User getUser(String name) } class UserPersistenceService { + void saveUser(User user) } class UserValidator { - boolean isPresent(String value) - boolean isValidAlphaNumeric(String value) - boolean isValidEmail(String value) + boolean validateUser(User user) } class UserController { + String createUser(String userJson) } class Main { + void main(String[] args) } User --* Store Store --* UserPersistenceService UserPersistenceService --* UserController UserController --\u003e UserValidator : create Main --\u003e UserController : create 1.2 Open-Closed Principle A software entity (class, module, function, etc.) should be open for extension but closed for modification.\n点击查看代码 Java import java.time.LocalDateTime; import java.util.*; // Abstract base class, closed for modification but open for extension abstract class Subscriber { protected Long subscriberId; protected String address; protected Long phoneNumber; protected int baseRate; // Getter and Setter methods public Long getSubscriberId() { return subscriberId; } public void setSubscriberId(Long subscriberId) { this.subscriberId = subscriberId; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } public Long getPhoneNumber() { return phoneNumber; } public void setPhoneNumber(Long phoneNumber) { this.phoneNumber = phoneNumber; } public int getBaseRate() { return baseRate; } public void setBaseRate(int baseRate) { this.baseRate = baseRate; } // Abstract method to calculate the bill; implementation is defined in subclasses public abstract double calculateBill(); } // PhoneSubscriber class extends Subscriber, calculates the phone bill class PhoneSubscriber extends Subscriber { @Override public double calculateBill() { List calls = CallHistory.getCurrentCalls(subscriberId); long totalDuration = calls.stream().mapToLong(CallHistory.Call::getDuration).sum(); return (totalDuration * baseRate) / 100.0; } } // ISPSubscriber class extends Subscriber, calculates the internet bill class ISPSubscriber extends Subscriber { private long freeUsage; // Free usage limit in data units @Override public double calculateBill() { List sessions = InternetSessionHistory.getCurrentSessions(subscriberId); long totalData = sessions.stream().mapToLong(InternetSessionHistory.InternetSession::getDataUsed).sum(); long chargeableData = totalData - freeUsage; return chargeableData \u003c= 0 ? 0 : (chargeableData * baseRate) / 100.0; } public long getFreeUsage() { return freeUsage; } public void setFreeUsage(long freeUsage) { this.freeUsage = freeUsage; } } // InternetSessionHistory class to manage internet usage records class InternetSessionHistory { public static class InternetSession { private final LocalDateTime begin; private final Long subscriberId; private final Long dataUsed; public InternetSession(Long subscriberId, LocalDateTime begin, long dataUsed) { this.subscriberId = subscriberId; this.begin = begin; this.dataUsed = dataUsed; } public LocalDateTime getBegin() { return begin; } public long getDataUsed() { return dataUsed; } public Long getSubscriberId() { return subscriberId; } } private static final Map",
-  "wordCount" : "12813",
+  "wordCount" : "13860",
   "inLanguage": "en",
   "datePublished": "2023-11-12T14:38:17+08:00",
   "dateModified": "2023-11-12T14:38:17+08:00",
@@ -6539,6 +6539,620 @@ classDiagram
 </pre>
 <hr>
 <h2 id="37-proxy">3.7 Proxy<a hidden class="anchor" aria-hidden="true" href="#37-proxy">#</a></h2>
+<blockquote>
+<p>The <strong>Proxy Design Pattern</strong> is a structural design pattern that involves using a proxy object to represent another object. The proxy controls access to the real object and can add additional functionality, such aas lazy initialization, logging, or monitoring. This pattern can be primarily categorized into two types: <strong>Static Proxy</strong> and <strong>Dynamic Proxy</strong>.</p>
+</blockquote>
+<blockquote>
+<p>The <strong>Static Proxy</strong> is created at compile time, where a separate proxy class is written to manage method calls to the real object. In contrast, the <strong>Dynamic Proxy</strong> is created at runtime, often using reflection techniques in languages like Java. A dynamic proxy delegates method calls to the real object without the need for manually creating a proxy class.</p>
+</blockquote>
+<hr>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Static Proxy</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >// Point2D class to represent the location of the image
+class Point2D {
+
+    private final float x;
+    private final float y;
+
+    public Point2D(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point2D [x=" + x + ", y=" + y + "]";
+    }
+}
+
+// Interface implemented by proxy and concrete objects
+interface Image {
+    void setLocation(Point2D point2d);
+    Point2D getLocation();
+    void render();
+}
+
+// Concrete class providing actual functionality
+class BitmapImage implements Image {
+
+    private Point2D location;
+    private final String name;
+
+    public BitmapImage(String filename) {
+        // Loads image from file on disk
+        System.out.println("Loaded from disk: " + filename);
+        name = filename;
+    }
+
+    @Override
+    public void setLocation(Point2D point2d) {
+        location = point2d;
+    }
+
+    @Override
+    public Point2D getLocation() {
+        return location;
+    }
+
+    @Override
+    public void render() {
+        // Renders to screen
+        System.out.println("Rendered " + this.name);
+    }
+}
+
+// Proxy class
+class ImageProxy implements Image {
+
+    private final String name;
+    private BitmapImage image;
+    private Point2D location;
+
+    public ImageProxy(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setLocation(Point2D point2d) {
+        if (image != null) {
+            image.setLocation(point2d);
+        } else {
+            location = point2d;
+        }
+    }
+
+    @Override
+    public Point2D getLocation() {
+        if (image != null) {
+            return image.getLocation();
+        }
+        return location;
+    }
+
+    @Override
+    public void render() {
+        if (image == null) {
+            image = new BitmapImage(name);
+            if (location != null) {
+                image.setLocation(location);
+            }
+        }
+        image.render();
+    }
+}
+
+// Factory to get image objects
+class ImageFactory {
+    // We'll provide proxy to caller instead of real object
+    public static Image getImage(String name) {
+        return new ImageProxy(name);
+    }
+}
+
+// Client class to test the proxy pattern
+public class Client {
+
+    public static void main(String[] args) {
+        Image img = ImageFactory.getImage("A1.bmp");
+
+        img.setLocation(new Point2D(10, 10));
+        System.out.println("Image location: " + img.getLocation());
+        System.out.println("Rendering image now...");
+        img.render();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >Image location: Point2D [x=10.0, y=10.0]
+Rendering image now...
+Loaded from disk: A1.bmp
+Rendered A1.bmp
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<pre class="mermaid">---
+title: UML Diagram of Static Proxy Design Pattern
+---
+classDiagram
+    class Image {
+        + setLocation(Point2D point2d)
+        + Point2D getLocation()
+        + render()
+    }
+
+    class BitmapImage {
+        - Point2D location
+        - String name
+        + BitmapImage(String filename)
+        + setLocation(Point2D point2d)
+        + getLocation(): Point2D
+        + render()
+    }
+
+    class ImageProxy {
+        - String name
+        - BitmapImage image
+        - Point2D location
+        + ImageProxy(String name)
+        + setLocation(Point2D point2d)
+        + getLocation(): Point2D
+        + render()
+    }
+
+    class ImageFactory {
+        + getImage(String name): Image
+    }
+
+    class Client {
+        + main(String[] args)
+    }
+
+    Image <|.. BitmapImage : implements
+    Image <|.. ImageProxy : implements
+    ImageFactory --|> ImageProxy : creates
+    Client --> ImageFactory : uses
+    ImageProxy "1" --> "0..1" BitmapImage : contains
+</pre>
+<hr>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Dynamic Proxy</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+// Point2D class to represent the location of the image
+class Point2D {
+
+    private final float x;
+    private final float y;
+
+    public Point2D(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public String toString() {
+        return "Point2D [x=" + x + ", y=" + y + "]";
+    }
+}
+
+// Interface implemented by proxy and concrete objects
+interface Image {
+    void setLocation(Point2D point2d);
+
+    Point2D getLocation();
+
+    void render();
+}
+
+// Concrete class providing actual functionality (BitmapImage)
+class BitmapImage implements Image {
+
+    private Point2D location;
+    private final String name;
+
+    public BitmapImage(String filename) {
+        // Loads image from file on disk
+        System.out.println("Loaded from disk: " + filename);
+        name = filename;
+    }
+
+    @Override
+    public void setLocation(Point2D point2d) {
+        location = point2d;
+    }
+
+    @Override
+    public Point2D getLocation() {
+        return location;
+    }
+
+    @Override
+    public void render() {
+        // Renders to screen
+        System.out.println("Rendered " + this.name);
+    }
+}
+
+// InvocationHandler to implement proxy behavior
+class ImageInvocationHandler implements InvocationHandler {
+
+    private final String filename;
+    private Point2D location;
+    private BitmapImage image;
+
+    private static final Method setLocationMethod;
+    private static final Method getLocationMethod;
+    private static final Method renderMethod;
+
+    static {
+        try {
+            setLocationMethod = Image.class.getMethod("setLocation", Point2D.class);
+            getLocationMethod = Image.class.getMethod("getLocation");
+            renderMethod = Image.class.getMethod("render");
+        } catch (NoSuchMethodException e) {
+            throw new NoSuchMethodError(e.getMessage());
+        }
+    }
+
+    public ImageInvocationHandler(String filename) {
+        this.filename = filename;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) {
+        System.out.println("Invoking method: " + method.getName());
+        if (method.equals(setLocationMethod)) {
+            return handleSetLocation(args);
+        } else if (method.equals(getLocationMethod)) {
+            return handleGetLocation();
+        } else if (method.equals(renderMethod)) {
+            return handleRender();
+        }
+        return null;
+    }
+
+    private Object handleRender() {
+        if (image == null) {
+            image = new BitmapImage(filename);
+            if (location != null) {
+                image.setLocation(location);
+            }
+        }
+        image.render();
+        return null;
+    }
+
+    private Point2D handleGetLocation() {
+        if (image != null) {
+            return image.getLocation();
+        } else {
+            return this.location;
+        }
+    }
+
+    private Object handleSetLocation(Object[] args) {
+        if (image != null) {
+            image.setLocation((Point2D) args[0]);
+        } else {
+            this.location = (Point2D) args[0];
+        }
+        return null;
+    }
+}
+
+// Factory to provide the proxy object
+class ImageFactory {
+    public static Image getImage(String name) {
+        return (Image) Proxy.newProxyInstance(
+                ImageFactory.class.getClassLoader(),
+                new Class[]{Image.class},
+                new ImageInvocationHandler(name)
+        );
+    }
+}
+
+// Client class to test the proxy pattern
+public class Client {
+
+    public static void main(String[] args) {
+        Image img = ImageFactory.getImage("A.bmp");
+        img.setLocation(new Point2D(-10, 0));
+        System.out.println(img.getLocation());
+        System.out.println("*****************************");
+        img.render();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >Invoking method: setLocation
+Invoking method: getLocation
+Point2D [x=-10.0, y=0.0]
+*****************************
+Invoking method: render
+Loaded from disk: A.bmp
+Rendered A.bmp
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<pre class="mermaid">---
+title: UML Diagram of Dynamic Proxy Design Pattern
+---
+classDiagram
+    class Image {
+        +setLocation(Point2D point2d)
+        +getLocation(): Point2D
+        +render()
+    }
+
+    class BitmapImage {
+        -Point2D location
+        -String name
+        +BitmapImage(String filename)
+        +setLocation(Point2D point2d)
+        +getLocation(): Point2D
+        +render()
+    }
+
+    class ImageInvocationHandler {
+        -String filename
+        -Point2D location
+        -BitmapImage image
+        +ImageInvocationHandler(String filename)
+        +invoke(Object proxy, Method method, Object[] args)
+        -handleRender()
+        -handleGetLocation(): Point2D
+        -handleSetLocation(Object[] args)
+    }
+
+    class ImageFactory {
+        +getImage(String name): Image
+    }
+
+    class Client {
+        +main(String[] args)
+    }
+
+    Image <|.. BitmapImage : implements
+    Image <|.. ImageInvocationHandler : delegates
+    ImageFactory ..> ImageInvocationHandler : creates
+    Client ..> ImageFactory : uses
+    ImageInvocationHandler "1" -- "1" BitmapImage : image
+</pre>
+<hr>
 <h1 id="4-behavioral-design-patterns">4. Behavioral Design Patterns<a hidden class="anchor" aria-hidden="true" href="#4-behavioral-design-patterns">#</a></h1>
 <h2 id="41-chain-of-responsibility">4.1 Chain of Responsibility<a hidden class="anchor" aria-hidden="true" href="#41-chain-of-responsibility">#</a></h2>
 <h2 id="42-command">4.2 Command<a hidden class="anchor" aria-hidden="true" href="#42-command">#</a></h2>
