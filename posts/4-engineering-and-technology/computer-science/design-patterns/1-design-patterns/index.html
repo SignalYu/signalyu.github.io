@@ -102,7 +102,7 @@ SHOW CODE Single Responsibility Principle import java.io.IOException; import jav
     "Engineering \u0026 Technology", "Computer Science", "Design Patterns"
   ],
   "articleBody": "1. Solid Principle 1.1 Single Responsibility Principle A class should have only one reason to change, meaning each class should focus on a single functionality or responsibility.\nSHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage. * 4. UserPersistenceService class is dedicated to save the user data. * 5. UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ /* com.fasterxml.jackson.core jackson-databind 2.18.0 */ /** * Represents a user with basic details. * User class is only used to represent entity. */ class User { private String name; private String email; private String address; public User() {} public User(String name, String email, String address) { this.name = name; this.email = email; this.address = address; } // Getters and setters public String getName() { return name; } public void setName(String name) { this.name = name; } public String getEmail() { return email; } public void setEmail(String email) { this.email = email; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } @Override public String toString() { return \"User [name=\" + name + \", email=\" + email + \", address=\" + address + \"]\"; } } /** * Handles incoming JSON requests that work on User. * UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ class UserController { private final UserPersistenceService persistenceService = new UserPersistenceService(); public String createUser(String userJson) throws IOException { ObjectMapper mapper = new ObjectMapper(); User user = mapper.readValue(userJson, User.class); UserValidator validator = new UserValidator(); if (!validator.validateUser(user)) { return \"ERROR\"; } persistenceService.saveUser(user); return \"SUCCESS\"; } } /** * Handles persistence of User objects. * UserPersistenceService class is dedicated to save the user data. */ class UserPersistenceService { private final Store store = new Store(); public void saveUser(User user) { store.store(user); } } /** * Validates User data. * UserValidator class is solely responsible for validating user objects. */ class UserValidator { public boolean validateUser(User user) { if (!isPresent(user.getName()) || !isValidAlphaNumeric(user.getName())) { return false; } user.setName(user.getName().trim()); user.setEmail(user.getEmail().trim()); return isValidEmail(user.getEmail()); } private boolean isPresent(String value) { return value != null \u0026\u0026 value.trim().length() \u003e 0; } private boolean isValidAlphaNumeric(String value) { Pattern pattern = Pattern.compile(\"[^A-Za-z0-9]\"); Matcher matcher = pattern.matcher(value); return !matcher.find(); } private boolean isValidEmail(String value) { Pattern pattern = Pattern.compile(\"^[\\\\w-\\\\.]+@[\\\\w-]+(\\\\.[\\\\w-]+)+$\"); Matcher matcher = pattern.matcher(value); return matcher.find(); } } /** * Stores User data in memory. * Store class is only used to manage user objects storage. */ class Store { private static final Map STORAGE = new HashMap\u003c\u003e(); public void store(User user) { synchronized (STORAGE) { STORAGE.put(user.getName(), user); } } public User getUser(String name) { synchronized (STORAGE) { return STORAGE.get(name); } } } /** * Main class for demonstrating the Single Responsibility Principle. */ public class Main { private static final String VALID_USER_JSON = \"{\\\"name\\\": \\\"Signal\\\", \\\"email\\\": \\\"signalyu999@gmail.com\\\", \\\"address\\\":\\\"999 Sugar lane\\\"}\"; private static final String INVALID_USER_JSON = \"{\\\"name\\\": \\\"Sam\\\", \\\"email\\\": \\\"sam@email\\\", \\\"address\\\":\\\"111 Sugar lane\\\"}\"; public static void main(String[] args) throws IOException { UserController controller = new UserController(); String response = controller.createUser(VALID_USER_JSON); System.out.println(\"Valid JSON response: \" + response); response = controller.createUser(INVALID_USER_JSON); System.out.println(\"Invalid JSON response: \" + response); } } Each class in the above code strictly adheres to the Single Responsibility Principle by focusing on a specific responsibility:\nUser for representing the user entity UserController for request handling UserPersistenceService for data persistence UserValidator for user data validation Store for managing in-memory data storage --- title: Single Responsibility Principle - Class Diagram --- classDiagram class User { - String name - String email - String address + String toString() } class Store { + void store(User user) + User getUser(String name) } class UserPersistenceService { + void saveUser(User user) } class UserValidator { - boolean isPresent(String value) - boolean isValidAlphaNumeric(String value) - boolean isValidEmail(String value) + boolean validateUser(User user) } class UserController { + String createUser(String userJson) } class Main { + void main(String[] args) } User --* Store Store --* UserPersistenceService UserPersistenceService --* UserController UserController --\u003e UserValidator : create Main --\u003e UserController : create 1.2 Open-Closed Principle A software entity (class, module, function, etc.) should be open for extension but closed for modification.\n点击查看代码 Java import java.time.LocalDateTime; import java.util.*; // Abstract base class, closed for modification but open for extension abstract class Subscriber { protected Long subscriberId; protected String address; protected Long phoneNumber; protected int baseRate; // Getter and Setter methods public Long getSubscriberId() { return subscriberId; } public void setSubscriberId(Long subscriberId) { this.subscriberId = subscriberId; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } public Long getPhoneNumber() { return phoneNumber; } public void setPhoneNumber(Long phoneNumber) { this.phoneNumber = phoneNumber; } public int getBaseRate() { return baseRate; } public void setBaseRate(int baseRate) { this.baseRate = baseRate; } // Abstract method to calculate the bill; implementation is defined in subclasses public abstract double calculateBill(); } // PhoneSubscriber class extends Subscriber, calculates the phone bill class PhoneSubscriber extends Subscriber { @Override public double calculateBill() { List calls = CallHistory.getCurrentCalls(subscriberId); long totalDuration = calls.stream().mapToLong(CallHistory.Call::getDuration).sum(); return (totalDuration * baseRate) / 100.0; } } // ISPSubscriber class extends Subscriber, calculates the internet bill class ISPSubscriber extends Subscriber { private long freeUsage; // Free usage limit in data units @Override public double calculateBill() { List sessions = InternetSessionHistory.getCurrentSessions(subscriberId); long totalData = sessions.stream().mapToLong(InternetSessionHistory.InternetSession::getDataUsed).sum(); long chargeableData = totalData - freeUsage; return chargeableData \u003c= 0 ? 0 : (chargeableData * baseRate) / 100.0; } public long getFreeUsage() { return freeUsage; } public void setFreeUsage(long freeUsage) { this.freeUsage = freeUsage; } } // InternetSessionHistory class to manage internet usage records class InternetSessionHistory { public static class InternetSession { private final LocalDateTime begin; private final Long subscriberId; private final Long dataUsed; public InternetSession(Long subscriberId, LocalDateTime begin, long dataUsed) { this.subscriberId = subscriberId; this.begin = begin; this.dataUsed = dataUsed; } public LocalDateTime getBegin() { return begin; } public long getDataUsed() { return dataUsed; } public Long getSubscriberId() { return subscriberId; } } private static final Map",
-  "wordCount" : "13860",
+  "wordCount" : "14562",
   "inLanguage": "en",
   "datePublished": "2023-11-12T14:38:17+08:00",
   "dateModified": "2023-11-12T14:38:17+08:00",
@@ -7154,7 +7154,397 @@ classDiagram
 </pre>
 <hr>
 <h1 id="4-behavioral-design-patterns">4. Behavioral Design Patterns<a hidden class="anchor" aria-hidden="true" href="#4-behavioral-design-patterns">#</a></h1>
+<blockquote>
+<p><strong>Behavioral Design Patterns</strong> focus on the communication and interaction between objects or components in a system.</p>
+</blockquote>
 <h2 id="41-chain-of-responsibility">4.1 Chain of Responsibility<a hidden class="anchor" aria-hidden="true" href="#41-chain-of-responsibility">#</a></h2>
+<blockquote>
+<p>The <strong>Chain of Responsibility Design Pattern</strong> is a behavioral design pattern that allows a request to be passed along a chain of handlers, where each handler either processes the request or passes it along to the next handler in the chain. The request will continue through the chain until it is handled by an appropriate handler or the end of the chain is reached.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.time.LocalDate;
+import java.time.Period;
+
+// Represents a request in our chain of responsibility
+class LeaveApplication {
+
+    public enum Type {Sick, PTO, LOP}
+
+    public enum Status {Pending, Approved, Rejected}
+
+    private final Type type;
+    private final LocalDate from;
+    private final LocalDate to;
+    private String processedBy;
+    private Status status;
+
+    public LeaveApplication(Type type, LocalDate from, LocalDate to) {
+        this.type = type;
+        this.from = from;
+        this.to = to;
+        this.status = Status.Pending;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public LocalDate getTo() {
+        return to;
+    }
+
+    public int getNoOfDays() {
+        return Period.between(from, to).getDays();
+    }
+
+    public String getProcessedBy() {
+        return processedBy;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void approve(String approvalName) {
+        this.status = Status.Approved;
+        this.processedBy = approvalName;
+    }
+
+    public void reject(String approvalName) {
+        this.status = Status.Rejected;
+        this.processedBy = approvalName;
+    }
+
+    public static Builder getBuilder() {
+        return new Builder();
+    }
+
+    @Override
+    public String toString() {
+        return type + " leave for " + getNoOfDays() + " day(s) " + status + " by " + processedBy;
+    }
+
+    // Builder pattern for LeaveApplication
+    public static class Builder {
+        private Type type;
+        private LocalDate from;
+        private LocalDate to;
+        private LeaveApplication application;
+
+        private Builder() {
+        }
+
+        public Builder withType(Type type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder from(LocalDate from) {
+            this.from = from;
+            return this;
+        }
+
+        public Builder to(LocalDate to) {
+            this.to = to;
+            return this;
+        }
+
+        public LeaveApplication build() {
+            this.application = new LeaveApplication(type, from, to);
+            return this.application;
+        }
+
+        public LeaveApplication getApplication() {
+            return application;
+        }
+    }
+}
+
+// This represents a handler in chain of responsibility
+interface LeaveApproval {
+    void processLeaveApplication(LeaveApplication application);
+    String getApprovalRole();
+}
+
+// Abstract handler
+abstract class Employee implements LeaveApproval {
+
+    private final String role;
+    private final LeaveApproval successor;
+
+    public Employee(String role, LeaveApproval successor) {
+        this.role = role;
+        this.successor = successor;
+    }
+
+    @Override
+    public void processLeaveApplication(LeaveApplication application) {
+        if (!processRequest(application) && successor != null) {
+            successor.processLeaveApplication(application);
+        }
+    }
+
+    protected abstract boolean processRequest(LeaveApplication application);
+
+    @Override
+    public String getApprovalRole() {
+        return role;
+    }
+}
+
+// A concrete handler: Manager
+class Manager extends Employee {
+
+    public Manager(LeaveApproval nextApproval) {
+        super("Manager", nextApproval);
+    }
+
+    @Override
+    protected boolean processRequest(LeaveApplication application) {
+        switch (application.getType()) {
+            case Sick:
+                application.approve(getApprovalRole());
+                return true;
+            case PTO:
+                if (application.getNoOfDays() <= 5) {
+                    application.approve(getApprovalRole());
+                    return true;
+                }
+        }
+        return false;
+    }
+
+}
+
+// A concrete handler: ProjectLead
+class ProjectLead extends Employee {
+
+    public ProjectLead(LeaveApproval successor) {
+        super("Project Lead", successor);
+    }
+
+    @Override
+    protected boolean processRequest(LeaveApplication application) {
+        if (application.getType() == LeaveApplication.Type.Sick) {
+            if (application.getNoOfDays() <= 2) {
+                application.approve(getApprovalRole());
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+// A concrete handler: Director
+class Director extends Employee {
+
+    public Director(LeaveApproval nextApproval) {
+        super("Director", nextApproval);
+    }
+
+    @Override
+    protected boolean processRequest(LeaveApplication application) {
+        if (application.getType() == LeaveApplication.Type.PTO) {
+            application.approve(getApprovalRole());
+            return true;
+        }
+        return false;
+    }
+}
+
+// Client class to test the Chain of Responsibility
+public class Client {
+
+    public static void main(String[] args) {
+        LeaveApplication application = LeaveApplication.getBuilder()
+                .withType(LeaveApplication.Type.PTO)
+                .from(LocalDate.now())
+                .to(LocalDate.of(2025, 1, 8))
+                .build();
+
+        System.out.println(application);
+        System.out.println("**************************************************");
+        LeaveApproval approval = createChain();
+        approval.processLeaveApplication(application);
+        System.out.println(application);
+    }
+
+    private static LeaveApproval createChain() {
+        Director director = new Director(null);
+        Manager manager = new Manager(director);
+        ProjectLead lead = new ProjectLead(manager);
+        return lead;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW OUTPUT</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Output</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >PTO leave for 8 day(s) Pending by null
+**************************************************
+PTO leave for 8 day(s) Approved by Director
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<pre class="mermaid">---
+title: UML Diagram of Chain of Responsibility Design Pattern
+---
+classDiagram
+    class LeaveApproval {
+        +void processLeaveApplication(LeaveApplication)
+        +String getApprovalRole()
+    }
+
+    class Employee {
+        +String role
+        +LeaveApproval successor
+        +Employee(String, LeaveApproval)
+        +void processLeaveApplication(LeaveApplication)
+        +String getApprovalRole()
+        +protected abstract boolean processRequest(LeaveApplication)
+    }
+
+    class Manager {
+        +Manager(LeaveApproval)
+        +boolean processRequest(LeaveApplication)
+    }
+
+    class ProjectLead {
+        +ProjectLead(LeaveApproval)
+        +boolean processRequest(LeaveApplication)
+    }
+
+    class Director {
+        +Director(LeaveApproval)
+        +boolean processRequest(LeaveApplication)
+    }
+
+    LeaveApproval <|-- Employee : implements
+    Employee <|-- Manager : extends
+    Employee <|-- ProjectLead : extends
+    Employee <|-- Director : extends
+    Employee *--|> LeaveApproval
+</pre>
+<hr>
 <h2 id="42-command">4.2 Command<a hidden class="anchor" aria-hidden="true" href="#42-command">#</a></h2>
 <h2 id="43-interpreter">4.3 Interpreter<a hidden class="anchor" aria-hidden="true" href="#43-interpreter">#</a></h2>
 <h2 id="44-mediator">4.4 Mediator<a hidden class="anchor" aria-hidden="true" href="#44-mediator">#</a></h2>
