@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
 <title>React Notes | Signal&#39;s Blog</title>
-<meta name="keywords" content="React">
+<meta name="keywords" content="Engineering &amp; Technology, Computer Science, Framework &amp; Tools">
 <meta name="description" content="JSX JSX (JavaScript XML) is a syntax extension for JavaScript commonly used in React to describe what the UI should look like.
 SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&#39;, title: &#39;React&#39; }; function getName(name) { return name; } function App() { return ( &lt;div&gt; &lt;h1&gt;{welcome.greeting} {welcome.title}!&lt;/h1&gt; &lt;h1&gt;I am {getName(&#39;Signal&#39;)}!&lt;/h1&gt; &lt;label htmlFor=&quot;search&quot;&gt;Search: &lt;/label&gt; &lt;input id=&quot;search&quot; type=&quot;text&quot;&gt;&lt;/input&gt; &lt;/div&gt; ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data.">
 <meta name="author" content="Signal Yu">
@@ -99,7 +99,7 @@ SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&
   "name": "React Notes",
   "description": "JSX JSX (JavaScript XML) is a syntax extension for JavaScript commonly used in React to describe what the UI should look like.\nSHOW CODE React import './App.css' const welcome = { greeting: 'Hey', title: 'React' }; function getName(name) { return name; } function App() { return ( \u0026lt;div\u0026gt; \u0026lt;h1\u0026gt;{welcome.greeting} {welcome.title}!\u0026lt;/h1\u0026gt; \u0026lt;h1\u0026gt;I am {getName('Signal')}!\u0026lt;/h1\u0026gt; \u0026lt;label htmlFor=\u0026quot;search\u0026quot;\u0026gt;Search: \u0026lt;/label\u0026gt; \u0026lt;input id=\u0026quot;search\u0026quot; type=\u0026quot;text\u0026quot;\u0026gt;\u0026lt;/input\u0026gt; \u0026lt;/div\u0026gt; ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data.",
   "keywords": [
-    "React"
+    "Engineering \u0026 Technology", "Computer Science", "Framework \u0026 Tools"
   ],
   "articleBody": "JSX JSX (JavaScript XML) is a syntax extension for JavaScript commonly used in React to describe what the UI should look like.\nSHOW CODE React import './App.css' const welcome = { greeting: 'Hey', title: 'React' }; function getName(name) { return name; } function App() { return ( {welcome.greeting} {welcome.title}! I am {getName('Signal')}! Search: ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data. This typically involves using the map() function. Providing a unique key prop for each rendered item is crucial to avoid unexpected behavior. For static content, the item’s index can be used as a key. To enhance redability, it is recommended to move complex inline logic to a seperate function.\nSHOW CODE React import React from \"react\"; const App = () =\u003e { const users = [ { id: 1, name: \"Alice\", age: 25 }, { id: 2, name: \"Bob\", age: 30 }, { id: 3, name: \"Charlie\", age: 35 }, ]; return ( {users.map((user) =\u003e ( {user.name} - Age: {user.age} ))} ); }; export default App; Event Handlers In React, event handlers are used to manage user interactions, such as clicks, input changes, or form submissions.\nSHOW CODE React const Example = () =\u003e { const handleClick = () =\u003e { console.log('Clicked'); }; return Click Me; }; const handleClick = (id) =\u003e { console.log(`Button ${id} clicked`); }; ",
   "wordCount" : "508",
@@ -622,7 +622,9 @@ export default Counter;
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://signalyu.github.io/tags/react/">React</a></li>
+      <li><a href="https://signalyu.github.io/tags/engineering--technology/">Engineering &amp; Technology</a></li>
+      <li><a href="https://signalyu.github.io/tags/computer-science/">Computer Science</a></li>
+      <li><a href="https://signalyu.github.io/tags/framework--tools/">Framework &amp; Tools</a></li>
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/">

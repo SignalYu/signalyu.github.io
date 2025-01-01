@@ -58,6 +58,13 @@
       <description></description>
     </item>
     <item>
+      <title>Asynchronous Messaging</title>
+      <link>https://signalyu.github.io/tags/asynchronous-messaging/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/asynchronous-messaging/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Design Patterns</title>
       <link>https://signalyu.github.io/tags/design-patterns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -72,38 +79,24 @@
       <description></description>
     </item>
     <item>
-      <title>Unit Testing</title>
-      <link>https://signalyu.github.io/tags/unit-testing/</link>
+      <title>Data Structures &amp; Algorithms</title>
+      <link>https://signalyu.github.io/tags/data-structures--algorithms/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/unit-testing/</guid>
+      <guid>https://signalyu.github.io/tags/data-structures--algorithms/</guid>
       <description></description>
     </item>
     <item>
-      <title>React</title>
-      <link>https://signalyu.github.io/tags/react/</link>
+      <title>Framework &amp; Tools</title>
+      <link>https://signalyu.github.io/tags/framework--tools/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/react/</guid>
+      <guid>https://signalyu.github.io/tags/framework--tools/</guid>
       <description></description>
     </item>
     <item>
-      <title>Spring</title>
-      <link>https://signalyu.github.io/tags/spring/</link>
+      <title>Programming</title>
+      <link>https://signalyu.github.io/tags/programming/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/spring/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Vue</title>
-      <link>https://signalyu.github.io/tags/vue/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/vue/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Java</title>
-      <link>https://signalyu.github.io/tags/java/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/java/</guid>
+      <guid>https://signalyu.github.io/tags/programming/</guid>
       <description></description>
     </item>
   </channel>
