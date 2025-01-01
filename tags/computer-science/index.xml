@@ -48,7 +48,7 @@ Head Recursion Head Recursion is a type of recursion where a function makes its 
 SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
     </item>
     <item>
-      <title>Database Management System</title>
+      <title>Database Management Systems</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</link>
       <pubDate>Wed, 25 Dec 2024 10:20:09 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</guid>
