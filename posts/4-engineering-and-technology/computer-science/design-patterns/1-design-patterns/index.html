@@ -102,7 +102,7 @@ SHOW CODE Single Responsibility Principle import java.io.IOException; import jav
     "Engineering \u0026 Technology", "Computer Science", "Design Patterns"
   ],
   "articleBody": "1. Solid Principle 1.1 Single Responsibility Principle A class should have only one reason to change, meaning each class should focus on a single functionality or responsibility.\nSHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage. * 4. UserPersistenceService class is dedicated to save the user data. * 5. UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ /* com.fasterxml.jackson.core jackson-databind 2.18.0 */ /** * Represents a user with basic details. * User class is only used to represent entity. */ class User { private String name; private String email; private String address; public User() {} public User(String name, String email, String address) { this.name = name; this.email = email; this.address = address; } // Getters and setters public String getName() { return name; } public void setName(String name) { this.name = name; } public String getEmail() { return email; } public void setEmail(String email) { this.email = email; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } @Override public String toString() { return \"User [name=\" + name + \", email=\" + email + \", address=\" + address + \"]\"; } } /** * Handles incoming JSON requests that work on User. * UserController is solely used to handle incoming requests (in this case, creating users form JSON input). */ class UserController { private final UserPersistenceService persistenceService = new UserPersistenceService(); public String createUser(String userJson) throws IOException { ObjectMapper mapper = new ObjectMapper(); User user = mapper.readValue(userJson, User.class); UserValidator validator = new UserValidator(); if (!validator.validateUser(user)) { return \"ERROR\"; } persistenceService.saveUser(user); return \"SUCCESS\"; } } /** * Handles persistence of User objects. * UserPersistenceService class is dedicated to save the user data. */ class UserPersistenceService { private final Store store = new Store(); public void saveUser(User user) { store.store(user); } } /** * Validates User data. * UserValidator class is solely responsible for validating user objects. */ class UserValidator { public boolean validateUser(User user) { if (!isPresent(user.getName()) || !isValidAlphaNumeric(user.getName())) { return false; } user.setName(user.getName().trim()); user.setEmail(user.getEmail().trim()); return isValidEmail(user.getEmail()); } private boolean isPresent(String value) { return value != null \u0026\u0026 value.trim().length() \u003e 0; } private boolean isValidAlphaNumeric(String value) { Pattern pattern = Pattern.compile(\"[^A-Za-z0-9]\"); Matcher matcher = pattern.matcher(value); return !matcher.find(); } private boolean isValidEmail(String value) { Pattern pattern = Pattern.compile(\"^[\\\\w-\\\\.]+@[\\\\w-]+(\\\\.[\\\\w-]+)+$\"); Matcher matcher = pattern.matcher(value); return matcher.find(); } } /** * Stores User data in memory. * Store class is only used to manage user objects storage. */ class Store { private static final Map STORAGE = new HashMap\u003c\u003e(); public void store(User user) { synchronized (STORAGE) { STORAGE.put(user.getName(), user); } } public User getUser(String name) { synchronized (STORAGE) { return STORAGE.get(name); } } } /** * Main class for demonstrating the Single Responsibility Principle. */ public class Main { private static final String VALID_USER_JSON = \"{\\\"name\\\": \\\"Signal\\\", \\\"email\\\": \\\"signalyu999@gmail.com\\\", \\\"address\\\":\\\"999 Sugar lane\\\"}\"; private static final String INVALID_USER_JSON = \"{\\\"name\\\": \\\"Sam\\\", \\\"email\\\": \\\"sam@email\\\", \\\"address\\\":\\\"111 Sugar lane\\\"}\"; public static void main(String[] args) throws IOException { UserController controller = new UserController(); String response = controller.createUser(VALID_USER_JSON); System.out.println(\"Valid JSON response: \" + response); response = controller.createUser(INVALID_USER_JSON); System.out.println(\"Invalid JSON response: \" + response); } } Each class in the above code strictly adheres to the Single Responsibility Principle by focusing on a specific responsibility:\nUser for representing the user entity UserController for request handling UserPersistenceService for data persistence UserValidator for user data validation Store for managing in-memory data storage --- title: Single Responsibility Principle - Class Diagram --- classDiagram class User { - String name - String email - String address + String toString() } class Store { + void store(User user) + User getUser(String name) } class UserPersistenceService { + void saveUser(User user) } class UserValidator { - boolean isPresent(String value) - boolean isValidAlphaNumeric(String value) - boolean isValidEmail(String value) + boolean validateUser(User user) } class UserController { + String createUser(String userJson) } class Main { + void main(String[] args) } User --* Store Store --* UserPersistenceService UserPersistenceService --* UserController UserController --\u003e UserValidator : create Main --\u003e UserController : create 1.2 Open-Closed Principle A software entity (class, module, function, etc.) should be open for extension but closed for modification.\n点击查看代码 Java import java.time.LocalDateTime; import java.util.*; // Abstract base class, closed for modification but open for extension abstract class Subscriber { protected Long subscriberId; protected String address; protected Long phoneNumber; protected int baseRate; // Getter and Setter methods public Long getSubscriberId() { return subscriberId; } public void setSubscriberId(Long subscriberId) { this.subscriberId = subscriberId; } public String getAddress() { return address; } public void setAddress(String address) { this.address = address; } public Long getPhoneNumber() { return phoneNumber; } public void setPhoneNumber(Long phoneNumber) { this.phoneNumber = phoneNumber; } public int getBaseRate() { return baseRate; } public void setBaseRate(int baseRate) { this.baseRate = baseRate; } // Abstract method to calculate the bill; implementation is defined in subclasses public abstract double calculateBill(); } // PhoneSubscriber class extends Subscriber, calculates the phone bill class PhoneSubscriber extends Subscriber { @Override public double calculateBill() { List calls = CallHistory.getCurrentCalls(subscriberId); long totalDuration = calls.stream().mapToLong(CallHistory.Call::getDuration).sum(); return (totalDuration * baseRate) / 100.0; } } // ISPSubscriber class extends Subscriber, calculates the internet bill class ISPSubscriber extends Subscriber { private long freeUsage; // Free usage limit in data units @Override public double calculateBill() { List sessions = InternetSessionHistory.getCurrentSessions(subscriberId); long totalData = sessions.stream().mapToLong(InternetSessionHistory.InternetSession::getDataUsed).sum(); long chargeableData = totalData - freeUsage; return chargeableData \u003c= 0 ? 0 : (chargeableData * baseRate) / 100.0; } public long getFreeUsage() { return freeUsage; } public void setFreeUsage(long freeUsage) { this.freeUsage = freeUsage; } } // InternetSessionHistory class to manage internet usage records class InternetSessionHistory { public static class InternetSession { private final LocalDateTime begin; private final Long subscriberId; private final Long dataUsed; public InternetSession(Long subscriberId, LocalDateTime begin, long dataUsed) { this.subscriberId = subscriberId; this.begin = begin; this.dataUsed = dataUsed; } public LocalDateTime getBegin() { return begin; } public long getDataUsed() { return dataUsed; } public Long getSubscriberId() { return subscriberId; } } private static final Map",
-  "wordCount" : "14562",
+  "wordCount" : "15044",
   "inLanguage": "en",
   "datePublished": "2023-11-12T14:38:17+08:00",
   "dateModified": "2023-11-12T14:38:17+08:00",
@@ -7546,6 +7546,231 @@ classDiagram
 </pre>
 <hr>
 <h2 id="42-command">4.2 Command<a hidden class="anchor" aria-hidden="true" href="#42-command">#</a></h2>
+<blockquote>
+<p>The <strong>Command Design Pattern</strong> is a behavioral design pattern that turns a request into a stand-alone object, allowing the decoupling of the sender of the request from the object that processes the request.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.LinkedList;
+import java.util.List;
+
+// Command interface implemented by all concrete command classes
+interface Command {
+    void execute();
+}
+
+// Concrete implementation of Command
+class AddMemberCommand implements Command {
+    private String emailAddress;
+    private String listName;
+    private EWSService receiver;
+
+    public AddMemberCommand(String email, String listName, EWSService service) {
+        this.emailAddress = email;
+        this.listName = listName;
+        this.receiver = service;
+    }
+
+    @Override
+    public void execute() {
+        receiver.addMember(emailAddress, listName);
+    }
+}
+
+// Receiver class that performs the actual action
+class EWSService {
+    // Add a new member to mailing list
+    public void addMember(String contact, String contactGroup) {
+        System.out.println("Added " + contact + " to " + contactGroup);
+    }
+
+    // Remove member from mailing list
+    public void removeMember(String contact, String contactGroup) {
+        System.out.println("Removed " + contact + " from " + contactGroup);
+    }
+}
+
+// Invoker class that executes commands on a separate thread
+class MailTasksRunner implements Runnable {
+    private Thread runner;
+    private List&lt;Command&gt; pendingCommands;
+    private volatile boolean stop;
+
+    private static final MailTasksRunner RUNNER = new MailTasksRunner();
+
+    public static final MailTasksRunner getInstance() {
+        return RUNNER;
+    }
+
+    private MailTasksRunner() {
+        pendingCommands = new LinkedList&lt;&gt;();
+        runner = new Thread(this);
+        runner.start();
+    }
+
+    // Run method that takes pending commands and executes them
+    @Override
+    public void run() {
+        while (true) {
+            Command cmd = null;
+            synchronized (pendingCommands) {
+                if (pendingCommands.isEmpty()) {
+                    try {
+                        pendingCommands.wait();
+                    } catch (InterruptedException e) {
+                        System.out.println("Runner interrupted");
+                        if (stop) {
+                            System.out.println("Runner stopping");
+                            return;
+                        }
+                    }
+                }
+                cmd = pendingCommands.isEmpty() ? null : pendingCommands.remove(0);
+            }
+            if (cmd == null) {
+                return;
+            }
+            cmd.execute();
+        }
+    }
+
+    // Adds a command to the pending commands list for later execution
+    public void addCommand(Command cmd) {
+        synchronized (pendingCommands) {
+            pendingCommands.add(cmd);
+            pendingCommands.notifyAll();
+        }
+    }
+
+    // Stops the runner thread
+    public void shutdown() {
+        this.stop = true;
+        this.runner.interrupt();
+    }
+}
+
+// Client class that demonstrates how the Command pattern works
+public class Client {
+    public static void main(String[] args) throws InterruptedException {
+        EWSService service = new EWSService();
+
+        // Create commands and add them to the runner for execution
+        Command c1 = new AddMemberCommand("a@a.com", "spam", service);
+        MailTasksRunner.getInstance().addCommand(c1);
+
+        Command c2 = new AddMemberCommand("b@b", "spam", service);
+        MailTasksRunner.getInstance().addCommand(c2);
+
+        // Wait for a while to let commands execute
+        Thread.sleep(3000);
+
+        // Shutdown the runner
+        MailTasksRunner.getInstance().shutdown();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<pre class="mermaid">---
+title: UML Diagram of Command Design Pattern
+---
+classDiagram
+
+    class Command {
+        +execute()
+    }
+
+    class AddMemberCommand {
+        -String emailAddress
+        -String listName
+        -EWSService receiver
+        +AddMemberCommand(email: String, listName: String, service: EWSService)
+        +execute()
+    }
+
+    class EWSService {
+        +addMember(contact: String, contactGroup: String)
+        +removeMember(contact: String, contactGroup: String)
+    }
+
+    class MailTasksRunner {
+        -Thread runner
+        -List~Command~ pendingCommands
+        -volatile boolean stop
+        -static final MailTasksRunner RUNNER
+        +getInstance(): MailTasksRunner
+        +addCommand(cmd: Command)
+        +shutdown()
+        +run()
+    }
+
+    class Client {
+        +main(args: String[])
+    }
+
+    Command <|-- AddMemberCommand
+    AddMemberCommand --> EWSService : uses
+    MailTasksRunner --> Command : invokes
+    Client --> MailTasksRunner : uses
+</pre>
+<hr>
 <h2 id="43-interpreter">4.3 Interpreter<a hidden class="anchor" aria-hidden="true" href="#43-interpreter">#</a></h2>
 <h2 id="44-mediator">4.4 Mediator<a hidden class="anchor" aria-hidden="true" href="#44-mediator">#</a></h2>
 <h2 id="45-iterator">4.5 Iterator<a hidden class="anchor" aria-hidden="true" href="#45-iterator">#</a></h2>
