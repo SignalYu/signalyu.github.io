@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Multithreading &amp; Concurrency on Signal&#39;s Blog</title>
+    <link>https://signalyu.github.io/tags/multithreading--concurrency/</link>
+    <description>Recent content in Multithreading &amp; Concurrency on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>EN</language>
+    <lastBuildDate>Wed, 11 Dec 2024 12:13:32 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/multithreading--concurrency/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multithreading &amp; Concurrency</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</link>
+      <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</guid>
+      <description>Introduction to Multithreading Program, Process, and Thread A program is a static set of instructions that stores on a disk. A process is an instance of a program that is currently being executed by the operating system. A thread is a small unit of process that can be scheduled and executed by the operating system. In simpler terms, a program is the code, a process is the excution of the code, a thread is a unit of execution within a process.</description>
+    </item>
+  </channel>
+</rss>

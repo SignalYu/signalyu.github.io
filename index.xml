@@ -71,12 +71,11 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
 settings.xml Configuration ./ ├── bin/ │ ├── m2.conf │ ├── mvn* │ ├── mvn.cmd │ ├── mvnDebug* │ ├── mvnDebug.cmd │ └── mvnyjp* ├── boot/ │ ├── plexus-classworlds-2.7.0.jar │ └── plexus-classworlds.</description>
     </item>
     <item>
-      <title>Multithreading Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/</link>
+      <title>Multithreading &amp; Concurrency</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</link>
       <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading/1-multithreading/</guid>
-      <description>Introduction to Multithreading A process is a program in execution, while a thread is the smallest unit of execution within a process. Multithreading enables multiple threads to run almost simultaneously by using context switching, allowing them to share the resources of a process. This capability is commonly used to execute asynchronous or parallel operations efficiently.
-Asynchonization refers to non-blocking execution, where tasks start and execute independently of the main program flow without waiting.</description>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</guid>
+      <description>Introduction to Multithreading Program, Process, and Thread A program is a static set of instructions that stores on a disk. A process is an instance of a program that is currently being executed by the operating system. A thread is a small unit of process that can be scheduled and executed by the operating system. In simpler terms, a program is the code, a process is the excution of the code, a thread is a unit of execution within a process.</description>
     </item>
     <item>
       <title>Asynchronous Messaging</title>
