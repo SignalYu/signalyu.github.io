@@ -9,6 +9,13 @@
     <lastBuildDate>Wed, 01 Jan 2025 08:08:19 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>English</title>
+      <link>https://signalyu.github.io/tags/english/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://signalyu.github.io/tags/english/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Humanities</title>
       <link>https://signalyu.github.io/tags/humanities/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -20,13 +27,6 @@
       <link>https://signalyu.github.io/tags/languages/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://signalyu.github.io/tags/languages/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linguistics</title>
-      <link>https://signalyu.github.io/tags/linguistics/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://signalyu.github.io/tags/linguistics/</guid>
       <description></description>
     </item>
     <item>
