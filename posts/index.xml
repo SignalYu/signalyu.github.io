@@ -71,6 +71,15 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
 settings.xml Configuration ./ ├── bin/ │ ├── m2.conf │ ├── mvn* │ ├── mvn.cmd │ ├── mvnDebug* │ ├── mvnDebug.cmd │ └── mvnyjp* ├── boot/ │ ├── plexus-classworlds-2.7.0.jar │ └── plexus-classworlds.</description>
     </item>
     <item>
+      <title>English Speaking: IELTS (1-100)</title>
+      <link>https://signalyu.github.io/posts/3-humanities/languages/speaking/english/2-english-speaking-ielts-1-100/</link>
+      <pubDate>Sun, 15 Dec 2024 09:04:13 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/languages/speaking/english/2-english-speaking-ielts-1-100/</guid>
+      <description>1-10 1. Do you work or do you study? I currently working. I finished my studies four years ago. So I&amp;rsquo;m currently working as a software engineer.
+2. Where do you currently work? I currently work in Shenzhen. I came in Shenzhen two years ago. I worked previously in Guangzhou where I completed my education.
+3. Why did you choose that carrer? Well, actually. I have a bachelor&amp;rsquo;s degree in economics.</description>
+    </item>
+    <item>
       <title>Multithreading &amp; Concurrency</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</link>
       <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
