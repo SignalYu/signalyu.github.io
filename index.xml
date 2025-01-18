@@ -6,7 +6,7 @@
     <description>Recent content on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Sat, 11 Jan 2025 20:33:58 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jan 2025 10:25:36 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -54,6 +54,13 @@ SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupite
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</guid>
       <description>Introduction to DBMS A Database Management System (DBMS) is software that provides an interface for users to interact with databases. It enables the management, storage, and manipulation of data within databases. DBMS can be broadly classified into two main types: Relational DBMS and NoSQL DBMS.
 In a Relational DBMS, data is stored in structured tables and is manipulated using SQL (Structured Query Language). Examples of relational DBMS inlcude MySQL, Oracle, and PostgreSQL.</description>
+    </item>
+    <item>
+      <title>English Speaking: IELTS (201-300)</title>
+      <link>https://signalyu.github.io/posts/3-humanities/languages/speaking/english/5-english-speaking-ielts-201-300/</link>
+      <pubDate>Sun, 12 Jan 2025 10:25:36 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/languages/speaking/english/5-english-speaking-ielts-201-300/</guid>
+      <description>201-210 201. Do you think it&amp;rsquo;s better to learn in a coeducational or single sex school? Well, definitely the coed school. Because in a coed environment, students have the opportunity to interact with peers of both genders, it&amp;rsquo;s helpful to develop their social skills. Single-sex schools might provide a more focused learning environment, but life is not just about acquiring book knowledge, is about learning a wide range of things.</description>
     </item>
     <item>
       <title>English Speaking: IELTS (101-200)</title>
