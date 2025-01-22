@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Sun, 12 Jan 2025 10:25:36 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 Jan 2025 10:25:50 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -48,12 +48,44 @@ Head Recursion Head Recursion is a type of recursion where a function makes its 
 SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
     </item>
     <item>
+      <title>Asynchronous Messaging</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</link>
+      <pubDate>Mon, 20 Nov 2023 13:57:02 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</guid>
+      <description>Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnucation paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as parments or transaction processing.
+The advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed.</description>
+    </item>
+    <item>
       <title>Database Management Systems</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</link>
       <pubDate>Wed, 25 Dec 2024 10:20:09 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</guid>
       <description>Introduction to DBMS A Database Management System (DBMS) is software that provides an interface for users to interact with databases. It enables the management, storage, and manipulation of data within databases. DBMS can be broadly classified into two main types: Relational DBMS and NoSQL DBMS.
 In a Relational DBMS, data is stored in structured tables and is manipulated using SQL (Structured Query Language). Examples of relational DBMS inlcude MySQL, Oracle, and PostgreSQL.</description>
+    </item>
+    <item>
+      <title>Multithreading &amp; Concurrency</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</link>
+      <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</guid>
+      <description>Introduction to Multithreading Program, Process, and Thread A program is a static set of instructions that stores on a disk. A process is an instance of a program that is currently being executed by the operating system. A thread is a small unit of process that can be scheduled and executed by the operating system. In simpler terms, a program is the code, a process is the excution of the code, a thread is a unit of execution within a process.</description>
+    </item>
+    <item>
+      <title>System Design</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</link>
+      <pubDate>Fri, 27 Dec 2024 04:32:42 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</guid>
+      <description>Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
+Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
+Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
+      <title>English Speaking: IELTS (301-400)</title>
+      <link>https://signalyu.github.io/posts/3-humanities/languages/speaking/english/6-english-speaking-ielts-301-400/</link>
+      <pubDate>Sun, 12 Jan 2025 10:25:50 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/languages/speaking/english/6-english-speaking-ielts-301-400/</guid>
+      <description>301-310 301. Which factors determine which university to attend? When choosing a university, people often consider the shcool&amp;rsquo;s reputation and its strengths in specific fields. They also think about the location of the university. In China, many people prefer universities in big cities like Beijing, Shanghaim or Shenzhen because these cities offer more job opportunities after graduation, and they often plan their career paths around staying these major hubs.
+302. How important is a tertiary education in getting a job in your country?</description>
     </item>
     <item>
       <title>English Speaking: IELTS (201-300)</title>
@@ -95,19 +127,19 @@ settings.xml Configuration ./ ├── bin/ │ ├── m2.conf │ ├─�
 3. Why did you choose that carrer? Well, actually. I have a bachelor&amp;rsquo;s degree in economics.</description>
     </item>
     <item>
-      <title>Multithreading &amp; Concurrency</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</link>
-      <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</guid>
-      <description>Introduction to Multithreading Program, Process, and Thread A program is a static set of instructions that stores on a disk. A process is an instance of a program that is currently being executed by the operating system. A thread is a small unit of process that can be scheduled and executed by the operating system. In simpler terms, a program is the code, a process is the excution of the code, a thread is a unit of execution within a process.</description>
-    </item>
-    <item>
-      <title>Asynchronous Messaging</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</link>
-      <pubDate>Mon, 20 Nov 2023 13:57:02 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</guid>
-      <description>Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnucation paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as parments or transaction processing.
-The advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed.</description>
+      <title>Mottos &amp; Quotes</title>
+      <link>https://signalyu.github.io/posts/3-humanities/personal-growth/collections/1-mottos/</link>
+      <pubDate>Wed, 13 Nov 2024 21:25:35 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/personal-growth/collections/1-mottos/</guid>
+      <description>2024 Be cautious in both speech and action.
+First things first.
+Avoid living a life of suffering.
+Opportunity favors the prepared mind.
+Focus on your own matters, respect others&amp;rsquo; choices, and live in harmony with destiny.
+Life is the process of cultivating your soul.
+Think first, act later.
+Speak less of what&amp;rsquo;s unnecessary, do less of what&amp;rsquo;s pointless, and waste less energy on what&amp;rsquo;s unimportant.
+In times of peace, prepare for challenges.</description>
     </item>
     <item>
       <title>React Notes</title>
