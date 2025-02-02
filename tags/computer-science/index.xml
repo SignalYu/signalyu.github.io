@@ -6,7 +6,7 @@
     <description>Recent content in Computer Science on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Fri, 27 Dec 2024 04:32:42 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 01 Feb 2025 21:38:31 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -78,6 +78,13 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
       <description>Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
 Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
 Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
+      <title>Behavioral Interview</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/interview/1-behavioral-interview/</link>
+      <pubDate>Sat, 01 Feb 2025 21:38:31 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/interview/1-behavioral-interview/</guid>
+      <description>STAR The STAR method is a structured approach to answering behavioral questions, consisting of Situation, Task, Action, and Result. The Situation describes the context or challenge faced, while the Task explains the specific responsibility in that scenario. The Action outlines the steps taken to address the challenge, with a focus on personal actions. The Result highlights the outcome of those actions, emphasizing the positive impact and providing quantifiable results when possible.</description>
     </item>
     <item>
       <title>Idea &amp; Maven &amp; Postman Notes</title>
