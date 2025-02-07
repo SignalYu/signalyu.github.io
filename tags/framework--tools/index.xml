@@ -17,14 +17,6 @@
 SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
     </item>
     <item>
-      <title>React Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/react/1-react-notes/</link>
-      <pubDate>Sun, 19 Jun 2022 20:58:33 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/react/1-react-notes/</guid>
-      <description>JSX JSX (JavaScript XML) is a syntax extension for JavaScript commonly used in React to describe what the UI should look like.
-SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&#39;, title: &#39;React&#39; }; function getName(name) { return name; } function App() { return ( &amp;lt;div&amp;gt; &amp;lt;h1&amp;gt;{welcome.greeting} {welcome.title}!&amp;lt;/h1&amp;gt; &amp;lt;h1&amp;gt;I am {getName(&#39;Signal&#39;)}!&amp;lt;/h1&amp;gt; &amp;lt;label htmlFor=&amp;quot;search&amp;quot;&amp;gt;Search: &amp;lt;/label&amp;gt; &amp;lt;input id=&amp;quot;search&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/input&amp;gt; &amp;lt;/div&amp;gt; ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data.</description>
-    </item>
-    <item>
       <title>Spring Notes</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/spring/1-spring-notes/</link>
       <pubDate>Thu, 18 Nov 2021 15:44:50 +0800</pubDate>
@@ -32,13 +24,6 @@ SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&
       <description>Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.
 Inversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.
 Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.</description>
-    </item>
-    <item>
-      <title>Vue Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/vue/1-vue-notes/</link>
-      <pubDate>Tue, 16 Nov 2021 20:53:48 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/vue/1-vue-notes/</guid>
-      <description>Virtual DOM A Virtual DOM is a lightweight, in-memory representation of the real DOM. Each Node in the Virtual DOM is represented as a plain JavaScript object with properties describing the element, its attributes, and its children. The Virtual DOM will be updated whenever an application&amp;rsquo;s state changes. It minimizes real DOM updates by batching changes and applying them through an optimized process. --- title: Virtual DOM --- graph TD B[&#34;</description>
     </item>
   </channel>
 </rss>

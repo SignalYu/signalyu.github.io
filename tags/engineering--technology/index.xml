@@ -6,7 +6,7 @@
     <description>Recent content in Engineering &amp; Technology on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Sat, 01 Feb 2025 21:38:31 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 27 Dec 2024 04:32:42 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/engineering--technology/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -80,21 +80,6 @@ Load Balancing In System Design, Load Balancing refers to the practice of distri
 Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
     </item>
     <item>
-      <title>Interview Preparation</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/interview/1-interview-preparation/</link>
-      <pubDate>Sat, 01 Feb 2025 21:38:31 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/interview/1-interview-preparation/</guid>
-      <description>Behavioral Interview STAR The STAR method is a structured approach to answering behavioral questions, consisting of Situation, Task, Action, and Result. The Situation describes the context or challenge faced, while the Task explains the specific responsibility in that scenario. The Action outlines the steps taken to address the challenge, with a focus on personal actions. The Result highlights the outcome of those actions, emphasizing the positive impact and providing quantifiable results when possible.</description>
-    </item>
-    <item>
-      <title>React Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/react/1-react-notes/</link>
-      <pubDate>Sun, 19 Jun 2022 20:58:33 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/react/1-react-notes/</guid>
-      <description>JSX JSX (JavaScript XML) is a syntax extension for JavaScript commonly used in React to describe what the UI should look like.
-SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&#39;, title: &#39;React&#39; }; function getName(name) { return name; } function App() { return ( &amp;lt;div&amp;gt; &amp;lt;h1&amp;gt;{welcome.greeting} {welcome.title}!&amp;lt;/h1&amp;gt; &amp;lt;h1&amp;gt;I am {getName(&#39;Signal&#39;)}!&amp;lt;/h1&amp;gt; &amp;lt;label htmlFor=&amp;quot;search&amp;quot;&amp;gt;Search: &amp;lt;/label&amp;gt; &amp;lt;input id=&amp;quot;search&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;/input&amp;gt; &amp;lt;/div&amp;gt; ) } export default App List Rendering Rendering a List in React is a common task when dealing with dynamic or repeated data.</description>
-    </item>
-    <item>
       <title>Spring Notes</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/spring/1-spring-notes/</link>
       <pubDate>Thu, 18 Nov 2021 15:44:50 +0800</pubDate>
@@ -102,13 +87,6 @@ SHOW CODE React import &#39;./App.css&#39; const welcome = { greeting: &#39;Hey&
       <description>Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.
 Inversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.
 Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.</description>
-    </item>
-    <item>
-      <title>Vue Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/vue/1-vue-notes/</link>
-      <pubDate>Tue, 16 Nov 2021 20:53:48 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/front-end/vue/1-vue-notes/</guid>
-      <description>Virtual DOM A Virtual DOM is a lightweight, in-memory representation of the real DOM. Each Node in the Virtual DOM is represented as a plain JavaScript object with properties describing the element, its attributes, and its children. The Virtual DOM will be updated whenever an application&amp;rsquo;s state changes. It minimizes real DOM updates by batching changes and applying them through an optimized process. --- title: Virtual DOM --- graph TD B[&#34;</description>
     </item>
     <item>
       <title>Java Programming Notes</title>
