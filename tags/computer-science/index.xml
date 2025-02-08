@@ -52,7 +52,7 @@ SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupite
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</link>
       <pubDate>Mon, 20 Nov 2023 13:57:02 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</guid>
-      <description>Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnucation paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as parments or transaction processing.
+      <description>Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnication paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.
 The advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed.</description>
     </item>
     <item>
