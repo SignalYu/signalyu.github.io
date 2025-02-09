@@ -6,12 +6,12 @@
     <description>Recent content in Database on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Wed, 25 Dec 2024 10:20:09 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 May 2023 21:07:21 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Database Design</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design/</link>
-      <pubDate>Wed, 22 May 2024 21:07:21 +0800</pubDate>
+      <pubDate>Mon, 22 May 2023 21:07:21 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design/</guid>
       <description>Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.
 Databases can be broadly categorized into two types: Relational database, primarily used for real-time data updates and transactions, and data warehouse, optimized for data analysis and reporting purposes.</description>
@@ -19,7 +19,7 @@ Databases can be broadly categorized into two types: Relational database, primar
     <item>
       <title>Database Management Systems</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</link>
-      <pubDate>Wed, 25 Dec 2024 10:20:09 +0800</pubDate>
+      <pubDate>Sun, 25 Dec 2022 10:20:09 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</guid>
       <description>Introduction to DBMS A Database Management System (DBMS) is software that provides an interface for users to interact with databases. It enables the management, storage, and manipulation of data within databases. DBMS can be broadly classified into two main types: Relational DBMS and NoSQL DBMS.
 In a Relational DBMS, data is stored in structured tables and is manipulated using SQL (Structured Query Language). Examples of relational DBMS inlcude MySQL, Oracle, and PostgreSQL.</description>
