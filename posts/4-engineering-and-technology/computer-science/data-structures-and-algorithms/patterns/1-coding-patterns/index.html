@@ -99,7 +99,7 @@
     "Engineering \u0026 Technology", "Computer Science", "Data Structure \u0026 Algorithms"
   ],
   "articleBody": "Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers – typically labeled “left” and “right” – are initialized and move in a specific direction based on the problem’s requirements.\nTwo Sum II - Input Array Is Sorted SHOW PROBLEM Problem Statement\nGiven a 1-indexed array of integers, numbers, sorted in non-decreasing order, find two numbers that add up to a specific target. Let these two numbers be numbers[index1] and numbers[index2], where 1 \u003c= index1 \u003c index2 \u003c= numbers.length.\nReturn the indices of the two numbers, index1 and index2, incremented by one, as an integer array [index1, index2] of length 2.\nThe problem guarantees that there is exactly one solution. You may not use the same element twice. Your solution must use only constant extra space. Example 1:\nInput: numbers = [2,7,11,15], target = 9 Output: [1, 2] Explanation: The sum of 2 and 7 is 9, so index1 = 1, index2 = 2. We return [1, 2]. Example 2:\nInput: numbers = [2,3,4], target = 6 Output: [1, 3] Explanation: The sum of 2 and 4 is 6, so index1 = 1, index2 = 3. We return [1, 3]. Example 3:\nInput: numbers = [-1,0], target = -1 Output: [1, 2] Explanation: The sum of -1 and 0 is -1, so index1 = 1, index2 = 2. We return [1, 2]. Constraints:\n2 \u003c= numbers.length \u003c= 30,000 -1000 \u003c= numbers[i] \u003c= 1000 numbers is sorted in non-decreasing order. -1000 \u003c= target \u003c= 1000 There is exactly one solution for each test case. Go to Leetcode 🔗 SHOW CODE Java class Solution { public int[] twoSum(int[] numbers, int target) { int left = 0, right = numbers.length - 1; // Iterate while left pointer is before right pointer while (left \u003c right) { int currentSum = numbers[left] + numbers[right]; // Check if the current sum matches the target if (currentSum == target) { break; } // Adjust the pointers to move towards the target sum if (currentSum \u003c target) { left++; // Increase sum by moving left pointer right } else { right--; // Decrease sum by moving right pointer left } } // Reture 1-indexed result return new int[] { left + 1, right + 1 }; } } SHOW NOTES Algorithm Walkthrough\nnums = [1, 2, 3, 4, 5, 8] target = 7 Initialize pointers: left = 0, right = 5 First iteration: currentSum = 1 + 8 = 9 (greater than the target) Decrease the right pointer to 4 Second iteration: currentSum = 1 + 5 = 6 (less than the target) Increase the left pointer to 1 Third iteration: currentSum = 2 + 4 = 6 (equals the target) Return the indices [1, 3]. Visualization\n3Sum SHOW PROBLEM Problem Statement\nGiven an integer array nums, return all unique triplets [nums[i], nums[j], nums[k]] such that:\ni != j, i != k, and j != k nums[i] + nums[j] + nums[k] == 0 The solution set must not contain duplicate triplets.\nExample 1:\nInput: nums = [-1, 0, 1, 2, -1, -4] Output: [[-1, -1, 2], [-1, 0, 1]] Explanation: nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 The distinct triplets are [-1, 0, 1] and [-1, -1, 2].\nNote: The order of the output and the order of the triplets does not matter.\nExample 2:\nInput: nums = [0, 1, 1] Output: [] Explanation: The only possible triplet does not sum up to 0. Example 3:\nInput: nums = [0, 0, 0] Output: [[0, 0, 0]] Explanation: The only possible triplet sums up to 0. Constraints:\n3 \u003c= nums.length \u003c= 3000 10^5 \u003c= nums[i] \u003c= 10^5 Go to Leetcode 🔗 SHOW CODE Java class Solution { public List",
-  "wordCount" : "12943",
+  "wordCount" : "13118",
   "inLanguage": "en",
   "datePublished": "2022-12-02T10:15:04+08:00",
   "dateModified": "2022-12-02T10:15:04+08:00",
@@ -177,7 +177,9 @@
                 <li>
                     <a href="#two-sum-ii---input-array-is-sorted" aria-label="Two Sum II - Input Array Is Sorted">Two Sum II - Input Array Is Sorted</a></li>
                 <li>
-                    <a href="#3sum" aria-label="3Sum">3Sum</a></li></ul>
+                    <a href="#3sum" aria-label="3Sum">3Sum</a></li>
+                <li>
+                    <a href="#%e5%8d%8e%e4%b8%baod%e6%9c%ba%e8%af%95%e6%9c%80%e5%a4%a7%e8%8a%b1%e8%b4%b9%e9%87%91%e9%a2%9d100%e5%88%86" aria-label="华为OD机试：最大花费金额【100分】">华为OD机试：最大花费金额【100分】</a></li></ul>
                 </li>
                 <li>
                     <a href="#fast--slow-pointers" aria-label="Fast &amp; Slow Pointers">Fast &amp; Slow Pointers</a><ul>
@@ -690,6 +692,142 @@ Go to Leetcode 🔗
 
 </details></p>
 
+<hr>
+<h2 id="华为od机试最大花费金额100分">华为OD机试：最大花费金额【100分】<a hidden class="anchor" aria-hidden="true" href="#华为od机试最大花费金额100分">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">点击查看题目</summary>
+  <p><strong>一、题目描述</strong></p>
+<p>小明希望在预算范围内尽可能花完资金。双十一期间，众多商品打折销售，他想从心仪的商品中挑选三件购买。请设计一个程序，帮助小明计算可以花费的最大金额。</p>
+<p><strong>二、输入描述</strong></p>
+<ul>
+<li>第一行：一维整型数组 <code>M</code>，表示商品的价格列表，数组长度小于 100，每个商品价格小于 1000。</li>
+<li>第二行：整数 <code>R</code>，表示购买的总资金限制，<code>R</code> 小于 100000。</li>
+</ul>
+<p><strong>三、输出描述</strong></p>
+<p>输出满足条件的最大花费金额。如果不存在符合条件的组合，输出 <code>-1</code>。</p>
+<p><strong>示例</strong></p>
+<p>输入：</p>
+<pre tabindex="0"><code>28 16 36 22
+100
+</code></pre><p>输出：</p>
+<pre tabindex="0"><code>86
+</code></pre><p>说明</p>
+<p>在示例中，购买三件商品且总价不超过 100 的最大组合为 28 + 36 + 22 = 86。</p>
+
+</details></p>
+
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.*;
+
+class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // 读取字符串数组并转换为整数数组
+        int[] prices = Arrays.stream(in.nextLine().trim().split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+                
+        // 读取购买资金额度
+        int budget = Integer.parseInt(in.nextLine().trim());
+
+        // 计算预算范围内可以花费的最大金额
+        int maxCost = getMaxCost(prices, budget);
+
+        // 输出结果
+        System.out.println(maxCost);
+    }
+
+    private static int getMaxCost(int[] prices, int budget) {
+        // 对价格进行排序
+        Arrays.sort(prices);
+
+        int maxCost = 0; // 用于记录最大花费金额
+        for (int i = 0; i < prices.length - 2; i++) {
+            if (prices[i] < budget) {
+                int left = i + 1, right = prices.length - 1;
+                while (left < right) {
+                    int currentCost = prices[i] + prices[left] + prices[right]; // 当前花费金额
+                    if (currentCost == budget) {
+                        return currentCost;
+                    } else if (currentCost < budget) {
+                        maxCost = Math.max(maxCost, currentCost);
+                        left++;
+                    } else {
+                        right--;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+
+        return maxCost;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
 <hr>
 <h1 id="fast--slow-pointers">Fast &amp; Slow Pointers<a hidden class="anchor" aria-hidden="true" href="#fast--slow-pointers">#</a></h1>
 <blockquote>
