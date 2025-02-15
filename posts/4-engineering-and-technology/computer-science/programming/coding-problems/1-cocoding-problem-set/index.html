@@ -134,8 +134,8 @@
   "keywords": [
     "Engineering \u0026 Technology", "Computer Science", "Programming"
   ],
-  "articleBody": "String 华为OD机试：字符串分割【100分】 点击查看题目 一、题目描述\n给定一个非空字符串 S，其中包含多个子串，这些子串由 - 符号分隔。我们还给定一个正整数 K，要求按以下规则转换字符串：\n对于字符串中的每个子串，从第二个子串开始，将其分为每 K 个字符的片段。 对每个片段应用以下转换规则： 如果片段中小写字母数量多于大写字母，将该片段的所有大写字母转换为小写字母。 如果片段中大写字母数量多于小写字母，将该片段的所有小写字母转换为大写字母。 如果大写和小写字母数量相等，不做转换。 二、输入描述\n输入包含两行：\n第一行为整数 K。 第二行为字符串 S，由 - 分隔成多个子串。 三、输出描述\n输出转换后的字符串。\n四、测试用例\n测试用例 1 输入\n3 12abc-abcABC-4aB@ 输出\n12abc-abc-ABC-4aB-@ 说明\n子串为 12abc、abcABC、4aB@。第一个子串保留。 对 abcABC 按每 3 个字符分组为 abc 和 ABC： abc 中小写字母多，转换为 abc。 ABC 中大写字母多，转换为 ABC。 对 4aB@ 按每 3 个字符分组为 4aB 和 @： 4aB 中大小写字母数量相等，不做转换。 @ 中无字母，不做转换。 最终输出为 12abc-abc-ABC-4aB-@。 测试用例 2\n输入\n3 Test-aaBBcc-CCddEE 输出\nTest-aab-bcc-CCD-DEE 说明\n子串为 Test、aaBBcc、CCddEE。第一个子串保留。 对 aaBBcc 按每 3 个字符分组为 aab 和 bcc： aab 中小写字母多，转换为 aab。 bcc 中小写字母多，转换为 bcc。 对 CCddEE 按每 3 个字符分组为 CCD 和 DEE： CCD 中大写字母多，转换为 CCD。 DEE 中大写字母多，转换为 DEE。 最终输出为 Test-aab-bcc-CCD-DEE。 点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取正整数 k int k = Integer.parseInt(in.nextLine().trim()); // 读取字符串 String s = in.nextLine().trim(); // 字符串转换 String result = transformString(s, k); // 输出结果 System.out.println(result); } private static String transformString(String s, int k) { // 根据 \"-\" 分隔符获取子串数组 String[] substringList = s.split(\"-\"); // 构建结果容器 StringBuilder builder = new StringBuilder(); builder.append(substringList[0]); for (int i = 1; i \u003c substringList.length; i++) { builder.append(\"-\"); // 子字符串进一步转换 String transformed = transformSubstring(substringList[i], k); builder.append(transformed); } return builder.toString(); } private static String transformSubstring(String s, int k) { // 构建结果容器 StringBuilder builder = new StringBuilder(); for (int i = 0; i \u003c s.length(); i += k) { int end = Math.min(i + k, s.length()); String subString = s.substring(i, end); // 对子串进行大小写转换处理 String transformed = applyCaseTransformation(subString); builder.append(transformed).append(\"-\"); } // 去除最后一个 \"-\" builder.setLength(builder.length() - 1); return builder.toString(); } private static String applyCaseTransformation(String s) { int lowerCaseCount = 0; int upperCaseCount = 0; // 统计字符串中大小写字母的频率 for (char c : s.toCharArray()) { if (Character.isLowerCase(c)) { lowerCaseCount++; } else if (Character.isUpperCase(c)){ upperCaseCount++; } } if (lowerCaseCount \u003e upperCaseCount) { return s.toLowerCase(); } else if (lowerCaseCount \u003c upperCaseCount) { return s.toUpperCase(); } return s; } } 字符匹配【100分】 SHOW PROBLEM 一、题目描述 给定一个字符串数组（每个字符串均由小写字母组成）和一个字符规律（由小写字母、.和*组成），请识别数组中哪些字符串可以完全匹配该字符规律。\n. 匹配任意单个字符。 * 匹配零个或多个前面的字符（即“零个或多个”的概念）。 匹配是要涵盖整个字符串，而不仅仅是部分字符串。\n二、输入描述\n第一行是一个由空格分隔的字符串数组，其中每个字符串的长度满足 1 \u003c 单个字符串长度 \u003c 100。 第二行为字符规律，长度满足 1 \u003c 字符规律长度 \u003c 50。 三、输出描述\n输出符合字符规律的字符串在数组中的下标，多个匹配时，下标按升序排列，并用逗号分隔。 如果没有任何字符串匹配，输出 -1。 示例\n输入：\ngolang java kafka .*a 输出：\n1,2 说明：\n匹配规则 .*a 表示以 a 结尾的任意字符串。符合要求的字符串是 java 和 kafka，因此它们的下标是 1 和 2（从 0 开始索引）。 SHOW CODE Java import java.util.*; import java.util.regex.Pattern; public class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); String[] words = in.nextLine().trim().split(\" \"); String rule = in.nextLine().trim(); String result = getMatchingIndices(words, rule); System.out.println(result); } private static String getMatchingIndices(String[] words, String rule) { List indices = new ArrayList\u003c\u003e(); // // 构建正则表达式 Pattern pattern = Pattern.compile(\"^\" + rule + \"$\"); // 遍历字符串数组，查找匹配项 for (int i = 0; i \u003c words.length; i++) { if (pattern.matcher(words[i]).matches()) { indices.add(i); } } return indices.isEmpty() ? \"-1\" : indices.toString().replaceAll(\"[\\\\[\\\\]\\\\s]\", \"\"); } } Queue 银行插队 SHOW PROBLEM 一、题目描述\n某银行将客户分为了若干个优先级，1级最高，5级最低。当客户到达银行时，优先级高的人可以随时插队到优先级低的人的前面。\n现在给定一系列的客户到达和办理业务的时间序列，请你每次银行办理业务时输出客户的编号。\n如果有多个优先级相同且最高的客户，则按照到达顺序进行办理。\n二、输入描述\n第一行是一个正整数 n（1 ≤ n ≤ 500），表示输入序列中的事件数量。 接下来的 n 行每行第一个字符为 a 或 p： 当字符为 a 时，后面跟着两个正整数 num 和 x，表示到达的客户编号 num 和优先级 x。 当字符为 p 时，表示当前优先级最高的客户去办理业务。 三、输出描述\n对于每个 p 类型的事件，输出一行，仅包含一个正整数 num，表示办理业务的客户编号。\n四、测试用例\n测试用例 1\n输入:\n4 a 1 3 a 2 2 a 3 2 p 输出:\n2 说明:\n客户 1 到达，优先级为 3。 客户 2 和客户 3 到达，优先级为 2。 第一次 p 会办理客户 2，因为客户 2 和客户 3 优先级相同，但是客户 2 先到达。 测试用例 2\n输入:\n6 a 10 1 a 20 5 a 30 3 p p p 输出:\n10 30 20 说明:\n客户 10 到达，优先级为 1（最高优先级）。 客户 20 到达，优先级为 5。 客户 30 到达，优先级为 3。 第一次 p 处理客户 10（因为客户 10 优先级最高）。 第二次 p 处理客户 30（优先级 3 高于 5）。 第三次 p 处理客户 20。 SHOW CODE Java import java.util.PriorityQueue; import java.util.Scanner; class Solution { static class Customer { int id; int priority; public Customer(int id, int priority) { this.id = id; this.priority = priority; } } public static void main(String[] args) { Scanner in = new Scanner(System.in); int n = Integer.parseInt(in.nextLine().trim()); // Customers with higher priority come first, // if priorities are equal, order by ID PriorityQueue queue = new PriorityQueue\u003c\u003e(( c1, c2) -\u003e c1.priority == c2.priority ? Integer.compare(c1.id, c2.id) : Integer.compare(c1.priority, c2.priority) ); // Process each event for (int i = 0; i \u003c n; i++) { String[] parts = in.nextLine().trim().split(\" \"); processEvents(parts, queue); } } private static void processEvents(String[] parts, PriorityQueue queue) { char action = parts[0].charAt(0); // A customer arrives if the action equals to 'a' if (action == 'a') { int id = Integer.parseInt(parts[1]); int priority = Integer.parseInt(parts[2]); queue.add(new Customer(id, priority)); } else if (action == 'p' \u0026\u0026 !queue.isEmpty()) { // Poll the highest priority customer from the queue Customer customer = queue.poll(); System.out.println(customer.id); } } } SHOW NOTES When sorting involves multiple fields, it is a good practice to encapsulate these fields in an entity class. This approach simplifies specifying the sorting order based on specific conditions, enhancing both the maintainability and readability of the code.\nTwo Pointers 华为OD机试：最大花费金额【100分】 点击查看题目 一、题目描述\n小明希望在预算范围内尽可能花完资金。双十一期间，众多商品打折销售，他想从心仪的商品中挑选三件购买。请设计一个程序，帮助小明计算可以花费的最大金额。\n二、输入描述\n第一行：一维整型数组 M，表示商品的价格列表，数组长度小于 100，每个商品价格小于 1000。 第二行：整数 R，表示购买的总资金限制，R 小于 100000。 三、输出描述\n输出满足条件的最大花费金额。如果不存在符合条件的组合，输出 -1。\n示例\n输入：\n28 16 36 22 100 输出：\n86 说明\n在示例中，购买三件商品且总价不超过 100 的最大组合为 28 + 36 + 22 = 86。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取字符串数组并转换为整数数组 int[] prices = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 读取购买资金额度 int budget = Integer.parseInt(in.nextLine().trim()); // 计算预算范围内可以花费的最大金额 int maxCost = getMaxCost(prices, budget); // 输出结果 System.out.println(maxCost); } private static int getMaxCost(int[] prices, int budget) { // 对价格进行排序 Arrays.sort(prices); int maxCost = 0; // 用于记录最大花费金额 for (int i = 0; i \u003c prices.length - 2; i++) { if (prices[i] \u003c budget) { int left = i + 1, right = prices.length - 1; while (left \u003c right) { int currentCost = prices[i] + prices[left] + prices[right]; // 当前花费金额 if (currentCost == budget) { return currentCost; } else if (currentCost \u003c budget) { maxCost = Math.max(maxCost, currentCost); left++; } else { right--; } } } else { break; } } return maxCost; } } 华为OD机试：字符串序列判定【100分】 点击查看题目 一、题目描述\n给定两个字符串 a 和 b，均由小写英文字母组成。a 的长度不超过 100，b 的长度不超过 500,000。要求判断 a 是否是 b 的一个有效子序列。\n判定规则：\na 中的每个字符都能在 b 中找到（字符可以不连续）。 a 在 b 中的字符顺序必须保持一致。 例如，当 a = \"qwt\" 时，a 是 b = \"qwerty\" 的一个有效子序列，因为 a 的字符 q、w 和 t 在 b 中按顺序出现。 二、输入描述\n输入包含两个字符串 a 和 b，均由小写英文字母组成：\n第一行输入字符串 a。 第二行输入字符串 b。 字符串 a 的长度 ≤ 100，字符串 b 的长度 ≤ 500,000。\n三、输出描述\n输出 a 在 b 中的最后一个有效字符的位置（索引从 0 开始）。如果 a 不是 b 的有效子序列，返回 -1。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取输入 String a = in.nextLine().trim(); String b = in.nextLine().trim(); in.close(); // 判断 a 是否是 b 的有效子串 int result = substringCheck(a, b); // 输出结果 System.out.println(result); } private static int substringCheck(String a, String b) { if (a.length() \u003e b.length()) { return -1; } int i = 0, j = 0; int lastMatchPosition = -1; // 用于记录 a 的最后一个有效字符在 b 中的索引位置 while (i \u003c a.length() \u0026\u0026 j \u003c b.length()) { if (a.charAt(i) == b.charAt(j)) { lastMatchPosition = j; // 更新最后一个匹配位置 i++; } j++; } return lastMatchPosition; } } 华为OD机试：租车骑绿道【100分】 点击查看题目 一、题目描述\n部门组织团建活动，安排绿道骑行，需要租用双人自行车。每辆自行车最多可容纳两人，且载重上限为 m。给出部门中每个人的体重，求最少需要租用多少辆双人自行车。\n二、输入描述\n第一行包含两个整数 m 和 n，其中 m 表示每辆自行车的最大载重，n 表示部门的总人数。 第二行包含 n 个整数，表示每个人的体重（每个人的体重不超过自行车的载重限制 m）。 输入数据满足以下条件：\n0 \u003c m \u003c= 200 0 \u003c n \u003c= 1,000,000 三、输出描述\n输出最少需要的双人自行车数量。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取自行车限重与人数 int[] parts = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); int m = parts[0]; // 读取体重数据 int[] weights = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 计算所需最少双人自行车数量 int result = computeMinimumBicycles(weights, m); // 输出结果 System.out.println(result); } private static int computeMinimumBicycles(int[] weights, int maxWeight) { // 对数组进行排序，便于使用双指针模式 Arrays.sort(weights); // 初始化双指针 int left = 0, right = weights.length - 1; int bicycleCount = 0; // while (left \u003c= right) { // // 最轻和最重的人可以共用一辆车 // if (weights[left] + weights[right] \u003c= maxWeight) { // left++; // 左指针右移 // right--; // bicycleCount++; // } else { // 不能公用自行车 // right--; // 右指针左移 // bicycleCount++; // } // } while (left \u003c= right) { // 最轻和最重的人可以共用一辆车 if (weights[left] + weights[right] \u003c= maxWeight) { left++; // 左指针右移 } right--; // 右指针左移 bicycleCount++; } return bicycleCount; } } 华为OD机试：求最多可以派出多少支团队【100分】 点击查看题目 题目描述\n有一个数组表示每个人的能力值。比赛活动要求参赛团队的能力总和至少为 N。每个团队可以由一人或两人组成，每个人只能参加一个团队。请计算最多可以组建多少个符合要求的团队。\n输入描述\n第一行：一个整数表示总人数，范围为 1 至 500,000。 第二行：一个整数数组表示每个人的能力值，数组大小为 1 至 500,000，数组元素取值范围为 1 至 500,000。 第三行：一个整数表示团队能力要求的最低值 N，范围为 1 至 500,000。 输出描述\n输出一个整数，表示最多可以组建的符合要求的团队数量。 说明\n输入 输出 说明 3\n1 1 9\n8 1 9自己一队，输出1 5\n3 1 5 7 9\n8 3 说明3、5组成为一队，1、7组成一队，9自己一队，输出3 7\n3 1 5 7 9 2 6\n8 4 说明3、5组成为一队，1、7组成一队，9自己一队，2、6组成一队，输出4 点击查看代码 Java import java.util.Arrays; import java.util.Scanner; class Main { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取输入数据 int n = Integer.parseInt(in.nextLine().trim()); int[] abilities = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); int minTeamAbility = Integer.parseInt(in.nextLine().trim()); in.close(); // 计算符合题目要求的团队数量 int result = computeMaxTeams(abilities, n, minTeamAbility); // 输出结果 System.out.println(result); } private static int computeMaxTeams(int[] abilities, int n, int minTeamAbility) { // 对数组进行排序，便于使用双指针模式 Arrays.sort(abilities); // 初始化双指针 int left = 0, right = n - 1; int teamCount = 0; while (left \u003c= right) { if (abilities[left] == abilities[right] \u0026\u0026 abilities[right] \u003e= minTeamAbility) { // 只剩下一个人 teamCount++; break; } else if (abilities[right] \u003e= minTeamAbility) { // 能力最强的人单人成队 teamCount++; right--; } else if (abilities[left] + abilities[right] \u003e= minTeamAbility) { teamCount++; left++; right--; } else { left++; } } return teamCount; } } 华为OD机试：寻找身高相近的小朋友【100分】 点击查看题目 一、题目描述\n小明今年升入小学一年级，来到新班级后发现其他小朋友的身高各不相同。他想根据每个小朋友与自己的身高差，对他们进行排序，帮助自己更好地认识新同学。\n二、输入描述\n第一行包含两个正整数 $h $和 $n $，其中：\n$h $表示小明的身高，范围为 $0 \u003c h \u003c 200 $。 $n $表示班级中其他小朋友的数量，范围为 $0 \u003c n \u003c 50 $。 第二行包含 $n $个正整数，分别表示其他小朋友的身高 $h_1, h_2, \\ldots, h_n $，每个身高的取值范围为 $0 \u003c h_i \u003c 200 $，且这些数互不相同。\n三、输出描述\n按照以下规则输出排序结果，各正整数之间用空格分隔：\n与小明身高差的绝对值越小的小朋友排在前面。 如果与小明身高差的绝对值相同，则身高较矮的小朋友排在前面。 点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取小明身高值和小明同学数 int[] part = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); int h = part[0]; // 小明身高值 int n = part[1]; // 小明同学个数 // 读取小明同学身高数据并解析为数组 int[] heightList = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 基于小明的身高对小明同学的身高进行排序 String result = sortHeight(heightList, h, n); // 输出结果 System.out.println(result); } private static String sortHeight(int[] heightList, int h, int n) { // 对数组进行排序，便于使用双指针模式 Arrays.sort(heightList); // 构建结果容器 StringBuilder builder = new StringBuilder(); // 初始化双指针 int left = 0, right = n - 1; while (left \u003c= right) { if (Math.abs(h - heightList[left]) \u003e Math.abs(h - heightList[right])) { builder.insert(0, heightList[left]); left++; } else if (Math.abs(h - heightList[left]) \u003c= Math.abs(h - heightList[right])) { builder.insert(0, heightList[right]); right--; } builder.insert(0, \" \"); } return builder.substring(1); } } 华为OD机试：太阳能板最大面积【100分】 点击查看题目 一、题目描述\n在航天器的一侧安装太阳能板（如图中红色斜线区域）时，需要先固定两根支柱（如图中黑色竖条）。太阳能板的安装面积取决于支柱之间的距离和较短支柱的高度。\n现给定一组整数数组，表示各个支柱的高度。假设每根支柱之间的距离相等且为 1 个单位长度，计算如何选择两根支柱以使太阳能板的安装面积最大化。\n注意：支柱的高度无序排列。\n二、输入描述\n输入一个表示支柱高度的整数数组，如：10,9,6,7,8,5,4,7,2,3\n三、输出描述\n输出最大太阳能板的安装面积。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取支柱高度 int[] height = Arrays.stream(in.nextLine().trim().split(\",\")) .mapToInt(Integer::parseInt) .toArray(); in.close(); // 计算最大面积 int maxArea = computeMaxArea(height); // 输出结果 System.out.println(maxArea); } private static int computeMaxArea(int[] height) { // 初始化双指针 int left = 0, right = height.length - 1; int maxArea = 0; // 用于记录最大面积 while (left \u003c right) { int area = Math.min(height[left], height[right]) * (right - left); maxArea = Math.max(maxArea, area); // 更新最大面积 // 移动较短的支柱，尝试获取更大的面积 if (height[left] \u003c height[right]) { left++; } else { right--; } } return maxArea; } } Sliding Window 华为OD机试：寻找连续区间【100分】 点击查看题目 题目描述\n给定一个包含 $N $个正整数的数组，找出所有连续子数组（包括单个元素），其和大于等于给定的整数 $X $的组合数量。\n输入描述\n第一行包含两个整数 $N $和 $X $。（$0 \u003c N \\leq 100000 $, $0 \\leq X \\leq 10000000 $）\n第二行包含 $N $个正整数（每个正整数的值不超过 100）。\n输出描述\n输出一个整数，表示满足条件的连续子数组的数量。\n输入示例\n3 7 3 4 7 输出示例\n4 示例说明\n输入的第一个数 3 表示数组包含 3 个元素，7 是目标值，用于判断子数组和是否大于等于该值。\n满足条件的子数组包括：3+4, 3+4+7, 4+7, 7，总共 4 个。\n点击查看代码 Java import java.util.*; /** * @author Signal Yu * @since 2024-11-06 */ class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取正整数个数和目标值 int[] part = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); int n = part[0]; int x = part[1]; // 读取整数 int[] nums = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 计算子数组和大于或等于目标值的个数 int result = countSubArrays(nums, x); // 输出结果 System.out.println(result); } private static int countSubArrays(int[] nums, int target) { int windowStart = 0, count = 0; int windowSum = 0; for (int windowEnd = 0; windowEnd \u003c nums.length; windowEnd++) { windowSum += nums[windowEnd]; // 更新窗口和 // 当窗口和大于或等于目标值时，缩小窗口 while (windowSum \u003e= target) { // 符合要求子数组：左边界为 windowStart，右边界取值范围为 [windowEnd, nums.length - 1] count += nums.length - windowEnd; windowSum -= nums[windowStart]; windowStart++; // 缩小窗口 } } return count; } } 点击查看笔记 count += nums.length - windowEnd; nums = [1, 4, 5], target = 4 windowEnd 为 0 时，当前窗口和1小于目标值 windowEnd 为 1 时，当前窗口和5大于目标值，符合要求的子数组为：[1, 4]和[1, 4, 5]。也就是说，子数组的左边界为windowStart = 0，右边界的取值可为：1, 2。 while (windowSum \u003e= target) 而非 if (windowSum \u003e= target) 当找到符合要求的子数组时，应尽可能缩小窗口。例如，子数组[1, 4] 缩小后变为[4]，但此时[4]仍满足题意，此时windowEnd的取值1和2，即子数组可为[4]和[4,5]。 华为OD机试：阿里巴巴找黄金宝箱(V)【100分】 点击查看题目 一、题目描述\n樵夫阿里巴巴在砍柴途中发现了一个藏宝地，这里有编号从 $0$ 到$N-1$的宝箱，每个宝箱上贴有一个数字，表示其价值。阿里巴巴记住了一个“咒语数字”$k$（$k \u003c N$），他希望通过这个数字找到宝藏组合的最大价值。具体而言，阿里巴巴要找出连续$k$个宝箱中的数字和的最大值，并输出该最大值。\n二、输入描述\n第一行：一个包含整数的字符串，表示宝箱上的数字，数字之间用逗号分隔。例子：2,10,-3,-8,40,5\n条件： 1 ≤ 数字的个数 ≤ 100,000 -10,000 ≤ 每个数字 ≤ 10,000 第二行：一个正整数$k$，表示咒语数字，指定连续宝箱的数量。例子：4，其中$k \u003c$宝箱的个数。\n三、输出描述\n输出一个整数，表示连续$k$个宝箱的最大和。例如：39\n四、测试用例\n测试用例 1：\n输入 2,10,-3,-8,40,5 4 输出 39 说明\n初始窗口：2,10,-3,-8，和为 1。\n移动窗口：10,-3,-8,40，和为 39，更新最大和。\n接下来窗口为：-3,-8,40,5，和为 34，保持最大和为 39。 测试用例 2：\n输入 8 1 输出 8 说明\n只有一个数字，窗口大小为 1，直接输出该数字 8。 测试用例 3：\n输入\n-1,-2,-3,-4 2 输出\n-3 说明\n初始窗口为 -1,-2，和为 -3。后续窗口的和分别为 -5 和 -7，因此最大和保持为 -3。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取宝箱数字并转换为数组 int[] nums = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // // 读取连续宝箱的个数 int boxes = Integer.parseInt(in.nextLine().trim()); // 计算指定连续宝箱个数的最大和 int maxSum = computeMaxSum(nums, boxes); // 输出结果 System.out.println(maxSum); } private static int computeMaxSum(int[] nums, int k) { int windowStart = 0, windowSum = 0; int maxSum = Integer.MIN_VALUE; for (int windowEnd = 0; windowEnd \u003c nums.length; windowEnd++) { windowSum += nums[windowEnd]; // 更新窗口和 // 当窗口大小等于k时，缩小窗口 if (windowEnd - windowStart + 1 == k) { maxSum = Math.max(maxSum, windowSum); // 更新最大和 windowSum -= nums[windowStart]; windowStart++; // 缩小窗口 } } return maxSum; } } ",
-  "wordCount" : "2171",
+  "articleBody": "String 华为OD机试：字符串分割【100分】 点击查看题目 一、题目描述\n给定一个非空字符串 S，其中包含多个子串，这些子串由 - 符号分隔。我们还给定一个正整数 K，要求按以下规则转换字符串：\n对于字符串中的每个子串，从第二个子串开始，将其分为每 K 个字符的片段。 对每个片段应用以下转换规则： 如果片段中小写字母数量多于大写字母，将该片段的所有大写字母转换为小写字母。 如果片段中大写字母数量多于小写字母，将该片段的所有小写字母转换为大写字母。 如果大写和小写字母数量相等，不做转换。 二、输入描述\n输入包含两行：\n第一行为整数 K。 第二行为字符串 S，由 - 分隔成多个子串。 三、输出描述\n输出转换后的字符串。\n四、测试用例\n测试用例 1 输入\n3 12abc-abcABC-4aB@ 输出\n12abc-abc-ABC-4aB-@ 说明\n子串为 12abc、abcABC、4aB@。第一个子串保留。 对 abcABC 按每 3 个字符分组为 abc 和 ABC： abc 中小写字母多，转换为 abc。 ABC 中大写字母多，转换为 ABC。 对 4aB@ 按每 3 个字符分组为 4aB 和 @： 4aB 中大小写字母数量相等，不做转换。 @ 中无字母，不做转换。 最终输出为 12abc-abc-ABC-4aB-@。 测试用例 2\n输入\n3 Test-aaBBcc-CCddEE 输出\nTest-aab-bcc-CCD-DEE 说明\n子串为 Test、aaBBcc、CCddEE。第一个子串保留。 对 aaBBcc 按每 3 个字符分组为 aab 和 bcc： aab 中小写字母多，转换为 aab。 bcc 中小写字母多，转换为 bcc。 对 CCddEE 按每 3 个字符分组为 CCD 和 DEE： CCD 中大写字母多，转换为 CCD。 DEE 中大写字母多，转换为 DEE。 最终输出为 Test-aab-bcc-CCD-DEE。 点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取正整数 k int k = Integer.parseInt(in.nextLine().trim()); // 读取字符串 String s = in.nextLine().trim(); // 字符串转换 String result = transformString(s, k); // 输出结果 System.out.println(result); } private static String transformString(String s, int k) { // 根据 \"-\" 分隔符获取子串数组 String[] substringList = s.split(\"-\"); // 构建结果容器 StringBuilder builder = new StringBuilder(); builder.append(substringList[0]); for (int i = 1; i \u003c substringList.length; i++) { builder.append(\"-\"); // 子字符串进一步转换 String transformed = transformSubstring(substringList[i], k); builder.append(transformed); } return builder.toString(); } private static String transformSubstring(String s, int k) { // 构建结果容器 StringBuilder builder = new StringBuilder(); for (int i = 0; i \u003c s.length(); i += k) { int end = Math.min(i + k, s.length()); String subString = s.substring(i, end); // 对子串进行大小写转换处理 String transformed = applyCaseTransformation(subString); builder.append(transformed).append(\"-\"); } // 去除最后一个 \"-\" builder.setLength(builder.length() - 1); return builder.toString(); } private static String applyCaseTransformation(String s) { int lowerCaseCount = 0; int upperCaseCount = 0; // 统计字符串中大小写字母的频率 for (char c : s.toCharArray()) { if (Character.isLowerCase(c)) { lowerCaseCount++; } else if (Character.isUpperCase(c)){ upperCaseCount++; } } if (lowerCaseCount \u003e upperCaseCount) { return s.toLowerCase(); } else if (lowerCaseCount \u003c upperCaseCount) { return s.toUpperCase(); } return s; } } 字符匹配【100分】 SHOW PROBLEM 一、题目描述 给定一个字符串数组（每个字符串均由小写字母组成）和一个字符规律（由小写字母、.和*组成），请识别数组中哪些字符串可以完全匹配该字符规律。\n. 匹配任意单个字符。 * 匹配零个或多个前面的字符（即“零个或多个”的概念）。 匹配是要涵盖整个字符串，而不仅仅是部分字符串。\n二、输入描述\n第一行是一个由空格分隔的字符串数组，其中每个字符串的长度满足 1 \u003c 单个字符串长度 \u003c 100。 第二行为字符规律，长度满足 1 \u003c 字符规律长度 \u003c 50。 三、输出描述\n输出符合字符规律的字符串在数组中的下标，多个匹配时，下标按升序排列，并用逗号分隔。 如果没有任何字符串匹配，输出 -1。 示例\n输入：\ngolang java kafka .*a 输出：\n1,2 说明：\n匹配规则 .*a 表示以 a 结尾的任意字符串。符合要求的字符串是 java 和 kafka，因此它们的下标是 1 和 2（从 0 开始索引）。 SHOW CODE Java import java.util.*; import java.util.regex.Pattern; public class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); String[] words = in.nextLine().trim().split(\" \"); String rule = in.nextLine().trim(); String result = getMatchingIndices(words, rule); System.out.println(result); } private static String getMatchingIndices(String[] words, String rule) { List indices = new ArrayList\u003c\u003e(); // // 构建正则表达式 Pattern pattern = Pattern.compile(\"^\" + rule + \"$\"); // 遍历字符串数组，查找匹配项 for (int i = 0; i \u003c words.length; i++) { if (pattern.matcher(words[i]).matches()) { indices.add(i); } } return indices.isEmpty() ? \"-1\" : indices.toString().replaceAll(\"[\\\\[\\\\]\\\\s]\", \"\"); } } Queue 银行插队 SHOW PROBLEM 一、题目描述\n某银行将客户分为了若干个优先级，1级最高，5级最低。当客户到达银行时，优先级高的人可以随时插队到优先级低的人的前面。\n现在给定一系列的客户到达和办理业务的时间序列，请你每次银行办理业务时输出客户的编号。\n如果有多个优先级相同且最高的客户，则按照到达顺序进行办理。\n二、输入描述\n第一行是一个正整数 n（1 ≤ n ≤ 500），表示输入序列中的事件数量。 接下来的 n 行每行第一个字符为 a 或 p： 当字符为 a 时，后面跟着两个正整数 num 和 x，表示到达的客户编号 num 和优先级 x。 当字符为 p 时，表示当前优先级最高的客户去办理业务。 三、输出描述\n对于每个 p 类型的事件，输出一行，仅包含一个正整数 num，表示办理业务的客户编号。\n四、测试用例\n测试用例 1\n输入:\n4 a 1 3 a 2 2 a 3 2 p 输出:\n2 说明:\n客户 1 到达，优先级为 3。 客户 2 和客户 3 到达，优先级为 2。 第一次 p 会办理客户 2，因为客户 2 和客户 3 优先级相同，但是客户 2 先到达。 测试用例 2\n输入:\n6 a 10 1 a 20 5 a 30 3 p p p 输出:\n10 30 20 说明:\n客户 10 到达，优先级为 1（最高优先级）。 客户 20 到达，优先级为 5。 客户 30 到达，优先级为 3。 第一次 p 处理客户 10（因为客户 10 优先级最高）。 第二次 p 处理客户 30（优先级 3 高于 5）。 第三次 p 处理客户 20。 SHOW CODE Java import java.util.PriorityQueue; import java.util.Scanner; class Solution { static class Customer { int id; int priority; public Customer(int id, int priority) { this.id = id; this.priority = priority; } } public static void main(String[] args) { Scanner in = new Scanner(System.in); int n = Integer.parseInt(in.nextLine().trim()); // Customers with higher priority come first, // if priorities are equal, order by ID PriorityQueue queue = new PriorityQueue\u003c\u003e(( c1, c2) -\u003e c1.priority == c2.priority ? Integer.compare(c1.id, c2.id) : Integer.compare(c1.priority, c2.priority) ); // Process each event for (int i = 0; i \u003c n; i++) { String[] parts = in.nextLine().trim().split(\" \"); processEvents(parts, queue); } } private static void processEvents(String[] parts, PriorityQueue queue) { char action = parts[0].charAt(0); // A customer arrives if the action equals to 'a' if (action == 'a') { int id = Integer.parseInt(parts[1]); int priority = Integer.parseInt(parts[2]); queue.add(new Customer(id, priority)); } else if (action == 'p' \u0026\u0026 !queue.isEmpty()) { // Poll the highest priority customer from the queue Customer customer = queue.poll(); System.out.println(customer.id); } } } SHOW NOTES When sorting involves multiple fields, it is a good practice to encapsulate these fields in an entity class. This approach simplifies specifying the sorting order based on specific conditions, enhancing both the maintainability and readability of the code.\nTwo Pointers 华为OD机试：最大花费金额【100分】 点击查看题目 一、题目描述\n小明希望在预算范围内尽可能花完资金。双十一期间，众多商品打折销售，他想从心仪的商品中挑选三件购买。请设计一个程序，帮助小明计算可以花费的最大金额。\n二、输入描述\n第一行：一维整型数组 M，表示商品的价格列表，数组长度小于 100，每个商品价格小于 1000。 第二行：整数 R，表示购买的总资金限制，R 小于 100000。 三、输出描述\n输出满足条件的最大花费金额。如果不存在符合条件的组合，输出 -1。\n示例\n输入：\n28 16 36 22 100 输出：\n86 说明\n在示例中，购买三件商品且总价不超过 100 的最大组合为 28 + 36 + 22 = 86。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取字符串数组并转换为整数数组 int[] prices = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 读取购买资金额度 int budget = Integer.parseInt(in.nextLine().trim()); // 计算预算范围内可以花费的最大金额 int maxCost = getMaxCost(prices, budget); // 输出结果 System.out.println(maxCost); } private static int getMaxCost(int[] prices, int budget) { // 对价格进行排序 Arrays.sort(prices); int maxCost = 0; // 用于记录最大花费金额 for (int i = 0; i \u003c prices.length - 2; i++) { if (prices[i] \u003c budget) { int left = i + 1, right = prices.length - 1; while (left \u003c right) { int currentCost = prices[i] + prices[left] + prices[right]; // 当前花费金额 if (currentCost == budget) { return currentCost; } else if (currentCost \u003c budget) { maxCost = Math.max(maxCost, currentCost); left++; } else { right--; } } } else { break; } } return maxCost; } } 华为OD机试：字符串序列判定【100分】 点击查看题目 一、题目描述\n给定两个字符串 a 和 b，均由小写英文字母组成。a 的长度不超过 100，b 的长度不超过 500,000。要求判断 a 是否是 b 的一个有效子序列。\n判定规则：\na 中的每个字符都能在 b 中找到（字符可以不连续）。 a 在 b 中的字符顺序必须保持一致。 例如，当 a = \"qwt\" 时，a 是 b = \"qwerty\" 的一个有效子序列，因为 a 的字符 q、w 和 t 在 b 中按顺序出现。 二、输入描述\n输入包含两个字符串 a 和 b，均由小写英文字母组成：\n第一行输入字符串 a。 第二行输入字符串 b。 字符串 a 的长度 ≤ 100，字符串 b 的长度 ≤ 500,000。\n三、输出描述\n输出 a 在 b 中的最后一个有效字符的位置（索引从 0 开始）。如果 a 不是 b 的有效子序列，返回 -1。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取输入 String a = in.nextLine().trim(); String b = in.nextLine().trim(); in.close(); // 判断 a 是否是 b 的有效子串 int result = substringCheck(a, b); // 输出结果 System.out.println(result); } private static int substringCheck(String a, String b) { if (a.length() \u003e b.length()) { return -1; } int i = 0, j = 0; int lastMatchPosition = -1; // 用于记录 a 的最后一个有效字符在 b 中的索引位置 while (i \u003c a.length() \u0026\u0026 j \u003c b.length()) { if (a.charAt(i) == b.charAt(j)) { lastMatchPosition = j; // 更新最后一个匹配位置 i++; } j++; } return lastMatchPosition; } } 华为OD机试：租车骑绿道【100分】 点击查看题目 一、题目描述\n部门组织团建活动，安排绿道骑行，需要租用双人自行车。每辆自行车最多可容纳两人，且载重上限为 m。给出部门中每个人的体重，求最少需要租用多少辆双人自行车。\n二、输入描述\n第一行包含两个整数 m 和 n，其中 m 表示每辆自行车的最大载重，n 表示部门的总人数。 第二行包含 n 个整数，表示每个人的体重（每个人的体重不超过自行车的载重限制 m）。 输入数据满足以下条件：\n0 \u003c m \u003c= 200 0 \u003c n \u003c= 1,000,000 三、输出描述\n输出最少需要的双人自行车数量。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取自行车限重与人数 int[] parts = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); int m = parts[0]; // 读取体重数据 int[] weights = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 计算所需最少双人自行车数量 int result = computeMinimumBicycles(weights, m); // 输出结果 System.out.println(result); } private static int computeMinimumBicycles(int[] weights, int maxWeight) { // 对数组进行排序，便于使用双指针模式 Arrays.sort(weights); // 初始化双指针 int left = 0, right = weights.length - 1; int bicycleCount = 0; // while (left \u003c= right) { // // 最轻和最重的人可以共用一辆车 // if (weights[left] + weights[right] \u003c= maxWeight) { // left++; // 左指针右移 // right--; // bicycleCount++; // } else { // 不能公用自行车 // right--; // 右指针左移 // bicycleCount++; // } // } while (left \u003c= right) { // 最轻和最重的人可以共用一辆车 if (weights[left] + weights[right] \u003c= maxWeight) { left++; // 左指针右移 } right--; // 右指针左移 bicycleCount++; } return bicycleCount; } } 华为OD机试：求最多可以派出多少支团队【100分】 点击查看题目 题目描述\n有一个数组表示每个人的能力值。比赛活动要求参赛团队的能力总和至少为 N。每个团队可以由一人或两人组成，每个人只能参加一个团队。请计算最多可以组建多少个符合要求的团队。\n输入描述\n第一行：一个整数表示总人数，范围为 1 至 500,000。 第二行：一个整数数组表示每个人的能力值，数组大小为 1 至 500,000，数组元素取值范围为 1 至 500,000。 第三行：一个整数表示团队能力要求的最低值 N，范围为 1 至 500,000。 输出描述\n输出一个整数，表示最多可以组建的符合要求的团队数量。 说明\n输入 输出 说明 3\n1 1 9\n8 1 9自己一队，输出1 5\n3 1 5 7 9\n8 3 说明3、5组成为一队，1、7组成一队，9自己一队，输出3 7\n3 1 5 7 9 2 6\n8 4 说明3、5组成为一队，1、7组成一队，9自己一队，2、6组成一队，输出4 点击查看代码 Java import java.util.Arrays; import java.util.Scanner; class Main { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取输入数据 int n = Integer.parseInt(in.nextLine().trim()); int[] abilities = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); int minTeamAbility = Integer.parseInt(in.nextLine().trim()); in.close(); // 计算符合题目要求的团队数量 int result = computeMaxTeams(abilities, n, minTeamAbility); // 输出结果 System.out.println(result); } private static int computeMaxTeams(int[] abilities, int n, int minTeamAbility) { // 对数组进行排序，便于使用双指针模式 Arrays.sort(abilities); // 初始化双指针 int left = 0, right = n - 1; int teamCount = 0; while (left \u003c= right) { if (abilities[left] == abilities[right] \u0026\u0026 abilities[right] \u003e= minTeamAbility) { // 只剩下一个人 teamCount++; break; } else if (abilities[right] \u003e= minTeamAbility) { // 能力最强的人单人成队 teamCount++; right--; } else if (abilities[left] + abilities[right] \u003e= minTeamAbility) { teamCount++; left++; right--; } else { left++; } } return teamCount; } } 华为OD机试：寻找身高相近的小朋友【100分】 点击查看题目 一、题目描述\n小明今年升入小学一年级，来到新班级后发现其他小朋友的身高各不相同。他想根据每个小朋友与自己的身高差，对他们进行排序，帮助自己更好地认识新同学。\n二、输入描述\n第一行包含两个正整数 $h $和 $n $，其中：\n$h $表示小明的身高，范围为 $0 \u003c h \u003c 200 $。 $n $表示班级中其他小朋友的数量，范围为 $0 \u003c n \u003c 50 $。 第二行包含 $n $个正整数，分别表示其他小朋友的身高 $h_1, h_2, \\ldots, h_n $，每个身高的取值范围为 $0 \u003c h_i \u003c 200 $，且这些数互不相同。\n三、输出描述\n按照以下规则输出排序结果，各正整数之间用空格分隔：\n与小明身高差的绝对值越小的小朋友排在前面。 如果与小明身高差的绝对值相同，则身高较矮的小朋友排在前面。 点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取小明身高值和小明同学数 int[] part = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); int h = part[0]; // 小明身高值 int n = part[1]; // 小明同学个数 // 读取小明同学身高数据并解析为数组 int[] heightList = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 基于小明的身高对小明同学的身高进行排序 String result = sortHeight(heightList, h, n); // 输出结果 System.out.println(result); } private static String sortHeight(int[] heightList, int h, int n) { // 对数组进行排序，便于使用双指针模式 Arrays.sort(heightList); // 构建结果容器 StringBuilder builder = new StringBuilder(); // 初始化双指针 int left = 0, right = n - 1; while (left \u003c= right) { if (Math.abs(h - heightList[left]) \u003e Math.abs(h - heightList[right])) { builder.insert(0, heightList[left]); left++; } else if (Math.abs(h - heightList[left]) \u003c= Math.abs(h - heightList[right])) { builder.insert(0, heightList[right]); right--; } builder.insert(0, \" \"); } return builder.substring(1); } } 华为OD机试：太阳能板最大面积【100分】 点击查看题目 一、题目描述\n在航天器的一侧安装太阳能板（如图中红色斜线区域）时，需要先固定两根支柱（如图中黑色竖条）。太阳能板的安装面积取决于支柱之间的距离和较短支柱的高度。\n现给定一组整数数组，表示各个支柱的高度。假设每根支柱之间的距离相等且为 1 个单位长度，计算如何选择两根支柱以使太阳能板的安装面积最大化。\n注意：支柱的高度无序排列。\n二、输入描述\n输入一个表示支柱高度的整数数组，如：10,9,6,7,8,5,4,7,2,3\n三、输出描述\n输出最大太阳能板的安装面积。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取支柱高度 int[] height = Arrays.stream(in.nextLine().trim().split(\",\")) .mapToInt(Integer::parseInt) .toArray(); in.close(); // 计算最大面积 int maxArea = computeMaxArea(height); // 输出结果 System.out.println(maxArea); } private static int computeMaxArea(int[] height) { // 初始化双指针 int left = 0, right = height.length - 1; int maxArea = 0; // 用于记录最大面积 while (left \u003c right) { int area = Math.min(height[left], height[right]) * (right - left); maxArea = Math.max(maxArea, area); // 更新最大面积 // 移动较短的支柱，尝试获取更大的面积 if (height[left] \u003c height[right]) { left++; } else { right--; } } return maxArea; } } Sliding Window 华为OD机试：寻找连续区间【100分】 点击查看题目 题目描述\n给定一个包含 $N $个正整数的数组，找出所有连续子数组（包括单个元素），其和大于等于给定的整数 $X $的组合数量。\n输入描述\n第一行包含两个整数 $N $和 $X $。（$0 \u003c N \\leq 100000 $, $0 \\leq X \\leq 10000000 $）\n第二行包含 $N $个正整数（每个正整数的值不超过 100）。\n输出描述\n输出一个整数，表示满足条件的连续子数组的数量。\n输入示例\n3 7 3 4 7 输出示例\n4 示例说明\n输入的第一个数 3 表示数组包含 3 个元素，7 是目标值，用于判断子数组和是否大于等于该值。\n满足条件的子数组包括：3+4, 3+4+7, 4+7, 7，总共 4 个。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取正整数个数和目标值 int[] part = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); int n = part[0]; int x = part[1]; // 读取整数 int[] nums = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 计算子数组和大于或等于目标值的个数 int result = countSubArrays(nums, x); // 输出结果 System.out.println(result); } private static int countSubArrays(int[] nums, int target) { int windowStart = 0, count = 0; int windowSum = 0; for (int windowEnd = 0; windowEnd \u003c nums.length; windowEnd++) { windowSum += nums[windowEnd]; // 更新窗口和 // 当窗口和大于或等于目标值时，缩小窗口 while (windowSum \u003e= target) { // 符合要求子数组：左边界为 windowStart，右边界取值范围为 [windowEnd, nums.length - 1] count += nums.length - windowEnd; windowSum -= nums[windowStart]; windowStart++; // 缩小窗口 } } return count; } } 点击查看笔记 count += nums.length - windowEnd; nums = [1, 4, 5], target = 4 windowEnd 为 0 时，当前窗口和1小于目标值 windowEnd 为 1 时，当前窗口和5大于目标值，符合要求的子数组为：[1, 4]和[1, 4, 5]。也就是说，子数组的左边界为windowStart = 0，右边界的取值可为：1, 2。 while (windowSum \u003e= target) 而非 if (windowSum \u003e= target) 当找到符合要求的子数组时，应尽可能缩小窗口。例如，子数组[1, 4] 缩小后变为[4]，但此时[4]仍满足题意，此时windowEnd的取值1和2，即子数组可为[4]和[4,5]。 华为OD机试：阿里巴巴找黄金宝箱(V)【100分】 点击查看题目 一、题目描述\n樵夫阿里巴巴在砍柴途中发现了一个藏宝地，这里有编号从 $0$ 到$N-1$的宝箱，每个宝箱上贴有一个数字，表示其价值。阿里巴巴记住了一个“咒语数字”$k$（$k \u003c N$），他希望通过这个数字找到宝藏组合的最大价值。具体而言，阿里巴巴要找出连续$k$个宝箱中的数字和的最大值，并输出该最大值。\n二、输入描述\n第一行：一个包含整数的字符串，表示宝箱上的数字，数字之间用逗号分隔。例子：2,10,-3,-8,40,5\n条件： 1 ≤ 数字的个数 ≤ 100,000 -10,000 ≤ 每个数字 ≤ 10,000 第二行：一个正整数$k$，表示咒语数字，指定连续宝箱的数量。例子：4，其中$k \u003c$宝箱的个数。\n三、输出描述\n输出一个整数，表示连续$k$个宝箱的最大和。例如：39\n四、测试用例\n测试用例 1：\n输入 2,10,-3,-8,40,5 4 输出 39 说明\n初始窗口：2,10,-3,-8，和为 1。\n移动窗口：10,-3,-8,40，和为 39，更新最大和。\n接下来窗口为：-3,-8,40,5，和为 34，保持最大和为 39。 测试用例 2：\n输入 8 1 输出 8 说明\n只有一个数字，窗口大小为 1，直接输出该数字 8。 测试用例 3：\n输入\n-1,-2,-3,-4 2 输出\n-3 说明\n初始窗口为 -1,-2，和为 -3。后续窗口的和分别为 -5 和 -7，因此最大和保持为 -3。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取宝箱数字并转换为数组 int[] nums = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // // 读取连续宝箱的个数 int boxes = Integer.parseInt(in.nextLine().trim()); // 计算指定连续宝箱个数的最大和 int maxSum = computeMaxSum(nums, boxes); // 输出结果 System.out.println(maxSum); } private static int computeMaxSum(int[] nums, int k) { int windowStart = 0, windowSum = 0; int maxSum = Integer.MIN_VALUE; for (int windowEnd = 0; windowEnd \u003c nums.length; windowEnd++) { windowSum += nums[windowEnd]; // 更新窗口和 // 当窗口大小等于k时，缩小窗口 if (windowEnd - windowStart + 1 == k) { maxSum = Math.max(maxSum, windowSum); // 更新最大和 windowSum -= nums[windowStart]; windowStart++; // 缩小窗口 } } return maxSum; } } 华为OD机试：最多购买宝石数目【100分】 点击查看题目 一、题目描述\n在一个橱窗里，有一排编号为 0 到 n-1 的宝石，每个宝石的价格用数组 gems[i] 表示（其中 0 \u003c= i \u003c n，且 n = gems.length）。你可以选择购买一组宝石，但需要满足以下条件：\n选择的宝石必须是连续编号的，例如：gems[i], gems[i+1], ..., gems[i+m-1]。 可以选择购买的宝石总数不能超过一个最大值 m。 你拥有的总金额为 value。 请计算，在给定的金额 value 和最大宝石数量 m 的限制下，最多可以购买多少个宝石。如果无法购买任何宝石，则返回 0。\n二、输入描述\n第一行输入整数 n，表示橱窗中宝石的总数量。取值范围：0 \u003c= n \u003c= 10^6 接下来的 n 行，每行一个整数，表示宝石的价格。即，第 i 行输入的是 gems[i] 的价格。价格范围：0 \u003c gems[i] \u003c= 1000 最后一行输入整数 m，表示拥有的总金额。取值范围：0 \u003c= value \u003c= 10^9 三、输出描述\n输出一个整数，表示在给定金额和数量限制下，最多可以购买的宝石数量。\n四、测试用例\n测试用例 1\n输入\n7 8 4 6 3 1 6 7 10 输出\n3 说明 可以购买编号为 2, 3, 4 的宝石，其价格和为 6 + 3 + 1 = 10，总价不超过 value\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取宝石数量 int n = Integer.parseInt(in.nextLine().trim()); // 读取宝石价格 int[] prices = new int[n]; for (int i = 0; i \u003c n; i++) { prices[i] = Integer.parseInt(in.nextLine().trim()); } // 读取拥有钱 int money = Integer.parseInt(in.nextLine().trim()); // 计算能够购买最多的宝石数量 int maxGem = buyMaxGems(prices, money); // 输出结果 System.out.println(maxGem); } private static int buyMaxGems(int[] prices, int money) { int windowStart = 0; int maxGem = 0, currentPrice = 0; for (int windowEnd = 0; windowEnd \u003c prices.length; windowEnd++) { currentPrice += prices[windowEnd]; // 如果总价超过预算，缩小窗口 if (currentPrice \u003e money) { currentPrice -= prices[windowStart]; windowStart++; } // 更新最大可购买的宝石数量 maxGem = Math.max(maxGem, windowEnd - windowStart + 1); } return maxGem; } } 点击查看笔记 问题本质：求给定条件下的最大区间\n华为OD机试：找出通过车辆最多颜色【100分】 点击查看题目 一、题目描述\n在一个狭窄的路口，每秒钟只能通过一辆车，且车辆的颜色只有三种。请找出在给定的统计时间窗内，经过的车辆中数量最多的颜色的车辆数量。\n颜色共有三种，分别用编号 0、1、2 表示。\n二、输入描述\n第一行是一个数组，表示每秒钟通过的车辆颜色信息。例如，输入 [0, 1, 1, 2] 表示在 4 秒钟内，车辆颜色依次为 0、1、1、2。 第二行是一个整数，表示统计时间窗的长度 T（单位：秒）。 三、输出描述\n输出在指定的统计时间窗 T 内，经过的数量最多的颜色的车辆数量。\n示例\n输入\n[0, 1, 1, 2] 3 输出\n2 说明\n在时间窗为 3 秒的范围内，颜色 1 的车辆数量最多，有 2 辆。\n点击查看代码 Java import java.util.*; class Solution { public static void main(String[] args) { Scanner in = new Scanner(System.in); // 读取车辆颜色数据并转换为数组 int[] colors = Arrays.stream(in.nextLine().trim().split(\" \")) .mapToInt(Integer::parseInt) .toArray(); // 读取指定时间窗口长度 int k = Integer.parseInt(in.nextLine().trim()); // 计算指定时间窗口内经过的最多颜色的车辆数量 int num = maxPassedCars(colors, k); // 输出结果 System.out.println(num); } private static int maxPassedCars(int[] colors, int windowSize) { int windowStart = 0, maxCars = 0; Map frequencyMap = new HashMap\u003c\u003e(); for (int windowEnd = 0; windowEnd \u003c colors.length; windowEnd++) { int count = frequencyMap.getOrDefault(colors[windowEnd], 0) + 1; maxCars = Math.max(maxCars, count); frequencyMap.put(colors[windowEnd], count); // 当窗口大小等于指定时间窗口时，缩小窗口 if (windowEnd - windowStart + 1 == windowSize) { frequencyMap.put(colors[windowStart], frequencyMap.get(colors[windowStart]) - 1); windowStart++; // 缩小窗口 } } return maxCars; } } 点击查看笔记 问题本质：统计指定区间内数字的出现频率\n",
+  "wordCount" : "2526",
   "inLanguage": "en",
   "datePublished": "2024-12-02T15:15:55+08:00",
   "dateModified": "2024-12-02T15:15:55+08:00",
@@ -243,7 +243,11 @@
                 <li>
                     <a href="#%e5%8d%8e%e4%b8%baod%e6%9c%ba%e8%af%95%e5%af%bb%e6%89%be%e8%bf%9e%e7%bb%ad%e5%8c%ba%e9%97%b4100%e5%88%86" aria-label="华为OD机试：寻找连续区间【100分】">华为OD机试：寻找连续区间【100分】</a></li>
                 <li>
-                    <a href="#%e5%8d%8e%e4%b8%baod%e6%9c%ba%e8%af%95%e9%98%bf%e9%87%8c%e5%b7%b4%e5%b7%b4%e6%89%be%e9%bb%84%e9%87%91%e5%ae%9d%e7%ae%b1v100%e5%88%86" aria-label="华为OD机试：阿里巴巴找黄金宝箱(V)【100分】">华为OD机试：阿里巴巴找黄金宝箱(V)【100分】</a>
+                    <a href="#%e5%8d%8e%e4%b8%baod%e6%9c%ba%e8%af%95%e9%98%bf%e9%87%8c%e5%b7%b4%e5%b7%b4%e6%89%be%e9%bb%84%e9%87%91%e5%ae%9d%e7%ae%b1v100%e5%88%86" aria-label="华为OD机试：阿里巴巴找黄金宝箱(V)【100分】">华为OD机试：阿里巴巴找黄金宝箱(V)【100分】</a></li>
+                <li>
+                    <a href="#%e5%8d%8e%e4%b8%baod%e6%9c%ba%e8%af%95%e6%9c%80%e5%a4%9a%e8%b4%ad%e4%b9%b0%e5%ae%9d%e7%9f%b3%e6%95%b0%e7%9b%ae100%e5%88%86" aria-label="华为OD机试：最多购买宝石数目【100分】">华为OD机试：最多购买宝石数目【100分】</a></li>
+                <li>
+                    <a href="#%e5%8d%8e%e4%b8%baod%e6%9c%ba%e8%af%95%e6%89%be%e5%87%ba%e9%80%9a%e8%bf%87%e8%bd%a6%e8%be%86%e6%9c%80%e5%a4%9a%e9%a2%9c%e8%89%b2100%e5%88%86" aria-label="华为OD机试：找出通过车辆最多颜色【100分】">华为OD机试：找出通过车辆最多颜色【100分】</a>
                 </li>
             </ul>
             </li>
@@ -1691,10 +1695,6 @@ class Solution {
     <div class="code_block active">
         <pre><code class="language-java" data-lang="java" > import java.util.*;
 
-/**
- * @author Signal Yu
- * @since 2024-11-06
- */
 class Solution {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -1944,6 +1944,304 @@ class Solution {
         </div>
     </details>
 </div>
+<hr>
+<h2 id="华为od机试最多购买宝石数目100分">华为OD机试：最多购买宝石数目【100分】<a hidden class="anchor" aria-hidden="true" href="#华为od机试最多购买宝石数目100分">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">点击查看题目</summary>
+  <p><strong>一、题目描述</strong></p>
+<p>在一个橱窗里，有一排编号为 <code>0</code> 到 <code>n-1</code> 的宝石，每个宝石的价格用数组 <code>gems[i]</code> 表示（其中 <code>0 &lt;= i &lt; n</code>，且 <code>n = gems.length</code>）。你可以选择购买一组宝石，但需要满足以下条件：</p>
+<ol>
+<li>选择的宝石必须是连续编号的，例如：<code>gems[i], gems[i+1], ..., gems[i+m-1]</code>。</li>
+<li>可以选择购买的宝石总数不能超过一个最大值 <code>m</code>。</li>
+<li>你拥有的总金额为 <code>value</code>。</li>
+</ol>
+<p>请计算，在给定的金额 <code>value</code> 和最大宝石数量 <code>m</code> 的限制下，最多可以购买多少个宝石。如果无法购买任何宝石，则返回 <code>0</code>。</p>
+<p><strong>二、输入描述</strong></p>
+<ol>
+<li>第一行输入整数 <code>n</code>，表示橱窗中宝石的总数量。<strong>取值范围</strong>：<code>0 &lt;= n &lt;= 10^6</code></li>
+<li>接下来的 <code>n</code> 行，每行一个整数，表示宝石的价格。即，第 <code>i</code> 行输入的是 <code>gems[i]</code> 的价格。<strong>价格范围</strong>：<code>0 &lt; gems[i] &lt;= 1000</code></li>
+<li>最后一行输入整数 <code>m</code>，表示拥有的总金额。<strong>取值范围</strong>：<code>0 &lt;= value &lt;= 10^9</code></li>
+</ol>
+<p><strong>三、输出描述</strong></p>
+<p>输出一个整数，表示在给定金额和数量限制下，最多可以购买的宝石数量。</p>
+<p><strong>四、测试用例</strong></p>
+<p><strong>测试用例 1</strong></p>
+<p><strong>输入</strong></p>
+<pre tabindex="0"><code>7
+8
+4
+6
+3
+1
+6
+7
+10
+</code></pre><p><strong>输出</strong></p>
+<pre tabindex="0"><code>3
+</code></pre><p><strong>说明</strong>
+可以购买编号为 <code>2, 3, 4</code> 的宝石，其价格和为 <code>6 + 3 + 1 = 10</code>，总价不超过 <code>value</code></p>
+
+</details></p>
+
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.*;
+
+class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // 读取宝石数量
+        int n = Integer.parseInt(in.nextLine().trim());
+        // 读取宝石价格
+        int[] prices = new int[n];
+        for (int i = 0; i < n; i++) {
+            prices[i] = Integer.parseInt(in.nextLine().trim());
+        }
+        // 读取拥有钱
+        int money = Integer.parseInt(in.nextLine().trim());
+
+        // 计算能够购买最多的宝石数量
+        int maxGem = buyMaxGems(prices, money);
+
+        // 输出结果
+        System.out.println(maxGem);
+    }
+
+    private static int buyMaxGems(int[] prices, int money) {
+        int windowStart = 0;
+        int maxGem = 0, currentPrice = 0;
+        for (int windowEnd = 0; windowEnd < prices.length; windowEnd++) {
+            currentPrice += prices[windowEnd];
+
+            // 如果总价超过预算，缩小窗口
+            if (currentPrice > money) {
+                currentPrice -= prices[windowStart];
+                windowStart++;
+            }
+
+            // 更新最大可购买的宝石数量
+            maxGem = Math.max(maxGem, windowEnd - windowStart + 1);
+        }
+
+        return maxGem;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">点击查看笔记</summary>
+  <blockquote>
+<p>问题本质：求给定条件下的最大区间</p>
+</blockquote>
+</details></p>
+
+<hr>
+<h2 id="华为od机试找出通过车辆最多颜色100分">华为OD机试：找出通过车辆最多颜色【100分】<a hidden class="anchor" aria-hidden="true" href="#华为od机试找出通过车辆最多颜色100分">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">点击查看题目</summary>
+  <p><strong>一、题目描述</strong></p>
+<p>在一个狭窄的路口，每秒钟只能通过一辆车，且车辆的颜色只有三种。请找出在给定的统计时间窗内，经过的车辆中数量最多的颜色的车辆数量。</p>
+<p>颜色共有三种，分别用编号 <code>0</code>、<code>1</code>、<code>2</code> 表示。</p>
+<p><strong>二、输入描述</strong></p>
+<ul>
+<li>第一行是一个数组，表示每秒钟通过的车辆颜色信息。例如，输入 <code>[0, 1, 1, 2]</code> 表示在 4 秒钟内，车辆颜色依次为 <code>0</code>、<code>1</code>、<code>1</code>、<code>2</code>。</li>
+<li>第二行是一个整数，表示统计时间窗的长度 <code>T</code>（单位：秒）。</li>
+</ul>
+<p><strong>三、输出描述</strong></p>
+<p>输出在指定的统计时间窗 <code>T</code> 内，经过的数量最多的颜色的车辆数量。</p>
+<p><strong>示例</strong></p>
+<ul>
+<li>
+<p><strong>输入</strong></p>
+<pre tabindex="0"><code>[0, 1, 1, 2]
+3
+</code></pre></li>
+<li>
+<p><strong>输出</strong></p>
+<pre tabindex="0"><code>2
+</code></pre></li>
+<li>
+<p><strong>说明</strong></p>
+<p>在时间窗为 <code>3</code> 秒的范围内，颜色 <code>1</code> 的车辆数量最多，有 <code>2</code> 辆。</p>
+</li>
+</ul>
+
+</details></p>
+
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>点击查看代码</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import java.util.*;
+
+class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // 读取车辆颜色数据并转换为数组
+        int[] colors = Arrays.stream(in.nextLine().trim().split(" "))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        // 读取指定时间窗口长度
+        int k = Integer.parseInt(in.nextLine().trim());
+
+        // 计算指定时间窗口内经过的最多颜色的车辆数量
+        int num = maxPassedCars(colors, k);
+
+        // 输出结果
+        System.out.println(num);
+    }
+
+    private static int maxPassedCars(int[] colors, int windowSize) {
+        int windowStart = 0, maxCars = 0;
+        Map&lt;Integer, Integer&gt; frequencyMap = new HashMap&lt;&gt;();
+        for (int windowEnd = 0; windowEnd < colors.length; windowEnd++) {
+            int count = frequencyMap.getOrDefault(colors[windowEnd], 0) + 1;
+            maxCars = Math.max(maxCars, count);
+            frequencyMap.put(colors[windowEnd], count);
+
+            // 当窗口大小等于指定时间窗口时，缩小窗口
+            if (windowEnd - windowStart + 1 == windowSize) {
+                frequencyMap.put(colors[windowStart], frequencyMap.get(colors[windowStart]) - 1);
+                windowStart++; // 缩小窗口
+            }
+        }
+
+        return maxCars;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">点击查看笔记</summary>
+  <blockquote>
+<p>问题本质：统计指定区间内数字的出现频率</p>
+</blockquote>
+</details></p>
+
 <hr>
 
 
