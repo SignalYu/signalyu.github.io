@@ -85,7 +85,7 @@ Load Balancing To fullly leverage scalability and redundency, load balancing can
       <pubDate>Fri, 21 Feb 2025 16:39:09 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/meocs-408/1-principles-of-computer-organization/</guid>
       <description>Basic Components of Compiter Hardware Von Neumann Architecture Von Neumann Architecture is a computer architecture model that forms the foundation of modern computer systems. It primarily consists of five major components: the CPU, Memory, Input Devices, Output Devices, and Buses.
-The CPU (Central Processing Unit) contains two main parts: the Alrithmic and Logic Unit (ALU) and the Control Unit. The ALU performs mathematical calculations and logical operations, while the Control Unit manages the processor&amp;rsquo;s operations by fetching, decoding, and executing instructions.</description>
+The CPU (Central Processing Unit) contains two main parts: the Algorithmic and Logic Unit (ALU) and the Control Unit. The ALU performs mathematical calculations and logical operations, while the Control Unit manages the processor&amp;rsquo;s operations by fetching, decoding, and executing instructions.</description>
     </item>
     <item>
       <title>Coding Problem Set</title>
