@@ -6,7 +6,7 @@
     <description>Recent content in Computer Science on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Fri, 27 Dec 2024 04:32:42 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 21 Feb 2025 16:39:09 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -78,6 +78,14 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
       <description>Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
 Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
 Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
+      <title>Principles of Computer Organization</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/meocs-408/1-principles-of-computer-organization/</link>
+      <pubDate>Fri, 21 Feb 2025 16:39:09 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/meocs-408/1-principles-of-computer-organization/</guid>
+      <description>Basic Components of Compiter Hardware Von Neumann Architecture Von Neumann Architecture is a computer architecture model that forms the foundation of modern computer systems. It primarily consists of five major components: the CPU, Memory, Input Devices, Output Devices, and Buses.
+The CPU (Central Processing Unit) contains two main parts: the Alrithmic and Logic Unit (ALU) and the Control Unit. The ALU performs mathematical calculations and logical operations, while the Control Unit manages the processor&amp;rsquo;s operations by fetching, decoding, and executing instructions.</description>
     </item>
     <item>
       <title>Coding Problem Set</title>
