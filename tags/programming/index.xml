@@ -10,9 +10,9 @@
     <atom:link href="https://signalyu.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Coding Problem Set</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/coding-problems/1-cocoding-problem-set/</link>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/coding-problems/1-coding-problem-set/</link>
       <pubDate>Mon, 02 Dec 2024 15:15:55 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/coding-problems/1-cocoding-problem-set/</guid>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/coding-problems/1-coding-problem-set/</guid>
       <description>String 华为OD机试：字符串分割【100分】 点击查看题目 一、题目描述
 给定一个非空字符串 S，其中包含多个子串，这些子串由 - 符号分隔。我们还给定一个正整数 K，要求按以下规则转换字符串：
 对于字符串中的每个子串，从第二个子串开始，将其分为每 K 个字符的片段。 对每个片段应用以下转换规则： 如果片段中小写字母数量多于大写字母，将该片段的所有大写字母转换为小写字母。 如果片段中大写字母数量多于小写字母，将该片段的所有小写字母转换为大写字母。 如果大写和小写字母数量相等，不做转换。 二、输入描述
