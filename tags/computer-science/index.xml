@@ -88,25 +88,6 @@ Load Balancing To fullly leverage scalability and redundency, load balancing can
 The CPU (Central Processing Unit) contains two main parts: the Arithmetic and Logic Unit (ALU) and the Control Unit. The ALU performs mathematical calculations and logical operations, while the Control Unit manages the processor&amp;rsquo;s operations by fetching, decoding, and executing instructions.</description>
     </item>
     <item>
-      <title>Coding Problem Set</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/coding-problems/1-coding-problem-set/</link>
-      <pubDate>Mon, 02 Dec 2024 15:15:55 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/coding-problems/1-coding-problem-set/</guid>
-      <description>String 华为OD机试：字符串分割【100分】 点击查看题目 一、题目描述
-给定一个非空字符串 S，其中包含多个子串，这些子串由 - 符号分隔。我们还给定一个正整数 K，要求按以下规则转换字符串：
-对于字符串中的每个子串，从第二个子串开始，将其分为每 K 个字符的片段。 对每个片段应用以下转换规则： 如果片段中小写字母数量多于大写字母，将该片段的所有大写字母转换为小写字母。 如果片段中大写字母数量多于小写字母，将该片段的所有小写字母转换为大写字母。 如果大写和小写字母数量相等，不做转换。 二、输入描述
-输入包含两行：
-第一行为整数 K。 第二行为字符串 S，由 - 分隔成多个子串。 三、输出描述
-输出转换后的字符串。
-四、测试用例
-测试用例 1 输入
-3 12abc-abcABC-4aB@ 输出
-12abc-abc-ABC-4aB-@ 说明
-子串为 12abc、abcABC、4aB@。第一个子串保留。 对 abcABC 按每 3 个字符分组为 abc 和 ABC： abc 中小写字母多，转换为 abc。 ABC 中大写字母多，转换为 ABC。 对 4aB@ 按每 3 个字符分组为 4aB 和 @： 4aB 中大小写字母数量相等，不做转换。 @ 中无字母，不做转换。 最终输出为 12abc-abc-ABC-4aB-@。 测试用例 2
-输入
-3 Test-aaBBcc-CCddEE 输出</description>
-    </item>
-    <item>
       <title>Idea &amp; Maven &amp; Postman Notes</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/tools/1-idea-maven-postman-notes/</link>
       <pubDate>Fri, 24 Dec 2021 16:03:23 +0800</pubDate>
