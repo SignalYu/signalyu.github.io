@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Sat, 15 Mar 2025 16:56:57 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 15 Mar 2025 16:57:09 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -71,6 +71,15 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
       <description>Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
 Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
 Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
+      <title>Cisco Certified Networking Associate</title>
+      <link>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/1-ccna/</link>
+      <pubDate>Sat, 15 Mar 2025 16:57:09 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/1-ccna/</guid>
+      <description>1. Introduction to CCNA Exam Exam Topics CCNA Exam Topics Exam Instructions Cisco Exam Tutorial Question Types YOU CAN&amp;rsquo;T GO BACK AFTER ANSWERING OR SKIPPING A QUESTION.
+CCNA Question Types Online Testing A PRIVATE and QUITE place for AT LEAST 2 HOURS must be needed.
+Online Testing Cisco Packet Tracer Installation Cisco Packet Tracer Installation (Login First) Schduling and Taking the Exam Scheduling And Taking the Exam Exam Prep: Binary Game Binary Game 2.</description>
     </item>
     <item>
       <title>Japanese-Language Proficiency Test — N1</title>
