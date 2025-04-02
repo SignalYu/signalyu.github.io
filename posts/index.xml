@@ -73,7 +73,7 @@ Load Balancing In System Design, Load Balancing refers to the practice of distri
 Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
     </item>
     <item>
-      <title>Cisco Certified Networking Associate</title>
+      <title>Cisco Certified Networking Associate (CCNA)</title>
       <link>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/1-ccna/</link>
       <pubDate>Sat, 15 Mar 2025 16:57:09 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/1-ccna/</guid>
