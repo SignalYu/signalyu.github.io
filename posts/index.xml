@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Sat, 15 Mar 2025 16:57:09 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 29 Mar 2025 16:46:34 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -71,6 +71,14 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
       <description>Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
 Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
 Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
+      <title>PCPP – Certified Professional Python Programming</title>
+      <link>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/2-python-pcpp/</link>
+      <pubDate>Sat, 29 Mar 2025 16:46:34 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/2-python-pcpp/</guid>
+      <description>Function Arguments Function arguments refer to data passed to the function. In python, there four main types of arguments: positional arguments, keyword arguments, default arguments, and variable length arguments.
+Positional arguments are passed to a function in a specific order, and the values are assigned to parameters based on their position. Keyword arguments are passed to a function by explicitly specifying the parameter name. Any keyword arguments must be put after the last positional argument.</description>
     </item>
     <item>
       <title>Cisco Certified Networking Associate (CCNA)</title>
