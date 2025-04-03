@@ -296,7 +296,8 @@
 <p>A <strong>program</strong> is a static set of instructions that stores on a disk. A <strong>process</strong> is an instance of a program that is currently being executed by the operating system. A <strong>thread</strong> is a small unit of process that can be scheduled and executed by the operating system. In simpler terms, a <strong>program</strong> is the code, a <strong>process</strong> is the excution of the code, a <strong>thread</strong> is a unit of execution within a process. Their relationships are illustrated in the following image:</p>
 </blockquote>
 <figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/1-program-process-thread.gif#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/1-program-process-thread.gif#center" width="100%" height="100%"/> <figcaption>
             Program, Process, and Thread
         </figcaption>
 </figure>
@@ -314,7 +315,8 @@
 <li><code>Terminated</code>: This refers to the state where the thread instance has completed its task and has exited.</li>
 </ol>
 <figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/2-thread-life-cycle-within-concurrency.gif#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/2-thread-life-cycle-within-concurrency.gif#center" width="100%" height="100%"/> <figcaption>
             Thread Life Cycle Within Concurrency
         </figcaption>
 </figure>
@@ -333,7 +335,8 @@
 </li>
 </ol>
 <figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/3-fork-join.gif#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/3-fork-join.gif#center" width="100%" height="100%"/> <figcaption>
             Fork/Join Model
         </figcaption>
 </figure>
@@ -532,7 +535,8 @@ public class Solution {
 </blockquote>
 <p>For example, suppose there are four threads trying to read a value of 20 from memory. Each thread increments the value by 1 and writes it back to memory. Without synchronization mechanisms, after all threads complete their writes, the final value might be 21 instead of the expected 24. This leads to an unexpected outcome, as illustrated below.</p>
 <figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/4-critical-section-and-race-condition.gif#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/4-critical-section-and-race-condition.gif#center" width="100%" height="100%"/> <figcaption>
             Critical Section &amp; Race Condition
         </figcaption>
 </figure>
@@ -558,7 +562,8 @@ public class Solution {
 </span></span><span style="display:flex;"><span>    lock.<span style="color:#a6e22e">unlock</span>(); <span style="color:#75715e">// Release the lock</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/5-mutex.gif#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/5-mutex.gif#center" width="100%" height="100%"/> <figcaption>
             Mutex Mechanism
         </figcaption>
 </figure>
@@ -764,7 +769,8 @@ Final counter value No Mutex Experiment: 100
 <p>Under the Read/Write Lock mechanism, multiple threads can access the critical section simultaneously without blocking each other. When a writer thread is accessing the critical section, other writer threads and reader threads are blocked. Similarly, when a reader thread is accessing the critical section, the writer thread is blocked.</p>
 </blockquote>
 <figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/6-read-write-lock.webp#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/6-read-write-lock.webp#center" width="100%" height="100%"/> <figcaption>
             Read/Write Lock Mechanism
         </figcaption>
 </figure>
@@ -1020,7 +1026,8 @@ public class ReadWriteLock {
 </span></span><span style="display:flex;"><span>    semaphore.<span style="color:#a6e22e">release</span>();  <span style="color:#75715e">// Release a permit</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/7-semaphore.gif#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/7-semaphore.gif#center" width="100%" height="100%"/> <figcaption>
             Semaphore Mechanism
         </figcaption>
 </figure>
@@ -1162,7 +1169,8 @@ public class SemaphoreTest {
 </span></span><span style="display:flex;"><span>    lock.<span style="color:#a6e22e">notify</span>();  <span style="color:#75715e">// Notify waiting threads</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/8-conditional-variables.png#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/8-conditional-variables.png#center" width="100%" height="100%"/> <figcaption>
             Conditional Variable Mechanism
         </figcaption>
 </figure>
@@ -1346,7 +1354,8 @@ public class SemaphoreTest {
 <p>The <strong>Barrier Mechanism</strong> allows threads to wait for each other at a specified point in their execution. It ensures that threads cannot proceed to the subsequent code until all threads have reached the barrier, as illustrated in the following image.</p>
 </blockquote>
 <figure class="align-center ">
-    <img loading="lazy" src="/img/multithreading-and-concurrency/9-barrier.gif#center" width="100%" height="100%"/> <figcaption>
+    
+    <img src="/img/multithreading-and-concurrency/9-barrier.gif#center" width="100%" height="100%"/> <figcaption>
             Barrier Mechanism
         </figcaption>
 </figure>
