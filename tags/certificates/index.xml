@@ -6,16 +6,8 @@
     <description>Recent content in Certificates on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Sat, 29 Mar 2025 16:46:34 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 15 Mar 2025 16:57:09 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/certificates/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Certified Professional Python Programming (PCPP)</title>
-      <link>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/2-python-pcpp/</link>
-      <pubDate>Sat, 29 Mar 2025 16:46:34 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/2-python-pcpp/</guid>
-      <description>Function Arguments Function arguments refer to data passed to the function. In python, there four main types of arguments: positional arguments, keyword arguments, default arguments, and variable length arguments.
-Positional arguments are passed to a function in a specific order, and the values are assigned to parameters based on their position. Keyword arguments are passed to a function by explicitly specifying the parameter name. Any keyword arguments must be put after the last positional argument.</description>
-    </item>
     <item>
       <title>Cisco Certified Networking Associate (CCNA)</title>
       <link>https://signalyu.github.io/posts/3-humanities/personal-growth/certificates/cs/1-ccna/</link>
