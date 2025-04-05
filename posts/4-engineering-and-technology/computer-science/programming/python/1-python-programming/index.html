@@ -75,8 +75,8 @@ Positional arguments are passed to a function in a specific order, and the value
   "keywords": [
     "Engineering \u0026 Technology", "Computer Science", "Programming"
   ],
-  "articleBody": "Function Function arguments refer to data passed to the function. In python, there four main types of arguments: positional arguments, keyword arguments, default arguments, and variable length arguments.\nPositional arguments are passed to a function in a specific order, and the values are assigned to parameters based on their position. Keyword arguments are passed to a function by explicitly specifying the parameter name. Any keyword arguments must be put after the last positional argument. A default argument allows a function to accept values for parameters that are not provided by the caller. If no argument is passed for a parameter with a default value, the default will be used. Any default arguments must be put after the last positional argument. Variable length arguments allow a function to accept any number of positional arguments. *args accepts all arguments into a tuple, while **kwargs accepts all arguments into a dictionary. SHOW CODE Python def function_arguments(a, b=2, *args, c=3, **kwargs): print(f\"a: {a}, b: {b}, args: {args}, c: {c}, kwargs: {kwargs}\") function_arguments(1, 1997, 9, 99, 999, name=\"Signal\", age=27) SHOW OUTPUT Output a: 1, b: 1997, args: (9, 99, 999), c: 3, kwargs: {'name': 'Signal', 'age': 27} In Python, functions always return a value, if no return is specified, they return None.\nSHOW CODE Python def check_even(num): if num % 2 == 0: return True # No else clause, so returns None if odd print(check_even(3)) # None In Python, a variable defined outside a function is accessible within the function’s body, but only for reading its value. If a value is assigned to the variable inside the function, a new local variable with the same name is created, and the external variable remains unchanged.\nSHOW CODE Python Python x = 1 def fun(): print(x) fun() # 1 x = 1 def fun(): x = 2 print(x) fun() # 2 To modify a variable defined outside a function, the global keyword can be used, extending the variable’s scope into the function and allowing both reading and modification.\nSHOW CODE Python x = 1 def fun(): global x x = 2 print(x) print(x) # 1 fun() # 2 print(x) # 2 For function arguments, if the argument is a list, modifying the parameter itself doesn’t affect the original list, but modifying the list’s contents will affect the original list.\nSHOW CODE Python Python def fun(list_1): print(\"Before modification...\") print(f\"list_1: {list_1}\") print(f\"list_2: {list_2}\") list_1 = [0, 0] # Modify the parameter itself print(\"After modification...\") print(f\"list_1: {list_1}\") print(f\"list_2: {list_2}\") list_2 = [1, 2] fun(list_2) print(f\"Outside the funtion: list_2 = {list_2}\") ######################### Output ######################### Before modification... list_1: [1, 2] list_2: [1, 2] After modification... list_1: [0, 0] list_2: [1, 2] Outside the function: list_2 = [1, 2] ########################################################## ##################### Memory Diagram ##################### +-----------+ +--------+ +-----------+ | list_2 | ----\u003e | [1, 2] | \u003c---- | list_1 | +-----------+ +--------+ +-----------+ ############### Executing list_1 = [0, 0] ################ +-----------+ +--------+ | list_2 | ----\u003e | [1, 2] | +-----------+ +--------+ +-----------+ +--------+ | list_1 | ----\u003e | [0, 0] | +-----------+ +--------+ ########################################################## def fun(list_1): print(\"Before modification...\") print(f\"list_1: {list_1}\") print(f\"list_2: {list_2}\") list_1[0] = 999 # Modify the list's content print(\"After modification...\") print(f\"list_1: {list_1}\") print(f\"list_2: {list_2}\") list_2 = [1, 2] fun(list_2) print(f\"Outside the function: list_2 = {list_2}\") ######################### Output ######################### Before modification... list_1: [1, 2] list_2: [1, 2] After modification... list_1: [999, 2] list_2: [999, 2] Outside the funtion: list_2 = [999, 2] ########################################################## ##################### Memory Diagram ##################### +-----------+ +--------+ +-----------+ | list_2 | ----\u003e | [1, 2] | \u003c---- | list_1 | +-----------+ +--------+ +-----------+ ############### Executing list_1[0] = 999 ################ +-----------+ +----------+ +-----------+ | list_2 | ----\u003e | [999, 2] | \u003c---- | list_1 | +-----------+ +----------+ +-----------+ ########################################################## Operators Floor division // rounds down the result of the division, truncating any fractional part. For example, -6 // 4 outputs -2. Left-sided binding refers to the way operators or expressions are evaluated from left to right. Most operators evaluate left-to-right. For example, 9 % 6 % 2 returns 1. Right-sided binding refers to expressions where the evaluation happens from right to left. The exponentiation operator (**) and the chained assignment evaluate right-to-left. Compound assignment operators allow performing an operation and then assign the result of it to a variable in a single step. For example, the expression a /= 2 * 3 evaluates 2 * 3 to 6, and then performs a = a / 6 that returns 1.0. List When assinging a list to a new variable, both variables reference the same list object in memory, meaning modifying one variable affects the other because they point to the same data.\nSHOW CODE Python list_1 = [\"A\", \"B\", \"C\"] list_2 = list_1 list_3 = list_2 ###################### Memory Diagram ##################### +-----------+ +-----------------+ +-----------+ | list_1 | ----\u003e | [\"A\", \"B\", \"C\"] | \u003c---- | list_2 | +-----------+ +-----------------+ +-----------+ ^ | +-----------+ | list_3 | +-----------+ ########################################################### del list_1[0] ################### Memory Diagram ################### +-----------+ +------------+ +-----------+ | list_1 | ----\u003e | [\"B\", \"C\"] | \u003c---- | list_2 | +-----------+ +------------+ +-----------+ ^ | +-----------+ | list_3 | +-----------+ ###################################################### del list_2 ####### Memory Diagram ########### +-----------+ +------------+ | list_1 | ----\u003e | [\"B\", \"C\"] | +-----------+ +------------+ ^ | +-----------+ | list_3 | +-----------+ ################################## print(list_3) # [\"B\", \"C\"] To copy the contents of the original list, slicing is commonly used.\nSHOW CODE Python list_1 = [\"A\", \"B\", \"C\"] list_2 = list_1[:] list_3 = list_2[:] ############ Memory Diagram ########### +-----------+ +-----------------+ | list_1 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_2 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_3 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ ####################################### del list_1[0] ############ Memory Diagram ########### +-----------+ +-----------------+ | list_1 | ----\u003e | [\"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_2 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_3 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ ####################################### del list_2[0] ############ Memory Diagram ########### +-----------+ +-----------------+ | list_1 | ----\u003e | [\"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_2 | ----\u003e | [\"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_3 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ ####################################### print(list_3) # [\"A\", \"B\", \"C\"] List comprehension in Python provides a concise way to create lists by applying an expression to each item in an iterable and optionally filtering items based on a condition. It is typically faster than using loops for constructing lists.\nSHOW CODE Python # [expression for item in iterable if condition] squares = [x**2 for x in range(10) if x % 2 == 0] print(squares) # [0, 4, 16, 36, 64] ",
-  "wordCount" : "1101",
+  "articleBody": "Function Function arguments refer to data passed to the function. In python, there four main types of arguments: positional arguments, keyword arguments, default arguments, and variable length arguments.\nPositional arguments are passed to a function in a specific order, and the values are assigned to parameters based on their position. Keyword arguments are passed to a function by explicitly specifying the parameter name. Any keyword arguments must be put after the last positional argument. A default argument allows a function to accept values for parameters that are not provided by the caller. If no argument is passed for a parameter with a default value, the default will be used. Any default arguments must be put after the last positional argument. Variable length arguments allow a function to accept any number of positional arguments. *args accepts all arguments into a tuple, while **kwargs accepts all arguments into a dictionary. SHOW CODE Python def function_arguments(a, b=2, *args, c=3, **kwargs): print(f\"a: {a}, b: {b}, args: {args}, c: {c}, kwargs: {kwargs}\") function_arguments(1, 1997, 9, 99, 999, name=\"Signal\", age=27) SHOW OUTPUT Output a: 1, b: 1997, args: (9, 99, 999), c: 3, kwargs: {'name': 'Signal', 'age': 27} In Python, functions always return a value, if no return is specified, they return None.\nSHOW CODE Python def check_even(num): if num % 2 == 0: return True # No else clause, so returns None if odd print(check_even(3)) # None In Python, a variable defined outside a function is accessible within the function’s body, but only for reading its value. If a value is assigned to the variable inside the function, a new local variable with the same name is created, and the external variable remains unchanged.\nSHOW CODE Python Python x = 1 def fun(): print(x) fun() # 1 x = 1 def fun(): x = 2 print(x) fun() # 2 To modify a variable defined outside a function, the global keyword can be used, extending the variable’s scope into the function and allowing both reading and modification.\nSHOW CODE Python x = 1 def fun(): global x x = 2 print(x) print(x) # 1 fun() # 2 print(x) # 2 For function arguments, if the argument is a list, modifying the parameter itself doesn’t affect the original list, but modifying the list’s contents will affect the original list.\nSHOW CODE Python Python def fun(list_1): print(\"Before modification...\") print(f\"list_1: {list_1}\") print(f\"list_2: {list_2}\") list_1 = [0, 0] # Modify the parameter itself print(\"After modification...\") print(f\"list_1: {list_1}\") print(f\"list_2: {list_2}\") list_2 = [1, 2] fun(list_2) print(f\"Outside the funtion: list_2 = {list_2}\") ######################### Output ######################### Before modification... list_1: [1, 2] list_2: [1, 2] After modification... list_1: [0, 0] list_2: [1, 2] Outside the function: list_2 = [1, 2] ########################################################## ##################### Memory Diagram ##################### +-----------+ +--------+ +-----------+ | list_2 | ----\u003e | [1, 2] | \u003c---- | list_1 | +-----------+ +--------+ +-----------+ ############### Executing list_1 = [0, 0] ################ +-----------+ +--------+ | list_2 | ----\u003e | [1, 2] | +-----------+ +--------+ +-----------+ +--------+ | list_1 | ----\u003e | [0, 0] | +-----------+ +--------+ ########################################################## def fun(list_1): print(\"Before modification...\") print(f\"list_1: {list_1}\") print(f\"list_2: {list_2}\") list_1[0] = 999 # Modify the list's content print(\"After modification...\") print(f\"list_1: {list_1}\") print(f\"list_2: {list_2}\") list_2 = [1, 2] fun(list_2) print(f\"Outside the function: list_2 = {list_2}\") ######################### Output ######################### Before modification... list_1: [1, 2] list_2: [1, 2] After modification... list_1: [999, 2] list_2: [999, 2] Outside the funtion: list_2 = [999, 2] ########################################################## ##################### Memory Diagram ##################### +-----------+ +--------+ +-----------+ | list_2 | ----\u003e | [1, 2] | \u003c---- | list_1 | +-----------+ +--------+ +-----------+ ############### Executing list_1[0] = 999 ################ +-----------+ +----------+ +-----------+ | list_2 | ----\u003e | [999, 2] | \u003c---- | list_1 | +-----------+ +----------+ +-----------+ ########################################################## Operators Floor division // rounds down the result of the division, truncating any fractional part. For example, -6 // 4 outputs -2. Left-sided binding refers to the way operators or expressions are evaluated from left to right. Most operators evaluate left-to-right. For example, 9 % 6 % 2 returns 1. Right-sided binding refers to expressions where the evaluation happens from right to left. The exponentiation operator (**) and the chained assignment evaluate right-to-left. Compound assignment operators allow performing an operation and then assign the result of it to a variable in a single step. For example, the expression a /= 2 * 3 evaluates 2 * 3 to 6, and then performs a = a / 6 that returns 1.0. List When assinging a list to a new variable, both variables reference the same list object in memory, meaning modifying one variable affects the other because they point to the same data.\nSHOW CODE Python list_1 = [\"A\", \"B\", \"C\"] list_2 = list_1 list_3 = list_2 ###################### Memory Diagram ##################### +-----------+ +-----------------+ +-----------+ | list_1 | ----\u003e | [\"A\", \"B\", \"C\"] | \u003c---- | list_2 | +-----------+ +-----------------+ +-----------+ ^ | +-----------+ | list_3 | +-----------+ ########################################################### del list_1[0] ################### Memory Diagram ################### +-----------+ +------------+ +-----------+ | list_1 | ----\u003e | [\"B\", \"C\"] | \u003c---- | list_2 | +-----------+ +------------+ +-----------+ ^ | +-----------+ | list_3 | +-----------+ ###################################################### del list_2 ####### Memory Diagram ########### +-----------+ +------------+ | list_1 | ----\u003e | [\"B\", \"C\"] | +-----------+ +------------+ ^ | +-----------+ | list_3 | +-----------+ ################################## print(list_3) # [\"B\", \"C\"] To copy the contents of the original list, slicing is commonly used.\nSHOW CODE Python list_1 = [\"A\", \"B\", \"C\"] list_2 = list_1[:] list_3 = list_2[:] ############ Memory Diagram ########### +-----------+ +-----------------+ | list_1 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_2 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_3 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ ####################################### del list_1[0] ############ Memory Diagram ########### +-----------+ +-----------------+ | list_1 | ----\u003e | [\"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_2 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_3 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ ####################################### del list_2[0] ############ Memory Diagram ########### +-----------+ +-----------------+ | list_1 | ----\u003e | [\"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_2 | ----\u003e | [\"B\", \"C\"] | +-----------+ +-----------------+ +-----------+ +-----------------+ | list_3 | ----\u003e | [\"A\", \"B\", \"C\"] | +-----------+ +-----------------+ ####################################### print(list_3) # [\"A\", \"B\", \"C\"] List comprehension in Python provides a concise way to create lists by applying an expression to each item in an iterable and optionally filtering items based on a condition. It is typically faster than using loops for constructing lists.\nSHOW CODE Python # [expression for item in iterable if condition] squares = [x**2 for x in range(10) if x % 2 == 0] print(squares) # [0, 4, 16, 36, 64] Tuple \u0026 Dictionary Tuples are immutable sequences. A tuple with a single item must have a trailing comma (tup = (5, )) to differentiate it from a regular parentheses-enclosed expression.\nTuple unpacking allows extracting elements of a tuple into variables. The number of variables must match the number of elements in the tuple.\nSHOW CODE Python sides = (1, 2, 2) a, b, c = sides print(a, b, c) # 1 2 2 Dictionaries are mutable and unordered collections of key-value pairs. In Python 3.6x, dictionaries have become ordered by default, meaning the order of item is preserved based on the order of insertion.\nKeys in a dictionary must be of a type that is immutable (e.g., strings, numbers, or tuples). Mutable types like lists or dictionaries themselves cannot be used as dictionary keys.\nSHOW CODE Python valid = {('a', 'b'): 'tuple_key'} # OK invalid = {['a', 'b']: 'list_key'} # TypeError ",
+  "wordCount" : "1252",
   "inLanguage": "en",
   "datePublished": "2025-03-29T16:46:34+08:00",
   "dateModified": "2025-03-29T16:46:34+08:00",
@@ -153,7 +153,9 @@ Positional arguments are passed to a function in a specific order, and the value
                 <li>
                     <a href="#operators" aria-label="Operators">Operators</a></li>
                 <li>
-                    <a href="#list" aria-label="List">List</a>
+                    <a href="#list" aria-label="List">List</a></li>
+                <li>
+                    <a href="#tuple--dictionary" aria-label="Tuple &amp; Dictionary">Tuple &amp; Dictionary</a>
                 </li>
             </ul>
         </div>
@@ -998,6 +1000,149 @@ print(squares)  # [0, 4, 16, 36, 64]
     </details>
 </div>
 <hr>
+<h1 id="tuple--dictionary">Tuple &amp; Dictionary<a hidden class="anchor" aria-hidden="true" href="#tuple--dictionary">#</a></h1>
+<blockquote>
+<p><strong>Tuples</strong> are immutable sequences. A tuple with a single item must have a trailing comma (<code>tup = (5, )</code>) to differentiate it from a regular parentheses-enclosed expression.</p>
+</blockquote>
+<blockquote>
+<p>Tuple unpacking allows extracting elements of a tuple into variables. The number of variables must match the number of elements in the tuple.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Python</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-python" data-lang="python" >sides = (1, 2, 2)
+a, b, c = sides
+print(a, b, c)  # 1 2 2
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<blockquote>
+<p><strong>Dictionaries</strong> are mutable and unordered collections of key-value pairs. In Python 3.6x, dictionaries have become ordered by default, meaning the order of item is preserved based on the order of insertion.</p>
+</blockquote>
+<blockquote>
+<p>Keys in a dictionary must be of a type that is immutable (e.g., strings, numbers, or tuples). Mutable types like lists or dictionaries themselves cannot be used as dictionary keys.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Python</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-python" data-lang="python" >valid = {('a', 'b'): 'tuple_key'}  # OK
+invalid = {['a', 'b']: 'list_key'}  # TypeError
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h1 id="heading"><a hidden class="anchor" aria-hidden="true" href="#heading">#</a></h1>
 
 
   </div>
