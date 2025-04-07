@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Asynchronous Messaging | Signal&#39;s Blog</title>
+<meta name="keywords" content="Engineering &amp; Technology, Computer Science, Asynchronous Messaging">
+<meta name="description" content="Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnication paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.
+The advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5a0ace7f2dc73037e40ceea0eb0d119b5d798dba2da38d9129982a8cf9fa07a5.css" integrity="sha256-WgrOfy3HMDfkDO6g6w0Rm115jboto42RKZgqjPn6B6U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="Asynchronous Messaging" />
+<meta property="og:description" content="Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnication paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.
+The advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-20T13:57:02+08:00" />
+<meta property="article:modified_time" content="2023-11-20T13:57:02+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Asynchronous Messaging"/>
+<meta name="twitter:description" content="Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnication paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.
+The advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Asynchronous Messaging",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Asynchronous Messaging",
+  "name": "Asynchronous Messaging",
+  "description": "Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnication paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.\nThe advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed.",
+  "keywords": [
+    "Engineering \u0026 Technology", "Computer Science", "Asynchronous Messaging"
+  ],
+  "articleBody": "Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnication paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.\nThe advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed. However, the drawbacks are also obvious: it may lead to performance bottlenecks when the receiver is slow or unavailable, and it can also limit scalability.\n--- title: Synchronous Messaging --- sequenceDiagram participant Sender participant MessageBus participant MessageListener Sender-\u003e\u003eMessageBus: MessageBusUtil.sendSynchronousMessage() MessageBus-\u003e\u003eMessageListener: destination.send() MessageListener--\u003e\u003eMessageBus: return response note over Sender: (block and wait) MessageBus--\u003e\u003eSender: return response In asynchronous messaging, the sender doesn’t block after sending the message, meaning it can continue processing without waiting for the response from the receiver. It is commonly used in situations where systems can tolerate delays in response, like message notification after a successful payment. Compared to synchronous messaging, asynchronous messaging is more complex to implement. Additionaly, the sender has no guarantee of immediate feedback. It requires extra techniques, such as callback functions or message listeners, to handle the response.\nsequenceDiagram participant Sender participant MessageBus as Message Bus participant MessageListener1 as Message Listener 1 Sender-\u003e\u003eMessageBus: MessageBusUtil.sendMessage() MessageBus-\u003e\u003eMessageListener: destination.send() MessageListener--\u003e\u003eMessageBus: return response Sender-\u003e\u003eSender: (continue with processing) MessageBus--\u003e\u003eSender: return response RabbitMQ Introduction to RabbitMQ RabbitMQ is a message broker that facilitates asynchronous communication between distributed systems. Its working mechnism involves four key components:\nProducer: Responsible for sending messages Exchange: Handles the routing of messages to the appropriate queues. Queue: Stores messages until they are consumed. Consumer: Processes the messages from the queue. --- title: Introduction to RabbitMQ --- graph LR P((P)) --\u003e|send| X{{Exchange}} --\u003e|binding| Q[[Queue]] --\u003e|receive| C((C)) Example: Hello RabbitMQ SHOW CODE Producer Consumer import com.rabbitmq.client.Channel; import com.rabbitmq.client.Connection; import com.rabbitmq.client.ConnectionFactory; import java.nio.charset.StandardCharsets; public class Producer { // Name of the queue where the message will be sent private final static String QUEUE_NAME = \"hello\"; public static void main(String[] argv) throws Exception { // Create a connection factory to configure and connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Configure RabbitMQ server address (default is localhost) factory.setHost(\"localhost\"); // Configure the port for RabbitMQ (default is 5672) factory.setPort(5672); // Use try-with-resource to automatically close the connection and channel after use try (Connection connection = factory.newConnection(); // Establish a connection to RabbitMQ Channel channel = connection.createChannel()) { // Create a communication channel // Declare a queue with the specified name channel.queueDeclare(QUEUE_NAME, false, false, false, null); String message = \"Hello RabbitMQ!\"; // Publish the message to the queue channel.basicPublish(\"\", QUEUE_NAME, null, message.getBytes(StandardCharsets.UTF_8)); System.out.println(\" [P] Sent '\" + message + \"'\"); } } } import com.rabbitmq.client.Channel; import com.rabbitmq.client.Connection; import com.rabbitmq.client.ConnectionFactory; import com.rabbitmq.client.DeliverCallback; import java.nio.charset.StandardCharsets; public class Consumer { private final static String QUEUE_NAME = \"hello\"; public static void main(String[] argv) throws Exception { // Create a connection factory to configure and connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Configure RabbitMQ server address (default is localhost) factory.setHost(\"localhost\"); // Configure the port for RabbitMQ (default is 5672) factory.setPort(5672); // Establish a connection to RabbitMQ Connection connection = factory.newConnection(); // Create a communication channel Channel channel = connection.createChannel(); // Declare a queue with the specified name channel.queueDeclare(QUEUE_NAME, false, false, false, null); System.out.println(\" [*] Waiting for messages. To exit press CTRL+C\"); // Define the callback function to handle incoming message DeliverCallback deliverCallback = (consumerTag, delivery) -\u003e { // Retrieve the message body and convert it to a string using UTF-8 encoding String message = new String(delivery.getBody(), StandardCharsets.UTF_8); System.out.println(\" [C] Received '\" + message + \"'\"); }; // Start consuming messages from the queue channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -\u003e { // No action required for cancellation in this example }); } } Message Acknowledgment In RabbitMQ, message acknowledgement is a mechanism that ensures messages have been received and processed successfully. There are two main types of message acknowledgement: auto ack and manual ack.\nIn auto-ack mode, RabbitMQ considers the message acknowledged as soon as it is delieved to the consumer. The consumer does not need to explictly send an acknowledgement. However, this can be risky. If the consumer fails due to a connection issue or channel break, the message may be lost, meaning it hasn’t been processed successfully.\nboolean autoAck = true; channel.basicConsume(queueName, autoAck, consumer); In manual ack mode, the consumer must send an acknowledgement back to RabbitMQ once the message has been processed successfully. If RabbitMQ does not receive the acknowledgement from the consumer within a specified time (30 minutes by default), it will redeliver the message to another consumer or the same consumer, depending on the configuration.\n// Acknowledging a message manually boolean autoAck = false; channel.basicConsume(queueName, autoAck, new DefaultConsumer(channel) { @Override public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException { String message = new String(body, \"UTF-8\"); // Process the message here channel.basicAck(envelope.getDeliveryTag(), false); // Acknowledge the message } }); Message Durability In RabbitMQ, message durability refers to the ability to ensure that a message will not be lost in case of a broker failure. It involves saving both the queue and message to disk so they can be recovered after a system restart. To guarantee durability, two key components need to be considered: durable queues and persistent messages.\nWhen a queue is declared as durable, it is saved to disk. The queue will still exist even if the broker fails.\nboolean durable = true; channel.queueDeclare(\"myQueue\", durable, false, false, null); To ensure a message’s persistence after a broker restart, it must be marked as persistent by setting the delieveryMode to 2 (persistent). This ensures that the message is saved to disk. However, it’s important to note that marking a message as persistent does not fully guarantee that it won’t be lost. There is still a short window in which RabbitMQ has accepted the message but has not yet saved it to disk. Additionaly, RabbitMQ does not call fsync(2) for every message, meaning it may store the message in cache rather than writing it to disk immediately. Therefore, the durability guerantee is not strong.\n// Publish the message to the queue channel.basicPublish(\"\", TASK_QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, // delieveryMode = 2 message.getBytes(\"UTF-8\")); Prefetch When a consumer subscribes to a message queue, RabbitMQ begins delivering messages. By default, RabbitMQ uses a Round Robin Dispatching strategy, which evenly distributes messages across multiple consumers. However, if one of the consumers processes tasks slowly, it may lead to message buildup and memory pressure.\nIn RabbitMQ, the prefetch mechnism controls the maximum number of messages a consumer can hold at a time. When the number of messages a consumer holds reaches the prefetch limit, RabbitMQ will stop sending additional messages to that consumer until it acknowledges some of the messages. This mechanism helps prevent message accumulation and reduces memory pressure.\n--- title: Worker Queue - prefetch --- graph LR P((P)) --\u003e|send| Q[[Worker]] --\u003e|prefetch = 1| C1((C1)) Q --\u003e|prefetch = 1| C2((C2)) SHOW CODE Producer Worker import com.rabbitmq.client.Channel; import com.rabbitmq.client.Connection; import com.rabbitmq.client.ConnectionFactory; import com.rabbitmq.client.MessageProperties; public class Producer { private static final String TASK_QUEUE_NAME = \"task_queue\"; public static void main(String[] argv) throws Exception { // Create a connection factory to configure and connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Configure RabbitMQ server address (default is localhost) factory.setHost(\"localhost\"); // Configure the port for RabbitMQ (default is 5672) factory.setPort(5672); // Use try-with-resource to automatically close the connection and channel after use try (Connection connection = factory.newConnection(); // Establish a connection to RabbitMQ Channel channel = connection.createChannel()) { // Create a communication channel // Declare a queue with the specified name channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null); String message = \"Hello RabbitMQ!\"; // Publish the message to the queue channel.basicPublish(\"\", TASK_QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes(\"UTF-8\")); System.out.println(\" [P] Sent '\" + message + \"'\"); } } } import com.rabbitmq.client.Channel; import com.rabbitmq.client.Connection; import com.rabbitmq.client.ConnectionFactory; import com.rabbitmq.client.DeliverCallback; public class Worker { // Name of the queue where the message will be sent private static final String TASK_QUEUE_NAME = \"task_queue\"; public static void main(String[] argv) throws Exception { // Create a connection factory to configure and connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Configure RabbitMQ server address (default is localhost) factory.setHost(\"localhost\"); // Establish a connection to RabbitMQ final Connection connection = factory.newConnection(); // Create a communication channel final Channel channel = connection.createChannel(); // Declare a queue with the specified name channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null); System.out.println(\" [*] Waiting for messages. To exit press CTRL+C\"); // Specify the prefetch count channel.basicQos(1); // Define a callback to process incoming messages DeliverCallback deliverCallback = (consumerTag, delivery) -\u003e { String message = new String(delivery.getBody(), \"UTF-8\"); System.out.println(\" [C] Received '\" + message + \"'\"); try { try { // Simulate task processing Thread.sleep(1000); } catch (InterruptedException _ignored) { Thread.currentThread().interrupt(); } } finally { // Acknowledge the message after work is completed System.out.println(\" [C] Done\"); channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false); } }; // Start consuming messages with manual acknowledgment channel.basicConsume(TASK_QUEUE_NAME, false, deliverCallback, consumerTag -\u003e { }); } } Publish/Subscribe Publish/Subscribe is a communication pattern where a message is sent by a producer to multiple consumers. In RabbitMQ, this pattern is implemented using Exchanges and Queues.\nIn the Publish/Subscribe pattern in RabbitMQ, the producer sends a message to an Exchange, which then routes the message to multiple queues that are bound to it. There are four types of exchanges in RabbitMQ:\nfanout: Routes messages to all queues bound to it, without considering any routing key. direct: Routes messages to queues based on an exact match with the routing key. topic: Routes messages to queues based on pattern matching of the routing key. headers: Routes messages based on the attributes of message headers. Fanout Exchange --- title: Publish/Subscribe - fanout --- graph LR P((P)) --\u003e|send| Ex{{fanout}} --\u003e|binding| Q1[[Q1]] Ex --\u003e|binding| Q2[[Q2]] Q1 --\u003e C1((C1)) Q2 --\u003e C2((C2)) SHOW CODE: Fanout Exchange Publisher Subscriber import com.rabbitmq.client.BuiltinExchangeType; import com.rabbitmq.client.Channel; import com.rabbitmq.client.Connection; import com.rabbitmq.client.ConnectionFactory; public class EmitLog { private static final String EXCHANGE_NAME = \"logs\"; public static void main(String[] argv) throws Exception { // Create a new connection factory to connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Set the host (default is 'localhost') factory.setHost(\"localhost\"); // Use try-with-resource to ensures automatic resource management try (Connection connection = factory.newConnection(); // Establish a connection Channel channel = connection.createChannel()) { // Create a channel // Declare an exchange of type 'fanout' which sends messages to all bound queues channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT); String message = argv.length \u003c 1 ? \"info: Hello World!\" : String.join(\" \", argv); // Publish the message to the exchange with an empty routing key (for fanout exchange) channel.basicPublish(EXCHANGE_NAME, \"\", null, message.getBytes(\"UTF-8\")); System.out.println(\" [x] Sent '\" + message + \"'\"); } } } import com.rabbitmq.client.*; public class ReceiveLogs { private static final String EXCHANGE_NAME = \"logs\"; public static void main(String[] argv) throws Exception { // Create a new connection factory to connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Set the host (default is 'localhost') factory.setHost(\"localhost\"); // Establish a connection and create a new channel for communication Connection connection = factory.newConnection(); Channel channel = connection.createChannel(); // Declare the exchange with the same name as in the emitter (logs) and of type 'fanout' channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT); // Bind the queue to the exchange with an empty routing key (for fanout exchange) String queueName = channel.queueDeclare().getQueue(); channel.queueBind(queueName, EXCHANGE_NAME, \"\"); System.out.println(\" [*] Waiting for messages. To exit press CTRL+C\"); // Define the callback function to process incoming messages DeliverCallback deliverCallback = (consumerTag, delivery) -\u003e { String message = new String(delivery.getBody(), \"UTF-8\"); System.out.println(\" [x] Received '\" + message + \"'\"); }; // Consume messages from the queue channel.basicConsume(queueName, true, deliverCallback, consumerTag -\u003e { }); } } Direct Exchange --- title: Publish/Subscribe - direct --- graph LR P((P)) --\u003e|send| Ex{{direct}} --\u003e|error| Q1[[Q1]] Ex --\u003e|info| Q2[[Q2]] Ex --\u003e|warn| Q2[[Q2]] Ex --\u003e|error| Q2[[Q2]] Q1 --\u003e C1((C1)) Q2 --\u003e C2((C2)) SHOW CODE: Direct Exchange Publisher Subscriber import com.rabbitmq.client.BuiltinExchangeType; import com.rabbitmq.client.Channel; import com.rabbitmq.client.Connection; import com.rabbitmq.client.ConnectionFactory; public class EmitLogDirect { private static final String EXCHANGE_NAME = \"direct_logs\"; public static void main(String[] argv) throws Exception { // Create a new connection factory to connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Set the host (default is 'localhost') factory.setHost(\"localhost\"); //Use try-with-resource for automatic resource management try (Connection connection = factory.newConnection(); // Establish a new connection Channel channel = connection.createChannel()) { // Create a new channel // Declare an exchange with type of 'direct' channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT); // Get the severity level (routing key) from the command-line arguments String severity = getSeverity(argv); // Get the message content from the command-line arguments String message = getMessage(argv); // Publish the message to the exchange with given severity as the routing key channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes(\"UTF-8\")); System.out.println(\" [x] Sent '\" + severity + \"':'\" + message + \"'\"); } } private static String getSeverity(String[] strings) { if (strings.length \u003c 1) { return \"info\"; } return strings[0]; } private static String getMessage(String[] strings) { if (strings.length \u003c 2) { return \"Hello World!\"; } return joinStrings(strings, \" \", 1); } private static String joinStrings(String[] strings, String delimiter, int startIndex) { int length = strings.length; if (length == 0) { return \"\"; } if (length \u003c= startIndex) { return \"\"; } StringBuilder words = new StringBuilder(strings[startIndex]); for (int i = startIndex + 1; i \u003c length; i++) { words.append(delimiter).append(strings[i]); } return words.toString(); } } import com.rabbitmq.client.*; public class ReceiveLogsDirect { private static final String EXCHANGE_NAME = \"direct_logs\"; public static void main(String[] argv) throws Exception { // Create a new connection factory to connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Set the host (default is 'localhost') factory.setHost(\"localhost\"); // Establish a new connection Connection connection = factory.newConnection(); // Create a new channel Channel channel = connection.createChannel(); // Declare a direct exchange, where messages will be routed based on the routing key channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT); String queueName = channel.queueDeclare().getQueue(); // Exit the program if no arguments are passed (no routing keys provided) if (argv.length \u003c 1) { System.err.println(\"Usage: ReceiveLogsDirect [info] [warning] [error]\"); System.exit(1); } for (String severity : argv) { // Bind the queue to the exchange with a specific routing key channel.queueBind(queueName, EXCHANGE_NAME, severity); } System.out.println(\" [*] Waiting for messages. To exit press CTRL+C\"); // Define the callback function for processing the received messages DeliverCallback deliverCallback = (consumerTag, delivery) -\u003e { String message = new String(delivery.getBody(), \"UTF-8\"); System.out.println(\" [x] Received '\" + delivery.getEnvelope().getRoutingKey() + \"':'\" + message + \"'\"); }; // Consume messages from the queue channel.basicConsume(queueName, true, deliverCallback, consumerTag -\u003e { }); } } Topic Exchange In RabbitMQ, the Topic Exchange is a type of exchange that routes messages to queues based on pattern matching of the routing key. The routing key in a topic exchange is typically a string of words separated by dots (.). The routing key can also contain wildcards like * and #. The * wildcard matches exactly one word, while the # wildcard matches zero or more words. Compared to the direct exchange, the topic exchange offers greater flexibility and efiiciency in routing messages to queues based on more complex patterns.\nSHOW CODE: Topic Exchange Publisher Subscriber import com.rabbitmq.client.BuiltinExchangeType; import com.rabbitmq.client.Channel; import com.rabbitmq.client.Connection; import com.rabbitmq.client.ConnectionFactory; public class EmitLogTopic { private static final String EXCHANGE_NAME = \"topic_logs\"; public static void main(String[] argv) throws Exception { // Create a connection factory to connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Set the host (default is 'localhost') factory.setHost(\"localhost\"); // Use try-with-resource for automatic management try (Connection connection = factory.newConnection(); // Establish a new connection Channel channel = connection.createChannel()) { // Create a new channel // Declare a topic exchange with specified name channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC); String routingKey = getRouting(argv); String message = getMessage(argv); // Publish the message to the exchange channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes(\"UTF-8\")); System.out.println(\" [x] Sent '\" + routingKey + \"':'\" + message + \"'\"); } } private static String getRouting(String[] strings) { if (strings.length \u003c 1) return \"anonymous.info\"; return strings[0]; } private static String getMessage(String[] strings) { if (strings.length \u003c 2) return \"Hello World!\"; return joinStrings(strings, \" \", 1); } private static String joinStrings(String[] strings, String delimiter, int startIndex) { int length = strings.length; if (length == 0) return \"\"; if (length \u003c startIndex) return \"\"; StringBuilder words = new StringBuilder(strings[startIndex]); for (int i = startIndex + 1; i \u003c length; i++) { words.append(delimiter).append(strings[i]); } return words.toString(); } } import com.rabbitmq.client.*; public class ReceiveLogsTopic { private static final String EXCHANGE_NAME = \"topic_logs\"; public static void main(String[] argv) throws Exception { // Create a new connection factory to connect to RabbitMQ ConnectionFactory factory = new ConnectionFactory(); // Set the host (default is 'localhost') factory.setHost(\"localhost\"); // Establish a new connection Connection connection = factory.newConnection(); // Create a new channel Channel channel = connection.createChannel(); // Declare a topic exchange with the specified name channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC); String queueName = channel.queueDeclare().getQueue(); if (argv.length \u003c 1) { System.err.println(\"Usage: ReceiveLogsTopic [binding_key]...\"); System.exit(1); } for (String bindingKey : argv) { channel.queueBind(queueName, EXCHANGE_NAME, bindingKey); } System.out.println(\" [*] Waiting for messages. To exit press CTRL+C\"); // Define the callback function for process received messages DeliverCallback deliverCallback = (consumerTag, delivery) -\u003e { String message = new String(delivery.getBody(), \"UTF-8\"); System.out.println(\" [x] Received '\" + delivery.getEnvelope().getRoutingKey() + \"':'\" + message + \"'\"); }; // Consume messages from the queue channel.basicConsume(queueName, true, deliverCallback, consumerTag -\u003e { }); } } Reliability: Publisher Publisher Retry Publisher Retry in RabbitMQ refers to the mechanism where the publisher reconnects to RabbitMQ after a network issue. This mechanism improves the likelihood of a successful connection when the network is unstable. However, the retry process is executed in blocking manner, which may lead to performance issues during reconnection. Below are the relavant configurations for application.properties.\nspring.rabbitmq.listener.simple.retry.enabled=false # Whether or not publishing retries are enabled. spring.rabbitmq.listener.simple.retry.initial-interval=1000 # Interval between the first and second attempt to deliver a message. spring.rabbitmq.listener.simple.retry.max-attempts=3 # Maximum number of attempts to deliver a message. spring.rabbitmq.listener.simple.retry.max-interval=10000 # Maximum interval between attempts. spring.rabbitmq.listener.simple.retry.multiplier=1.0 # A multiplier to apply to the previous delivery retry interval. spring.rabbitmq.listener.simple.retry.stateless=true # Whether or not retry is stateless or stateful. Publisher Confirm \u0026 Publisher Return RabbitMQ provides two types of message confirmation mechanisms between the publisher and the broker: Publisher Confirm and Publisher Return. The Publisher Confirm mechanism allows the publisher to receive an ack from the broker when the message is successfully delivered to the broker. The Publisher Return mechanism enables the broker to notify the publisher when a message cannot be routed to any queue.\nWhen a message is sent to the broker, if the message type is temporary and can be successfully routed to the specified queue, the broker will return an ack to the publisher. If the message type if durable and the message can be delievered to the queue and successfully saved to disk, the broker will return an ack. Otherwise, the broker will return an nack (negative acknowledgement) to the publisher.\nspring.rabbitmq.publisher-confirms=false # Enable publisher confirms. spring.rabbitmq.publisher-returns=false # Enable publisher returns. The Publisher Confirm mechanism provides two types of confirmation: synchronous mode (simple) and asynchronous mode (correlated). Synchronous mode offers a strict acknowledgement process but may lead to performance issues in high-throughput environments. It is typically used when reliability is the top priority. On the other hand, asynchronous mode improves throughput but requires that the acknowledgement process be handled in the background.\nIt is important to note that using Publisher Confirm and Publisher Return mechanism incurs additional network and system resource costs. Therefore, these mechanisms should be used with caution in production systems. If they must be used, it’s recommended to rely on Publisher Confirm only, as routing issues are often caused by business logic problems, and Publisher Return is less commonly needed. Additionally, for messages that are negatively acknowledged (nack), retry them within a limited time window to avoid an infinite retry loop. If retried continue to fail, record the exception logs instead of attempting retries indefinitely.\nReliability: Broker Data Persistency LazyQueue ",
+  "wordCount" : "3270",
+  "inLanguage": "en",
+  "datePublished": "2023-11-20T13:57:02+08:00",
+  "dateModified": "2023-11-20T13:57:02+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Asynchronous Messaging
+    </h1>
+    <div class="post-meta"><span title='2023-11-20 13:57:02 +0800 HKT'>Nov 20 2023</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#synchronous-messaging-vs-asynchronous-messaging" aria-label="Synchronous Messaging VS. Asynchronous Messaging">Synchronous Messaging VS. Asynchronous Messaging</a></li>
+                <li>
+                    <a href="#rabbitmq" aria-label="RabbitMQ">RabbitMQ</a><ul>
+                        
+                <li>
+                    <a href="#introduction-to-rabbitmq" aria-label="Introduction to RabbitMQ">Introduction to RabbitMQ</a></li>
+                <li>
+                    <a href="#example-hello-rabbitmq" aria-label="Example: Hello RabbitMQ">Example: Hello RabbitMQ</a></li>
+                <li>
+                    <a href="#message-acknowledgment" aria-label="Message Acknowledgment">Message Acknowledgment</a></li>
+                <li>
+                    <a href="#message-durability" aria-label="Message Durability">Message Durability</a></li>
+                <li>
+                    <a href="#prefetch" aria-label="Prefetch">Prefetch</a></li>
+                <li>
+                    <a href="#publishsubscribe" aria-label="Publish/Subscribe">Publish/Subscribe</a><ul>
+                        
+                <li>
+                    <a href="#fanout-exchange" aria-label="Fanout Exchange">Fanout Exchange</a></li>
+                <li>
+                    <a href="#direct-exchange" aria-label="Direct Exchange">Direct Exchange</a></li>
+                <li>
+                    <a href="#topic-exchange" aria-label="Topic Exchange">Topic Exchange</a></li></ul>
+                </li>
+                <li>
+                    <a href="#reliability-publisher" aria-label="Reliability: Publisher">Reliability: Publisher</a><ul>
+                        
+                <li>
+                    <a href="#publisher-retry" aria-label="Publisher Retry">Publisher Retry</a></li>
+                <li>
+                    <a href="#publisher-confirm--publisher-return" aria-label="Publisher Confirm &amp; Publisher Return">Publisher Confirm &amp; Publisher Return</a></li></ul>
+                </li>
+                <li>
+                    <a href="#reliability-broker" aria-label="Reliability: Broker">Reliability: Broker</a><ul>
+                        
+                <li>
+                    <a href="#data-persistency" aria-label="Data Persistency">Data Persistency</a></li>
+                <li>
+                    <a href="#lazyqueue" aria-label="LazyQueue">LazyQueue</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="synchronous-messaging-vs-asynchronous-messaging">Synchronous Messaging VS. Asynchronous Messaging<a hidden class="anchor" aria-hidden="true" href="#synchronous-messaging-vs-asynchronous-messaging">#</a></h1>
+<blockquote>
+<p><strong>Synchronous Messaging</strong> and <strong>Asynchronous Messaging</strong> are two <strong>commnication</strong> paradigms used in distributed systems. In <strong>synchronous messaging</strong>, the sender will not continue executing until it receives the acknowledged message from the <strong>receiver</strong>. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.</p>
+</blockquote>
+<blockquote>
+<p>The <strong>advantages</strong> of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed. However, the drawbacks are also obvious: it may lead to performance bottlenecks when the receiver is slow or unavailable, and it can also limit scalability.</p>
+</blockquote>
+<pre class="mermaid">---
+title: Synchronous Messaging
+---
+sequenceDiagram
+    participant Sender
+    participant MessageBus
+    participant MessageListener
+
+    Sender->>MessageBus: MessageBusUtil.sendSynchronousMessage()
+    MessageBus->>MessageListener: destination.send()
+    MessageListener-->>MessageBus: return response
+    note over Sender: (block and wait)
+    MessageBus-->>Sender: return response
+</pre>
+<blockquote>
+<p>In <strong>asynchronous messaging</strong>, the sender doesn&rsquo;t block after sending the message, meaning it can continue processing without waiting for the response from the receiver. It is commonly used in situations where systems can tolerate delays in response, like message notification after a successful payment. Compared to synchronous messaging, asynchronous messaging is more complex to implement. Additionaly, the sender has no guarantee of immediate feedback. It requires extra techniques, such as callback functions or message listeners, to handle the response.</p>
+</blockquote>
+<pre class="mermaid">sequenceDiagram
+    participant Sender
+    participant MessageBus as Message Bus
+    participant MessageListener1 as Message Listener 1
+
+    Sender->>MessageBus: MessageBusUtil.sendMessage()
+    MessageBus->>MessageListener: destination.send()
+    MessageListener-->>MessageBus: return response
+    Sender->>Sender: (continue with processing)
+    MessageBus-->>Sender: return response
+</pre>
+<hr>
+<h1 id="rabbitmq">RabbitMQ<a hidden class="anchor" aria-hidden="true" href="#rabbitmq">#</a></h1>
+<h2 id="introduction-to-rabbitmq">Introduction to RabbitMQ<a hidden class="anchor" aria-hidden="true" href="#introduction-to-rabbitmq">#</a></h2>
+<blockquote>
+<p><strong>RabbitMQ</strong> is a <em><strong>message broker</strong></em> that facilitates asynchronous communication between distributed systems. Its working mechnism involves four key components:</p>
+</blockquote>
+<ol>
+<li><strong>Producer</strong>: Responsible for sending messages</li>
+<li><strong>Exchange</strong>: Handles the routing of messages to the appropriate queues.</li>
+<li><strong>Queue</strong>: Stores messages until they are consumed.</li>
+<li><strong>Consumer</strong>: Processes the messages from the queue.</li>
+</ol>
+<pre class="mermaid">---
+title: Introduction to RabbitMQ
+---
+graph LR
+    P((P)) -->|send| X{{Exchange}} -->|binding| Q[[Queue]] -->|receive| C((C))
+</pre>
+<hr>
+<h2 id="example-hello-rabbitmq">Example: Hello RabbitMQ<a hidden class="anchor" aria-hidden="true" href="#example-hello-rabbitmq">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Producer</button>
+
+
+
+<button class="tab_btn ">Consumer</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+import java.nio.charset.StandardCharsets;
+
+public class Producer {
+
+    // Name of the queue where the message will be sent
+    private final static String QUEUE_NAME = "hello";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a connection factory to configure and connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Configure RabbitMQ server address (default is localhost)
+        factory.setHost("localhost");
+        // Configure the port for RabbitMQ (default is 5672)
+        factory.setPort(5672);
+
+        // Use try-with-resource to automatically close the connection and channel after use
+        try (Connection connection = factory.newConnection(); // Establish a connection to RabbitMQ
+             Channel channel = connection.createChannel()) { // Create a communication channel
+
+            // Declare a queue with the specified name
+            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+
+            String message = "Hello RabbitMQ!";
+
+            // Publish the message to the queue
+            channel.basicPublish("", QUEUE_NAME, null, message.getBytes(StandardCharsets.UTF_8));
+            System.out.println(" [P] Sent '" + message + "'");
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
+
+import java.nio.charset.StandardCharsets;
+
+public class Consumer {
+
+    private final static String QUEUE_NAME = "hello";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a connection factory to configure and connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Configure RabbitMQ server address (default is localhost)
+        factory.setHost("localhost");
+        // Configure the port for RabbitMQ (default is 5672)
+        factory.setPort(5672);
+
+        // Establish a connection to RabbitMQ
+        Connection connection = factory.newConnection();
+        // Create a communication channel
+        Channel channel = connection.createChannel();
+
+        // Declare a queue with the specified name
+        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+
+        // Define the callback function to handle incoming message
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            // Retrieve the message body and convert it to a string using UTF-8 encoding
+            String message = new String(delivery.getBody(), StandardCharsets.UTF_8);
+            System.out.println(" [C] Received '" + message + "'");
+        };
+
+        // Start consuming messages from the queue
+        channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
+            // No action required for cancellation in this example
+        });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="message-acknowledgment">Message Acknowledgment<a hidden class="anchor" aria-hidden="true" href="#message-acknowledgment">#</a></h2>
+<blockquote>
+<p>In RabbitMQ, <strong>message acknowledgement</strong> is a mechanism that ensures messages have been received and processed successfully. There are two main types of message acknowledgement: <strong>auto ack</strong> and <strong>manual ack</strong>.</p>
+</blockquote>
+<blockquote>
+<p>In <strong>auto-ack</strong> mode, RabbitMQ considers the message acknowledged as soon as it is delieved to the consumer. The consumer does not need to explictly send an acknowledgement. However, this can be risky. If the consumer fails due to a connection issue or channel break, the message may be lost, meaning it hasn&rsquo;t been processed successfully.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> autoAck <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>channel.<span style="color:#a6e22e">basicConsume</span>(queueName, autoAck, consumer);
+</span></span></code></pre></div><blockquote>
+<p>In <strong>manual ack</strong> mode, the consumer must send an acknowledgement back to RabbitMQ once the message has been processed successfully. If RabbitMQ does not receive the acknowledgement from the consumer within a specified time (30 minutes by default), it will redeliver the message to another consumer or the same consumer, depending on the configuration.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Acknowledging a message manually</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> autoAck <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>channel.<span style="color:#a6e22e">basicConsume</span>(queueName, autoAck, <span style="color:#66d9ef">new</span> DefaultConsumer(channel) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">handleDelivery</span>(String consumerTag, Envelope envelope, AMQP.<span style="color:#a6e22e">BasicProperties</span> properties, <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> body) <span style="color:#66d9ef">throws</span> IOException {
+</span></span><span style="display:flex;"><span>        String message <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String(body, <span style="color:#e6db74">&#34;UTF-8&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Process the message here</span>
+</span></span><span style="display:flex;"><span>        channel.<span style="color:#a6e22e">basicAck</span>(envelope.<span style="color:#a6e22e">getDeliveryTag</span>(), <span style="color:#66d9ef">false</span>);  <span style="color:#75715e">// Acknowledge the message</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><hr>
+<h2 id="message-durability">Message Durability<a hidden class="anchor" aria-hidden="true" href="#message-durability">#</a></h2>
+<blockquote>
+<p>In RabbitMQ, <strong>message durability</strong> refers to the ability to ensure that a message will not be lost in case of a broker failure. It involves saving both the queue and message to disk so they can be recovered after a system restart. To guarantee durability, two key components need to be considered: <strong>durable queues</strong> and <strong>persistent messages</strong>.</p>
+</blockquote>
+<blockquote>
+<p>When a queue is declared as <strong>durable</strong>, it is saved to disk. The queue will still exist even if the broker fails.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> durable <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>channel.<span style="color:#a6e22e">queueDeclare</span>(<span style="color:#e6db74">&#34;myQueue&#34;</span>, durable, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">null</span>);
+</span></span></code></pre></div><blockquote>
+<p>To ensure a message&rsquo;s persistence after a broker restart, it must be marked as persistent by setting the <code>delieveryMode</code> to 2 (persistent). This ensures that the message is saved to disk. However, it&rsquo;s important to note that marking a message as persistent does not fully guarantee that it won&rsquo;t be lost. There is still a short window in which RabbitMQ has accepted the message but has not yet saved it to disk. Additionaly,  RabbitMQ does not call <code>fsync(2)</code> for every message, meaning it may store the message in cache rather than writing it to disk immediately. Therefore, the durability guerantee is not strong.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// Publish the message to the queue</span>
+</span></span><span style="display:flex;"><span>channel.<span style="color:#a6e22e">basicPublish</span>(<span style="color:#e6db74">&#34;&#34;</span>, TASK_QUEUE_NAME,
+</span></span><span style="display:flex;"><span>        MessageProperties.<span style="color:#a6e22e">PERSISTENT_TEXT_PLAIN</span>, <span style="color:#75715e">// delieveryMode = 2</span>
+</span></span><span style="display:flex;"><span>        message.<span style="color:#a6e22e">getBytes</span>(<span style="color:#e6db74">&#34;UTF-8&#34;</span>));
+</span></span></code></pre></div><hr>
+<h2 id="prefetch">Prefetch<a hidden class="anchor" aria-hidden="true" href="#prefetch">#</a></h2>
+<blockquote>
+<p>When a consumer subscribes to a message queue, RabbitMQ begins delivering messages. By default, RabbitMQ uses a <strong>Round Robin Dispatching</strong> strategy, which evenly distributes messages across multiple consumers. However, if one of the consumers processes tasks slowly, it may lead to message buildup and memory pressure.</p>
+</blockquote>
+<blockquote>
+<p>In RabbitMQ, the <code>prefetch</code> mechnism controls the maximum number of messages a consumer can hold at a time. When the number of messages a consumer holds reaches the prefetch limit, RabbitMQ will stop sending additional messages to that consumer until it acknowledges some of the messages. This mechanism helps prevent message accumulation and reduces memory pressure.</p>
+</blockquote>
+<pre class="mermaid">---
+title: Worker Queue - prefetch
+---
+graph LR
+    P((P)) -->|send| Q[[Worker]] -->|prefetch = 1| C1((C1))
+    Q -->|prefetch = 1| C2((C2))
+</pre>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Producer</button>
+
+
+
+<button class="tab_btn ">Worker</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
+
+public class Producer {
+
+    private static final String TASK_QUEUE_NAME = "task_queue";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a connection factory to configure and connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Configure RabbitMQ server address (default is localhost)
+        factory.setHost("localhost");
+        // Configure the port for RabbitMQ (default is 5672)
+        factory.setPort(5672);
+
+        // Use try-with-resource to automatically close the connection and channel after use
+        try (Connection connection = factory.newConnection(); // Establish a connection to RabbitMQ
+             Channel channel = connection.createChannel()) { // Create a communication channel
+
+            // Declare a queue with the specified name
+            channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+
+            String message = "Hello RabbitMQ!";
+
+            // Publish the message to the queue
+            channel.basicPublish("", TASK_QUEUE_NAME,
+                    MessageProperties.PERSISTENT_TEXT_PLAIN,
+                    message.getBytes("UTF-8"));
+            System.out.println(" [P] Sent '" + message + "'");
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
+
+public class Worker {
+
+    // Name of the queue where the message will be sent
+    private static final String TASK_QUEUE_NAME = "task_queue";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a connection factory to configure and connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Configure RabbitMQ server address (default is localhost)
+        factory.setHost("localhost");
+
+        // Establish a connection to RabbitMQ
+        final Connection connection = factory.newConnection();
+        // Create a communication channel
+        final Channel channel = connection.createChannel();
+
+        // Declare a queue with the specified name
+        channel.queueDeclare(TASK_QUEUE_NAME, true, false, false, null);
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+
+        // Specify the prefetch count
+        channel.basicQos(1);
+
+        // Define a callback to process incoming messages
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+
+            System.out.println(" [C] Received '" + message + "'");
+            try {
+                try { // Simulate task processing
+                    Thread.sleep(1000);
+                } catch (InterruptedException _ignored) {
+                    Thread.currentThread().interrupt();
+                }
+            } finally {
+                // Acknowledge the message after work is completed
+                System.out.println(" [C] Done");
+                channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
+            }
+        };
+
+        // Start consuming messages with manual acknowledgment
+        channel.basicConsume(TASK_QUEUE_NAME, false, deliverCallback, consumerTag -> {
+        });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="publishsubscribe">Publish/Subscribe<a hidden class="anchor" aria-hidden="true" href="#publishsubscribe">#</a></h2>
+<blockquote>
+<p><strong>Publish/Subscribe</strong> is a communication pattern where a message is sent by a producer to multiple consumers. In RabbitMQ, this pattern is implemented using <strong>Exchanges</strong> and <strong>Queues</strong>.</p>
+</blockquote>
+<blockquote>
+<p>In the <strong>Publish/Subscribe</strong> pattern in RabbitMQ, the producer sends a message to an <strong>Exchange</strong>, which then routes the message to multiple queues that are bound to it. There are four types of exchanges in RabbitMQ:</p>
+</blockquote>
+<ol>
+<li><code>fanout</code>: Routes messages to all queues bound to it, without considering any routing key.</li>
+<li><code>direct</code>: Routes messages to queues based on an exact match with the routing key.</li>
+<li><code>topic</code>: Routes messages to queues based on pattern matching of the routing key.</li>
+<li><code>headers</code>: Routes messages based on the attributes of message headers.</li>
+</ol>
+<hr>
+<h3 id="fanout-exchange">Fanout Exchange<a hidden class="anchor" aria-hidden="true" href="#fanout-exchange">#</a></h3>
+<pre class="mermaid">---
+title: Publish/Subscribe - fanout
+---
+graph LR
+    P((P)) -->|send| Ex{{fanout}} -->|binding| Q1[[Q1]]
+    Ex -->|binding| Q2[[Q2]]
+    Q1 --> C1((C1))
+    Q2 --> C2((C2))
+</pre>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Fanout Exchange</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Publisher</button>
+
+
+
+<button class="tab_btn ">Subscriber</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.BuiltinExchangeType;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+public class EmitLog {
+
+    private static final String EXCHANGE_NAME = "logs";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a new connection factory to connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Set the host (default is 'localhost')
+        factory.setHost("localhost");
+
+        // Use try-with-resource to ensures automatic resource management
+        try (Connection connection = factory.newConnection(); // Establish a connection
+             Channel channel = connection.createChannel()) { // Create a channel
+
+            // Declare an exchange of type 'fanout' which sends messages to all bound queues
+            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
+
+            String message = argv.length < 1 ? "info: Hello World!" :
+                    String.join(" ", argv);
+
+            // Publish the message to the exchange with an empty routing key (for fanout exchange)
+            channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes("UTF-8"));
+            System.out.println(" [x] Sent '" + message + "'");
+        }
+    }
+
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.*;
+
+public class ReceiveLogs {
+    private static final String EXCHANGE_NAME = "logs";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a new connection factory to connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Set the host (default is 'localhost')
+        factory.setHost("localhost");
+
+        // Establish a connection and create a new channel for communication
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+
+        // Declare the exchange with the same name as in the emitter (logs) and of type 'fanout'
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
+
+        // Bind the queue to the exchange with an empty routing key (for fanout exchange)
+        String queueName = channel.queueDeclare().getQueue();
+        channel.queueBind(queueName, EXCHANGE_NAME, "");
+
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+
+        // Define the callback function to process incoming messages
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+            System.out.println(" [x] Received '" + message + "'");
+        };
+
+        // Consume messages from the queue
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
+        });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h3 id="direct-exchange">Direct Exchange<a hidden class="anchor" aria-hidden="true" href="#direct-exchange">#</a></h3>
+<pre class="mermaid">---
+title: Publish/Subscribe - direct
+---
+graph LR
+    P((P)) -->|send| Ex{{direct}} -->|error| Q1[[Q1]]
+    Ex -->|info| Q2[[Q2]]
+    Ex -->|warn| Q2[[Q2]]
+    Ex -->|error| Q2[[Q2]]
+    Q1 --> C1((C1))
+    Q2 --> C2((C2))
+</pre>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Direct Exchange</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Publisher</button>
+
+
+
+<button class="tab_btn ">Subscriber</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.BuiltinExchangeType;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+public class EmitLogDirect {
+
+    private static final String EXCHANGE_NAME = "direct_logs";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a new connection factory to connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Set the host (default is 'localhost')
+        factory.setHost("localhost");
+
+        //Use try-with-resource for automatic resource management
+        try (Connection connection = factory.newConnection(); // Establish a new connection
+             Channel channel = connection.createChannel()) { // Create a new channel
+
+            // Declare an exchange with type of 'direct'
+            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+
+            // Get the severity level (routing key) from the command-line arguments
+            String severity = getSeverity(argv);
+            // Get the message content from the command-line arguments
+            String message = getMessage(argv);
+
+            // Publish the message to the exchange with given severity as the routing key
+            channel.basicPublish(EXCHANGE_NAME, severity, null, message.getBytes("UTF-8"));
+            System.out.println(" [x] Sent '" + severity + "':'" + message + "'");
+        }
+    }
+
+    private static String getSeverity(String[] strings) {
+        if (strings.length < 1) {
+            return "info";
+        }
+        return strings[0];
+    }
+
+    private static String getMessage(String[] strings) {
+        if (strings.length < 2) {
+            return "Hello World!";
+        }
+        return joinStrings(strings, " ", 1);
+    }
+
+    private static String joinStrings(String[] strings, String delimiter, int startIndex) {
+        int length = strings.length;
+        if (length == 0) {
+            return "";
+        }
+        if (length <= startIndex) {
+            return "";
+        }
+        StringBuilder words = new StringBuilder(strings[startIndex]);
+        for (int i = startIndex + 1; i < length; i++) {
+            words.append(delimiter).append(strings[i]);
+        }
+        return words.toString();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.*;
+
+public class ReceiveLogsDirect {
+
+    private static final String EXCHANGE_NAME = "direct_logs";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a new connection factory to connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Set the host (default is 'localhost')
+        factory.setHost("localhost");
+
+        // Establish a new connection
+        Connection connection = factory.newConnection();
+        // Create a new channel
+        Channel channel = connection.createChannel();
+
+        // Declare a direct exchange, where messages will be routed based on the routing key
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);
+        String queueName = channel.queueDeclare().getQueue();
+
+        // Exit the program if no arguments are passed (no routing keys provided)
+        if (argv.length < 1) {
+            System.err.println("Usage: ReceiveLogsDirect [info] [warning] [error]");
+            System.exit(1);
+        }
+
+        for (String severity : argv) {
+            // Bind the queue to the exchange with a specific routing key
+            channel.queueBind(queueName, EXCHANGE_NAME, severity);
+        }
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+
+        // Define the callback function for processing the received messages
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+            System.out.println(" [x] Received '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
+        };
+
+        // Consume messages from the queue
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {
+        });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h3 id="topic-exchange">Topic Exchange<a hidden class="anchor" aria-hidden="true" href="#topic-exchange">#</a></h3>
+<blockquote>
+<p>In RabbitMQ, the <strong>Topic Exchange</strong> is a type of exchange that routes messages to queues based on pattern matching of the routing key. The routing key in a topic exchange is typically a string of words separated by dots (<code>.</code>). The routing key can also contain wildcards like <code>*</code> and <code>#</code>. The <code>*</code> wildcard matches exactly one word, while the <code>#</code> wildcard matches zero or more words. Compared to the <code>direct</code> exchange, the <strong>topic exchange</strong> offers greater flexibility and efiiciency in routing messages to queues based on more complex patterns.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Topic Exchange</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Publisher</button>
+
+
+
+<button class="tab_btn ">Subscriber</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.BuiltinExchangeType;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+public class EmitLogTopic {
+
+    private static final String EXCHANGE_NAME = "topic_logs";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a connection factory to connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Set the host (default is 'localhost')
+        factory.setHost("localhost");
+
+        // Use try-with-resource for automatic management
+        try (Connection connection = factory.newConnection(); // Establish a new connection
+             Channel channel = connection.createChannel()) { // Create a new channel
+
+            // Declare a topic exchange with specified name
+            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+
+            String routingKey = getRouting(argv);
+            String message = getMessage(argv);
+
+            // Publish the message to the exchange
+            channel.basicPublish(EXCHANGE_NAME, routingKey, null, message.getBytes("UTF-8"));
+            System.out.println(" [x] Sent '" + routingKey + "':'" + message + "'");
+        }
+    }
+
+    private static String getRouting(String[] strings) {
+        if (strings.length < 1)
+            return "anonymous.info";
+        return strings[0];
+    }
+
+    private static String getMessage(String[] strings) {
+        if (strings.length < 2)
+            return "Hello World!";
+        return joinStrings(strings, " ", 1);
+    }
+
+    private static String joinStrings(String[] strings, String delimiter, int startIndex) {
+        int length = strings.length;
+        if (length == 0) return "";
+        if (length < startIndex) return "";
+        StringBuilder words = new StringBuilder(strings[startIndex]);
+        for (int i = startIndex + 1; i < length; i++) {
+            words.append(delimiter).append(strings[i]);
+        }
+        return words.toString();
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-java" data-lang="java" >import com.rabbitmq.client.*;
+
+public class ReceiveLogsTopic {
+
+    private static final String EXCHANGE_NAME = "topic_logs";
+
+    public static void main(String[] argv) throws Exception {
+        // Create a new connection factory to connect to RabbitMQ
+        ConnectionFactory factory = new ConnectionFactory();
+        // Set the host (default is 'localhost')
+        factory.setHost("localhost");
+
+        // Establish a new connection
+        Connection connection = factory.newConnection();
+        // Create a new channel
+        Channel channel = connection.createChannel();
+
+        // Declare a topic exchange with the specified name
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.TOPIC);
+        String queueName = channel.queueDeclare().getQueue();
+
+        if (argv.length < 1) {
+            System.err.println("Usage: ReceiveLogsTopic [binding_key]...");
+            System.exit(1);
+        }
+
+        for (String bindingKey : argv) {
+            channel.queueBind(queueName, EXCHANGE_NAME, bindingKey);
+        }
+
+        System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
+
+        // Define the callback function for process received messages
+        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+            String message = new String(delivery.getBody(), "UTF-8");
+            System.out.println(" [x] Received '" + delivery.getEnvelope().getRoutingKey() + "':'" + message + "'");
+        };
+
+        // Consume messages from the queue
+        channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="reliability-publisher">Reliability: Publisher<a hidden class="anchor" aria-hidden="true" href="#reliability-publisher">#</a></h2>
+<h3 id="publisher-retry">Publisher Retry<a hidden class="anchor" aria-hidden="true" href="#publisher-retry">#</a></h3>
+<blockquote>
+<p><strong>Publisher Retry</strong> in RabbitMQ refers to the mechanism where the publisher reconnects to RabbitMQ after a network issue. This mechanism improves the likelihood of a successful connection when the network is unstable. However, the retry process is executed in blocking manner, which may lead to performance issues during reconnection. Below are the relavant configurations for <code>application.properties</code>.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spring.rabbitmq.listener.simple.retry.enabled<span style="color:#f92672">=</span>false <span style="color:#75715e"># Whether or not publishing retries are enabled.</span>
+</span></span><span style="display:flex;"><span>spring.rabbitmq.listener.simple.retry.initial-interval<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span> <span style="color:#75715e"># Interval between the first and second attempt to deliver a message.</span>
+</span></span><span style="display:flex;"><span>spring.rabbitmq.listener.simple.retry.max-attempts<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span> <span style="color:#75715e"># Maximum number of attempts to deliver a message.</span>
+</span></span><span style="display:flex;"><span>spring.rabbitmq.listener.simple.retry.max-interval<span style="color:#f92672">=</span><span style="color:#ae81ff">10000</span> <span style="color:#75715e"># Maximum interval between attempts.</span>
+</span></span><span style="display:flex;"><span>spring.rabbitmq.listener.simple.retry.multiplier<span style="color:#f92672">=</span>1.0 <span style="color:#75715e"># A multiplier to apply to the previous delivery retry interval.</span>
+</span></span><span style="display:flex;"><span>spring.rabbitmq.listener.simple.retry.stateless<span style="color:#f92672">=</span>true <span style="color:#75715e"># Whether or not retry is stateless or stateful.</span>
+</span></span></code></pre></div><hr>
+<h3 id="publisher-confirm--publisher-return">Publisher Confirm &amp; Publisher Return<a hidden class="anchor" aria-hidden="true" href="#publisher-confirm--publisher-return">#</a></h3>
+<blockquote>
+<p>RabbitMQ provides two types of message confirmation mechanisms between the publisher and the broker: <strong>Publisher Confirm</strong> and <strong>Publisher Return</strong>. The <strong>Publisher Confirm</strong> mechanism allows the publisher to receive an <code>ack</code> from the broker when the message is successfully delivered to the broker. The <strong>Publisher Return</strong> mechanism enables the broker to notify the publisher when a message cannot be routed to any queue.</p>
+</blockquote>
+<blockquote>
+<p>When a message is sent to the broker, if the message type is temporary and can be successfully routed to the specified queue, the broker will return an <code>ack</code> to the publisher. If the message type if durable and the message can be delievered to the queue and successfully saved to disk, the broker will return an <code>ack</code>. Otherwise, the broker will return an <code>nack</code> (negative acknowledgement) to the publisher.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spring.rabbitmq.publisher-confirms<span style="color:#f92672">=</span>false <span style="color:#75715e"># Enable publisher confirms.</span>
+</span></span><span style="display:flex;"><span>spring.rabbitmq.publisher-returns<span style="color:#f92672">=</span>false <span style="color:#75715e"># Enable publisher returns.</span>
+</span></span></code></pre></div><blockquote>
+<p>The <strong>Publisher Confirm</strong> mechanism provides two types of confirmation: <strong>synchronous mode</strong> (<code>simple</code>) and <strong>asynchronous mode</strong> (<code>correlated</code>). <strong>Synchronous mode</strong> offers a strict acknowledgement process but may lead to performance issues in high-throughput environments. It is typically used when reliability is the top priority. On the other hand, <strong>asynchronous mode</strong> improves throughput but requires that the acknowledgement process be handled in the background.</p>
+</blockquote>
+<blockquote>
+<p>It is important to note that using <strong>Publisher Confirm</strong> and <strong>Publisher Return</strong> mechanism incurs additional network and system resource costs. Therefore, these mechanisms should be used with caution in production systems. If they must be used, it&rsquo;s recommended to rely on <strong>Publisher Confirm</strong> only, as routing issues are often caused by business logic problems, and <strong>Publisher Return</strong> is less commonly needed. Additionally, for messages that are negatively acknowledged (<code>nack</code>), retry them within a limited time window to avoid an infinite retry loop. If retried continue to fail, record the exception logs instead of attempting retries indefinitely.</p>
+</blockquote>
+<hr>
+<h2 id="reliability-broker">Reliability: Broker<a hidden class="anchor" aria-hidden="true" href="#reliability-broker">#</a></h2>
+<h3 id="data-persistency">Data Persistency<a hidden class="anchor" aria-hidden="true" href="#data-persistency">#</a></h3>
+<h3 id="lazyqueue">LazyQueue<a hidden class="anchor" aria-hidden="true" href="#lazyqueue">#</a></h3>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/engineering--technology/">Engineering &amp; Technology</a></li>
+      <li><a href="https://signalyu.github.io/tags/computer-science/">Computer Science</a></li>
+      <li><a href="https://signalyu.github.io/tags/asynchronous-messaging/">Asynchronous Messaging</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/">
+    <span class="title">« PREV</span>
+    
+    <br>
+    <span>Junit &amp; Mockito Notes</span>
+  </a>
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/">
+    <span class="title">NEXT »</span>
+    
+    <br>
+    <span>Database Management Systems</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            "flowchart": { "htmlLabels": true },
+            theme: 'dark',
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        });
+    </script>
+    
+</body>
+</html>

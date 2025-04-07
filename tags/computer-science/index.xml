@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Computer Science on Signal&#39;s Blog</title>
+    <link>https://signalyu.github.io/tags/computer-science/</link>
+    <description>Recent content in Computer Science on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>EN</language>
+    <lastBuildDate>Sat, 29 Mar 2025 16:46:34 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Design Patterns</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/design-patterns/1-design-patterns/</link>
+      <pubDate>Sun, 12 Nov 2023 14:38:17 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/design-patterns/1-design-patterns/</guid>
+      <description>1. Solid Principle 1.1 Single Responsibility Principle A class should have only one reason to change, meaning each class should focus on a single functionality or responsibility.
+SHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage.</description>
+    </item>
+    <item>
+      <title>Database Design</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design/</link>
+      <pubDate>Mon, 22 May 2023 21:07:21 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-design/1-database-design/</guid>
+      <description>Introduction to Databases A database is a collection of data that is stored, managed, and accessed electronically. It typically contains one or more tables, which resemble Excel or Google sheets, with data organized into rows and columns. As the number of tables grows, managing the database can become complex, making it essential to design a scalable and maintainable strucutre.
+Databases can be broadly categorized into two types: Relational database, primarily used for real-time data updates and transactions, and data warehouse, optimized for data analysis and reporting purposes.</description>
+    </item>
+    <item>
+      <title>Data Structure &amp; Algorithms</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/</link>
+      <pubDate>Fri, 14 Oct 2022 20:29:21 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/algorithms/1-data-structure-and-algorithms/</guid>
+      <description>Recursion Recursion is a programming technique where a function repeatedly calls itself until it reaches a base case, whcih stops the recursion and allows it to return a result. It is a way of breaking down complex problems into smaller, simpler subproblems that are eaiser to solve.
+Head Recursion Head Recursion is a type of recursion where a function makes its recursive call first, immediately after checking the base case, and performs all other operations only after the recursive call returns.</description>
+    </item>
+    <item>
+      <title>Junit &amp; Mockito Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
+      <pubDate>Thu, 07 Jul 2022 01:26:33 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
+      <description>JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
+SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
+    </item>
+    <item>
+      <title>Asynchronous Messaging</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</link>
+      <pubDate>Mon, 20 Nov 2023 13:57:02 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</guid>
+      <description>Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnication paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.
+The advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed.</description>
+    </item>
+    <item>
+      <title>Database Management Systems</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</link>
+      <pubDate>Sun, 25 Dec 2022 10:20:09 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/database-management-system/1-database-management-system/</guid>
+      <description>Introduction to DBMS A Database Management System (DBMS) is software that provides an interface for users to interact with databases. It enables the management, storage, and manipulation of data within databases. DBMS can be broadly classified into two main types: Relational DBMS and NoSQL DBMS.
+In a Relational DBMS, data is stored in structured tables and is manipulated using SQL (Structured Query Language). Examples of relational DBMS inlcude MySQL, Oracle, and PostgreSQL.</description>
+    </item>
+    <item>
+      <title>Multithreading &amp; Concurrency</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</link>
+      <pubDate>Thu, 11 May 2023 12:13:32 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</guid>
+      <description>Introduction to Multithreading Program, Process, and Thread A program is a static set of instructions that stores on a disk. A process is an instance of a program that is currently being executed by the operating system. A thread is a small unit of process that can be scheduled and executed by the operating system. In simpler terms, a program is the code, a process is the excution of the code, a thread is a unit of execution within a process.</description>
+    </item>
+    <item>
+      <title>System Design</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</link>
+      <pubDate>Fri, 27 Dec 2024 04:32:42 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</guid>
+      <description>Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
+Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
+Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
+      <title>Python Programming</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/python/1-python-programming/</link>
+      <pubDate>Sat, 29 Mar 2025 16:46:34 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/python/1-python-programming/</guid>
+      <description>Function Function arguments refer to data passed to the function. In python, there four main types of arguments: positional arguments, keyword arguments, default arguments, and variable length arguments.
+Positional arguments are passed to a function in a specific order, and the values are assigned to parameters based on their position. Keyword arguments are passed to a function by explicitly specifying the parameter name. Any keyword arguments must be put after the last positional argument.</description>
+    </item>
+    <item>
+      <title>Idea &amp; Maven &amp; Postman Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/tools/1-idea-maven-postman-notes/</link>
+      <pubDate>Fri, 24 Dec 2021 16:03:23 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/tools/1-idea-maven-postman-notes/</guid>
+      <description>IDEA Postfix Completion Postfix completion allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.
+&amp;#34;Hello&amp;#34;.var → String s = &amp;#34;Hello&amp;#34;; Live Templates Live Templates are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.
+sout → System.out.println(); Keyboard Shortcuts Show Hint: Alt + Enter Show Parameter Info: Ctrl + P Surround with Selected Code Block: Ctrl + Alt + J Start a New Line: Shift + Enter Start a New Line Before Current: Ctrl + Alt + Enter Show Live Template: Ctrl + J Rename in Batch: Shift + F6 Extract Method: Ctrl + Alt + M Override Methods: Ctrl + O Implement Methods: Ctrl + I Optimize Imports: Ctrl + Alt + O View Source Code: Ctrl + N → Ctrl + F12 Go to Previous Edit Location: Ctrl + Alt + ← Go to Next Edit Location: Ctrl + Alt + → Show Inheritance Tree: Ctrl + H Show Quick Documentation: Ctrl + Q Show UML Diagram: Ctrl + Alt + U Go to Specified Line: Ctrl + G → Enter line number Go to Variable Definition: Ctrl + Alt + B Expand Code Block: Ctrl + Shift + + Collapse Code Block: Ctrl + Shift + - Debug Method Breakpoints Field Breakpoints Conditional Breakpoints Thread Debug Custom Data Views Config Tomcat Create Maven Java Project Create Maven Java Web Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects.</description>
+    </item>
+    <item>
+      <title>Spring Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/spring/1-spring-notes/</link>
+      <pubDate>Thu, 18 Nov 2021 15:44:50 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/spring/1-spring-notes/</guid>
+      <description>Core Concepts Loose Coupling Loose Coupling is a design principle that aims to reduce the dependencies between components within a system.
+Inversion of Control (IoC) Inversion of Control is a design principle where the control of object creation and lifecycle management is transferred from the application code to an external container or framework.
+Dependency Injection (DI) Dependency Injection is a design pattern commonly used in object-oriented programming, where the dependecies of a class are provided externally rather than being created within the class itself.</description>
+    </item>
+    <item>
+      <title>Java Programming Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/</link>
+      <pubDate>Mon, 08 Nov 2021 11:36:53 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/</guid>
+      <description>Enum In Java, an enum (short for &amp;ldquo;enumeration&amp;rdquo;) is used to define a collection of constants, such as days of the week or months of the year. An enum provides a type-safe way to handle constant values, and it can be used in a switch statement or for comparison using ==. Compared to a final constant in Java, an enum can contain fields, methods, and constructors. The values() method is used to retrive all the constants in an enum, and the valueOf() method is used to convert a string into an enum constant.</description>
+    </item>
+  </channel>
+</rss>

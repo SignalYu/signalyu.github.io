@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>System Design | Signal&#39;s Blog</title>
+<meta name="keywords" content="Engineering &amp; Technology, Computer Science, System Design">
+<meta name="description" content="Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
+Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
+Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5a0ace7f2dc73037e40ceea0eb0d119b5d798dba2da38d9129982a8cf9fa07a5.css" integrity="sha256-WgrOfy3HMDfkDO6g6w0Rm115jboto42RKZgqjPn6B6U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="System Design" />
+<meta property="og:description" content="Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
+Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
+Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-12-27T04:32:42+08:00" />
+<meta property="article:modified_time" content="2024-12-27T04:32:42+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="System Design"/>
+<meta name="twitter:description" content="Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
+Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
+Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "System Design",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "System Design",
+  "name": "System Design",
+  "description": "Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.\nLoad Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.\nLoad Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:",
+  "keywords": [
+    "Engineering \u0026 Technology", "Computer Science", "System Design"
+  ],
+  "articleBody": "Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.\nLoad Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.\nLoad Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:\nLoad Balancing at Different Layers The typical process of load balancing involves the following steps:\nThe load balancer recerves a request from the client. The load balancer evaluates the request and routes it to a server based on the chosen load balancing algorithm. The selected server or resource processes the request and sends the response back to the load balancer. The load balancer receives the response and forwards it to the client. --- title: Process of Load Balancing --- sequenceDiagram participant Client participant LoadBalancer participant Server Client-\u003e\u003eLoadBalancer: Sends Request LoadBalancer-\u003e\u003eLoadBalancer: Evaluates Request (Load Balancing Algorithm) LoadBalancer-\u003e\u003eServer: Routes Request to Selected Server Server-\u003e\u003eLoadBalancer: Sends Response LoadBalancer-\u003e\u003eClient: Forwards Response Load Balancing Algorithms A load balancing algorithm is a method used by a load balancer to determine how an incoming request should be distributed across multiple servers. Commonly used load balancing algorithms include Round Robin, Least Connections, Weight Round Robin, Weighted Least Connections, IP Hash, Least Response Time, Random, and Least Bandwidth.\nRound Robin The Round Robin algorithm distributes requests evenly across multiple servers in a circular manner. This algorithm does not consider the current load or capabilities of each server. It is commonly used in environments where servers have similar capacity and performance, or in applications where each request can be handled independently.\nRound Robin Load Balancing Algorithm Least Connections The Least Connections algorithm distributes requests to servers with the fewest active connections. It takes into account the server’s current workload, helping to prevent any single server from becoming overwhelmed. This algorithm is particularly useful in scenerios where traffic or workload is unpredictable, servers have varying capabilities, or maintaining session state is important.\nLeast Connections Load Balancing Algorithm Weighted Round Robin The Weighted Round Robin algorithm is an enhanced version of Round Robin, where each server is assigned a weight based on its capability and workload. Servers with higher weights process more requests, helping to prevent overloading less powerful servers. This algorithm is ideal for scenarios where servers have varying processing abilities, such as in a database cluster, where nodes with higher processing power can handle more queries.\nWeighted Round Robin Load Balancing Algorithm Weighted Least Connections The Weighted Least Connections algorithm is a combination of the Least Connections and the Weighted Round Robin algorithms. It takes into account the number of active connections of each server and the weight assigned to a server based on its capability. Requests are routed to servers based on the load factor, which is commonly calculated using the formular: the number of active connections of a server divided by its weight.\n$$ \\text{Load Factor} = \\frac{\\text{Number of Active Connections}}{\\text{Weight of the Server}} $$\nWeighted Least Connections Load Balancing Algorithm IP Hash The H+IP Hash algorithm routes requests to servers based on a hash of the client’s IP address. The load balancer applies a hash function to the client’s IP address to calculate the hash value, which is then used to determined which server will handle the current request. If the distribution of client IP addresses is uneven, some servers may receive more requests than others, leading to an imbalanced load. This algorithm is ideal for scenarios where maintaining state is important, such as online shopping carts or user sessions.\nIP Hash Load Balancing Algorithm Least Response Time The Least Response Time algorithm routes incoming requests to the server with the lowest response time, ensuring efficient resource utilization and optimal client experience. It is ideal for scenerios where low latancy and fast response times are crucial, such as online gaming and financial trading.\nLeast Response Time Load Balancing Algorithm Random The Random load balancing algorithm routes incoming requests to servers randomly. It is commonly used in scenarios where the load is relatively uniform and the servers have similar capabilities.\nRandom Load Balancing Algorithm Least Bandwidth The Least Bandwidth algorithm routes incoming requests to the server that is consuming the least amount of bandwidth. It is ideal for applications with high bandwidth usage, such as vedio streaming, file downloads, and large file transfers.\nLeast Bandwidth Load Balancing Algorithm Redundent Load Balancers The Single Point of Failure (SPOF) refers to any component in a system or infrastructure that, if it fails, causes the entire system or a significant portion of it to become unavailable. For instance, if a load balancer is responsible for routing all incoming requests to servers, its faulure would result in the entire system or application becoming inoperable. To mitigate this risk, redundent load balancers can be deployed.\nFor example, in an active-passive setup, two load balancers are used, where both are capable of routing traffic and detecting failures. The active load balancer handles all incoming requests, and if it fails, the passive load balancer takes over to ditribute requests, ensuring continuous availability. This approach helps prevent the system from being dependent on a single point of failure, as illustrated in the following diagram.\nLoad Balancer Cluster API Gateway An API Gateway is a server-side component that acts as a central entry point for clients to access as a collection of microservices. It recerves client requests, forwards them to the appropriate microservice, and then returns the response from the server to the client. The API Gateway is responsible for various tasks, such as request routing, authentication, rate limiting.\nAPI Gateway The key difference between an API Gateway and a load balancer lies in their core functions. An API Gateway focuses on routing requests to specific microservices. In contrast, a Load Balancer is responsible for distributing incoming traffic across multiple backend servers. Additionally, while an API Gateway typically deals with requests that target specific APIs identified by unique URLs, a load balancer generally handles requests directed to a single, well-known IP address, distributing those requests to one of serveral backend servers based on load-balancing algorithms.\nThe Difference Between API Gateway and Load Balancer Key Characteristics of Distributed System Scalability Scalability refers to a system’s ability to handle increasing workloads. In system design, there are two primary types of scaling: horizontal and vertical. Horizontal scaling involves adding more machines to distribute the load across multiple servers, while vertical scaling typically involves upgrading the hardware of a single machine.\nVertical Scaling vs. Horizontal Scaling Availability In system design, availability refers to the ability of a system to remain operational even in the face of faulures or high demand. Factors that affect availability include redundency, failover mechanisms, and load balancing. Redundency involves duplicating critical components to ensure that if one fails, another can take over. Failover mechanisms refer to the ability to quickly switch to a backup system during failure. Load balancing distributes requests across multiple servers to prevent any single point from becoming overwhelmed.\nIn distributed systems, there is often a trade-off between availability and consistency. The three common types of consistency models are strong, weak, and eventual consistency. The strong consistency model ensure that all replicas have the same data at all times, which can reduce availability and performance. The weak consistency model allows for temporary inconsistencies between replicas, offering improved availability and performance. The eventual consistency model guarantees that all replicas will eventually converge to the same data, balancing consistency and availability over time.\nMonitoring Monitoring in distributed systems is crucial for identifying issues and ensuring the overall health of the system. It typically involves four key components: metrics collection, distributed tracing, logging, and anomaly detection.\nMetrics collection involves gathering and analyzing key performance indicators such as latency, throughput, error rates, and resource utilization. This helps identify performance bottlenecks, potential issues, and areas for optimization. Common tools for metrics collection inculde Prometheus, Graphite, and InfluxDB.\nDistributed tracing is a technique for tracking and analyzing requests as they pass through various services, helping identify issues within specific services. Common tools for distributed tracing include Zipkin.\nLogging refers to the collection, centralization, and analysis of logs from all services in a distributed system. It provides valuable insights into system behavior, aiding in debugging and troubleshooting. Tools like the ELK Stack (Elasticsearch, Logstash, Kibana) are used for logging.\nAnomaly detection involves monitoring for unusual behaviors or patterns and notifying the appropriate team when such events occur. Tools like Grafana can be used for anomaly detection in distributed systems.\nCaching Introduction to Caching In system design, caching is a high-speed storage layer positioned between the application and the original data source, such as a database or a remote web service. The primary goal of caching is to minimize access to the original data source, thereby improving application performance. Caching can be implemented in various forms, including in-memory caching, disk caching, database caching, and CDN caching:\nIn-memory caching stores data directly in the computer’s memory, offering faster access than disk storage. Disk caching stores data on disk, which is slower than memory but faster than fetching data from an external source. Database caching stores data within the database itself, reducing the need to access external storage systems. CDN caching stores data on a distributed network of servers, minimizing latency when accessing data from remote locations. Here are some key caching terms:\nCache Hit: Occurs when the requested data is found in the cache. Cache Miss: Happens when the requested data is not found in the cache, requiring a fetch from the original data source. Cache Eviction: The process of removing data from the cache, often to make room for new data based on a predefined cache eviction policy. Cache Staleness: Refers to the situation where the cached data is outdated compared to the original data source. Here are some of the most common types of caching:\nTypes of Caching Caching Replacement Policies When caching data becomes outdated, it should be removed. Therefore, specifying a cache replacement policy is crucial when implementing caching. Common cache replacement policies include: LRU (Least Recently Used), LFU (Least Frequently Used), FIFO (First In, First Out), and Random Replacement.\nLRU (Least Recently Used) removes the least recently accessed data when the cache becomes full. It ensures that data that have been accessed more recently are more likely to be accessed again in the future. LFU (Least Frequently Used) removes the least frequently accessed data when the cache is full. It ensures that data that have been accessed more frequently are more likely to be accessed again in the futrue. FIFO (First In, First Out) removes the oldest data when the cache becomes full. It assumes that the oldest data are least likely to be accessed in the future. Random Replacement removes random data when the cache is full. This policy can be useful when the data access pattern is unpredictable. Cache Invalidation Cache Invalidation is the process of marking data in the cache as stale or directly removing it from the cache, ensuring that the cache doesn’t serve outdated or incorrect data. Common cache invalidation schemes include write-through cache, write-around cache, write-back cache, and write-behind cache.\nWrite-Through Cache: In a write-through scheme, data is written to both the cache and the data store simultaneously. This ensures that the cached always serves the most up-to-date data, but it introduces latency, as each write operation must be performed twice before the data is returned. Write-Around Cache: In a write-around scheme, data is directly written to the underlying data store, bypassing the cache. This prevents the cache from becoming flooded with less frequently accessed data, while ensuring that the data store always holds the most recent data. However, this can result in a cache miss when requesting data that was recently written. Write-Back Cache: In a write-back scheme, data is written only to the cache, and the write operation is immediately confirmed. The data is written to the data store only when the cached data is evicted. This ensures low latency and high throughput but may lead to data loss in the event of a crash, as the data is stored only in the cache. Write-Behind Cache: Similar to the write-back scheme, the write-behind cache writes data to the underlying store after a specified delay. The key difference is that in a write-back cache, data is only written to the data store when necessary (e.g., upon eviction). In contrast, in a write-behind cache, data is written to the data store at regular intervals. Here are some of the most commonly used cache invalidation methods:\nPurge: The purge method removes cached data immediately. When a purge request is received, the cached data is deleted, and the next time the key is requested, the cache fetches a fresh copy from the original data store, stores it, and returns it. Refresh: The refresh method updates the cached data with the latest data from the original data store. This ensures the cache always holds the most up-to-date data. Ban: The ban method blocks access to certain cached data. When a ban command is issued, the key is added to a ban list. From then on, every request is checked against the ban list. If the requested resource matches an invalidation rule, the cache treats it as stale, fetches a fresh copy from the original data store, and updates the cache. Unlike purge, which removes the cache entry immediately, ban simply marks the entry as stale, and the data remains in the cache until it is evicted. Time To Live (TTL) Expiration: This method involves setting a time-to-live (TTL) value for cached data. Once the TTL expires, the data is considered stale. When a request is made, the cache checks the TTL of the cached data and serves it only if if hasn’t expired. If expired, the cache fetches the fresh copy from the original data store and returns it. Stale-While-Revalidate: This method serves the cached data to the client immediately when a request is received. Meanwhile, the cache asynchronously updates itself with the latest version of the data from the original data store. This approach ensures a qucik response, even if the cached data is slightly outdated, and is commonly used in CDN caching. Cache Invalidation Methods Cache Read Strategies Cache read strategies define how the cache behaves when a cache miss occurs. The most common cache read strategies are read-through and read-aside.\nIn a read-through cache strategy, the cache is responsible for fetching fresh data from the original data store when a cache miss occurs. If the requested data is not found in the cache, the cache automatically retrives the data from the data store, stores it in the cache, and returns it to the client. In a read-aside cache strategy, the application first requests the data from the caceh. If the data is found, the cached data is used. However, if the data is not found, the application fetches the data from the underlying data store, updates the cache with the retrived data, and then uses it. Cache Coherence and Cache Consistence Cache coherence refers to the consistency of data stored in multiple caches that are part of the same system, particularly in multi-core systems. In a distributed system, each cache may store a local copy of shared data. When one cache modifies its copy, all other caches holding a copy of that data must be updated or invalidated to maintain consistency. The most common protocols for achieving cache coherence are write-invalidate and write-update.\nWrite-Invalidate: When a cache writes to its copy of shared data, it broadcasts a message to all other caches, invalidating their copies. When another cache needs the updated data, it fetches the new data from memory or from the cache that made the update. Write-Update: When a cache writes to its copy of shared data, it broadcasts a message to all other caches, prompting them to update their local copies accordingly. Cache consistency focuses on maintaining the consistency of data between the cache and the original data source. Cache consistency models define the rules governing how data is updated and accessed in a distributed system with multiple caches. These models vary in terms of their strictness, and include strict consistency, sequential consistency, casual consistency, and eventual consistency.\nStrict Consistency: In a strict consistency model, any write to a data item is immediately visible to all caches. While this ensures data is always up-to-date, it may lead to performance issues due to the significant synchronization overhead required. Sequential Consistency: In a sequential consistency model, all operations on data items must appear in a specific, sequential order across all caches. This model ensures a predictable order of operations but may not guarantee the exact real-time visibility of changes. Casual Consistency: In a casual consistency model, operations that are casually related (e.g., one operation depends on the outcome of another) are guaranteed to appear in order across multiple caches. Operations that are not casually related can occur in any order. This model strikes a balance between on consistency and performance. Eventual Consistency: In an eventual consistency model, updates to a data item will eventually propagate to all caches, but there is no guarantee regarding the order or timing of these updates. This model offers the best performance but the weakest consistency guarantees, making it ideal for distributed systems where performance and scalability are prioritized over strict consistency. Caching Challenges The main cache-related issues include Thundering Herd, Cache Penetration, Cache Stampede, and Cache Pollution.\nThundering Herd: This problem arises when a popular piece of data expires, leading to a sundden surge of requests to the original server, resulting in performance degradation. Solutions include staggered expiration times, cache locking, or background updates before expiration.\nCache Penetration: This occurs when multiple requests for non-existent data bypass the cache, querying the original data store directly. Solutions include negative caching (caching “not found” responses) or using a Bloom Filter to check the existence of data before querying the cache.\nCache Stampede: This happens when multiple requests for the same data arrive after cache expires, causing a heavy load on the original data source. Solutions typically involve request coalescing (letting on request fetch the data while others wait) or implementing a read-through cache, where the cache itself fetches missing data. Cache Pollution: This occurs when less frequently accessed data displaces more frequently accessed data, reducing cache hit rates. To mitigate cache pollution, eviction policies such as LRU (Least Recently Used) or LFU (Least Frequently Used) can be implemented.\nData Partitioning In system design, data partitioning is a technique used to break large datasets into smaller, more manageable units called partitions. Each partition is independent and contains a subset of the overall data. Common data partitioning methods include horizontal partitioning and vertical partitioning.\nHorizontal partitioning, also known as sharding, involves dividing a database into multiple shards, with each shard containing a subset of rows. These shards are typically stored on different database servers, allowing for parallel processing and improving query execution times. Vertical partitioning divides a database into multiple partitions based on columns, with each partition containing a subset of the columns. This technique is commonly used when some fields are accessed more frequently than others, optimizing performance for specific queries. Horizontal Partitioning vs. Vertical Partitioning Data sharding splits table horizontally, here are some common sharding techniques.\nRange-Based Sharding: Data is divided based on a specific range, such as numeric ranges or dates. For example, an e-commerce platform may partition the order table by order date. Hash-Based Sharding: Data is partitioned by applying a hash function to a partition key. The hash value determines which shard will store the data. Directory-Based Sharding: Data is partitioned based on a lookup table that tracks which shard contains which data. Geographical Sharding: Data is divided based on geographical locations, such as countries or regions. Hybrid-Based Sharding: A combination of multiple sharding strategies to optimize system performance. ",
+  "wordCount" : "3358",
+  "inLanguage": "en",
+  "datePublished": "2024-12-27T04:32:42+08:00",
+  "dateModified": "2024-12-27T04:32:42+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      System Design
+    </h1>
+    <div class="post-meta"><span title='2024-12-27 04:32:42 +0800 HKT'>Dec 27 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction-to-system-design" aria-label="Introduction to System Design">Introduction to System Design</a></li>
+                <li>
+                    <a href="#load-balancing" aria-label="Load Balancing">Load Balancing</a><ul>
+                        
+                <li>
+                    <a href="#load-balancing-algorithms" aria-label="Load Balancing Algorithms">Load Balancing Algorithms</a><ul>
+                        
+                <li>
+                    <a href="#round-robin" aria-label="Round Robin">Round Robin</a></li>
+                <li>
+                    <a href="#least-connections" aria-label="Least Connections">Least Connections</a></li>
+                <li>
+                    <a href="#weighted-round-robin" aria-label="Weighted Round Robin">Weighted Round Robin</a></li>
+                <li>
+                    <a href="#weighted-least-connections" aria-label="Weighted Least Connections">Weighted Least Connections</a></li>
+                <li>
+                    <a href="#ip-hash" aria-label="IP Hash">IP Hash</a></li>
+                <li>
+                    <a href="#least-response-time" aria-label="Least Response Time">Least Response Time</a></li>
+                <li>
+                    <a href="#random" aria-label="Random">Random</a></li>
+                <li>
+                    <a href="#least-bandwidth" aria-label="Least Bandwidth">Least Bandwidth</a></li></ul>
+                </li>
+                <li>
+                    <a href="#redundent-load-balancers" aria-label="Redundent Load Balancers">Redundent Load Balancers</a></li></ul>
+                </li>
+                <li>
+                    <a href="#api-gateway" aria-label="API Gateway">API Gateway</a></li>
+                <li>
+                    <a href="#key-characteristics-of-distributed-system" aria-label="Key Characteristics of Distributed System">Key Characteristics of Distributed System</a><ul>
+                        
+                <li>
+                    <a href="#scalability" aria-label="Scalability">Scalability</a></li>
+                <li>
+                    <a href="#availability" aria-label="Availability">Availability</a></li>
+                <li>
+                    <a href="#monitoring" aria-label="Monitoring">Monitoring</a></li></ul>
+                </li>
+                <li>
+                    <a href="#caching" aria-label="Caching">Caching</a><ul>
+                        
+                <li>
+                    <a href="#introduction-to-caching" aria-label="Introduction to Caching">Introduction to Caching</a></li>
+                <li>
+                    <a href="#caching-replacement-policies" aria-label="Caching Replacement Policies">Caching Replacement Policies</a></li>
+                <li>
+                    <a href="#cache-invalidation" aria-label="Cache Invalidation">Cache Invalidation</a></li>
+                <li>
+                    <a href="#cache-read-strategies" aria-label="Cache Read Strategies">Cache Read Strategies</a></li>
+                <li>
+                    <a href="#cache-coherence-and-cache-consistence" aria-label="Cache Coherence and Cache Consistence">Cache Coherence and Cache Consistence</a></li>
+                <li>
+                    <a href="#caching-challenges" aria-label="Caching Challenges">Caching Challenges</a></li></ul>
+                </li>
+                <li>
+                    <a href="#data-partitioning" aria-label="Data Partitioning">Data Partitioning</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="introduction-to-system-design">Introduction to System Design<a hidden class="anchor" aria-hidden="true" href="#introduction-to-system-design">#</a></h1>
+<blockquote>
+<p><strong>System Design</strong> is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.</p>
+</blockquote>
+<hr>
+<h1 id="load-balancing">Load Balancing<a hidden class="anchor" aria-hidden="true" href="#load-balancing">#</a></h1>
+<blockquote>
+<p>In <strong>System Design</strong>, <strong>Load Balancing</strong> refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/1-load-balancing-1.png#center" width="100%" height="100%"/> <figcaption>
+            Load Balancing
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/2-load-balancing-2.png#center" width="100%" height="100%"/> <figcaption>
+            Load Balancing at Different Layers
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>The typical process of load balancing involves the following steps:</p>
+</blockquote>
+<ol>
+<li>The load balancer recerves a request from the client.</li>
+<li>The load balancer evaluates the request and routes it to a server based on the chosen load balancing algorithm.</li>
+<li>The selected server or resource processes the request and sends the response back to the load balancer.</li>
+<li>The load balancer receives the response and forwards it to the client.</li>
+</ol>
+<pre class="mermaid">---
+title: Process of Load Balancing
+---
+sequenceDiagram
+    participant Client
+    participant LoadBalancer
+    participant Server
+
+    Client->>LoadBalancer: Sends Request
+    LoadBalancer->>LoadBalancer: Evaluates Request (Load Balancing Algorithm)
+    LoadBalancer->>Server: Routes Request to Selected Server
+    Server->>LoadBalancer: Sends Response
+    LoadBalancer->>Client: Forwards Response
+</pre>
+<hr>
+<h2 id="load-balancing-algorithms">Load Balancing Algorithms<a hidden class="anchor" aria-hidden="true" href="#load-balancing-algorithms">#</a></h2>
+<blockquote>
+<p>A load balancing algorithm is a method used by a load balancer to determine how an incoming request should be distributed across multiple servers. Commonly used load balancing algorithms include <strong>Round Robin</strong>, <strong>Least Connections</strong>, <strong>Weight Round Robin</strong>, <strong>Weighted Least Connections</strong>, <strong>IP Hash</strong>, <strong>Least Response Time</strong>, <strong>Random</strong>, and <strong>Least Bandwidth</strong>.</p>
+</blockquote>
+<hr>
+<h3 id="round-robin">Round Robin<a hidden class="anchor" aria-hidden="true" href="#round-robin">#</a></h3>
+<blockquote>
+<p>The <strong>Round Robin</strong> algorithm distributes requests evenly across multiple servers in a circular manner. This algorithm does not consider the current load or capabilities of each server. It is commonly used in environments where servers have similar capacity and performance, or in applications where each request can be handled independently.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/3-round-robin.gif#center" width="100%" height="100%"/> <figcaption>
+            Round Robin Load Balancing Algorithm
+        </figcaption>
+</figure>
+
+<hr>
+<h3 id="least-connections">Least Connections<a hidden class="anchor" aria-hidden="true" href="#least-connections">#</a></h3>
+<blockquote>
+<p>The <strong>Least Connections</strong> algorithm distributes requests to servers with the fewest active connections. It takes into account the server&rsquo;s current workload, helping to prevent any single server from becoming overwhelmed. This algorithm is particularly useful in scenerios where traffic or workload is unpredictable, servers have varying capabilities, or maintaining session state is important.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/4-least-connections.gif#center" width="100%" height="100%"/> <figcaption>
+            Least Connections Load Balancing Algorithm
+        </figcaption>
+</figure>
+
+<hr>
+<h3 id="weighted-round-robin">Weighted Round Robin<a hidden class="anchor" aria-hidden="true" href="#weighted-round-robin">#</a></h3>
+<blockquote>
+<p>The <strong>Weighted Round Robin</strong> algorithm is an enhanced version of Round Robin, where each server is assigned a weight based on its capability and workload. Servers with higher weights process more requests, helping to prevent overloading less powerful servers. This algorithm is ideal for scenarios where servers have varying processing abilities, such as in a database cluster, where nodes with higher processing power can handle more queries.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/5-weighted-round-robin.gif#center" width="100%" height="100%"/> <figcaption>
+            Weighted Round Robin Load Balancing Algorithm
+        </figcaption>
+</figure>
+
+<hr>
+<h3 id="weighted-least-connections">Weighted Least Connections<a hidden class="anchor" aria-hidden="true" href="#weighted-least-connections">#</a></h3>
+<blockquote>
+<p>The <strong>Weighted Least Connections</strong> algorithm is a combination of the <strong>Least Connections</strong> and the <strong>Weighted Round Robin</strong> algorithms. It takes into account the number of active connections of each server and the weight assigned to a server based on its capability. Requests are routed to servers based on the load factor, which is commonly calculated using the formular: the number of active connections of a server divided by its weight.</p>
+</blockquote>
+<p>$$
+\text{Load Factor} = \frac{\text{Number of Active Connections}}{\text{Weight of the Server}}
+$$</p>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/6-weighted-least-connections.gif#center" width="100%" height="100%"/> <figcaption>
+            Weighted Least Connections Load Balancing Algorithm
+        </figcaption>
+</figure>
+
+<hr>
+<h3 id="ip-hash">IP Hash<a hidden class="anchor" aria-hidden="true" href="#ip-hash">#</a></h3>
+<blockquote>
+<p>The <strong>H+IP Hash</strong> algorithm routes requests to servers based on a hash of the client&rsquo;s IP address. The load balancer applies a hash function to the client&rsquo;s IP address to calculate the hash value, which is then used to determined which server will handle the current request. If the distribution of client IP addresses is uneven, some servers may receive more requests than others, leading to an imbalanced load. This algorithm is ideal for scenarios where maintaining state is important, such as online shopping carts or user sessions.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/7-ip-hash.gif#center" width="100%" height="100%"/> <figcaption>
+            IP Hash Load Balancing Algorithm
+        </figcaption>
+</figure>
+
+<hr>
+<h3 id="least-response-time">Least Response Time<a hidden class="anchor" aria-hidden="true" href="#least-response-time">#</a></h3>
+<blockquote>
+<p>The <strong>Least Response Time</strong> algorithm routes incoming requests to the server with the lowest response time, ensuring efficient resource utilization and optimal client experience. It is ideal for scenerios where low latancy and fast response times are crucial, such as online gaming and financial trading.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/8-least-response-time.gif#center" width="100%" height="100%"/> <figcaption>
+            Least Response Time Load Balancing Algorithm
+        </figcaption>
+</figure>
+
+<hr>
+<h3 id="random">Random<a hidden class="anchor" aria-hidden="true" href="#random">#</a></h3>
+<blockquote>
+<p>The <strong>Random</strong> load balancing algorithm routes incoming requests to servers randomly. It is commonly used in scenarios where the load is relatively uniform and the servers have similar capabilities.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/9-random.gif#center" width="100%" height="100%"/> <figcaption>
+            Random Load Balancing Algorithm
+        </figcaption>
+</figure>
+
+<hr>
+<h3 id="least-bandwidth">Least Bandwidth<a hidden class="anchor" aria-hidden="true" href="#least-bandwidth">#</a></h3>
+<blockquote>
+<p>The <strong>Least Bandwidth</strong> algorithm routes incoming requests to the server that is consuming the least amount of bandwidth. It is ideal for applications with high bandwidth usage, such as vedio streaming, file downloads, and large file transfers.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/10-least-bandwidth.gif#center" width="100%" height="100%"/> <figcaption>
+            Least Bandwidth Load Balancing Algorithm
+        </figcaption>
+</figure>
+
+<hr>
+<h2 id="redundent-load-balancers">Redundent Load Balancers<a hidden class="anchor" aria-hidden="true" href="#redundent-load-balancers">#</a></h2>
+<blockquote>
+<p>The <strong>Single Point of Failure (SPOF)</strong> refers to any component in a system or infrastructure that, if it fails, causes the entire system or a significant portion of it to become unavailable. For instance, if a load balancer is responsible for routing all incoming requests to servers, its faulure would result in the entire system or application becoming inoperable. To mitigate this risk, redundent load balancers can be deployed.</p>
+</blockquote>
+<blockquote>
+<p>For example, in an active-passive setup, two load balancers are used, where both are capable of routing traffic and detecting failures. The active load balancer handles all incoming requests, and if it fails, the passive load balancer takes over to ditribute requests, ensuring continuous availability. This approach helps prevent the system from being dependent on a single point of failure, as illustrated in the following diagram.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/11-redundent-load-balancers.webp#center" width="100%" height="100%"/> <figcaption>
+            Load Balancer Cluster
+        </figcaption>
+</figure>
+
+<hr>
+<h1 id="api-gateway">API Gateway<a hidden class="anchor" aria-hidden="true" href="#api-gateway">#</a></h1>
+<blockquote>
+<p>An <strong>API Gateway</strong> is a server-side component that acts as a central entry point for clients to access as a collection of microservices. It recerves client requests, forwards them to the appropriate microservice, and then returns the response from the server to the client. The API Gateway is responsible for various tasks, such as request routing, authentication, rate limiting.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/12-api-gateway.webp#center" width="100%" height="100%"/> <figcaption>
+            API Gateway
+        </figcaption>
+</figure>
+
+<blockquote>
+<p>The key difference between an API Gateway and a load balancer lies in their core functions. An API Gateway focuses on routing requests to specific microservices. In contrast, a Load Balancer is responsible for distributing incoming traffic across multiple backend servers. Additionally, while an API Gateway typically deals with requests that target specific APIs identified by unique URLs, a load balancer generally handles requests directed to a single, well-known IP address, distributing those requests to one of serveral backend servers based on load-balancing algorithms.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/13-difference-between-gateway-and-load-balancer.webp#center" width="100%" height="100%"/> <figcaption>
+            The Difference Between API Gateway and Load Balancer
+        </figcaption>
+</figure>
+
+<hr>
+<h1 id="key-characteristics-of-distributed-system">Key Characteristics of Distributed System<a hidden class="anchor" aria-hidden="true" href="#key-characteristics-of-distributed-system">#</a></h1>
+<h2 id="scalability">Scalability<a hidden class="anchor" aria-hidden="true" href="#scalability">#</a></h2>
+<blockquote>
+<p><strong>Scalability</strong> refers to a system&rsquo;s ability to handle increasing workloads. In system design, there are two primary types of scaling: horizontal and vertical. <strong>Horizontal scaling</strong> involves adding more machines to distribute the load across multiple servers, while <strong>vertical scaling</strong> typically involves upgrading the hardware of a single machine.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/14-scalability.webp#center" width="100%" height="100%"/> <figcaption>
+            Vertical Scaling vs. Horizontal Scaling
+        </figcaption>
+</figure>
+
+<hr>
+<h2 id="availability">Availability<a hidden class="anchor" aria-hidden="true" href="#availability">#</a></h2>
+<blockquote>
+<p>In system design, <strong>availability</strong> refers to the ability of a system to remain operational even in the face of faulures or high demand. Factors that affect availability include <strong>redundency</strong>, <strong>failover mechanisms</strong>, and <strong>load balancing</strong>. <strong>Redundency</strong> involves duplicating critical components to ensure that if one fails, another can take over. <strong>Failover mechanisms</strong> refer to the ability to quickly switch to a backup system during failure. <strong>Load balancing</strong> distributes requests across multiple servers to prevent any single point from becoming overwhelmed.</p>
+</blockquote>
+<blockquote>
+<p>In distributed systems, there is often a trade-off between <strong>availability</strong> and <strong>consistency</strong>. The three common types of consistency models are <strong>strong</strong>, <strong>weak</strong>, and <strong>eventual</strong> consistency. The <strong>strong consistency</strong> model ensure that all replicas have the same data at all times, which can reduce availability and performance. The <strong>weak consistency</strong> model allows for temporary inconsistencies between replicas, offering improved availability and performance. The <strong>eventual consistency</strong> model guarantees that all replicas will eventually converge to the same data, balancing consistency and availability over time.</p>
+</blockquote>
+<hr>
+<h2 id="monitoring">Monitoring<a hidden class="anchor" aria-hidden="true" href="#monitoring">#</a></h2>
+<blockquote>
+<p><strong>Monitoring</strong> in distributed systems is crucial for identifying issues and ensuring the overall health of the system. It typically involves four key components: <strong>metrics collection</strong>, <strong>distributed tracing</strong>, <strong>logging</strong>, and <strong>anomaly detection</strong>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Metrics collection</strong> involves gathering and analyzing key performance indicators such as latency, throughput, error rates, and resource utilization. This helps identify performance bottlenecks, potential issues, and areas for optimization. Common tools for metrics collection inculde <strong>Prometheus</strong>, <strong>Graphite</strong>, and <strong>InfluxDB</strong>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Distributed tracing</strong> is a technique for tracking and analyzing requests as they pass through various services, helping identify issues within specific services. Common tools for distributed tracing include <strong>Zipkin</strong>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Logging</strong> refers to the collection, centralization, and analysis of logs from all services in a distributed system. It provides valuable insights into system behavior, aiding in debugging and troubleshooting. Tools like the <strong>ELK Stack (Elasticsearch, Logstash, Kibana)</strong> are used for logging.</p>
+</blockquote>
+<blockquote>
+<p><strong>Anomaly detection</strong> involves monitoring for unusual behaviors or patterns and notifying the appropriate team when such events occur. Tools like <strong>Grafana</strong> can be used for anomaly detection in distributed systems.</p>
+</blockquote>
+<hr>
+<h1 id="caching">Caching<a hidden class="anchor" aria-hidden="true" href="#caching">#</a></h1>
+<h2 id="introduction-to-caching">Introduction to Caching<a hidden class="anchor" aria-hidden="true" href="#introduction-to-caching">#</a></h2>
+<blockquote>
+<p>In system design, <strong>caching</strong> is a high-speed storage layer positioned between the application and the original data source, such as a database or a remote web service. The primary goal of caching is to minimize access to the original data source, thereby improving application performance. Caching can be implemented in various forms, including <strong>in-memory caching</strong>, <strong>disk caching</strong>, <strong>database caching</strong>, and <strong>CDN caching</strong>:</p>
+</blockquote>
+<ul>
+<li><strong>In-memory caching</strong> stores data directly in the computer&rsquo;s memory, offering faster access than disk storage.</li>
+<li><strong>Disk caching</strong> stores data on disk, which is slower than memory but faster than fetching data from an external source.</li>
+<li><strong>Database caching</strong> stores data within the database itself, reducing the need to access external storage systems.</li>
+<li><strong>CDN caching</strong> stores data on a distributed network of servers, minimizing latency when accessing data from remote locations.</li>
+</ul>
+<blockquote>
+<p>Here are some key caching terms:</p>
+</blockquote>
+<ol>
+<li><strong>Cache Hit</strong>:  Occurs when the requested data is found in the cache.</li>
+<li><strong>Cache Miss</strong>: Happens when the requested data is not found in the cache, requiring a fetch from the original data source.</li>
+<li><strong>Cache Eviction</strong>: The process of removing data from the cache, often to make room for new data based on a predefined cache eviction policy.</li>
+<li><strong>Cache Staleness</strong>: Refers to the situation where the cached data is outdated compared to the original data source.</li>
+</ol>
+<blockquote>
+<p>Here are some of the most common types of caching:</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/15-types-of-caching.png#center" width="100%" height="100%"/> <figcaption>
+            Types of Caching
+        </figcaption>
+</figure>
+
+<hr>
+<h2 id="caching-replacement-policies">Caching Replacement Policies<a hidden class="anchor" aria-hidden="true" href="#caching-replacement-policies">#</a></h2>
+<blockquote>
+<p>When caching data becomes outdated, it should be removed. Therefore, specifying a cache replacement policy is crucial when implementing caching. Common cache replacement policies include: LRU (Least Recently Used), LFU (Least Frequently Used), FIFO (First In, First Out), and Random Replacement.</p>
+</blockquote>
+<ul>
+<li><strong>LRU (Least Recently Used)</strong> removes the least recently accessed data when the cache becomes full. It ensures that data that have been accessed more recently are more likely to be accessed again in the future.</li>
+<li><strong>LFU (Least Frequently Used)</strong> removes the least frequently accessed data when the cache is full. It ensures that data that have been accessed more frequently are more likely to be accessed again in the futrue.</li>
+<li><strong>FIFO (First In, First Out)</strong> removes the oldest data when the cache becomes full. It assumes that the oldest data are least likely to be accessed in the future.</li>
+<li><strong>Random Replacement</strong> removes random data when the cache is full. This policy can be useful when the data access pattern is unpredictable.</li>
+</ul>
+<hr>
+<h2 id="cache-invalidation">Cache Invalidation<a hidden class="anchor" aria-hidden="true" href="#cache-invalidation">#</a></h2>
+<blockquote>
+<p><strong>Cache Invalidation</strong> is the process of marking data in the cache as stale or directly removing it from the cache, ensuring that the cache doesn&rsquo;t serve outdated or incorrect data. Common cache invalidation schemes include <strong>write-through cache</strong>, <strong>write-around cache</strong>, <strong>write-back cache</strong>, and <strong>write-behind cache</strong>.</p>
+</blockquote>
+<ul>
+<li><strong>Write-Through Cache</strong>: In a write-through scheme, data is written to both the cache and the data store simultaneously. This ensures that the cached always serves the most up-to-date data, but it introduces latency, as each write operation must be performed twice before the data is returned. <img loading="lazy" src="/img/system-design/16-write-through-cache.gif" alt="Write-Through Cache"  />
+</li>
+<li><strong>Write-Around Cache</strong>: In a write-around scheme, data is directly written to the underlying data store, bypassing the cache. This prevents the cache from becoming flooded with less frequently accessed data, while ensuring that the data store always holds the most recent data. However, this can result in a <em>cache miss</em> when requesting data that was recently written. <img loading="lazy" src="/img/system-design/17-write-around-cache.gif" alt="Write-Around Cache"  />
+</li>
+<li><strong>Write-Back Cache</strong>: In a write-back scheme, data is written only to the cache, and the write operation is immediately confirmed. The data is written to the data store only when the cached data is evicted. This ensures low latency and high throughput but may lead to data loss in the event of a crash, as the data is stored only in the cache. <img loading="lazy" src="/img/system-design/19-write-back-cache.gif" alt="Write-Back Cache"  />
+</li>
+<li><strong>Write-Behind Cache</strong>: Similar to the write-back scheme, the write-behind cache writes data to the underlying store after a specified delay. The key difference is that in a write-back cache, data is only written to the data store when necessary (e.g., upon eviction). In contrast, in a write-behind cache, data is written to the data store at regular intervals.</li>
+</ul>
+<blockquote>
+<p>Here are some of the most commonly used cache invalidation methods:</p>
+</blockquote>
+<ul>
+<li><strong>Purge</strong>: The purge method removes cached data immediately. When a purge request is received, the cached data is deleted, and the next time the key is requested, the cache fetches a fresh copy from the original data store, stores it, and returns it.</li>
+<li><strong>Refresh</strong>: The refresh method updates the cached data with the latest data from the original data store. This ensures the cache always holds the most up-to-date data.</li>
+<li><strong>Ban</strong>: The ban method blocks access to certain cached data. When a ban command is issued, the key is added to a ban list. From then on, every request is checked against the ban list. If the requested resource matches an invalidation rule, the cache treats it as stale, fetches a fresh copy from the original data store, and updates the cache. Unlike purge, which removes the cache entry immediately, ban simply marks the entry as stale, and the data remains in the cache until it is evicted.</li>
+<li><strong>Time To Live (TTL) Expiration</strong>: This method involves setting a time-to-live (TTL) value for cached data. Once the TTL expires, the data is considered stale. When a request is made, the cache checks the TTL of the cached data and serves it only if if hasn&rsquo;t expired. If expired, the cache fetches the fresh copy from the original data store and returns it.</li>
+<li><strong>Stale-While-Revalidate</strong>: This method serves the cached data to the client immediately when a request is received. Meanwhile, the cache asynchronously updates itself with the latest version of the data from the original data store. This approach ensures a qucik response, even if the cached data is slightly outdated, and is commonly used in CDN caching.</li>
+</ul>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/20-invalidation-methods.png#center" width="100%" height="100%"/> <figcaption>
+            Cache Invalidation Methods
+        </figcaption>
+</figure>
+
+<hr>
+<h2 id="cache-read-strategies">Cache Read Strategies<a hidden class="anchor" aria-hidden="true" href="#cache-read-strategies">#</a></h2>
+<blockquote>
+<p><strong>Cache read strategies</strong> define how the cache behaves when a cache miss occurs. The most common cache read strategies are <strong>read-through</strong> and <strong>read-aside</strong>.</p>
+</blockquote>
+<ul>
+<li>In a <strong>read-through cache</strong> strategy, the cache is responsible for fetching fresh data from the original data store when a cache miss occurs. If the requested data is not found in the cache, the cache automatically retrives the data from the data store, stores it in the cache, and returns it to the client. <img loading="lazy" src="/img/system-design/21-read-through-strategy.png" alt="Read-Through Cache"  />
+</li>
+<li>In a <strong>read-aside cache</strong> strategy, the application first requests the data from the caceh. If the data is found, the cached data is used. However, if the data is not found, the application fetches the data from the underlying data store, updates the cache with the retrived data, and then uses it. <img loading="lazy" src="/img/system-design/22-read-aside-strategy.png" alt="Read-Aside Cache"  />
+</li>
+</ul>
+<hr>
+<h2 id="cache-coherence-and-cache-consistence">Cache Coherence and Cache Consistence<a hidden class="anchor" aria-hidden="true" href="#cache-coherence-and-cache-consistence">#</a></h2>
+<blockquote>
+<p><strong>Cache coherence</strong> refers to the consistency of data stored in multiple caches that are part of the same system, particularly in multi-core systems. In a distributed system, each cache may store a local copy of shared data. When one cache modifies its copy, all other caches holding a copy of that data must be updated or invalidated to maintain consistency. The most common protocols for achieving cache coherence are <strong>write-invalidate</strong> and <strong>write-update</strong>.</p>
+</blockquote>
+<ul>
+<li><strong>Write-Invalidate</strong>: When a cache writes to its copy of shared data, it broadcasts a message to all other caches, invalidating their copies. When another cache needs the updated data, it fetches the new data from memory or from the cache that made the update.</li>
+<li><strong>Write-Update</strong>: When a cache writes to its copy of shared data, it broadcasts a message to all other caches, prompting them to update their local copies accordingly.</li>
+</ul>
+<blockquote>
+<p><strong>Cache consistency</strong> focuses on maintaining the consistency of data between the cache and the original data source. <strong>Cache consistency models</strong> define the rules governing how data is updated and accessed in a distributed system with multiple caches. These models vary in terms of their strictness, and include <strong>strict consistency</strong>, <strong>sequential consistency</strong>, <strong>casual consistency</strong>, and <strong>eventual consistency</strong>.</p>
+</blockquote>
+<ul>
+<li><strong>Strict Consistency</strong>: In a strict consistency model, any write to a data item is immediately visible to all caches. While this ensures data is always up-to-date, it may lead to performance issues due to the significant synchronization overhead required.</li>
+<li><strong>Sequential Consistency</strong>: In a sequential consistency model, all operations on data items must appear in a specific, sequential order across all caches. This model ensures a predictable order of operations but may not guarantee the exact real-time visibility of changes.</li>
+<li><strong>Casual Consistency</strong>: In a casual consistency model, operations that are casually related (e.g., one operation depends on the outcome of another) are guaranteed to appear in order across multiple caches. Operations that are not casually related can occur in any order. This model strikes a balance between on consistency and performance.</li>
+<li><strong>Eventual Consistency</strong>: In an eventual consistency model, updates to a data item will eventually propagate to all caches, but there is no guarantee regarding the order or timing of these updates. This model offers the best performance but the weakest consistency guarantees, making it ideal for distributed systems where performance and scalability are prioritized over strict consistency.</li>
+</ul>
+<hr>
+<h2 id="caching-challenges">Caching Challenges<a hidden class="anchor" aria-hidden="true" href="#caching-challenges">#</a></h2>
+<blockquote>
+<p>The main cache-related issues include <strong>Thundering Herd</strong>, <strong>Cache Penetration</strong>, <strong>Cache Stampede</strong>, and <strong>Cache Pollution</strong>.</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>Thundering Herd</strong>: This problem arises when a popular piece of data expires, leading to a sundden surge of requests to the original server, resulting in performance degradation. Solutions include <strong>staggered expiration times</strong>, <strong>cache locking</strong>, or <strong>background updates</strong> before expiration.</p>
+</li>
+<li>
+<p><strong>Cache Penetration</strong>: This occurs when multiple requests for non-existent data bypass the cache, querying the original data store directly. Solutions include <strong>negative caching</strong> (caching &ldquo;not found&rdquo; responses) or using a <strong>Bloom Filter</strong> to check the existence of data before querying the cache.</p>
+</li>
+<li>
+<p><strong>Cache Stampede</strong>: This happens when multiple requests for the same data arrive after cache expires, causing a heavy load on the original data source. Solutions typically involve request coalescing (letting on request fetch the data while others wait) or implementing a <strong>read-through cache</strong>, where the cache itself fetches missing data. <img loading="lazy" src="/img/system-design/23-cache-stampede.svg" alt="Cache Stampede"  />
+</p>
+</li>
+<li>
+<p><strong>Cache Pollution</strong>: This occurs when less frequently accessed data displaces more frequently accessed data, reducing cache hit rates. To mitigate cache pollution, eviction policies such as <strong>LRU (Least Recently Used)</strong> or <strong>LFU (Least Frequently Used)</strong> can be implemented.</p>
+</li>
+</ul>
+<hr>
+<h1 id="data-partitioning">Data Partitioning<a hidden class="anchor" aria-hidden="true" href="#data-partitioning">#</a></h1>
+<blockquote>
+<p>In system design, data partitioning is a technique used to break large datasets into smaller, more manageable units called partitions. Each partition is independent and contains a subset of the overall data. Common data partitioning methods include <strong>horizontal partitioning</strong> and <strong>vertical partitioning</strong>.</p>
+</blockquote>
+<ul>
+<li><strong>Horizontal partitioning</strong>, also known as sharding, involves dividing a database into multiple shards, with each shard containing a subset of rows. These shards are typically stored on different database servers, allowing for parallel processing and improving query execution times.</li>
+<li><strong>Vertical partitioning</strong> divides a database into multiple partitions based on columns, with each partition containing a subset of the columns. This technique is commonly used when some fields are accessed more frequently than others, optimizing performance for specific queries.</li>
+</ul>
+<figure class="align-center ">
+    
+    <img src="/img/system-design/24-horizontal-partitioning-vs-vertical-partitioning.webp#center" width="100%" height="100%"/> <figcaption>
+            Horizontal Partitioning vs. Vertical Partitioning
+        </figcaption>
+</figure>
+
+<hr>
+<blockquote>
+<p>Data sharding splits table horizontally, here are some common sharding techniques.</p>
+</blockquote>
+<ul>
+<li><strong>Range-Based Sharding</strong>: Data is divided based on a specific range, such as numeric ranges or dates. For example, an e-commerce platform may partition the order table by order date. <img loading="lazy" src="/img/system-design/25-range-based-sharding.png" alt="Range-Based Sharding"  />
+</li>
+<li><strong>Hash-Based Sharding</strong>: Data is partitioned by applying a hash function to a partition key. The hash value determines which shard will store the data. <img loading="lazy" src="/img/system-design/26-hash-based-sharding.png" alt="Hash-Based Sharding"  />
+</li>
+<li><strong>Directory-Based Sharding</strong>: Data is partitioned based on a lookup table that tracks which shard contains which data. <img loading="lazy" src="/img/system-design/27-directory-based-sharding.png" alt="Directory-Based Sharding"  />
+</li>
+<li><strong>Geographical Sharding</strong>: Data is divided based on geographical locations, such as countries or regions.</li>
+<li><strong>Hybrid-Based Sharding</strong>: A combination of multiple sharding strategies to optimize system performance. <img loading="lazy" src="/img/system-design/28-hybrid-sharding.svg" alt="Hybrid-Based Sharding"  />
+</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/engineering--technology/">Engineering &amp; Technology</a></li>
+      <li><a href="https://signalyu.github.io/tags/computer-science/">Computer Science</a></li>
+      <li><a href="https://signalyu.github.io/tags/system-design/">System Design</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/">
+    <span class="title">« PREV</span>
+    
+    <br>
+    <span>Multithreading &amp; Concurrency</span>
+  </a>
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/python/1-python-programming/">
+    <span class="title">NEXT »</span>
+    
+    <br>
+    <span>Python Programming</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({
+            startOnLoad: true,
+            "flowchart": { "htmlLabels": true },
+            theme: 'dark',
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        });
+    </script>
+    
+</body>
+</html>
