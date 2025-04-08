@@ -6,12 +6,12 @@
     <description>Recent content in Asynchronous Messaging on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Mon, 20 Nov 2023 13:57:02 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Dec 2024 13:57:02 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/asynchronous-messaging/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Asynchronous Messaging</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</link>
-      <pubDate>Mon, 20 Nov 2023 13:57:02 +0800</pubDate>
+      <pubDate>Fri, 20 Dec 2024 13:57:02 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/asynchronous-messaging/1-asynchronous-messaging/</guid>
       <description>Synchronous Messaging VS. Asynchronous Messaging Synchronous Messaging and Asynchronous Messaging are two commnication paradigms used in distributed systems. In synchronous messaging, the sender will not continue executing until it receives the acknowledged message from the receiver. This paradigm is commonly used in situations that require immediate feedback to continue operations, such as payments or transaction processing.
 The advantages of this paradigm include ease of implementation and usefulness in situations where immediate feedback is needed.</description>

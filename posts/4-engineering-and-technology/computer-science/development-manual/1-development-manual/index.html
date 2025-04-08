@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Development Manual | Signal&#39;s Blog</title>
+<meta name="keywords" content="Engineering &amp; Technology, Computer Science, Development Manual">
+<meta name="description" content="IDEA Postfix Completion Postfix completion allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.
+&#34;Hello&#34;.var → String s = &#34;Hello&#34;; Live Templates Live Templates are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.
+sout → System.out.println(); Keyboard Shortcuts Show Hint: Alt &#43; Enter Show Parameter Info: Ctrl &#43; P Surround with Selected Code Block: Ctrl &#43; Alt &#43; J Start a New Line: Shift &#43; Enter Start a New Line Before Current: Ctrl &#43; Alt &#43; Enter Show Live Template: Ctrl &#43; J Rename in Batch: Shift &#43; F6 Extract Method: Ctrl &#43; Alt &#43; M Override Methods: Ctrl &#43; O Implement Methods: Ctrl &#43; I Optimize Imports: Ctrl &#43; Alt &#43; O View Source Code: Ctrl &#43; N → Ctrl &#43; F12 Go to Previous Edit Location: Ctrl &#43; Alt &#43; ← Go to Next Edit Location: Ctrl &#43; Alt &#43; → Show Inheritance Tree: Ctrl &#43; H Show Quick Documentation: Ctrl &#43; Q Show UML Diagram: Ctrl &#43; Alt &#43; U Go to Specified Line: Ctrl &#43; G → Enter line number Go to Variable Definition: Ctrl &#43; Alt &#43; B Expand Code Block: Ctrl &#43; Shift &#43; &#43; Collapse Code Block: Ctrl &#43; Shift &#43; - Debug Method Breakpoints Field Breakpoints Conditional Breakpoints Thread Debug Custom Data Views Config Tomcat Create Maven Java Project Create Maven Java Web Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/development-manual/1-development-manual/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5a0ace7f2dc73037e40ceea0eb0d119b5d798dba2da38d9129982a8cf9fa07a5.css" integrity="sha256-WgrOfy3HMDfkDO6g6w0Rm115jboto42RKZgqjPn6B6U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/development-manual/1-development-manual/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
+    integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd"
+    crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
+    integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk"
+    crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        renderMathInElement(document.body, {
+            
+            
+            delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\(', right: '\\)', display: false },
+                { left: '\\[', right: '\\]', display: true }
+            ],
+            
+            throwOnError: false,
+            strict: false
+        });
+    });
+</script>
+
+  
+
+<meta property="og:title" content="Development Manual" />
+<meta property="og:description" content="IDEA Postfix Completion Postfix completion allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.
+&#34;Hello&#34;.var → String s = &#34;Hello&#34;; Live Templates Live Templates are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.
+sout → System.out.println(); Keyboard Shortcuts Show Hint: Alt &#43; Enter Show Parameter Info: Ctrl &#43; P Surround with Selected Code Block: Ctrl &#43; Alt &#43; J Start a New Line: Shift &#43; Enter Start a New Line Before Current: Ctrl &#43; Alt &#43; Enter Show Live Template: Ctrl &#43; J Rename in Batch: Shift &#43; F6 Extract Method: Ctrl &#43; Alt &#43; M Override Methods: Ctrl &#43; O Implement Methods: Ctrl &#43; I Optimize Imports: Ctrl &#43; Alt &#43; O View Source Code: Ctrl &#43; N → Ctrl &#43; F12 Go to Previous Edit Location: Ctrl &#43; Alt &#43; ← Go to Next Edit Location: Ctrl &#43; Alt &#43; → Show Inheritance Tree: Ctrl &#43; H Show Quick Documentation: Ctrl &#43; Q Show UML Diagram: Ctrl &#43; Alt &#43; U Go to Specified Line: Ctrl &#43; G → Enter line number Go to Variable Definition: Ctrl &#43; Alt &#43; B Expand Code Block: Ctrl &#43; Shift &#43; &#43; Collapse Code Block: Ctrl &#43; Shift &#43; - Debug Method Breakpoints Field Breakpoints Conditional Breakpoints Thread Debug Custom Data Views Config Tomcat Create Maven Java Project Create Maven Java Web Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/development-manual/1-development-manual/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-12-24T16:03:23+08:00" />
+<meta property="article:modified_time" content="2024-12-24T16:03:23+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Development Manual"/>
+<meta name="twitter:description" content="IDEA Postfix Completion Postfix completion allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.
+&#34;Hello&#34;.var → String s = &#34;Hello&#34;; Live Templates Live Templates are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.
+sout → System.out.println(); Keyboard Shortcuts Show Hint: Alt &#43; Enter Show Parameter Info: Ctrl &#43; P Surround with Selected Code Block: Ctrl &#43; Alt &#43; J Start a New Line: Shift &#43; Enter Start a New Line Before Current: Ctrl &#43; Alt &#43; Enter Show Live Template: Ctrl &#43; J Rename in Batch: Shift &#43; F6 Extract Method: Ctrl &#43; Alt &#43; M Override Methods: Ctrl &#43; O Implement Methods: Ctrl &#43; I Optimize Imports: Ctrl &#43; Alt &#43; O View Source Code: Ctrl &#43; N → Ctrl &#43; F12 Go to Previous Edit Location: Ctrl &#43; Alt &#43; ← Go to Next Edit Location: Ctrl &#43; Alt &#43; → Show Inheritance Tree: Ctrl &#43; H Show Quick Documentation: Ctrl &#43; Q Show UML Diagram: Ctrl &#43; Alt &#43; U Go to Specified Line: Ctrl &#43; G → Enter line number Go to Variable Definition: Ctrl &#43; Alt &#43; B Expand Code Block: Ctrl &#43; Shift &#43; &#43; Collapse Code Block: Ctrl &#43; Shift &#43; - Debug Method Breakpoints Field Breakpoints Conditional Breakpoints Thread Debug Custom Data Views Config Tomcat Create Maven Java Project Create Maven Java Web Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Development Manual",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/development-manual/1-development-manual/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Development Manual",
+  "name": "Development Manual",
+  "description": "IDEA Postfix Completion Postfix completion allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.\n\u0026#34;Hello\u0026#34;.var → String s = \u0026#34;Hello\u0026#34;; Live Templates Live Templates are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.\nsout → System.out.println(); Keyboard Shortcuts Show Hint: Alt + Enter Show Parameter Info: Ctrl + P Surround with Selected Code Block: Ctrl + Alt + J Start a New Line: Shift + Enter Start a New Line Before Current: Ctrl + Alt + Enter Show Live Template: Ctrl + J Rename in Batch: Shift + F6 Extract Method: Ctrl + Alt + M Override Methods: Ctrl + O Implement Methods: Ctrl + I Optimize Imports: Ctrl + Alt + O View Source Code: Ctrl + N → Ctrl + F12 Go to Previous Edit Location: Ctrl + Alt + ← Go to Next Edit Location: Ctrl + Alt + → Show Inheritance Tree: Ctrl + H Show Quick Documentation: Ctrl + Q Show UML Diagram: Ctrl + Alt + U Go to Specified Line: Ctrl + G → Enter line number Go to Variable Definition: Ctrl + Alt + B Expand Code Block: Ctrl + Shift + + Collapse Code Block: Ctrl + Shift + - Debug Method Breakpoints Field Breakpoints Conditional Breakpoints Thread Debug Custom Data Views Config Tomcat Create Maven Java Project Create Maven Java Web Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects.",
+  "keywords": [
+    "Engineering \u0026 Technology", "Computer Science", "Development Manual"
+  ],
+  "articleBody": "IDEA Postfix Completion Postfix completion allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.\n\"Hello\".var → String s = \"Hello\"; Live Templates Live Templates are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.\nsout → System.out.println(); Keyboard Shortcuts Show Hint: Alt + Enter Show Parameter Info: Ctrl + P Surround with Selected Code Block: Ctrl + Alt + J Start a New Line: Shift + Enter Start a New Line Before Current: Ctrl + Alt + Enter Show Live Template: Ctrl + J Rename in Batch: Shift + F6 Extract Method: Ctrl + Alt + M Override Methods: Ctrl + O Implement Methods: Ctrl + I Optimize Imports: Ctrl + Alt + O View Source Code: Ctrl + N → Ctrl + F12 Go to Previous Edit Location: Ctrl + Alt + ← Go to Next Edit Location: Ctrl + Alt + → Show Inheritance Tree: Ctrl + H Show Quick Documentation: Ctrl + Q Show UML Diagram: Ctrl + Alt + U Go to Specified Line: Ctrl + G → Enter line number Go to Variable Definition: Ctrl + Alt + B Expand Code Block: Ctrl + Shift + + Collapse Code Block: Ctrl + Shift + - Debug Method Breakpoints Field Breakpoints Conditional Breakpoints Thread Debug Custom Data Views Config Tomcat Create Maven Java Project Create Maven Java Web Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects. It follows the concept of Project Object Model (POM), which is defined in an XML file (pom.xml) at the root of the project.\nsettings.xml Configuration SHOW CODE settings.xml ./ ├── bin/ │ ├── m2.conf │ ├── mvn* │ ├── mvn.cmd │ ├── mvnDebug* │ ├── mvnDebug.cmd │ └── mvnyjp* ├── boot/ │ ├── plexus-classworlds-2.7.0.jar │ └── plexus-classworlds.license ├── conf/ │ ├── logging/ │ │ └── simplelogger.properties │ ├── settings.xml # CUSTOMIZE DEFAULT BEHAVIOR IN THIS FILE │ └── toolchains.xml ├── ... The settings.xml file in Maven is typically used to customize the default behavior according to user needs. Common modifications include configuring repository locations, setting up mirrors, and defining profiles.\nSHOW CODE: Configuring Repository Location Configuring Repository Location /Users/signalfish/maven-repository SHOW CODE: Setting Up Mirrors Setting Up Mirrors alimaven aliyun maven http://maven.aliyun.com/nexus/content/groups/public/ central SHOW CODE: Defining Profiles Defining Profiles env-dev target-env dev /path/to/tomcat/instance --\u003e jdk-1.8 true 1.8 1.8 1.8 1.8 jdk-17 true 17 17 17 17 GAVP In Maven, GAVP refers to four key components that are used to uniquely identify and describe an artifact (e.g., WAR, JAR, or POM) in a Maven repository.\nG stands for GroupID, which represents the organization or group responsible for the artifact. It typically follows the reverse domain name convention, such as com.example or dev.signalyu. A stands for ArtifactID, which identifies the specific artifact within the group. It usually matches the project name or module name, such as my-app. V stands for Version, which specifies the version of the artifact, such as 1.0.0. P stands for Packaging, which specifies the type of artifact. It tells Maven what kind of output to expect from the project, such as a JAR file for a library or a WAR file for a web application, such as jar. Common Maven Commands mvn compile: Compiles the source code of the project. mvn test: Compiles the source code, runs unit tests, and reports the results. mvn package: Compiles the source code, runs unit tests, and packages the compiled code into desired artifact. mvn clean: Removes the previously compiled files and generated artifacts. mvn install: Compiles the source code, runs unit tests, packages the compiled code into an artifact, and installs it into local Maven repository. mvn deploy: Compiles the source code, runs unit tests, packages the compiled code into an artifact, and deploys the artifact to a remote repository. Maven Dependency Download Failure When Maven fails to download dependencies, follow these steps to resolve the issue:\nCheck the network connection: Ensure a stable internet connection. If an internal network is used, verify the mirror configuration in settings.xml to ensure it’s correctly set up. Verify the dependency version: Double-check the version of the dependency specified in pom.xml. Clean the local repository: If the previous steps don’t resolve the issue, try cleaning the local Maven repository or deleting the specific dependency directory in the repository. Invalidate caches in the IDE: In IntelliJ IDEA, navigate to File -\u003e Invalidate Caches to clear any cached information that might be causing issues. Then, restart the IntelliJ IDEA. Dependency Inheritence In Maven, dependency inheritance refers to the ability to inherit dependencies from a parent project. This feature enables better management of dependencies in multi-module projects, where a child module can inherit dependency configurations from the parent POM.\nSHOW CODE Parent POM Child POM 4.0.0 com.example parent-project 1.0-SNAPSHOT pom child-project1 child-project2 org.springframework spring-core 5.3.12 org.apache.commons commons-lang3 3.12.0 4.0.0 com.example parent-project 1.0-SNAPSHOT ../pom.xml child-project1 org.springframework spring-core In the above code, The spring-core dependency is inherited from the parent, and the version is automatically resolved by Maven from the parent’s dependencyManagement section. The commons-lang3 dependency from the parent is also inherited, but does not need to be re-declared in the child POM.\nThe difference between dependencyManagement and dependencies is that dependencies directly add dependencies to the project build, meaning they are included in the project’s final artifact. On the other hand, dependencyManagement specifies the version and configuration of dependencies for inheritance in child modules, without directly adding them to the project build.\nGit Backend Development Microservices Architecture Entity Class Design CRUD Create Read Base Attribute ER Diagram SHOW CODE Java @RestController @RequestMapping(value = \"/api/album\") public class BaseCategoryApiController { @Autowired BaseCategoryService baseCategoryService; @GetMapping(\"/category/findAttribute/{category1Id}\") public Result",
+  "wordCount" : "2509",
+  "inLanguage": "en",
+  "datePublished": "2024-12-24T16:03:23+08:00",
+  "dateModified": "2024-12-24T16:03:23+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/development-manual/1-development-manual/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Development Manual
+    </h1>
+    <div class="post-meta"><span title='2024-12-24 16:03:23 +0800 HKT'>Dec 24 2024</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#idea" aria-label="IDEA">IDEA</a><ul>
+                        
+                <li>
+                    <a href="#postfix-completion" aria-label="Postfix Completion">Postfix Completion</a></li>
+                <li>
+                    <a href="#live-templates" aria-label="Live Templates">Live Templates</a></li>
+                <li>
+                    <a href="#keyboard-shortcuts" aria-label="Keyboard Shortcuts">Keyboard Shortcuts</a></li>
+                <li>
+                    <a href="#debug" aria-label="Debug">Debug</a><ul>
+                        
+                <li>
+                    <a href="#method-breakpoints" aria-label="Method Breakpoints">Method Breakpoints</a></li>
+                <li>
+                    <a href="#field-breakpoints" aria-label="Field Breakpoints">Field Breakpoints</a></li>
+                <li>
+                    <a href="#conditional-breakpoints" aria-label="Conditional Breakpoints">Conditional Breakpoints</a></li>
+                <li>
+                    <a href="#thread-debug" aria-label="Thread Debug">Thread Debug</a></li>
+                <li>
+                    <a href="#custom-data-views" aria-label="Custom Data Views">Custom Data Views</a></li>
+                <li>
+                    <a href="#config-tomcat" aria-label="Config Tomcat">Config Tomcat</a></li>
+                <li>
+                    <a href="#create-maven-java-project" aria-label="Create Maven Java Project">Create Maven Java Project</a></li>
+                <li>
+                    <a href="#create-maven-java-web" aria-label="Create Maven Java Web">Create Maven Java Web</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#maven" aria-label="Maven">Maven</a><ul>
+                        
+                <li>
+                    <a href="#introduction-to-maven" aria-label="Introduction to Maven">Introduction to Maven</a></li>
+                <li>
+                    <a href="#settingsxml-configuration" aria-label="settings.xml Configuration">settings.xml Configuration</a></li>
+                <li>
+                    <a href="#gavp" aria-label="GAVP">GAVP</a></li>
+                <li>
+                    <a href="#common-maven-commands" aria-label="Common Maven Commands">Common Maven Commands</a></li>
+                <li>
+                    <a href="#maven-dependency-download-failure" aria-label="Maven Dependency Download Failure">Maven Dependency Download Failure</a></li>
+                <li>
+                    <a href="#dependency-inheritence" aria-label="Dependency Inheritence">Dependency Inheritence</a></li></ul>
+                </li>
+                <li>
+                    <a href="#git" aria-label="Git">Git</a></li>
+                <li>
+                    <a href="#backend-development" aria-label="Backend Development">Backend Development</a><ul>
+                        
+                <li>
+                    <a href="#microservices-architecture" aria-label="Microservices Architecture">Microservices Architecture</a></li>
+                <li>
+                    <a href="#entity-class-design" aria-label="Entity Class Design">Entity Class Design</a></li>
+                <li>
+                    <a href="#crud" aria-label="CRUD">CRUD</a><ul>
+                        
+                <li>
+                    <a href="#create" aria-label="Create">Create</a></li>
+                <li>
+                    <a href="#read" aria-label="Read">Read</a></li>
+                <li>
+                    <a href="#update" aria-label="Update">Update</a></li>
+                <li>
+                    <a href="#delete" aria-label="Delete">Delete</a></li></ul>
+                </li>
+                <li>
+                    <a href="#database" aria-label="Database">Database</a><ul>
+                        
+                <li>
+                    <a href="#using-views" aria-label="Using Views">Using Views</a></li>
+                <li>
+                    <a href="#grouping" aria-label="Grouping">Grouping</a></li></ul>
+                </li>
+                <li>
+                    <a href="#caching" aria-label="Caching">Caching</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="idea">IDEA<a hidden class="anchor" aria-hidden="true" href="#idea">#</a></h1>
+<h2 id="postfix-completion">Postfix Completion<a hidden class="anchor" aria-hidden="true" href="#postfix-completion">#</a></h2>
+<blockquote>
+<p><strong>Postfix completion</strong> allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#e6db74">&#34;Hello&#34;</span>.<span style="color:#a6e22e">var</span> <span style="color:#960050;background-color:#1e0010">→</span> String s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello&#34;</span>;
+</span></span></code></pre></div><hr>
+<h2 id="live-templates">Live Templates<a hidden class="anchor" aria-hidden="true" href="#live-templates">#</a></h2>
+<blockquote>
+<p><strong>Live Templates</strong> are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>sout <span style="color:#960050;background-color:#1e0010">→</span> System.<span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">println</span>();
+</span></span></code></pre></div><hr>
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts<a hidden class="anchor" aria-hidden="true" href="#keyboard-shortcuts">#</a></h2>
+<ul>
+<li><strong>Show Hint</strong>: <code>Alt + Enter</code></li>
+<li><strong>Show Parameter Info</strong>: <code>Ctrl + P</code></li>
+<li><strong>Surround with Selected Code Block</strong>: <code>Ctrl + Alt + J</code></li>
+<li><strong>Start a New Line</strong>: <code>Shift + Enter</code></li>
+<li><strong>Start a New Line Before Current</strong>: <code>Ctrl + Alt + Enter</code></li>
+<li><strong>Show Live Template</strong>: <code>Ctrl + J</code></li>
+<li><strong>Rename in Batch</strong>: <code>Shift + F6</code></li>
+<li><strong>Extract Method</strong>: <code>Ctrl + Alt + M</code></li>
+<li><strong>Override Methods</strong>: <code>Ctrl + O</code></li>
+<li><strong>Implement Methods</strong>: <code>Ctrl + I</code></li>
+<li><strong>Optimize Imports</strong>: <code>Ctrl + Alt + O</code></li>
+<li><strong>View Source Code</strong>: <code>Ctrl + N</code> → <code>Ctrl + F12</code></li>
+<li><strong>Go to Previous Edit Location</strong>: <code>Ctrl + Alt + ←</code></li>
+<li><strong>Go to Next Edit Location</strong>: <code>Ctrl + Alt + →</code></li>
+<li><strong>Show Inheritance Tree</strong>: <code>Ctrl + H</code></li>
+<li><strong>Show Quick Documentation</strong>: <code>Ctrl + Q</code></li>
+<li><strong>Show UML Diagram</strong>: <code>Ctrl + Alt + U</code></li>
+<li><strong>Go to Specified Line</strong>: <code>Ctrl + G</code> → Enter line number</li>
+<li><strong>Go to Variable Definition</strong>: <code>Ctrl + Alt + B</code></li>
+<li><strong>Expand Code Block</strong>: <code>Ctrl + Shift + +</code></li>
+<li><strong>Collapse Code Block</strong>: <code>Ctrl + Shift + -</code></li>
+</ul>
+<hr>
+<h2 id="debug">Debug<a hidden class="anchor" aria-hidden="true" href="#debug">#</a></h2>
+<h3 id="method-breakpoints">Method Breakpoints<a hidden class="anchor" aria-hidden="true" href="#method-breakpoints">#</a></h3>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/dki5F1Elus4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+<hr>
+<h3 id="field-breakpoints">Field Breakpoints<a hidden class="anchor" aria-hidden="true" href="#field-breakpoints">#</a></h3>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/_X95mYm66yM" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+<hr>
+<h3 id="conditional-breakpoints">Conditional Breakpoints<a hidden class="anchor" aria-hidden="true" href="#conditional-breakpoints">#</a></h3>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/Wn7keuN_17E" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+<hr>
+<h3 id="thread-debug">Thread Debug<a hidden class="anchor" aria-hidden="true" href="#thread-debug">#</a></h3>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/7Fbt2cKSqoA" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+<hr>
+<h3 id="custom-data-views">Custom Data Views<a hidden class="anchor" aria-hidden="true" href="#custom-data-views">#</a></h3>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/V6of2U8_8yQ" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+<hr>
+<h3 id="config-tomcat">Config Tomcat<a hidden class="anchor" aria-hidden="true" href="#config-tomcat">#</a></h3>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/spto4kcMHUI" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+<hr>
+<h3 id="create-maven-java-project">Create Maven Java Project<a hidden class="anchor" aria-hidden="true" href="#create-maven-java-project">#</a></h3>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/rUZZTCTpHCQ" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+<hr>
+<h3 id="create-maven-java-web">Create Maven Java Web<a hidden class="anchor" aria-hidden="true" href="#create-maven-java-web">#</a></h3>
+
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+          <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/h6Ld1N9ZzX8" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+        </div>
+<hr>
+<h1 id="maven">Maven<a hidden class="anchor" aria-hidden="true" href="#maven">#</a></h1>
+<h2 id="introduction-to-maven">Introduction to Maven<a hidden class="anchor" aria-hidden="true" href="#introduction-to-maven">#</a></h2>
+<blockquote>
+<p><strong>Maven</strong> is a <em><strong>build automation</strong></em> and <em><strong>project management</strong></em> tool primarily used for Java projects. It follows the concept of <strong>Project Object Model (POM)</strong>, which is defined in an XML file (<code>pom.xml</code>) at the root of the project.</p>
+</blockquote>
+<hr>
+<h2 id="settingsxml-configuration"><code>settings.xml</code> Configuration<a hidden class="anchor" aria-hidden="true" href="#settingsxml-configuration">#</a></h2>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">settings.xml</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >./
+├── bin/
+│   ├── m2.conf
+│   ├── mvn*
+│   ├── mvn.cmd
+│   ├── mvnDebug*
+│   ├── mvnDebug.cmd
+│   └── mvnyjp*
+├── boot/
+│   ├── plexus-classworlds-2.7.0.jar
+│   └── plexus-classworlds.license
+├── conf/
+│   ├── logging/
+│   │   └── simplelogger.properties
+│   ├── settings.xml  # CUSTOMIZE DEFAULT BEHAVIOR IN THIS FILE
+│   └── toolchains.xml
+├── ...
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<blockquote>
+<p>The <code>settings.xml</code> file in Maven is typically used to customize the default behavior according to user needs. Common modifications include configuring <strong>repository locations</strong>, setting up <strong>mirrors</strong>, and defining <strong>profiles</strong>.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Configuring Repository Location</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Configuring Repository Location</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml" >&lt;!-- localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ${user.home}/.m2/repository
+  &lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;
+  --&gt;
+
+&lt;localRepository&gt;/Users/signalfish/maven-repository&lt;/localRepository&gt;
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Setting Up Mirrors</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Setting Up Mirrors</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-bash" data-lang="bash" >&lt;mirrors&gt;
+    &lt;!-- mirror
+        | Specifies a repository mirror site to use instead of a given repository. The repository that
+        | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used
+        | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.
+        |
+    &lt;mirror&gt;
+        &lt;id&gt;mirrorId&lt;/id&gt;
+        &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;
+        &lt;name&gt;Human Readable Name for this Mirror.&lt;/name&gt;
+        &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;
+    &lt;/mirror&gt;
+        --&gt;
+
+    &lt;mirror&gt;
+        &lt;id&gt;alimaven&lt;/id&gt;
+        &lt;name&gt;aliyun maven&lt;/name&gt;
+        &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+        &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+    &lt;/mirror&gt;
+&lt;/mirrors&gt;
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE: Defining Profiles</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Defining Profiles</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml" >&lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;env-dev&lt;/id&gt;
+
+      &lt;activation&gt;
+        &lt;property&gt;
+          &lt;name&gt;target-env&lt;/name&gt;
+          &lt;value&gt;dev&lt;/value&gt;
+        &lt;/property&gt;
+      &lt;/activation&gt;
+
+      &lt;properties&gt;
+        &lt;tomcatPath&gt;/path/to/tomcat/instance&lt;/tomcatPath&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+    --&gt;
+
+    &lt;profile&gt;
+        &lt;id&gt;jdk-1.8&lt;/id&gt;
+        &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+        &lt;jdk&gt;1.8&lt;/jdk&gt;
+        &lt;/activation&gt;
+        &lt;properties&gt;
+        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;
+        &lt;maven.compiler.compilerVersion&gt;1.8&lt;/maven.compiler.compilerVersion&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+
+    &lt;profile&gt;
+        &lt;id&gt;jdk-17&lt;/id&gt;
+        &lt;activation&gt;
+        &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+        &lt;jdk&gt;17&lt;/jdk&gt;
+        &lt;/activation&gt;
+        &lt;properties&gt;
+        &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+        &lt;maven.compiler.compilerVersion&gt;17&lt;/maven.compiler.compilerVersion&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<hr>
+<h2 id="gavp">GAVP<a hidden class="anchor" aria-hidden="true" href="#gavp">#</a></h2>
+<blockquote>
+<p>In Maven, <strong>GAVP</strong> refers to four key components that are used to uniquely identify and describe an artifact (e.g., WAR, JAR, or POM) in a Maven repository.</p>
+</blockquote>
+<ul>
+<li><strong>G</strong> stands for <strong>GroupID</strong>, which represents the organization or group responsible for the artifact. It typically follows the reverse domain name convention, such as <code>&lt;groupId&gt;com.example&lt;/groupId&gt;</code> or <code>&lt;groupId&gt;dev.signalyu&lt;/groupId&gt;</code>.</li>
+<li><strong>A</strong> stands for <strong>ArtifactID</strong>, which identifies the specific artifact within the group. It usually matches the project name or module name, such as <code>&lt;artifactId&gt;my-app&lt;/artifactId&gt;</code>.</li>
+<li><strong>V</strong> stands for <strong>Version</strong>, which specifies the version of the artifact, such as <code>&lt;version&gt;1.0.0&lt;/version&gt;</code>.</li>
+<li><strong>P</strong> stands for <strong>Packaging</strong>, which specifies the type of artifact. It tells Maven what kind of output to expect from the project, such as a JAR file for a library or a WAR file for a web application, such as <code>&lt;packaging&gt;jar&lt;/packaging&gt;</code>.</li>
+</ul>
+<hr>
+<h2 id="common-maven-commands">Common Maven Commands<a hidden class="anchor" aria-hidden="true" href="#common-maven-commands">#</a></h2>
+<ul>
+<li><code>mvn compile</code>: Compiles the source code of the project.</li>
+<li><code>mvn test</code>: Compiles the source code, runs unit tests, and reports the results.</li>
+<li><code>mvn package</code>: Compiles the source code, runs unit tests, and packages the compiled code into desired artifact.</li>
+<li><code>mvn clean</code>: Removes the previously compiled files and generated artifacts.</li>
+<li><code>mvn install</code>: Compiles the source code, runs unit tests, packages the compiled code into an artifact, and installs it into <em>local Maven repository</em>.</li>
+<li><code>mvn deploy</code>: Compiles the source code, runs unit tests, packages the compiled code into an artifact, and deploys the artifact to a <em>remote repository</em>.</li>
+</ul>
+<hr>
+<h2 id="maven-dependency-download-failure">Maven Dependency Download Failure<a hidden class="anchor" aria-hidden="true" href="#maven-dependency-download-failure">#</a></h2>
+<blockquote>
+<p>When Maven fails to download dependencies, follow these steps to resolve the issue:</p>
+</blockquote>
+<ol>
+<li><strong>Check the network connection</strong>: Ensure a stable internet connection. If an internal network is used, verify the mirror configuration in <code>settings.xml</code> to ensure it&rsquo;s correctly set up.</li>
+<li><strong>Verify the dependency version</strong>: Double-check the version of the dependency specified in <code>pom.xml</code>.</li>
+<li><strong>Clean the local repository</strong>: If the previous steps don&rsquo;t resolve the issue, try cleaning the local Maven repository or deleting the specific dependency directory in the repository.</li>
+<li><strong>Invalidate caches in the IDE</strong>: In IntelliJ IDEA, navigate to <code>File -&gt; Invalidate Caches</code> to clear any cached information that might be causing issues. Then, restart the IntelliJ IDEA.</li>
+</ol>
+<hr>
+<h2 id="dependency-inheritence">Dependency Inheritence<a hidden class="anchor" aria-hidden="true" href="#dependency-inheritence">#</a></h2>
+<blockquote>
+<p>In Maven, <strong>dependency inheritance</strong> refers to the ability to inherit dependencies from a parent project. This feature enables better management of dependencies in multi-module projects, where a child module can inherit dependency configurations from the parent POM.</p>
+</blockquote>
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Parent POM</button>
+
+
+
+<button class="tab_btn ">Child POM</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-xml" data-lang="xml" >&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;parent-project&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;pom&lt;/packaging&gt;
+
+    &lt;modules&gt;
+        &lt;module&gt;child-project1&lt;/module&gt;
+        &lt;module&gt;child-project2&lt;/module&gt;
+    &lt;/modules&gt;
+
+    &lt;dependencyManagement&gt;
+        &lt;dependencies&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+                &lt;version&gt;5.3.12&lt;/version&gt;
+            &lt;/dependency&gt;
+        &lt;/dependencies&gt;
+    &lt;/dependencyManagement&gt;
+    
+    &lt;dependencies&gt;
+        &lt;!-- These dependencies can be inherited by child projects --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+            &lt;artifactId&gt;commons-lang3&lt;/artifactId&gt;
+            &lt;version&gt;3.12.0&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-xml" data-lang="xml" >&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;parent&gt;
+        &lt;groupId&gt;com.example&lt;/groupId&gt;
+        &lt;artifactId&gt;parent-project&lt;/artifactId&gt;
+        &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+        &lt;relativePath&gt;../pom.xml&lt;/relativePath&gt;  &lt;!-- Path to the parent POM --&gt;
+    &lt;/parent&gt;
+
+    &lt;artifactId&gt;child-project1&lt;/artifactId&gt;
+
+    &lt;dependencies&gt;
+        &lt;!-- Child module can use the dependency inherited from the parent --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<blockquote>
+<p>In the above code, The <code>spring-core</code> dependency is inherited from the parent, and the version is automatically resolved by Maven from the parent’s <code>dependencyManagement</code> section. The <code>commons-lang3</code> dependency from the parent is also inherited, but does not need to be re-declared in the child POM.</p>
+</blockquote>
+<blockquote>
+<p>The difference between <code>dependencyManagement</code> and <code>dependencies</code> is that <strong><code>dependencies</code></strong> directly add dependencies to the project build, meaning they are included in the project&rsquo;s final artifact. On the other hand, <strong><code>dependencyManagement</code></strong> specifies the version and configuration of dependencies for inheritance in child modules, without directly adding them to the project build.</p>
+</blockquote>
+<hr>
+<h1 id="git">Git<a hidden class="anchor" aria-hidden="true" href="#git">#</a></h1>
+<h1 id="backend-development">Backend Development<a hidden class="anchor" aria-hidden="true" href="#backend-development">#</a></h1>
+<h2 id="microservices-architecture">Microservices Architecture<a hidden class="anchor" aria-hidden="true" href="#microservices-architecture">#</a></h2>
+<h2 id="entity-class-design">Entity Class Design<a hidden class="anchor" aria-hidden="true" href="#entity-class-design">#</a></h2>
+<h2 id="crud">CRUD<a hidden class="anchor" aria-hidden="true" href="#crud">#</a></h2>
+<h3 id="create">Create<a hidden class="anchor" aria-hidden="true" href="#create">#</a></h3>
+<hr>
+<h3 id="read">Read<a hidden class="anchor" aria-hidden="true" href="#read">#</a></h3>
+<figure class="align-center ">
+    
+    <img src="/img/development-manual/3-base-attribute-er-diagram.png#center" width="100%" height="100%"/> <figcaption>
+            Base Attribute ER Diagram
+        </figcaption>
+</figure>
+
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@RestController
+@RequestMapping(value = &quot;/api/album&quot;)
+public class BaseCategoryApiController {
+
+    @Autowired
+    BaseCategoryService baseCategoryService;
+
+    @GetMapping(&quot;/category/findAttribute/{category1Id}&quot;)
+    public Result&lt;List&lt;BaseAttribute&gt;&gt; getAttributeByCategory1Id(@PathVariable @Min(1) Long category1Id) {
+        List&lt;BaseAttribute&gt; list = baseCategoryService.getAttributeByCategory1Id(category1Id);
+        return Result.ok(list);
+    }
+}
+
+public interface BaseCategoryService extends IService&lt;BaseCategory1&gt; {
+
+    List&lt;BaseAttribute&gt; getAttributeByCategory1Id(Long category1Id);
+}
+
+public class BaseCategoryServiceImpl extends ServiceImpl&lt;BaseCategory1Mapper, BaseCategory1&gt; implements BaseCategoryService {
+    @Autowired
+    private BaseAttributeMapper baseAttributeMapper;
+
+    public List&lt;BaseAttribute&gt; getAttributeByCategory1Id(Long category1Id) {
+        return baseAttributeMapper.getAttributeByCategory1Id(category1Id);
+    }
+}
+
+@Mapper
+public interface BaseAttributeMapper extends BaseMapper&lt;BaseAttribute&gt; {
+
+    List&lt;BaseAttribute&gt; getAttributeByCategory1Id(@Param(&quot;category1Id&quot;) Long category1Id);
+}
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot; &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot; &gt;
+
+&lt;mapper namespace=&quot;dev.signalyu.tingshu.album.mapper.BaseAttributeMapper&quot;&gt;
+    &lt;resultMap id=&quot;baseAttributeMap&quot; type=&quot;dev.signalyu.tingshu.model.album.BaseAttribute&quot; autoMapping=&quot;true&quot;&gt;
+        &lt;id column=&quot;id&quot; property=&quot;id&quot; /&gt;
+        &lt;collection property=&quot;attributeValueList&quot; ofType=&quot;dev.signalyu.tingshu.model.album.BaseAttributeValue&quot; autoMapping=&quot;true&quot;&gt;
+            &lt;id column=&quot;base_attribute_value_id&quot; property=&quot;id&quot; /&gt;
+        &lt;/collection&gt;
+    &lt;/resultMap&gt;
+
+    &lt;select id=&quot;getAttributeByCategory1Id&quot; resultMap=&quot;baseAttributeMap&quot;&gt;
+        select ba.id,
+               ba.category1_id,
+               ba.attribute_name,
+               bav.id as base_attribute_value_id,
+               bav.value_name
+        from base_attribute as ba
+                 left join base_attribute_value bav
+                           on ba.id = bav.attribute_id
+        where category1_id = #{category1Id}
+          and ba.is_deleted = 0;
+    &lt;/select&gt;
+&lt;/mapper&gt;
+
+@Data
+@TableName(&quot;base_attribute&quot;)
+public class BaseAttribute extends BaseEntity {
+
+    private static final long serialVersionUID = 1L;
+
+    @Schema(description = &quot;Category 1 ID&quot;)
+    @TableField(&quot;category1_id&quot;)
+    private Long category1Id;
+
+    @Schema(description = &quot;Attribute display name&quot;)
+    @TableField(&quot;attribute_name&quot;)
+    private String attributeName;
+
+    @TableField(exist = false)
+    private List&lt;BaseAttributeValue&gt; attributeValueList;
+}
+
+@Data
+@TableName("base_attribute_value")
+public class BaseAttributeValue extends BaseEntity {
+
+    private static final long serialVersionUID = 1L;
+
+    @Schema(description = "Attribute ID")
+    @TableField("attribute_id")
+    private Long attributeId;
+
+    @Schema(description = "Attribute value name")
+    @TableField("value_name")
+    private String valueName;
+}
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+
+
+<p><details >
+  <summary markdown="span">SHOW RESULT SET</summary>
+  <table>
+<thead>
+<tr>
+<th>id</th>
+<th>category1_id</th>
+<th>attribute_name</th>
+<th>base_attribute_value_id</th>
+<th>value_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>Audiobook Type</td>
+<td>1</td>
+<td>Male-oriented Novels</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>Audiobook Type</td>
+<td>2</td>
+<td>Female-oriented Novels</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>Payment Type</td>
+<td>3</td>
+<td>Paid</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2</td>
+<td>Payment Type</td>
+<td>4</td>
+<td>Free</td>
+</tr>
+</tbody>
+</table>
+
+</details></p>
+
+
+
+<p><details >
+  <summary markdown="span">SHOW NOTES</summary>
+  <ul>
+<li><code>namespace</code>: The <strong>namespace</strong> defines the Java interface that the XML mapper is associated with. It is used to uniquely identify the mapper in the context of MyBatis. In the above code, <code>dev.signalyu.tingshu.album.mapper.BaseAttributeMapper</code> represents the fully qualified name of the Java interface that the mapper belongs to. This means that the methods declared in the interface <code>BaseAttributeMapper</code> will use the SQL statements defined in the XML file.</li>
+<li><code>resultMap/collection/autoMapping</code>: The <strong>resultMap</strong> is used to define how the <em><strong>result set</strong></em> from a query is mapped to Java objects. The <strong>collection</strong> element is used to map a collection of objects (e.g., <code>List</code>, <code>Set</code>) that are related to the main object being mapped. The <code>autoMapping</code> attribute tells MyBatis to automatically map the fields of the result set to the properties of the Java object. In the above code, <strong>The <code>id=&quot;baseAttributeMap&quot;</code> defines a mapping for <code>BaseAttribute</code> class, where the columns of the result set are mapped to the fields of the BaseAttribute class.</strong>
+<ul>
+<li>The <code>column=&quot;id&quot;</code> in result set maps to the <code>property=&quot;id&quot;</code> field in <code>BaseAttribute</code>.</li>
+<li>The <code>column=&quot;base_attribute_value_id&quot;</code> inside the <code>collection</code> tag maps to the <code>property=&quot;id&quot;</code> field in <code>BaseAttributeValue</code>. <img loading="lazy" src="/img/development-manual/2-mybatis-resultmap.png" alt="Mybatis - Mapping Between of Result Set and Corresbonding Property of Java Object"  />
+</li>
+</ul>
+</li>
+<li>The <code>select</code> statement inside the mapper doesn&rsquo;t query <code>attribute_id</code> field. When mybatis performs mapping, the <code>attributeId</code> in <code>BaseAttributeValue</code> objects will be <code>null</code>.</li>
+</ul>
+
+</details></p>
+
+<hr>
+<h3 id="update">Update<a hidden class="anchor" aria-hidden="true" href="#update">#</a></h3>
+<hr>
+<h3 id="delete">Delete<a hidden class="anchor" aria-hidden="true" href="#delete">#</a></h3>
+<hr>
+<h2 id="database">Database<a hidden class="anchor" aria-hidden="true" href="#database">#</a></h2>
+<h3 id="using-views">Using Views<a hidden class="anchor" aria-hidden="true" href="#using-views">#</a></h3>
+<blockquote>
+<p>Views are useful in several scenarios, including when complex queries are frequently used or when providing controlled access to specific data for security purposes.</p>
+</blockquote>
+<figure class="align-center ">
+    
+    <img src="/img/development-manual/1-using-views.png#center" width="100%" height="100%"/> <figcaption>
+            Category ER Diagram
+        </figcaption>
+</figure>
+
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">SQL</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-sql" data-lang="sql" >CREATE OR REPLACE VIEW base_category_view AS
+SELECT
+    bc3.id,
+    bc1.id category1_id,
+    bc1.name category1_name,
+    bc2.id category2_id,
+    bc2.name category2_name,
+    bc3.id category3_id,
+    bc3.name category3_name,
+    bc3.is_deleted,
+    bc3.create_time,
+    bc3.update_time
+FROM base_category1 bc1  
+LEFT JOIN base_category2 bc2 ON bc2.category1_id = bc1.id 
+LEFT JOIN base_category3 bc3 ON bc3.category2_id = bc2.id;
+
+-- Basic query
+SELECT * FROM base_category_view;
+
+-- Filtered query
+SELECT category1_name, category2_name, category3_name 
+FROM base_category_view 
+WHERE is_deleted = 0;
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h3 id="grouping">Grouping<a hidden class="anchor" aria-hidden="true" href="#grouping">#</a></h3>
+
+
+<p><details >
+  <summary markdown="span">Show Data</summary>
+  <table>
+<thead>
+<tr>
+<th>category1_id</th>
+<th>category1_name</th>
+<th>category2_id</th>
+<th>category2_name</th>
+<th>category3_id</th>
+<th>category3_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>101</td>
+<td>Music Effects</td>
+<td>1001</td>
+<td>Hypnotic Music</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>101</td>
+<td>Music Effects</td>
+<td>1002</td>
+<td>Relaxation Music</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>101</td>
+<td>Music Effects</td>
+<td>1003</td>
+<td>Energizing Music</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>101</td>
+<td>Music Effects</td>
+<td>1004</td>
+<td>Prenatal Music</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>101</td>
+<td>Music Effects</td>
+<td>1005</td>
+<td>Workout Music</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>101</td>
+<td>Music Effects</td>
+<td>1006</td>
+<td>Leisure Music</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>102</td>
+<td>Course Guidance</td>
+<td>1007</td>
+<td>Sleep Assistance Guide</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>102</td>
+<td>Course Guidance</td>
+<td>1008</td>
+<td>Relaxation Guide</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>102</td>
+<td>Course Guidance</td>
+<td>1009</td>
+<td>Focus Guide</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>102</td>
+<td>Course Guidance</td>
+<td>1010</td>
+<td>Children Sleep Guide</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>102</td>
+<td>Course Guidance</td>
+<td>1011</td>
+<td>Other</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>103</td>
+<td>Host Music Show</td>
+<td>1012</td>
+<td>Classic Music Recommendation</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>103</td>
+<td>Host Music Show</td>
+<td>1013</td>
+<td>Hot Song Roundup</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>103</td>
+<td>Host Music Show</td>
+<td>1014</td>
+<td>Cover Songs</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>103</td>
+<td>Host Music Show</td>
+<td>1015</td>
+<td>Music Education</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Music</td>
+<td>103</td>
+<td>Host Music Show</td>
+<td>1016</td>
+<td>Music Stories</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1018</td>
+<td>Military Novels</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1019</td>
+<td>Sports Novels</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1020</td>
+<td>Alternate Dimensions</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1021</td>
+<td>Fantasy</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1022</td>
+<td>Suspense &amp; Paranormal</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1023</td>
+<td>Martial Arts</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1024</td>
+<td>Urban</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1025</td>
+<td>Immortal Heroes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1026</td>
+<td>Fantasy Fiction</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1027</td>
+<td>Historical Novels</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1028</td>
+<td>Game Novels</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>104</td>
+<td>Male Frequency Novels</td>
+<td>1029</td>
+<td>Science Fiction</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>105</td>
+<td>Female Frequency Novels</td>
+<td>1030</td>
+<td>Fantasy Romance</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>105</td>
+<td>Female Frequency Novels</td>
+<td>1031</td>
+<td>Romantic Youth</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>105</td>
+<td>Female Frequency Novels</td>
+<td>1032</td>
+<td>Modern Romance</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Audiobook</td>
+<td>105</td>
+<td>Female Frequency Novels</td>
+<td>1033</td>
+<td>Ancient Romance</td>
+</tr>
+</tbody>
+</table>
+
+</details></p>
+
+<head>
+    <style>
+         
+        .collapsibleContainer {
+            margin: 20px 0;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+         
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="collapsibleContainer">
+    <details>
+        <summary>SHOW CODE</summary>
+        <div>
+            
+<link rel="stylesheet" href="/css/tabbed_code.css">
+
+
+<div class="code_block_container">
+    
+<div class="tabs">
+    
+
+
+
+<button class="tab_btn active">Java</button>
+
+
+
+<button class="tab_btn ">Json</button>
+
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block active">
+        <pre><code class="language-java" data-lang="java" >@RestController
+@RequestMapping(value = &quot;/api/album&quot;)
+public class BaseCategoryApiController {
+
+    @Autowired
+    private BaseCategoryService baseCategoryService;
+
+    @GetMapping(&quot;/category/getBaseCategoryList&quot;)
+    public Result&lt;List&lt;JSONObject&gt;&gt; getBaseCategoryList() {
+        List&lt;JSONObject&gt; list = baseCategoryService.getBaseCategoryList();
+        return Result.ok(list);
+    }
+}
+
+public interface BaseCategoryService extends IService&lt;BaseCategory1&gt; {
+    List&lt;JSONObject&gt; getBaseCategoryList();
+}
+
+@Service
+public class BaseCategoryServiceImpl extends ServiceImpl&lt;BaseCategory1Mapper, BaseCategory1&gt; implements BaseCategoryService {
+
+    @Autowired
+    private BaseCategory1Mapper baseCategory1Mapper;
+
+    @Autowired
+    private BaseCategory2Mapper baseCategory2Mapper;
+
+    @Autowired
+    private BaseCategory3Mapper baseCategory3Mapper;
+
+    @Autowired
+    private BaseCategoryViewMapper baseCategoryViewMapper;
+
+    @Override
+    public List&lt;JSONObject&gt; getBaseCategoryList() {
+        // Create target collection
+        List&lt;JSONObject&gt; allList = new ArrayList&lt;&gt;();
+
+        // Query all category data from view
+        List&lt;BaseCategoryView&gt; allCategoryList = baseCategoryViewMapper.selectList(null);
+
+        // Process level 1 categories - group by level 1 category ID
+        // Using Stream to group into Map where key=level1Id, value=list of categories
+        Map&lt;Long, List&lt;BaseCategoryView&gt;&gt; category1Map =
+                allCategoryList.stream()
+                        .collect(Collectors.groupingBy(BaseCategoryView::getCategory1Id));
+        
+        if (CollectionUtil.isNotEmpty(category1Map)) {
+            for (Map.Entry&lt;Long, List&lt;BaseCategoryView&gt;&gt; entry1 : category1Map.entrySet()) {
+                // Process each level 1 category
+                Long category1Id = entry1.getKey();
+                String category1Name = entry1.getValue().get(0).getCategory1Name();
+                
+                // Build level 1 category JSON object
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put(&quot;categoryId&quot;, category1Id);
+                jsonObject1.put(&quot;categoryName&quot;, category1Name);
+                
+                // Process level 2 categories within current level 1 category
+                Map&lt;Long, List&lt;BaseCategoryView&gt;&gt; category2Map = entry1.getValue().stream()
+                        .collect(Collectors.groupingBy(BaseCategoryView::getCategory2Id));
+                
+                if (CollectionUtil.isNotEmpty(category2Map)) {
+                    List&lt;JSONObject&gt; jsonObject2List = new ArrayList&lt;&gt;();
+                    
+                    for (Map.Entry&lt;Long, List&lt;BaseCategoryView&gt;&gt; entry2 : category2Map.entrySet()) {
+                        // Get level 2 category ID and name
+                        Long category2Id = entry2.getKey();
+                        String category2Name = entry2.getValue().get(0).getCategory2Name();
+                        
+                        // Build level 2 category JSON object
+                        JSONObject jsonObject2 = new JSONObject();
+                        jsonObject2.put(&quot;categoryId&quot;, category2Id);
+                        jsonObject2.put(&quot;categoryName&quot;, category2Name);
+                        
+                        // Process level 3 categories within current level 2 category
+                        List&lt;JSONObject&gt; jsonObject3List = new ArrayList&lt;&gt;();
+                        for (BaseCategoryView baseCategoryView : entry2.getValue()) {
+                            // Get level 3 category ID and name
+                            Long category3Id = baseCategoryView.getCategory3Id();
+                            String category3Name = baseCategoryView.getCategory3Name();
+                            
+                            // Build level 3 category JSON object
+                            JSONObject jsonObject3 = new JSONObject();
+                            jsonObject3.put(&quot;categoryId&quot;, category3Id);
+                            jsonObject3.put(&quot;categoryName&quot;, category3Name);
+                            jsonObject3List.add(jsonObject3);
+                        }
+                        
+                        // Add level 3 categories to level 2 object's &quot;categoryChild&quot;
+                        jsonObject2.put(&quot;categoryChild&quot;, jsonObject3List);
+                        jsonObject2List.add(jsonObject2);
+                    }
+                    
+                    // Add level 2 categories to level 1 object's &quot;categoryChild&quot;
+                    jsonObject1.put(&quot;categoryChild&quot;, jsonObject2List);
+                }
+                
+                // Add level 1 category to final result list
+                allList.add(jsonObject1);
+            }
+        }
+        return allList;
+    }
+}
+
+@Mapper
+public interface BaseCategoryViewMapper extends BaseMapper&lt;BaseCategoryView&gt; {
+
+}
+</code></pre>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css"
+    integrity="sha512-Vj6gPCk8EZlqnoveEyuGyYaWZ1+jyjMPg8g4shwyyNlRQl6d3L9At02ZHQr5K6s5duZl/+YKMnM3/8pDhoUphg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/java.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+
+
+
+
+<div class="code_blocks">
+    <div class="code_block ">
+        <pre><code class="language-json" data-lang="json" >[
+  {
+    "categoryName": "Music",
+    "categoryId": 1,
+    "categoryChild": [
+      {
+        "categoryName": "Music & Sound Effects",
+        "categoryId": 101,
+        "categoryChild": [
+          {"categoryName": "Hypnotic Music", "categoryId": 1001},
+          {"categoryName": "Relaxation Music", "categoryId": 1002},
+          {"categoryName": "Energizing Music", "categoryId": 1003},
+          {"categoryName": "Prenatal Music", "categoryId": 1004},
+          {"categoryName": "Workout Music", "categoryId": 1005},
+          {"categoryName": "Leisure Music", "categoryId": 1006}
+        ]
+      },
+      {
+        "categoryName": "Guided Courses",
+        "categoryId": 102,
+        "categoryChild": [
+          {"categoryName": "Sleep Guidance", "categoryId": 1007},
+          {"categoryName": "Relaxation Guidance", "categoryId": 1008},
+          {"categoryName": "Focus Guidance", "categoryId": 1009},
+          {"categoryName": "Children's Sleep Guidance", "categoryId": 1010},
+          {"categoryName": "Others", "categoryId": 1011}
+        ]
+      },
+      {
+        "categoryName": "Host Music Programs",
+        "categoryId": 103,
+        "categoryChild": [
+          {"categoryName": "Classic Music Recommendations", "categoryId": 1012},
+          {"categoryName": "Hot Songs Highlights", "categoryId": 1013},
+          {"categoryName": "Song Covers", "categoryId": 1014},
+          {"categoryName": "Music Lessons", "categoryId": 1015},
+          {"categoryName": "Music Stories", "categoryId": 1016}
+        ]
+      }
+    ]
+  },
+  {
+    "categoryName": "Audiobooks",
+    "categoryId": 2,
+    "categoryChild": [
+      {
+        "categoryName": "Male-Oriented Fiction",
+        "categoryId": 104,
+        "categoryChild": [
+          {"categoryName": "Military Fiction", "categoryId": 1018},
+          {"categoryName": "Sports Fiction", "categoryId": 1019},
+          {"categoryName": "N-Dimensional", "categoryId": 1020},
+          {"categoryName": "Fantasy", "categoryId": 1021},
+          {"categoryName": "Suspense & Supernatural", "categoryId": 1022},
+          {"categoryName": "Martial Arts", "categoryId": 1023},
+          {"categoryName": "Urban Fiction", "categoryId": 1024},
+          {"categoryName": "Xianxia", "categoryId": 1025},
+          {"categoryName": "Xuanhuan", "categoryId": 1026},
+          {"categoryName": "Historical Fiction", "categoryId": 1027},
+          {"categoryName": "Gaming Fiction", "categoryId": 1028},
+          {"categoryName": "Science Fiction", "categoryId": 1029}
+        ]
+      },
+      {
+        "categoryName": "Female-Oriented Fiction",
+        "categoryId": 105,
+        "categoryChild": [
+          {"categoryName": "Fantasy Romance", "categoryId": 1030},
+          {"categoryName": "Youth Romance", "categoryId": 1031},
+          {"categoryName": "Modern Romance", "categoryId": 1032},
+          {"categoryName": "Historical Romance", "categoryId": 1033}
+        ]
+      }
+    ]
+  }
+]
+</code></pre>
+    </div>
+</div>
+
+</div>
+
+<script src="/js/tabbed_code.js"></script>
+
+        </div>
+    </details>
+</div>
+<h2 id="caching">Caching<a hidden class="anchor" aria-hidden="true" href="#caching">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/engineering--technology/">Engineering &amp; Technology</a></li>
+      <li><a href="https://signalyu.github.io/tags/computer-science/">Computer Science</a></li>
+      <li><a href="https://signalyu.github.io/tags/development-manual/">Development Manual</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://signalyu.github.io/posts/3-humanities/languages/japanese/1-jlpt-n1/">
+    <span class="title">« PREV</span>
+    
+    <br>
+    <span>Japanese-Language Proficiency Test — N1</span>
+  </a>
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/spring/1-spring-notes/">
+    <span class="title">NEXT »</span>
+    
+    <br>
+    <span>Spring</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+</body>
+</html>

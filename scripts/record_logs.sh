@@ -1,9 +1,11 @@
 current_time=$(date '+%Y-%m-%d %H:%M:%S %p')
-file="/Users/signalfish/signal/Writing-Workspace/blog/blogApp/content/posts/3-humanities/personal-growth/practice/logs/$1.md"
+file="/Users/signalfish/signal/Writing-Workspace/blog/blogApp/content/posts/3-humanities/personal-growth/practice/logs/logs.md"
+subject="$1"
 desc="$2"
 weak="${3:-None}"  # Default value for weakness if not provided
 
 echo "- \`$current_time\`:" >> "$file"
+echo "   - \`subject\`: $subject" >> "$file"
 echo "   - \`desc\`: $desc" >> "$file"
 echo "   - \`weakness\`: $weak" >> "$file"
 
@@ -11,5 +13,5 @@ echo "   - \`weakness\`: $weak" >> "$file"
 # 1. vim ~/.bash_profile
 # 2. alias practiced = bash /Users/signalfish/signal/Writing-Workspace/blog/blogApp/static/scripts/record_logs.sh
 # 3. Use:
-    # practiced "logfile name" "Desc"
-    # practiced "logfile name" "Desc" "Weakness"
+    # practiced "Subject" "Desc"
+    # practiced "Subject" "Desc" "Weakness"

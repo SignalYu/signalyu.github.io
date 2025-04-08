@@ -17,10 +17,10 @@
 Positional arguments are passed to a function in a specific order, and the values are assigned to parameters based on their position. Keyword arguments are passed to a function by explicitly specifying the parameter name. Any keyword arguments must be put after the last positional argument.</description>
     </item>
     <item>
-      <title>Java Programming Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/</link>
-      <pubDate>Mon, 08 Nov 2021 11:36:53 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming-notes/</guid>
+      <title>Java Programming</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming/</link>
+      <pubDate>Fri, 08 Nov 2024 11:36:53 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/java/1-java-programming/</guid>
       <description>Enum In Java, an enum (short for &amp;ldquo;enumeration&amp;rdquo;) is used to define a collection of constants, such as days of the week or months of the year. An enum provides a type-safe way to handle constant values, and it can be used in a switch statement or for comparison using ==. Compared to a final constant in Java, an enum can contain fields, methods, and constructors. The values() method is used to retrive all the constants in an enum, and the valueOf() method is used to convert a string into an enum constant.</description>
     </item>
   </channel>
