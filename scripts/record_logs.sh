@@ -4,10 +4,10 @@ subject="$1"
 desc="$2"
 weak="${3:-None}"  # Default value for weakness if not provided
 
-echo "- \`$current_time\`:" >> "$file"
-echo "   - \`subject\`: $subject" >> "$file"
-echo "   - \`desc\`: $desc" >> "$file"
-echo "   - \`weakness\`: $weak" >> "$file"
+echo -e "\n# $current_time\n" >> "$file"
+echo -e "- \`subject\`: $subject" >> "$file"
+echo -e "- \`desc\`: $desc" >> "$file"
+echo -e "- \`weakness\`: $weak" >> "$file"
 
 
 # 1. vim ~/.bash_profile
