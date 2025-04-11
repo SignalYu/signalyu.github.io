@@ -251,8 +251,7 @@ Load Balancing To fullly leverage scalability and redundency, load balancing can
 <p>In <strong>System Design</strong>, <strong>Load Balancing</strong> refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/1-load-balancing-1.png#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/1-load-balancing-1.png#center" width="100%" height="100%"/> <figcaption>
             Load Balancing
         </figcaption>
 </figure>
@@ -261,8 +260,7 @@ Load Balancing To fullly leverage scalability and redundency, load balancing can
 <p>To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/2-load-balancing-2.png#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/2-load-balancing-2.png#center" width="100%" height="100%"/> <figcaption>
             Load Balancing at Different Layers
         </figcaption>
 </figure>
@@ -301,8 +299,7 @@ sequenceDiagram
 <p>The <strong>Round Robin</strong> algorithm distributes requests evenly across multiple servers in a circular manner. This algorithm does not consider the current load or capabilities of each server. It is commonly used in environments where servers have similar capacity and performance, or in applications where each request can be handled independently.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/3-round-robin.gif#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/3-round-robin.gif#center" width="100%" height="100%"/> <figcaption>
             Round Robin Load Balancing Algorithm
         </figcaption>
 </figure>
@@ -313,8 +310,7 @@ sequenceDiagram
 <p>The <strong>Least Connections</strong> algorithm distributes requests to servers with the fewest active connections. It takes into account the server&rsquo;s current workload, helping to prevent any single server from becoming overwhelmed. This algorithm is particularly useful in scenerios where traffic or workload is unpredictable, servers have varying capabilities, or maintaining session state is important.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/4-least-connections.gif#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/4-least-connections.gif#center" width="100%" height="100%"/> <figcaption>
             Least Connections Load Balancing Algorithm
         </figcaption>
 </figure>
@@ -325,8 +321,7 @@ sequenceDiagram
 <p>The <strong>Weighted Round Robin</strong> algorithm is an enhanced version of Round Robin, where each server is assigned a weight based on its capability and workload. Servers with higher weights process more requests, helping to prevent overloading less powerful servers. This algorithm is ideal for scenarios where servers have varying processing abilities, such as in a database cluster, where nodes with higher processing power can handle more queries.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/5-weighted-round-robin.gif#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/5-weighted-round-robin.gif#center" width="100%" height="100%"/> <figcaption>
             Weighted Round Robin Load Balancing Algorithm
         </figcaption>
 </figure>
@@ -340,8 +335,7 @@ sequenceDiagram
 \text{Load Factor} = \frac{\text{Number of Active Connections}}{\text{Weight of the Server}}
 $$</p>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/6-weighted-least-connections.gif#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/6-weighted-least-connections.gif#center" width="100%" height="100%"/> <figcaption>
             Weighted Least Connections Load Balancing Algorithm
         </figcaption>
 </figure>
@@ -352,8 +346,7 @@ $$</p>
 <p>The <strong>IP Hash</strong> algorithm routes requests to servers based on a hash of the client&rsquo;s IP address. The load balancer applies a hash function to the client&rsquo;s IP address to calculate the hash value, which is then used to determined which server will handle the current request. If the distribution of client IP addresses is uneven, some servers may receive more requests than others, leading to an imbalanced load. This algorithm is ideal for scenarios where maintaining state is important, such as online shopping carts or user sessions.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/7-ip-hash.gif#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/7-ip-hash.gif#center" width="100%" height="100%"/> <figcaption>
             IP Hash Load Balancing Algorithm
         </figcaption>
 </figure>
@@ -364,8 +357,7 @@ $$</p>
 <p>The <strong>Least Response Time</strong> algorithm routes incoming requests to the server with the lowest response time, ensuring efficient resource utilization and optimal client experience. It is ideal for scenerios where low latancy and fast response times are crucial, such as online gaming and financial trading.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/8-least-response-time.gif#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/8-least-response-time.gif#center" width="100%" height="100%"/> <figcaption>
             Least Response Time Load Balancing Algorithm
         </figcaption>
 </figure>
@@ -376,8 +368,7 @@ $$</p>
 <p>The <strong>Random</strong> load balancing algorithm routes incoming requests to servers randomly. It is commonly used in scenarios where the load is relatively uniform and the servers have similar capabilities.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/9-random.gif#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/9-random.gif#center" width="100%" height="100%"/> <figcaption>
             Random Load Balancing Algorithm
         </figcaption>
 </figure>
@@ -388,8 +379,7 @@ $$</p>
 <p>The <strong>Least Bandwidth</strong> algorithm routes incoming requests to the server that is consuming the least amount of bandwidth. It is ideal for applications with high bandwidth usage, such as vedio streaming, file downloads, and large file transfers.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/10-least-bandwidth.gif#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/10-least-bandwidth.gif#center" width="100%" height="100%"/> <figcaption>
             Least Bandwidth Load Balancing Algorithm
         </figcaption>
 </figure>
@@ -403,8 +393,7 @@ $$</p>
 <p>For example, in an active-passive setup, two load balancers are used, where both are capable of routing traffic and detecting failures. The active load balancer handles all incoming requests, and if it fails, the passive load balancer takes over to ditribute requests, ensuring continuous availability. This approach helps prevent the system from being dependent on a single point of failure, as illustrated in the following diagram.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/11-redundent-load-balancers.webp#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/11-redundent-load-balancers.webp#center" width="100%" height="100%"/> <figcaption>
             Load Balancer Cluster
         </figcaption>
 </figure>
@@ -415,8 +404,7 @@ $$</p>
 <p>An <strong>API Gateway</strong> is a server-side component that acts as a central entry point for clients to access as a collection of microservices. It recerves client requests, forwards them to the appropriate microservice, and then returns the response from the server to the client. The API Gateway is responsible for various tasks, such as request routing, authentication, rate limiting.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/12-api-gateway.webp#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/12-api-gateway.webp#center" width="100%" height="100%"/> <figcaption>
             API Gateway
         </figcaption>
 </figure>
@@ -425,8 +413,7 @@ $$</p>
 <p>The key difference between an API Gateway and a load balancer lies in their core functions. An API Gateway focuses on routing requests to specific microservices. In contrast, a Load Balancer is responsible for distributing incoming traffic across multiple backend servers. Additionally, while an API Gateway typically deals with requests that target specific APIs identified by unique URLs, a load balancer generally handles requests directed to a single, well-known IP address, distributing those requests to one of serveral backend servers based on load-balancing algorithms.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/13-difference-between-gateway-and-load-balancer.webp#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/13-difference-between-gateway-and-load-balancer.webp#center" width="100%" height="100%"/> <figcaption>
             The Difference Between API Gateway and Load Balancer
         </figcaption>
 </figure>
@@ -438,8 +425,7 @@ $$</p>
 <p><strong>Scalability</strong> refers to a system&rsquo;s ability to handle increasing workloads. In system design, there are two primary types of scaling: horizontal and vertical. <strong>Horizontal scaling</strong> involves adding more machines to distribute the load across multiple servers, while <strong>vertical scaling</strong> typically involves upgrading the hardware of a single machine.</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/14-scalability.webp#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/14-scalability.webp#center" width="100%" height="100%"/> <figcaption>
             Vertical Scaling vs. Horizontal Scaling
         </figcaption>
 </figure>
@@ -494,8 +480,7 @@ $$</p>
 <p>Here are some of the most common types of caching:</p>
 </blockquote>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/15-types-of-caching.png#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/15-types-of-caching.png#center" width="100%" height="100%"/> <figcaption>
             Types of Caching
         </figcaption>
 </figure>
@@ -536,8 +521,7 @@ $$</p>
 <li><strong>Stale-While-Revalidate</strong>: This method serves the cached data to the client immediately when a request is received. Meanwhile, the cache asynchronously updates itself with the latest version of the data from the original data store. This approach ensures a qucik response, even if the cached data is slightly outdated, and is commonly used in CDN caching.</li>
 </ul>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/20-invalidation-methods.png#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/20-invalidation-methods.png#center" width="100%" height="100%"/> <figcaption>
             Cache Invalidation Methods
         </figcaption>
 </figure>
@@ -601,8 +585,7 @@ $$</p>
 <li><strong>Vertical partitioning</strong> divides a database into multiple partitions based on columns, with each partition containing a subset of the columns. This technique is commonly used when some fields are accessed more frequently than others, optimizing performance for specific queries.</li>
 </ul>
 <figure class="align-center ">
-    
-    <img src="/img/system-design/24-horizontal-partitioning-vs-vertical-partitioning.webp#center" width="100%" height="100%"/> <figcaption>
+    <img loading="lazy" src="/img/system-design/24-horizontal-partitioning-vs-vertical-partitioning.webp#center" width="100%" height="100%"/> <figcaption>
             Horizontal Partitioning vs. Vertical Partitioning
         </figcaption>
 </figure>
