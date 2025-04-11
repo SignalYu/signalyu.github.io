@@ -68,9 +68,9 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</link>
       <pubDate>Fri, 27 Dec 2024 04:32:42 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</guid>
-      <description>Introduction to System Design System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
-Load Balancing In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
-Load Balancing To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+      <description>Introduction to System Design SHOW CONTENTS System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
+Load Balancing SHOW CONTENTS In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
+To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
     </item>
     <item>
       <title>Python Programming</title>
