@@ -6,7 +6,7 @@
     <description>Recent content on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Mon, 07 Apr 2025 20:34:18 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 Apr 2025 09:37:42 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -71,6 +71,13 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
       <description>Introduction to System Design SHOW CONTENTS System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
 Load Balancing SHOW CONTENTS In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
 To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
+      <title>Docker</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/devops/docker/1-docker/</link>
+      <pubDate>Mon, 14 Apr 2025 09:37:42 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/devops/docker/1-docker/</guid>
+      <description>Introduction to Docker SHOW CONTENTS Docker was developed to address the challenges of software deployment across various environments by providing a lightweight, consistent, and portable solution. Prior to Docker, developers often faced issues like &amp;ldquo;it works on my machine, but not in production,&amp;rdquo; caused by inconsistencies in dependencies, libraries, and configurations. Docker resolves this by containerizing applications, ensuring they run uniformly across any infrastructure. Its primary goal is to simplify development, testing, and deployment by encapsulating applications and their dependencies into isolated, reproducible containers.</description>
     </item>
     <item>
       <title>Areas For Improvement</title>
