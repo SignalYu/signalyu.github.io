@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Linux on Signal&#39;s Blog</title>
+    <link>https://signalyu.github.io/tags/linux/</link>
+    <description>Recent content in Linux on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>EN</language>
+    <lastBuildDate>Tue, 15 Apr 2025 11:03:32 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Red Hat Enterprise Linux</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/</link>
+      <pubDate>Tue, 15 Apr 2025 11:03:32 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/</guid>
+      <description>1. Introduction to Linux SHOW CONTENTS Open Source refers to software whose source code is freely available to the public for anyone to view, modify, and distribute. It encourages coolaboration, transparency, and community-driven improvements.
+Open Source Licenses are legal agreements that define how software can be used, modified, and distributed. There are two main types of Copyleft and Permissive.
+Copyleft licenses require that any modified versions of the software also be open source, under the same terms as the original.</description>
+    </item>
+  </channel>
+</rss>

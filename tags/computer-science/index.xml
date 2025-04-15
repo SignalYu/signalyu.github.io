@@ -6,7 +6,7 @@
     <description>Recent content in Computer Science on Signal&#39;s Blog</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>EN</language>
-    <lastBuildDate>Mon, 14 Apr 2025 09:37:42 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 15 Apr 2025 11:03:32 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Design Patterns</title>
@@ -71,6 +71,15 @@ In a Relational DBMS, data is stored in structured tables and is manipulated usi
       <description>Introduction to System Design SHOW CONTENTS System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
 Load Balancing SHOW CONTENTS In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
 To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
+      <title>Red Hat Enterprise Linux</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/</link>
+      <pubDate>Tue, 15 Apr 2025 11:03:32 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/</guid>
+      <description>1. Introduction to Linux SHOW CONTENTS Open Source refers to software whose source code is freely available to the public for anyone to view, modify, and distribute. It encourages coolaboration, transparency, and community-driven improvements.
+Open Source Licenses are legal agreements that define how software can be used, modified, and distributed. There are two main types of Copyleft and Permissive.
+Copyleft licenses require that any modified versions of the software also be open source, under the same terms as the original.</description>
     </item>
     <item>
       <title>Docker</title>

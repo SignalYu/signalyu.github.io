@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Red Hat Enterprise Linux | Signal&#39;s Blog</title>
+<meta name="keywords" content="Engineering &amp; Technology, Computer Science, Linux">
+<meta name="description" content="1. Introduction to Linux SHOW CONTENTS Open Source refers to software whose source code is freely available to the public for anyone to view, modify, and distribute. It encourages coolaboration, transparency, and community-driven improvements.
+Open Source Licenses are legal agreements that define how software can be used, modified, and distributed. There are two main types of Copyleft and Permissive.
+Copyleft licenses require that any modified versions of the software also be open source, under the same terms as the original.">
+<meta name="author" content="Signal Yu">
+<link rel="canonical" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.5a0ace7f2dc73037e40ceea0eb0d119b5d798dba2da38d9129982a8cf9fa07a5.css" integrity="sha256-WgrOfy3HMDfkDO6g6w0Rm115jboto42RKZgqjPn6B6U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://signalyu.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://signalyu.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://signalyu.github.io/favicon-32x32">
+<link rel="apple-touch-icon" href="https://signalyu.github.io/apple-touch-icon">
+<link rel="mask-icon" href="https://signalyu.github.io/favicon.io">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+  
+
+<meta property="og:title" content="Red Hat Enterprise Linux" />
+<meta property="og:description" content="1. Introduction to Linux SHOW CONTENTS Open Source refers to software whose source code is freely available to the public for anyone to view, modify, and distribute. It encourages coolaboration, transparency, and community-driven improvements.
+Open Source Licenses are legal agreements that define how software can be used, modified, and distributed. There are two main types of Copyleft and Permissive.
+Copyleft licenses require that any modified versions of the software also be open source, under the same terms as the original." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-04-15T11:03:32+08:00" />
+<meta property="article:modified_time" content="2025-04-15T11:03:32+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Red Hat Enterprise Linux"/>
+<meta name="twitter:description" content="1. Introduction to Linux SHOW CONTENTS Open Source refers to software whose source code is freely available to the public for anyone to view, modify, and distribute. It encourages coolaboration, transparency, and community-driven improvements.
+Open Source Licenses are legal agreements that define how software can be used, modified, and distributed. There are two main types of Copyleft and Permissive.
+Copyleft licenses require that any modified versions of the software also be open source, under the same terms as the original."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://signalyu.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Red Hat Enterprise Linux",
+      "item": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Red Hat Enterprise Linux",
+  "name": "Red Hat Enterprise Linux",
+  "description": "1. Introduction to Linux SHOW CONTENTS Open Source refers to software whose source code is freely available to the public for anyone to view, modify, and distribute. It encourages coolaboration, transparency, and community-driven improvements.\nOpen Source Licenses are legal agreements that define how software can be used, modified, and distributed. There are two main types of Copyleft and Permissive.\nCopyleft licenses require that any modified versions of the software also be open source, under the same terms as the original.",
+  "keywords": [
+    "Engineering \u0026 Technology", "Computer Science", "Linux"
+  ],
+  "articleBody": "1. Introduction to Linux SHOW CONTENTS Open Source refers to software whose source code is freely available to the public for anyone to view, modify, and distribute. It encourages coolaboration, transparency, and community-driven improvements.\nOpen Source Licenses are legal agreements that define how software can be used, modified, and distributed. There are two main types of Copyleft and Permissive.\nCopyleft licenses require that any modified versions of the software also be open source, under the same terms as the original. Popular examples include the GPL (GNU General Public License) and AGPL (Affero GPL). Permissive licenses are more relaxed, allowing users to modify, distribute, and even close-source the software if desired. Well-known examples of permissive licenses include the MIT License, Apache License 2.0, and BSD License (Berkeley Software Distribution). The differences between Fedora, CentOS Stream, and Red Hat Enterprise Linux (RHEL) are primarily based on their release cycles, stability, and target audiences. Fedora is a cutting-edge distribution that always features the latest software and technologies, making it ideal for developers and enthusiasts who want to experience the newest features. CentOS Stream serves as a rolling preview of future RHEL versions, acting as a middle ground between Fedora and RHEL. Finally, RHEL is the most stable and secure option, designed for enterprise environments that require long-term support and paid services. RHEL is commonly used in production systems that demand reliability and robust commercial support. 2. Manage Files From the Command Line Linux File System Hierarchy SHOW CONTENTS The Linux File System Hierarchy defines the directory structure and directory contents in Linux-based operating systems. It stores all files which organized into a single incerted tree structure.\nHere’s an overview of the key directories in the Linux file system hierarchy:\nLocation Purpose /boot Files to start the boot process. /dev Special device files that the system uses to access hardware. /etc System-specific configuration files. /home Home directory, where regular users store their data and configuration files. /root Home directory for the administrative superuser, root. /run Runtime data for processes that started since the last boot. This data includes process ID files and lock files. The contents of this directory are re-created on reboot. This directory consolidates the /var/run and /var/lock directories from earlier versions of Red Hat Enterprise Linux. /tmp A world-writable space for temporary files. Files that are not accessed, changed, or modified for 10 days are deleted from this directory automatically. The /var/tmp directory is also a temporary directory, in which files that are not accessed, changed, or modified in more than 30 days are deleted automatically. /usr Installed software, shared libraries, including files, and read-only program data. Significant subdirectories include: /usr/bin: User commands; /usr/sbin: System administration commands; /usr/local: Locally customized software /var System-specific variable data that should persist between boots. Files that dynamically change, such as databases, cache directories, log files, printer-spooled documents, and website content, might be found under /var. static, dynamic(variable), persistent, runtime: Static content remains unchanged until explicitly edited or reconfigured; Dynamic (Variable) content might be modified or appended by active processes; Persistent content remains after a reboot, such as configuration settings; Runtime content from a process or from the system is deleted on reboot.\nCommon Directory and File Management Commands SHOW CONTENTS pwd: Prints the current working directory (path) to the terminal. cd: Changes the current working directory to the home directory of the current user. cd -: Changes the directory to the previous directory. cd ../..: Moves up two levels in the directory structure. cd ..: Moves up one level in the directory structure (to the parent directory). ls -l: Lists files and directories in the current directory in long format, showing details such as permissions, owner, group, size, and last modification time. ls -al: Lists all files (including hidden files) in the current directory in long format. ls -lR: Lists files and directories recursively in the current directory and all its subdirectories, in long format. ls -l file*.txt: Lists files that start with the word file and end with .txt. cp hello.py HELLO.py: Copies the file hello.py to HELLO.py. The original file remains unchanged. mv -v hello.py HELLO.py: Moves (or renames) the file hello.py to HELLO.py. The -v option prints verbose output showing the operation. rm HELLO.py: Removes (deletes) the file HELLO.py. Be careful, as this is a permanent deletion. mkdir HOME: Creates a new directory named HOME in the current directory. rmdir HOME: Removes an empty directory named HOME. If the directory contains any files, it cannot be removed with rmdir. Create Links Between Files SHOW CONTENTS In Linux, there are two types of links that can be created for files: hard links and soft links. A hard link is a direct reference to the data of a file. It creates another name for an existing file, pointing directly to the file’s inode (the underlying data structure that holds the file’s metadata and data.) A soft link, on the other hand, is a reference to the original file’s path, rather than directly pointing to the file’s inode.\nHard links that reference the same file share the same inode struct with the link count, access permissions, user and group ownership, time stamps, and file content. Therefore, when any of this information is changed for one hard link, the changes are reflected in all other hard links pointing to the same file.\nCommands for creating links between files are as follows:\nln file.txt file_link.txt # Create a hard link ls -i file.txt file_link.txt # Show the inode number for both files ln -s file.txt file_soft.txt # Create a soft link ls -l file_soft.txt # Check if the soft link work (file_soft.txt -\u003e file.txt) 3 Get Help Using man Command SHOW CONTENTS The man command in Linux is used to display the manual pages for various commands, programs, system calls, etc. The man pages are divided into 9 sections: executable programs or shell commands, system calls, library calls, special files, file formats and conventions, games, miscellaneous, system administration commands, and kernel routines (non standard).\nExecutable programs or shell commands: Commands executed by regular users (e.g., ls, cp). System calls: Functions that the kernel provides for programs to interact with the system (e.g., open, read). Library calls: Functions that can be used in programs written in C and other languages (e.g., printf). Special files: Usually found in /dev(e.g., /dev/sda). File formats and conventions: Descriptions of file formats (e.g., /etc/passwd). Games: Information about games available on the system. Miscellaneous: including macro packages and conventions (e.g. man(7), groff(7)). System administration commands: Commands for system administrators (e.g., useradd, systemctl). Kernel routines: Non standard The most common way to use man command including:\nman open or man open.3: Displays the manual page for the open command. (open exists in Section 2 (System Calls) and Section 3 (Library Functions), man open display the System Call documentation while man open.3 display the Library Function manual.) man -f ls: Displays a brief description of the ls command, equivalent to whatis ls. man -k ls: Searches the manual page database for the term ls, equivalent to apropos ls. Note that before running man -f ls or man -k ls, it is important to ensure that the mandb database has been built. This can be done by running sudo mandb.\n4. Redirection \u0026 Pipelines SHOW CONTENTS A process reads input and writes output. By default, it reads input from the keyboard and sends its output to the terminal window. Processes use numbered channels called file descriptors to manage input and output. Every process starts with at least three file descriptors:\nStandard Input (channel 0): Reads input from the keyboard. Standard Output (channel 1): Sends normal output to the terminal. Standard Error (channel 2): Sends error messages to the terminal. Number Channel Name Description Default Connection Usage 0 stdin Standard input Keyboard Read only 1 stdout Standard output Terminal Write only 2 stderr Standard error Terminal Write only 3+ filename Other files None Read/write or both By default, a process takes input from the keyboard and displays its output on the terminal. Redirection refers to changing the default input or output of a command. The following table summarizes the different types of redirection available:\nUsage Explanation Vitulization \u003e file Redirect stdout to overwrite a file \u003e\u003e file Redirect stdout ot append to a file 2\u003e file Redirect stderr to overwrite a file 2\u003e /dev/null Discard stderr error messages by redirecting them to /dev/null \u003e file 2\u003e\u00261 or \u0026\u003e file Redirect stdout and stderr to overwrite the same file \u003e\u003e file 2\u003e\u00261 or \u0026\u003e\u003e file Redirect stdout and stderr to append the same file sort \u003c file \u003e sorted_file Redirects the stdin to a file and redirect stdout to overwrite a different file It is important to note that the order of redirection operations is crucial. For example:\nThe command \u003e output.log 2\u003e\u00261 redirects both standard output and standard error messages to the same file, output.log. On the other hand, 2\u003e\u00261 \u003e output.log redirects standard error messages to the default standard output (the terminal), and then redirects only the standard output to output.log. Additionally, the command \u003e output.log 2\u003e\u00261 can be shortened to \u0026\u003e output.log. However, it is important to note that \u0026\u003e is not standardized and may not be implemented in all shells.\n",
+  "wordCount" : "1535",
+  "inLanguage": "en",
+  "datePublished": "2025-04-15T11:03:32+08:00",
+  "dateModified": "2025-04-15T11:03:32+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Signal Yu"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Signal's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://signalyu.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class=" dark" id="top">
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://signalyu.github.io/" accesskey="h" title="Signal&#39;s Blog (Alt + H)">
+                <img src="https://signalyu.github.io/apple-touch-icon.png" alt="" aria-label="logo"
+                    height="40">Signal&#39;s Blog</a>
+            <div class="logo-switches">
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://signalyu.github.io/archives/" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://signalyu.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://signalyu.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://signalyu.github.io/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Red Hat Enterprise Linux
+    </h1>
+    <div class="post-meta"><span title='2025-04-15 11:03:32 +0800 HKT'>Apr 15 2025</span>&nbsp;·&nbsp;Signal Yu
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#1-introduction-to-linux" aria-label="1. Introduction to Linux">1. Introduction to Linux</a></li>
+                <li>
+                    <a href="#2-manage-files-from-the-command-line" aria-label="2. Manage Files From the Command Line">2. Manage Files From the Command Line</a><ul>
+                        
+                <li>
+                    <a href="#linux-file-system-hierarchy" aria-label="Linux File System Hierarchy">Linux File System Hierarchy</a></li>
+                <li>
+                    <a href="#common-directory-and-file-management-commands" aria-label="Common Directory and File Management Commands">Common Directory and File Management Commands</a></li>
+                <li>
+                    <a href="#create-links-between-files" aria-label="Create Links Between Files">Create Links Between Files</a></li></ul>
+                </li>
+                <li>
+                    <a href="#3-get-help-using-man-command" aria-label="3 Get Help Using man Command">3 Get Help Using man Command</a></li>
+                <li>
+                    <a href="#4-redirection--pipelines" aria-label="4. Redirection &amp; Pipelines">4. Redirection &amp; Pipelines</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h1 id="1-introduction-to-linux">1. Introduction to Linux<a hidden class="anchor" aria-hidden="true" href="#1-introduction-to-linux">#</a></h1>
+
+
+<p><details >
+  <summary markdown="span">SHOW CONTENTS</summary>
+  <blockquote>
+<p><strong>Open Source</strong> refers to software whose source code is freely available to the public for anyone to view, modify, and distribute. It encourages coolaboration, transparency, and community-driven improvements.</p>
+</blockquote>
+<blockquote>
+<p><strong>Open Source Licenses</strong> are legal agreements that define how software can be used, modified, and distributed. There are two main types of <strong>Copyleft</strong> and <strong>Permissive</strong>.</p>
+</blockquote>
+<ol>
+<li><strong>Copyleft</strong> licenses require that any modified versions of the software also be open source, under the same terms as the original. Popular examples include the GPL (GNU General Public License) and AGPL (Affero GPL).</li>
+<li><strong>Permissive</strong> licenses are more relaxed, allowing users to modify, distribute, and even close-source the software if desired. Well-known examples of permissive licenses include the MIT License, Apache License 2.0, and BSD License (Berkeley Software Distribution).</li>
+</ol>
+<blockquote>
+<p>The differences between <strong>Fedora</strong>, <strong>CentOS Stream</strong>, and <strong>Red Hat Enterprise Linux (RHEL)</strong> are primarily based on their release cycles, stability, and target audiences. <strong>Fedora</strong> is a cutting-edge distribution that always features the latest software and technologies, making it ideal for developers and enthusiasts who want to experience the newest features. <strong>CentOS Stream</strong> serves as a rolling preview of future RHEL versions, acting as a middle ground between Fedora and RHEL. Finally, <strong>RHEL</strong> is the most stable and secure option, designed for enterprise environments that require long-term support and paid services. RHEL is commonly used in production systems that demand reliability and robust commercial support. <img loading="lazy" src="/img/linux/1-fedora-centos-stream-rhel.png" alt="Fedora, Centos Stream, and REHL"  />
+</p>
+</blockquote>
+
+</details></p>
+
+<hr>
+<h1 id="2-manage-files-from-the-command-line">2. Manage Files From the Command Line<a hidden class="anchor" aria-hidden="true" href="#2-manage-files-from-the-command-line">#</a></h1>
+<h2 id="linux-file-system-hierarchy">Linux File System Hierarchy<a hidden class="anchor" aria-hidden="true" href="#linux-file-system-hierarchy">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW CONTENTS</summary>
+  <blockquote>
+<p>The <strong>Linux File System Hierarchy</strong> defines the directory structure and directory contents in Linux-based operating systems. It stores all files which organized into a single incerted tree structure.</p>
+</blockquote>
+<p><img loading="lazy" src="/img/linux/2-rhel-file-system-hierarchy.png" alt="RHEL File System Hierarchy"  />
+</p>
+<blockquote>
+<p>Here’s an overview of the key directories in the Linux file system hierarchy:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th><strong>Location</strong></th>
+<th><strong>Purpose</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>/boot</code></strong></td>
+<td>Files to start the boot process.</td>
+</tr>
+<tr>
+<td><strong><code>/dev</code></strong></td>
+<td>Special device files that the system uses to access hardware.</td>
+</tr>
+<tr>
+<td><strong><code>/etc</code></strong></td>
+<td>System-specific configuration files.</td>
+</tr>
+<tr>
+<td><strong><code>/home</code></strong></td>
+<td>Home directory, where regular users store their data and configuration files.</td>
+</tr>
+<tr>
+<td><strong><code>/root</code></strong></td>
+<td>Home directory for the administrative superuser, root.</td>
+</tr>
+<tr>
+<td><strong><code>/run</code></strong></td>
+<td>Runtime data for processes that started since the last boot. This data includes process ID files and lock files. The contents of this directory are re-created on reboot. This directory consolidates the <code>/var/run</code> and <code>/var/lock</code> directories from earlier versions of Red Hat Enterprise Linux.</td>
+</tr>
+<tr>
+<td><strong><code>/tmp</code></strong></td>
+<td>A world-writable space for temporary files. Files that are not accessed, changed, or modified for 10 days are deleted from this directory automatically. The <code>/var/tmp</code> directory is also a temporary directory, in which files that are not accessed, changed, or modified in more than 30 days are deleted automatically.</td>
+</tr>
+<tr>
+<td><strong><code>/usr</code></strong></td>
+<td>Installed software, shared libraries, including files, and read-only program data. Significant subdirectories include: <code>/usr/bin</code>: User commands; <code>/usr/sbin</code>: System administration commands; <code>/usr/local</code>: Locally customized software</td>
+</tr>
+<tr>
+<td><strong><code>/var</code></strong></td>
+<td>System-specific variable data that should persist between boots. Files that dynamically change, such as databases, cache directories, log files, printer-spooled documents, and website content, might be found under <code>/var</code>.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>static, dynamic(variable), persistent, runtime</strong>: Static content remains unchanged until explicitly edited or reconfigured; <strong>Dynamic (Variable)</strong> content might be modified or appended by active processes; <strong>Persistent</strong> content remains after a reboot, such as configuration settings; <strong>Runtime</strong> content from a process or from the system is deleted on reboot.</p>
+</blockquote>
+
+</details></p>
+
+<hr>
+<h2 id="common-directory-and-file-management-commands">Common Directory and File Management Commands<a hidden class="anchor" aria-hidden="true" href="#common-directory-and-file-management-commands">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW CONTENTS</summary>
+  <ul>
+<li><code>pwd</code>: Prints the <strong>current working directory</strong> (path) to the terminal.</li>
+<li><code>cd</code>: Changes the <strong>current working directory</strong> to the <strong>home</strong> directory of the current user.</li>
+<li><code>cd -</code>: Changes the directory to the <strong>previous directory</strong>.</li>
+<li><code>cd ../..</code>: Moves <strong>up two levels</strong> in the directory structure.</li>
+<li><code>cd ..</code>: Moves <strong>up one level</strong> in the directory structure (to the parent directory).</li>
+<li><code>ls -l</code>: Lists files and directories in the <strong>current directory</strong> in <strong>long format</strong>, showing details such as permissions, owner, group, size, and last modification time.</li>
+<li><code>ls -al</code>: Lists <strong>all files</strong> (including hidden files) in the <strong>current directory</strong> in <strong>long format</strong>.</li>
+<li><code>ls -lR</code>: Lists files and directories <strong>recursively</strong> in the <strong>current directory</strong> and all its subdirectories, in <strong>long format</strong>.</li>
+<li><code>ls -l file*.txt</code>: Lists files that start with the word <code>file</code> and end with <code>.txt</code>.</li>
+<li><code>cp hello.py HELLO.py</code>: Copies the file <code>hello.py</code> to <code>HELLO.py</code>. The original file remains unchanged.</li>
+<li><code>mv -v hello.py HELLO.py</code>: Moves (or renames) the file <code>hello.py</code> to <code>HELLO.py</code>. The <code>-v</code> option prints verbose output showing the operation.</li>
+<li><code>rm HELLO.py</code>: Removes (deletes) the file <code>HELLO.py</code>. <strong>Be careful, as this is a <em><strong>permanent deletion</strong></em>.</strong></li>
+<li><code>mkdir HOME</code>: Creates a new directory named <code>HOME</code> in the current directory.</li>
+<li><code>rmdir HOME</code>: Removes an <strong>empty directory</strong> named <code>HOME</code>. If the directory contains any files, it cannot be removed with <code>rmdir</code>.</li>
+</ul>
+
+</details></p>
+
+<hr>
+<h2 id="create-links-between-files">Create Links Between Files<a hidden class="anchor" aria-hidden="true" href="#create-links-between-files">#</a></h2>
+
+
+<p><details >
+  <summary markdown="span">SHOW CONTENTS</summary>
+  <blockquote>
+<p>In Linux, there are two types of links that can be created for files: <strong>hard links</strong> and <strong>soft links</strong>. A <strong>hard link</strong> is a direct reference to the data of a file. It creates another name for an existing file, pointing directly to the file&rsquo;s inode (the underlying data structure that holds the file&rsquo;s metadata and data.) A <strong>soft link</strong>, on the other hand, is a reference to the original file&rsquo;s path, rather than directly pointing to the file&rsquo;s inode.</p>
+</blockquote>
+<p><img loading="lazy" src="/img/linux/3-hard-link-vs-soft-link.png" alt="Hard Link vs. Soft Link"  />
+</p>
+<blockquote>
+<p>Hard links that reference the same file share the same inode struct with the link count, access permissions, user and group ownership, time stamps, and file content. Therefore, when any of this information is changed for one hard link, the changes are reflected in all other hard links pointing to the same file.</p>
+</blockquote>
+<blockquote>
+<p>Commands for creating links between files are as follows:</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln file.txt file_link.txt <span style="color:#75715e"># Create a hard link</span>
+</span></span><span style="display:flex;"><span>ls -i file.txt file_link.txt <span style="color:#75715e"># Show the inode number for both files</span>
+</span></span><span style="display:flex;"><span>ln -s file.txt file_soft.txt <span style="color:#75715e"># Create a soft link</span>
+</span></span><span style="display:flex;"><span>ls -l file_soft.txt <span style="color:#75715e"># Check if the soft link work (file_soft.txt -&gt; file.txt)</span>
+</span></span></code></pre></div>
+</details></p>
+
+<hr>
+<h1 id="3-get-help-using-man-command">3 Get Help Using <code>man</code> Command<a hidden class="anchor" aria-hidden="true" href="#3-get-help-using-man-command">#</a></h1>
+
+
+<p><details >
+  <summary markdown="span">SHOW CONTENTS</summary>
+  <blockquote>
+<p>The <code>man</code> command in Linux is used to display the <strong>manual pages</strong> for various commands, programs, system calls, etc. The <strong>man pages</strong> are divided into 9 sections: <strong>executable programs or shell commands</strong>, <strong>system calls</strong>, <strong>library calls</strong>, <strong>special files</strong>, <strong>file formats and conventions</strong>, <strong>games</strong>, <strong>miscellaneous</strong>, <strong>system administration commands</strong>, and <strong>kernel routines (non standard)</strong>.</p>
+</blockquote>
+<ol>
+<li><code>Executable programs or shell commands</code>: Commands executed by regular users (e.g., <code>ls</code>, <code>cp</code>).</li>
+<li><code>System calls</code>: Functions that the kernel provides for programs to interact with the system (e.g., <code>open</code>, <code>read</code>).</li>
+<li><code>Library calls</code>: Functions that can be used in programs written in C and other languages (e.g., <code>printf</code>).</li>
+<li><code>Special files</code>: Usually found in <code>/dev</code>(e.g., <code>/dev/sda</code>).</li>
+<li><code>File formats and conventions</code>: Descriptions of file formats (e.g., <code>/etc/passwd</code>).</li>
+<li><code>Games</code>: Information about games available on the system.</li>
+<li><code>Miscellaneous</code>: including macro packages and conventions (e.g. <code>man(7)</code>, <code>groff(7)</code>).</li>
+<li><code>System administration commands</code>: Commands for system administrators (e.g., <code>useradd</code>, <code>systemctl</code>).</li>
+<li><code>Kernel routines</code>: Non standard</li>
+</ol>
+<blockquote>
+<p>The most common way to use <code>man</code> command including:</p>
+</blockquote>
+<ul>
+<li><code>man open</code> or <code>man open.3</code>: Displays the manual page for the <code>open</code> command. (<code>open</code> exists in <strong>Section 2 (System Calls)</strong> and <strong>Section 3 (Library Functions)</strong>, <code>man open</code> display the System Call documentation while <code>man open.3</code> display the Library Function manual.)</li>
+<li><code>man -f ls</code>: Displays a brief description of the <code>ls</code> command, equivalent to <code>whatis ls</code>.</li>
+<li><code>man -k ls</code>: Searches the manual page database for the term <code>ls</code>, equivalent to <code>apropos ls</code>.</li>
+</ul>
+<blockquote>
+<p>Note that before running <code>man -f ls</code> or <code>man -k ls</code>, it is important to ensure that the <code>mandb</code> database has been built. This can be done by running <code>sudo mandb</code>.</p>
+</blockquote>
+
+</details></p>
+
+<hr>
+<h1 id="4-redirection--pipelines">4. Redirection &amp; Pipelines<a hidden class="anchor" aria-hidden="true" href="#4-redirection--pipelines">#</a></h1>
+
+
+<p><details >
+  <summary markdown="span">SHOW CONTENTS</summary>
+  <blockquote>
+<p>A process reads input and writes output. By default, it reads input from the <strong>keyboard</strong> and sends its output to the <strong>terminal window</strong>. Processes use numbered channels called <strong>file descriptors</strong> to manage input and output. Every process starts with at least three file descriptors:</p>
+</blockquote>
+<ul>
+<li><strong>Standard Input (channel 0)</strong>: Reads input from the keyboard.</li>
+<li><strong>Standard Output (channel 1)</strong>: Sends normal output to the terminal.</li>
+<li><strong>Standard Error (channel 2)</strong>: Sends error messages to the terminal.</li>
+</ul>
+<p><img loading="lazy" src="/img/linux/4-process-io-channels.png" alt="Process I/O channels (file descriptors)"  />
+</p>
+<table>
+<thead>
+<tr>
+<th>Number</th>
+<th>Channel Name</th>
+<th>Description</th>
+<th>Default Connection</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>stdin</td>
+<td>Standard input</td>
+<td>Keyboard</td>
+<td>Read only</td>
+</tr>
+<tr>
+<td>1</td>
+<td>stdout</td>
+<td>Standard output</td>
+<td>Terminal</td>
+<td>Write only</td>
+</tr>
+<tr>
+<td>2</td>
+<td>stderr</td>
+<td>Standard error</td>
+<td>Terminal</td>
+<td>Write only</td>
+</tr>
+<tr>
+<td>3+</td>
+<td>filename</td>
+<td>Other files</td>
+<td>None</td>
+<td>Read/write or both</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>By default, a process takes input from the keyboard and displays its output on the terminal. <strong>Redirection</strong> refers to changing the default input or output of a command. The following table summarizes the different types of redirection available:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Usage</th>
+<th>Explanation</th>
+<th>Vitulization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&gt; file</code></td>
+<td>Redirect <strong>stdout</strong> to overwrite a file</td>
+<td><img loading="lazy" src="/img/linux/5-output-override.png" alt="override output"  />
+</td>
+</tr>
+<tr>
+<td><code>&gt;&gt; file</code></td>
+<td>Redirect <strong>stdout</strong> ot append to a file</td>
+<td><img loading="lazy" src="/img/linux/6-output-append.png" alt="append outout"  />
+</td>
+</tr>
+<tr>
+<td><code>2&gt; file</code></td>
+<td>Redirect <strong>stderr</strong> to overwrite a file</td>
+<td><img loading="lazy" src="/img/linux/7-error-override.png" alt="override error"  />
+</td>
+</tr>
+<tr>
+<td><code>2&gt; /dev/null</code></td>
+<td>Discard <strong>stderr</strong> error messages by redirecting them to <code>/dev/null</code></td>
+<td><img loading="lazy" src="/img/linux/8-error-discard.png" alt="discard error"  />
+</td>
+</tr>
+<tr>
+<td><code>&gt; file 2&gt;&amp;1</code> or <code>&amp;&gt; file</code></td>
+<td>Redirect <strong>stdout</strong> and <strong>stderr</strong> to overwrite the same file</td>
+<td><img loading="lazy" src="/img/linux/9-output-and-error-override.png" alt="override output and error"  />
+</td>
+</tr>
+<tr>
+<td><code>&gt;&gt; file 2&gt;&amp;1</code> or <code>&amp;&gt;&gt; file</code></td>
+<td>Redirect <strong>stdout</strong> and <strong>stderr</strong> to append the same file</td>
+<td><img loading="lazy" src="/img/linux/10-output-and-error-append.png" alt="append output and error"  />
+</td>
+</tr>
+<tr>
+<td><code>sort &lt; file &gt; sorted_file</code></td>
+<td>Redirects the <strong>stdin</strong> to a file and redirect <strong>stdout</strong> to overwrite a different file</td>
+<td><img loading="lazy" src="/img/linux/11-input-redirection.png" alt="input redirection"  />
+</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>It is important to note that <strong>the order of redirection operations is crucial</strong>. For example:</p>
+</blockquote>
+<ul>
+<li>The command <code>&gt; output.log 2&gt;&amp;1</code> redirects both standard output and standard error messages to the same file, <code>output.log</code>.</li>
+<li>On the other hand, <code>2&gt;&amp;1 &gt; output.log</code> redirects standard error messages to the default standard output (the terminal), and then redirects only the standard output to <code>output.log</code>.</li>
+</ul>
+<blockquote>
+<p>Additionally, the command <code>&gt; output.log 2&gt;&amp;1</code> can be shortened to <code>&amp;&gt; output.log</code>. However, it is important to note that <code>&amp;&gt;</code> is not standardized and may not be implemented in all shells.</p>
+</blockquote>
+
+</details></p>
+
+<hr>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://signalyu.github.io/tags/engineering--technology/">Engineering &amp; Technology</a></li>
+      <li><a href="https://signalyu.github.io/tags/computer-science/">Computer Science</a></li>
+      <li><a href="https://signalyu.github.io/tags/linux/">Linux</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/">
+    <span class="title">« PREV</span>
+    
+    <br>
+    <span>System Design</span>
+  </a>
+  <a class="next" href="https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/devops/docker/1-docker/">
+    <span class="title">NEXT »</span>
+    
+    <br>
+    <span>Docker</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://signalyu.github.io/">Signal&#39;s Blog</a></span> · 
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+
+</body>
+</html>
