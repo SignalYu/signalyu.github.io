@@ -72,8 +72,8 @@
   "keywords": [
     "Engineering \u0026 Technology", "Computer Science", "DevOps"
   ],
-  "articleBody": "Introduction to Docker SHOW CONTENTS Docker was developed to address the challenges of software deployment across various environments by providing a lightweight, consistent, and portable solution. Prior to Docker, developers often faced issues like “it works on my machine, but not in production,” caused by inconsistencies in dependencies, libraries, and configurations. Docker resolves this by containerizing applications, ensuring they run uniformly across any infrastructure. Its primary goal is to simplify development, testing, and deployment by encapsulating applications and their dependencies into isolated, reproducible containers. These containers are user-space instances that package code, runtime, system tools, and libraries, ensuring consistency across environments.\nThe key difference between Docker and Virtual Machines (VMs) lies in their architecture. VMs emulate entire hardware stacks, requiring a full operating system for each instance, which results in significant overhead. In contrast, Docker uses containers that share the host OS kernel, offering a more lightweight and efficient solution by isolating applications at the process level. Docker has three core components: images, containers, and registries. Images are read-only templates that contain application code and dependencies. Containers are runnable instances of these images; they are isolated, lightweight, and ephemeral. Registries are repositories that store and share Docker images. Docker Architecture SHOW CONTENTS Docker follows a Client/Server (C/S) architecture with a loosely coupled backend where various components perform specific functions. The basic workflow of Docker is as follows: Docker Client: The user interacts with the Docker Client, which communicates with the Docker Daemon to send requests. Docker Daemon: This is the core component of Docker’s architecture. It provides the Docker Server functionality, enabling it to accept requests from the Docker Client. Docker Engine: The Docker Engine executes a series of internal tasks. Each task is represented as a “Job.” Job Execution: Each Job performs a specific function, such as building an image, starting a container, or managing storage. Graph Driver: If a Job requires a container image, the Engine fetches it from a Docker Registry. The Graph driver stores the downloaded image as a Graph (a layered filesystem) and manages its dependencies. Network Creation: When a network environment needs to be created for Docker, the Network Driver is used to create and configure the network for Docker containers. Resource Management and Execution: If Docker needs to limit resources or execute user commands within containers, the Exec Driver is responsible for completing these operations. Libcontainer: Libcontainer is an independent container management package. Both the Network Driver and the Exec Driver rely on Libcontainer to perform specific container management operations. Common Docker Commands Basic Commands SHOW CONTENTS Start/Stop/Restart Docker: sudo systemctl start docker sudo systemctl stop docker sudo systemctl restart docker View Docker Status: sudo systemctl status docker View Docker Info: docker info View Docker Help Documentation: docker --help View Docker Version: docker -v Docker Image Commands SHOW CONTENTS Search for a Docker Image: docker search docker search nginx Pull a Docker Image: docker pull docker pull nginx List Docker Images: docker images docker image ls Inspect a Docker Image: docker inspect docker inspect nginx Tag a Docker Image: docker tag : docker tag nginx:latest nginx:1.27.4 Remove a Docker Image: docker rmi docker rmi nignx:1.27.4 Build a Docker Image: docker build -t : docker build -t myapp:latest . Save a Docker Image to a File: docker save -o .tar : docker save -o myapp.tar myapp:latest Load a Docker Image from a File: docker load -i .tar docker load -i myapp.tar Prune Unused Docker Images: docker image prune docker image prune -a Docker Container Commands SHOW CONTENTS ",
-  "wordCount" : "589",
+  "articleBody": "Introduction to Docker SHOW CONTENTS Docker was developed to address the challenges of software deployment across various environments by providing a lightweight, consistent, and portable solution. Prior to Docker, developers often faced issues like “it works on my machine, but not in production,” caused by inconsistencies in dependencies, libraries, and configurations. Docker resolves this by containerizing applications, ensuring they run uniformly across any infrastructure. Its primary goal is to simplify development, testing, and deployment by encapsulating applications and their dependencies into isolated, reproducible containers. These containers are user-space instances that package code, runtime, system tools, and libraries, ensuring consistency across environments.\nThe key difference between Docker and Virtual Machines (VMs) lies in their architecture. VMs emulate entire hardware stacks, requiring a full operating system for each instance, which results in significant overhead. In contrast, Docker uses containers that share the host OS kernel, offering a more lightweight and efficient solution by isolating applications at the process level. Docker has three core components: images, containers, and registries. Images are read-only templates that contain application code and dependencies. Containers are runnable instances of these images; they are isolated, lightweight, and ephemeral. Registries are repositories that store and share Docker images. Docker Architecture SHOW CONTENTS Docker follows a Client/Server (C/S) architecture with a loosely coupled backend where various components perform specific functions. The basic workflow of Docker is as follows: Docker Client: The user interacts with the Docker Client, which communicates with the Docker Daemon to send requests. Docker Daemon: This is the core component of Docker’s architecture. It provides the Docker Server functionality, enabling it to accept requests from the Docker Client. Docker Engine: The Docker Engine executes a series of internal tasks. Each task is represented as a “Job.” Job Execution: Each Job performs a specific function, such as building an image, starting a container, or managing storage. Graph Driver: If a Job requires a container image, the Engine fetches it from a Docker Registry. The Graph driver stores the downloaded image as a Graph (a layered filesystem) and manages its dependencies. Network Creation: When a network environment needs to be created for Docker, the Network Driver is used to create and configure the network for Docker containers. Resource Management and Execution: If Docker needs to limit resources or execute user commands within containers, the Exec Driver is responsible for completing these operations. Libcontainer: Libcontainer is an independent container management package. Both the Network Driver and the Exec Driver rely on Libcontainer to perform specific container management operations. Common Docker Commands Basic Commands SHOW CONTENTS Start/Stop/Restart Docker: sudo systemctl start docker sudo systemctl stop docker sudo systemctl restart docker View Docker Status: sudo systemctl status docker View Docker Info: docker info View Docker Help Documentation: docker --help View Docker Version: docker -v Docker Image Commands SHOW CONTENTS Search for a Docker Image: docker search docker search nginx Pull a Docker Image: docker pull docker pull nginx List Docker Images: docker images docker image ls Inspect a Docker Image: docker inspect docker inspect nginx Tag a Docker Image: docker tag : docker tag nginx:latest nginx:1.27.4 Remove a Docker Image: docker rmi docker rmi nignx:1.27.4 Build a Docker Image: docker build -t : docker build -t myapp:latest . Save a Docker Image to a File: docker save -o .tar : docker save -o myapp.tar myapp:latest Load a Docker Image from a File: docker load -i .tar docker load -i myapp.tar Prune Unused Docker Images: docker image prune docker image prune -a Docker Container Commands SHOW CONTENTS docker run: Create and start a new container docker run -it -p 8080:8080 --name tomcat9 tomcat:9-jre17 /bin/bash: Start a new container from the tomcat:9-jre17 image, name it tomcat9, map port 8080 inside the container to port 8080 on the host, and open an interactive bash shell inside the container. docker ps: List all currently running containers docker ps: List containers that are currently running. docker ps -a: List all containers. docker start : Start a stopped container docker start my_container: Start a container with the name my_container. docker restart : Restart a container docker restart my_container: Restart the container named my_container. docker stop : Stop a running container docker stop my_container: Stop the container named my_container. docker kill : Force stop a running container docker kill my_container: Force stop the container named my_container. docker rm : Remove a stopped container docker rm my_container: Remove the container named my_container after it has stopped. docker run -d : Start a container in detached mode (background) docker run -d nginx: Run the Nginx container in the background. docker logs : View logs of a container docker logs my_container: View logs for the container named my_container. docker top : View the running processes inside a container docker top my_container: Display the processes running inside my_container. docker inspect : Get detailed information about a container docker inspect my_container: Show detailed metadata about the container named my_container. docker exec -it : Execute a command inside a running container (interactive mode) docker exec -it my_container bash: Open an interactive bash shell inside my_container. exit: Exit from an interactive session inside a container exit: Exit the interactive shell of the container and return to the host. docker cp : : Copy files from a container to the host docker cp my_container:/app/file.txt /host/directory/: Copy file.txt from the container to the host. Examples SHOW CONTENTS dkr_image_versions ubuntu [number]: # Search docker image versions dkr_image_versions() { # Usage: dkr_image_versions [limit] # Fetches version tags from Docker Hub for a given image, sorted by version number # Default shows all versions, optional limit controls output count local image_name=$1 local limit=${2:-0} # Default 0 (show all), if not provided # Validate input if [ -z \"$image_name\" ]; then echo \"Error: Image name not specified\" \u003e\u00262 echo \"Usage: dkr_image_versions [limit]\" \u003e\u00262 return 1 fi # Fetch and process versions versions=$(curl -s \"https://hub.docker.com/v2/repositories/library/${image_name}/tags/?page_size=100\" | \\ jq -r '.results[].name' | \\ grep -E '^[0-9]+\\.*' | \\ sort -rV) # Reverse version sort (newest first) # Handle empty results if [ -z \"$versions\" ]; then echo \"No version tags found for image: ${image_name}\" \u003e\u00262 return 1 fi # Apply limit if specified if [ \"$limit\" -gt 0 ]; then echo \"$versions\" | head -n \"$limit\" else echo \"$versions\" fi } docker run -it --name=ubuntu_25 ubuntu /bin/bash: docker run -d -p 8080:8080 --name tomcat1 tomcat: sudo firewall-cmd –permanent –add-port=8080/tcp sudo firewall-cmd –reload ",
+  "wordCount" : "1066",
   "inLanguage": "en",
   "datePublished": "2025-04-14T09:37:42+08:00",
   "dateModified": "2025-04-14T09:37:42+08:00",
@@ -154,10 +154,11 @@
                 <li>
                     <a href="#docker-image-commands" aria-label="Docker Image Commands">Docker Image Commands</a></li>
                 <li>
-                    <a href="#docker-container-commands" aria-label="Docker Container Commands">Docker Container Commands</a>
+                    <a href="#docker-container-commands" aria-label="Docker Container Commands">Docker Container Commands</a></li></ul>
                 </li>
-            </ul>
-            </li>
+                <li>
+                    <a href="#examples" aria-label="Examples">Examples</a>
+                </li>
             </ul>
         </div>
     </details>
@@ -294,7 +295,132 @@
 
 <p><details >
   <summary markdown="span">SHOW CONTENTS</summary>
-  
+  <ul>
+<li><strong><code>docker run</code></strong>: Create and start a new container
+<ul>
+<li><code>docker run -it -p 8080:8080 --name tomcat9 tomcat:9-jre17 /bin/bash</code>: Start a new container from the <code>tomcat:9-jre17</code> image, name it <code>tomcat9</code>, map port <code>8080</code> inside the container to port <code>8080</code> on the host, and open an interactive bash shell inside the container.</li>
+</ul>
+</li>
+<li><strong><code>docker ps</code></strong>: List all currently running containers
+<ul>
+<li><code>docker ps</code>: List containers that are currently running.</li>
+<li><code>docker ps -a</code>: List all containers.</li>
+</ul>
+</li>
+<li><strong><code>docker start &lt;container_id_or_name&gt;</code></strong>: Start a stopped container
+<ul>
+<li><code>docker start my_container</code>: Start a container with the name <code>my_container</code>.</li>
+</ul>
+</li>
+<li><strong><code>docker restart &lt;container_id_or_name&gt;</code></strong>: Restart a container
+<ul>
+<li><code>docker restart my_container</code>: Restart the container named <code>my_container</code>.</li>
+</ul>
+</li>
+<li><strong><code>docker stop &lt;container_id_or_name&gt;</code></strong>: Stop a running container
+<ul>
+<li><code>docker stop my_container</code>: Stop the container named <code>my_container</code>.</li>
+</ul>
+</li>
+<li><strong><code>docker kill &lt;container_id_or_name&gt;</code></strong>: Force stop a running container
+<ul>
+<li><code>docker kill my_container</code>: Force stop the container named <code>my_container</code>.</li>
+</ul>
+</li>
+<li><strong><code>docker rm &lt;container_id_or_name&gt;</code></strong>: Remove a stopped container
+<ul>
+<li><code>docker rm my_container</code>: Remove the container named <code>my_container</code> after it has stopped.</li>
+</ul>
+</li>
+<li><strong><code>docker run -d &lt;container_id_or_name&gt;</code></strong>: Start a container in detached mode (background)
+<ul>
+<li><code>docker run -d nginx</code>: Run the Nginx container in the background.</li>
+</ul>
+</li>
+<li><strong><code>docker logs &lt;container_id_or_name&gt;</code></strong>: View logs of a container
+<ul>
+<li><code>docker logs my_container</code>: View logs for the container named <code>my_container</code>.</li>
+</ul>
+</li>
+<li><strong><code>docker top &lt;container_id_or_name&gt;</code></strong>: View the running processes inside a container
+<ul>
+<li><code>docker top my_container</code>: Display the processes running inside <code>my_container</code>.</li>
+</ul>
+</li>
+<li><strong><code>docker inspect &lt;container_id_or_name&gt;</code></strong>: Get detailed information about a container
+<ul>
+<li><code>docker inspect my_container</code>: Show detailed metadata about the container named <code>my_container</code>.</li>
+</ul>
+</li>
+<li><strong><code>docker exec -it &lt;container_id_or_name&gt; &lt;command&gt;</code></strong>: Execute a command inside a running container (interactive mode)
+<ul>
+<li><code>docker exec -it my_container bash</code>: Open an interactive bash shell inside <code>my_container</code>.</li>
+</ul>
+</li>
+<li><strong><code>exit</code></strong>: Exit from an interactive session inside a container
+<ul>
+<li><code>exit</code>: Exit the interactive shell of the container and return to the host.</li>
+</ul>
+</li>
+<li><strong><code>docker cp &lt;container_id_or_name&gt;:&lt;path_in_container&gt; &lt;path_on_host&gt;</code></strong>: Copy files from a container to the host
+<ul>
+<li><code>docker cp my_container:/app/file.txt /host/directory/</code>: Copy <code>file.txt</code> from the container to the host.</li>
+</ul>
+</li>
+</ul>
+
+</details></p>
+
+<h1 id="examples">Examples<a hidden class="anchor" aria-hidden="true" href="#examples">#</a></h1>
+
+
+<p><details >
+  <summary markdown="span">SHOW CONTENTS</summary>
+  <ul>
+<li><code>dkr_image_versions ubuntu [number]</code>:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Search docker image versions</span>
+</span></span><span style="display:flex;"><span>dkr_image_versions<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Usage: dkr_image_versions &lt;image_name&gt; [limit]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fetches version tags from Docker Hub for a given image, sorted by version number</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Default shows all versions, optional limit controls output count</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>local image_name<span style="color:#f92672">=</span>$1
+</span></span><span style="display:flex;"><span>local limit<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>2<span style="color:#66d9ef">:-</span>0<span style="color:#e6db74">}</span>  <span style="color:#75715e"># Default 0 (show all), if not provided</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Validate input</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$image_name<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>   echo <span style="color:#e6db74">&#34;Error: Image name not specified&#34;</span> &gt;&amp;<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>   echo <span style="color:#e6db74">&#34;Usage: dkr_image_versions &lt;image_name&gt; [limit]&#34;</span> &gt;&amp;<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Fetch and process versions</span>
+</span></span><span style="display:flex;"><span>versions<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -s <span style="color:#e6db74">&#34;https://hub.docker.com/v2/repositories/library/</span><span style="color:#e6db74">${</span>image_name<span style="color:#e6db74">}</span><span style="color:#e6db74">/tags/?page_size=100&#34;</span> | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   jq -r <span style="color:#e6db74">&#39;.results[].name&#39;</span> | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   grep -E <span style="color:#e6db74">&#39;^[0-9]+\.*&#39;</span> | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   sort -rV<span style="color:#66d9ef">)</span>  <span style="color:#75715e"># Reverse version sort (newest first)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Handle empty results</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -z <span style="color:#e6db74">&#34;</span>$versions<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>   echo <span style="color:#e6db74">&#34;No version tags found for image: </span><span style="color:#e6db74">${</span>image_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> &gt;&amp;<span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Apply limit if specified</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span>$limit<span style="color:#e6db74">&#34;</span> -gt <span style="color:#ae81ff">0</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>   echo <span style="color:#e6db74">&#34;</span>$versions<span style="color:#e6db74">&#34;</span> | head -n <span style="color:#e6db74">&#34;</span>$limit<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>   echo <span style="color:#e6db74">&#34;</span>$versions<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li><code>docker run -it --name=ubuntu_25 ubuntu /bin/bash</code>:</li>
+<li><code>docker run -d -p 8080:8080 --name tomcat1 tomcat</code>:
+sudo firewall-cmd &ndash;permanent &ndash;add-port=8080/tcp
+sudo firewall-cmd &ndash;reload</li>
+</ul>
+
 </details></p>
 
 
