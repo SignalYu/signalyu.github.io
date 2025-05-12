@@ -89,13 +89,6 @@ Copyleft licenses require that any modified versions of the software also be ope
       <description>Introduction to Docker SHOW CONTENTS Docker was developed to address the challenges of software deployment across various environments by providing a lightweight, consistent, and portable solution. Prior to Docker, developers often faced issues like &amp;ldquo;it works on my machine, but not in production,&amp;rdquo; caused by inconsistencies in dependencies, libraries, and configurations. Docker resolves this by containerizing applications, ensuring they run uniformly across any infrastructure. Its primary goal is to simplify development, testing, and deployment by encapsulating applications and their dependencies into isolated, reproducible containers.</description>
     </item>
     <item>
-      <title>Areas For Improvement</title>
-      <link>https://signalyu.github.io/posts/3-humanities/personal-growth/practice/area-for-improvement/japanese/1-area-for-improvement/</link>
-      <pubDate>Mon, 07 Apr 2025 20:34:18 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/3-humanities/personal-growth/practice/area-for-improvement/japanese/1-area-for-improvement/</guid>
-      <description>Japanese 1 Your browser does not support the audio element. SHOW NOTES 食料を買うためにお店に行きます。（I will go to the store to buy some food.） 遅れるのは良くない。（It is not good to be late.） 私は日本に行ったことがあります。（I have been to Japan before.） これを手伝（てつだ）ってくれますか？（Can you help me with this?） この店は安くておいしい、だからおすすめです。（This store is cheap and delicious, therefore it is recommended.） 母は、私に勉強しなさいと言いました。（My mother told me to study. ） 鍵はテーブルの上にあることに気がつきました。（I realized that I left my keys on the table.） 雨が止んだら、公園に行きます。（I will go to the park if it stops raining.</description>
-    </item>
-    <item>
       <title>Python Programming</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/programming/python/1-python-programming/</link>
       <pubDate>Sat, 29 Mar 2025 16:46:34 +0800</pubDate>
