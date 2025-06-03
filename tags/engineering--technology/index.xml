@@ -17,6 +17,13 @@
 SHOW CODE Single Responsibility Principle import java.io.IOException; import java.util.*; import java.util.regex.*; import com.fasterxml.jackson.databind.ObjectMapper; /** * 1. User class is only used to represent entity. * 2. UserValidator class is solely responsible for validating user objects. * 3. Store class is only used to manage user objects storage.</description>
     </item>
     <item>
+      <title>Coding Patterns</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/2-coding-patterns/</link>
+      <pubDate>Mon, 02 Dec 2024 10:15:04 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/data-structures-and-algorithms/2-coding-patterns/</guid>
+      <description>Simple Two Pointers The Simple Two Pointers technique is commonly used to solve problems involving sorted array, where a set of elements needs to be found that satisfy certain constrains. This approach is efficient in scenarios such as finding a pair that sums to a target or reversing an array or string. In the two simple two pointers technique, two pointers &amp;ndash; typically labeled &amp;ldquo;left&amp;rdquo; and &amp;ldquo;right&amp;rdquo; &amp;ndash; are initialized and move in a specific direction based on the problem&amp;rsquo;s requirements.</description>
+    </item>
+    <item>
       <title>Database Design</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/1-database-design/</link>
       <pubDate>Fri, 22 Nov 2024 21:07:21 +0800</pubDate>
@@ -110,9 +117,9 @@ Online Testing Cisco Packet Tracer Installation Cisco Packet Tracer Installation
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/development-manual/1-development-manual/</link>
       <pubDate>Tue, 24 Dec 2024 16:03:23 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/development-manual/1-development-manual/</guid>
-      <description>IDEA Postfix Completion Postfix completion allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.
-&amp;#34;Hello&amp;#34;.var → String s = &amp;#34;Hello&amp;#34;; Live Templates Live Templates are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.
-sout → System.out.println(); Keyboard Shortcuts Show Hint: Alt + Enter Show Parameter Info: Ctrl + P Surround with Selected Code Block: Ctrl + Alt + J Start a New Line: Shift + Enter Start a New Line Before Current: Ctrl + Alt + Enter Show Live Template: Ctrl + J Rename in Batch: Shift + F6 Extract Method: Ctrl + Alt + M Override Methods: Ctrl + O Implement Methods: Ctrl + I Optimize Imports: Ctrl + Alt + O View Source Code: Ctrl + N → Ctrl + F12 Go to Previous Edit Location: Ctrl + Alt + ← Go to Next Edit Location: Ctrl + Alt + → Show Inheritance Tree: Ctrl + H Show Quick Documentation: Ctrl + Q Show UML Diagram: Ctrl + Alt + U Go to Specified Line: Ctrl + G → Enter line number Go to Variable Definition: Ctrl + Alt + B Expand Code Block: Ctrl + Shift + + Collapse Code Block: Ctrl + Shift + - Debug Method Breakpoints Field Breakpoints Conditional Breakpoints Thread Debug Custom Data Views Config Tomcat Create Maven Java Project Create Maven Java Web Maven Introduction to Maven Maven is a build automation and project management tool primarily used for Java projects.</description>
+      <description>IDEA Postfix Completion SHOW CONTENTS Postfix completion allows writing code faster by adding expressions after a variable or value. It can be customized to suit specific coding needs.
+&amp;#34;Hello&amp;#34;.var → String s = &amp;#34;Hello&amp;#34;; Live Templates SHOW CONTENTS Live Templates are predefined code snippets that can be inserted quickly using a shortcut. It can be customized to suit specific coding needs.
+sout → System.out.println(); Keyboard Shortcuts SHOW CONTENTS Show Hint: Alt + Enter Show Parameter Info: Ctrl + P Surround with Selected Code Block: Ctrl + Alt + J Start a New Line: Shift + Enter Start a New Line Before Current: Ctrl + Alt + Enter Show Live Template: Ctrl + J Rename in Batch: Shift + F6 Extract Method: Ctrl + Alt + M Override Methods: Ctrl + O Implement Methods: Ctrl + I Optimize Imports: Ctrl + Alt + O View Source Code: Ctrl + N → Ctrl + F12 Go to Previous Edit Location: Ctrl + Alt + ← Go to Next Edit Location: Ctrl + Alt + → Show Inheritance Tree: Ctrl + H Show Quick Documentation: Ctrl + Q Show UML Diagram: Ctrl + Alt + U Go to Specified Line: Ctrl + G → Enter line number Go to Variable Definition: Ctrl + Alt + B Expand Code Block: Ctrl + Shift + + Collapse Code Block: Ctrl + Shift + - Debug Method Breakpoints SHOW CONTENTS Method breakpoints are a type of debugger breakpoint that pauses program execution when a specific method or function is entered or exited.</description>
     </item>
     <item>
       <title>Spring</title>
