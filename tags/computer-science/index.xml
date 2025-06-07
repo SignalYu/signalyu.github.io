@@ -9,23 +9,6 @@
     <lastBuildDate>Tue, 15 Apr 2025 11:03:32 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/tags/computer-science/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Junit &amp; Mockito Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
-      <pubDate>Sat, 07 Dec 2024 01:26:33 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
-      <description>JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
-SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
-    </item>
-    <item>
-      <title>System Design</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</link>
-      <pubDate>Fri, 27 Dec 2024 04:32:42 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</guid>
-      <description>Introduction to System Design SHOW CONTENTS System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
-Load Balancing SHOW CONTENTS In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
-To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
-    </item>
-    <item>
       <title>Red Hat Enterprise Linux</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/linux/1-red-hat-enterprise-linux/</link>
       <pubDate>Tue, 15 Apr 2025 11:03:32 +0800</pubDate>
@@ -59,6 +42,15 @@ CCNA Question Types Online Testing A PRIVATE and QUITE place for AT LEAST 2 HOUR
 Online Testing Cisco Packet Tracer Installation Cisco Packet Tracer Installation (Login First) Schduling and Taking the Exam Scheduling And Taking the Exam Exam Prep: Binary Game Binary Game 2.</description>
     </item>
     <item>
+      <title>System Design</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</link>
+      <pubDate>Fri, 27 Dec 2024 04:32:42 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</guid>
+      <description>Introduction to System Design SHOW CONTENTS System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
+Load Balancing SHOW CONTENTS In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
+To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+    </item>
+    <item>
       <title>Database Management Systems</title>
       <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/database/2-database-management-system/</link>
       <pubDate>Wed, 25 Dec 2024 10:20:09 +0800</pubDate>
@@ -89,6 +81,14 @@ The advantages of this paradigm include ease of implementation and usefulness in
       <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</guid>
       <description>Introduction to Multithreading Program, Process, and Thread A program is a static set of instructions that stores on a disk. A process is an instance of a program that is currently being executed by the operating system. A thread is a small unit of process that can be scheduled and executed by the operating system. In simpler terms, a program is the code, a process is the excution of the code, a thread is a unit of execution within a process.</description>
+    </item>
+    <item>
+      <title>Junit &amp; Mockito Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
+      <pubDate>Sat, 07 Dec 2024 01:26:33 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
+      <description>JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
+SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
     </item>
     <item>
       <title>Coding Patterns</title>

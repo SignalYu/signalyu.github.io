@@ -9,21 +9,37 @@
     <lastBuildDate>Tue, 15 Apr 2025 11:03:32 +0800</lastBuildDate>
     <atom:link href="https://signalyu.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Junit &amp; Mockito Notes</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
-      <pubDate>Sat, 07 Dec 2024 01:26:33 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
-      <description>JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
-SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
+      <title>Japanese-Language Proficiency Test — N1</title>
+      <link>https://signalyu.github.io/posts/3-humanities/languages/japanese/1-jlpt-n1/</link>
+      <pubDate>Sat, 15 Mar 2025 16:56:57 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/languages/japanese/1-jlpt-n1/</guid>
+      <description>リスニング 音楽 ブルー・ライト・ヨコハマ Your browser does not support the audio element. 歌詞見せて 街（まち『き』）の灯（あか）りが　とてもきれいね
+The city lights are so beautiful
+城市的灯光如此美丽
+ヨコハマ　ブルー・ライト・ヨコハマ
+Yokohama, Blue Light Yokohama
+横滨，蓝色之光横滨
+あなたと二人　幸せよ
+With you, I&amp;rsquo;m so happy
+与你在一起 多么幸福
+いつものように　愛のことばを
+As always, whisper words of love
+像往常一样 请对我说爱的蜜语
+ヨコハマ　ブルー・ライト・ヨコハマ
+Yokohama, Blue Light Yokohama
+横滨，蓝色之光横滨
+私にください　あなたから
+Please say them to me, my darling
+请对我说 亲爱的
+歩いても　歩いても
+No matter how far we walk</description>
     </item>
     <item>
-      <title>System Design</title>
-      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</link>
-      <pubDate>Fri, 27 Dec 2024 04:32:42 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</guid>
-      <description>Introduction to System Design SHOW CONTENTS System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
-Load Balancing SHOW CONTENTS In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
-To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
+      <title>International English Language Testing System — 7.0</title>
+      <link>https://signalyu.github.io/posts/3-humanities/languages/english/1-ielts/</link>
+      <pubDate>Sat, 15 Mar 2025 16:56:24 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/languages/english/1-ielts/</guid>
+      <description>Speaking Reading Writing Listening Podcast 1. Order Food in Restaurant https://youtu.be/_izDbJ45Q5I SHOW NOTES I&#39;m still working on it. This sentence expresses that an action is ongoing and not yet completed. It also suggests that more time is needed to finish it. Did you finish reading? — I&amp;rsquo;m still working on it. Did you fix my car? — I&amp;rsquo;m still working on it. Coke and Fries This refers to a popular combination of fast food: Coca-cola and French Fries.</description>
     </item>
     <item>
       <title>Red Hat Enterprise Linux</title>
@@ -59,44 +75,13 @@ CCNA Question Types Online Testing A PRIVATE and QUITE place for AT LEAST 2 HOUR
 Online Testing Cisco Packet Tracer Installation Cisco Packet Tracer Installation (Login First) Schduling and Taking the Exam Scheduling And Taking the Exam Exam Prep: Binary Game Binary Game 2.</description>
     </item>
     <item>
-      <title>Japanese-Language Proficiency Test — N1</title>
-      <link>https://signalyu.github.io/posts/3-humanities/languages/japanese/1-jlpt-n1/</link>
-      <pubDate>Sat, 15 Mar 2025 16:56:57 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/3-humanities/languages/japanese/1-jlpt-n1/</guid>
-      <description>リスニング 音楽 ブルー・ライト・ヨコハマ Your browser does not support the audio element. 歌詞見せて 街（まち『き』）の灯（あか）りが　とてもきれいね
-The city lights are so beautiful
-城市的灯光如此美丽
-ヨコハマ　ブルー・ライト・ヨコハマ
-Yokohama, Blue Light Yokohama
-横滨，蓝色之光横滨
-あなたと二人　幸せよ
-With you, I&amp;rsquo;m so happy
-与你在一起 多么幸福
-いつものように　愛のことばを
-As always, whisper words of love
-像往常一样 请对我说爱的蜜语
-ヨコハマ　ブルー・ライト・ヨコハマ
-Yokohama, Blue Light Yokohama
-横滨，蓝色之光横滨
-私にください　あなたから
-Please say them to me, my darling
-请对我说 亲爱的
-歩いても　歩いても
-No matter how far we walk</description>
-    </item>
-    <item>
-      <title>International English Language Testing System — 7.0</title>
-      <link>https://signalyu.github.io/posts/3-humanities/languages/english/1-ielts/</link>
-      <pubDate>Sat, 15 Mar 2025 16:56:24 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/3-humanities/languages/english/1-ielts/</guid>
-      <description>Speaking Reading Writing Listening Podcast 1. Order Food in Restaurant https://youtu.be/_izDbJ45Q5I SHOW NOTES I&#39;m still working on it. This sentence expresses that an action is ongoing and not yet completed. It also suggests that more time is needed to finish it. Did you finish reading? — I&amp;rsquo;m still working on it. Did you fix my car? — I&amp;rsquo;m still working on it. Coke and Fries This refers to a popular combination of fast food: Coca-cola and French Fries.</description>
-    </item>
-    <item>
-      <title>Learning English With Podcasts</title>
-      <link>https://signalyu.github.io/posts/3-humanities/languages/english/1-learning-english-with-podcasts/</link>
-      <pubDate>Wed, 01 Jan 2025 08:08:19 +0800</pubDate>
-      <guid>https://signalyu.github.io/posts/3-humanities/languages/english/1-learning-english-with-podcasts/</guid>
-      <description>1. Order Food in Restaurant https://youtu.be/_izDbJ45Q5I SHOW NOTES I&#39;m still working on it. This sentence expresses that an action is ongoing and not yet completed. It also suggests that more time is needed to finish it. Did you finish reading? — I&amp;rsquo;m still working on it. Did you fix my car? — I&amp;rsquo;m still working on it. Coke and Fries This refers to a popular combination of fast food: Coca-cola and French Fries.</description>
+      <title>System Design</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</link>
+      <pubDate>Fri, 27 Dec 2024 04:32:42 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/system-design/1-system-design/</guid>
+      <description>Introduction to System Design SHOW CONTENTS System Design is the process of defining the architecture, components, modules, interfaces, and data for a system to fulfill specific business requirements, while ensuring scalability, maintainability, and performance.
+Load Balancing SHOW CONTENTS In System Design, Load Balancing refers to the practice of distributing incoming network traffic or workload across multiple servers or resources to optimize resource use and ensure high availability.
+To fullly leverage scalability and redundency, load balancing can occur at different layers: between user and the web server, between web server and an internal platform serve, between internal platform server and database as illustrated in the following image:</description>
     </item>
     <item>
       <title>Database Management Systems</title>
@@ -129,6 +114,14 @@ The advantages of this paradigm include ease of implementation and usefulness in
       <pubDate>Wed, 11 Dec 2024 12:13:32 +0800</pubDate>
       <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/multithreading-and-concurrency/1-multithreading-and-concurrency/</guid>
       <description>Introduction to Multithreading Program, Process, and Thread A program is a static set of instructions that stores on a disk. A process is an instance of a program that is currently being executed by the operating system. A thread is a small unit of process that can be scheduled and executed by the operating system. In simpler terms, a program is the code, a process is the excution of the code, a thread is a unit of execution within a process.</description>
+    </item>
+    <item>
+      <title>Junit &amp; Mockito Notes</title>
+      <link>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</link>
+      <pubDate>Sat, 07 Dec 2024 01:26:33 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/4-engineering-and-technology/computer-science/framework-and-tools/framework/backend/unit-testing/1-junit-and-mockito-notes/</guid>
+      <description>JUnit assertEquals In JUnit, assertEquals is a method used to check if the expected value and the actual value are equal in unit tests.
+SHOW CODE Java import org.junit.jupiter.api.Test; import static org.junit.jupiter.api.Assertions.assertEquals; public class UnitTest { @Test void addition() { Calculator calculator = new Calculator(); int result = calculator.add(1, 1); assertEquals(2, result, &#34;The result of 1 + 1 should be 2&#34;); } } assertTure &amp;amp; assertFalse In JUnit, the assertTrue and the assertFalse methods are used to validate boolean expressions in unit tests.</description>
     </item>
     <item>
       <title>Coding Patterns</title>
