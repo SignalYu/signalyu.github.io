@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Arts on Signal&#39;s Blog</title>
+    <link>https://signalyu.github.io/tags/arts/</link>
+    <description>Recent content in Arts on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>EN</language>
+    <lastBuildDate>Mon, 18 Nov 2024 20:37:01 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/arts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Photography Notes</title>
+      <link>https://signalyu.github.io/posts/3-humanities/arts/photography/1-photography-notes/</link>
+      <pubDate>Mon, 18 Nov 2024 20:37:01 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/3-humanities/arts/photography/1-photography-notes/</guid>
+      <description>Exposure in Photography Exposure SHOW CONTENTS Exposure refers to the light that reaches the camera&amp;rsquo;s sensor to create an image. It is controlled by three fundamental settings known as the Exposure Triangle: Aperture, Shutter Speed, and ISO.
+The aperture (f-stop) is the opening in the camera lens that controls how much light enters. A wider aperture (e.g., f/2.8) allows more light to pass through, brightening the image and creating a shallow depth of field, which results in a blurry background.</description>
+    </item>
+  </channel>
+</rss>
