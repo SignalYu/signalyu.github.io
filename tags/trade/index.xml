@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Trade on Signal&#39;s Blog</title>
+    <link>https://signalyu.github.io/tags/trade/</link>
+    <description>Recent content in Trade on Signal&#39;s Blog</description>
+    <generator>Hugo -- 0.126.1</generator>
+    <language>EN</language>
+    <lastBuildDate>Sun, 06 Jul 2025 14:59:36 +0800</lastBuildDate>
+    <atom:link href="https://signalyu.github.io/tags/trade/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>亚马逊运营手册</title>
+      <link>https://signalyu.github.io/posts/2-social-science/trade/4-amazon-operation-manual/</link>
+      <pubDate>Sun, 06 Jul 2025 14:59:36 +0800</pubDate>
+      <guid>https://signalyu.github.io/posts/2-social-science/trade/4-amazon-operation-manual/</guid>
+      <description>关键词搜集 在进行关键词搜集时，首先要注意邮编地址的设定，这些因素会直接影响关键词的准确性，因此在收集关键词时需要适时切换邮编地址以获取更精确的数据。同时，控制长尾关键词的长度也很重要，建议将关键词控制在5个词以内，因为关键词越长，其对应的搜索结果越少。其次，可以利用第三方关键词分析工具（如“西柚”）通过输入ASIN进行关键词反查分析，从而发现潜在的高效关键词。此外，通过ABA品牌分析工具输入主关键词，可以获得更多有价值的关键词信息。在广告层面，可以**根据广告搜索词的数据（如曝光量，点击率等）**来分析哪些词语表现较好，进一步优化关键词策略。最后，还可以参考竞品链接的标题，从中提取关键词，以丰富和完善自身的关键词库。
+关键词矩阵搭建 关键词矩阵主要是通过分析与核心关键词相关的各级长尾关键词，来评估其在市场中的搜索热度和竞争强度（SPR值）。
+核心词为最基础的关键词，如“tunic”，具有最高的搜索量，同时也是最具有竞争力的词，SPR值较高（68），意味着需要较多销量才能获得首页展示。
+关键词 月搜索量 SPR tunic 27,211 68 一级长尾词是在核心词基础上加一层修饰，如“tunic women”或“tunic half-sleeve”，搜索量较高但 SPR 值下降，竞争略低。
+关键词 月搜索量 SPR tunic women 12,333 34 tunic half sleeve 5,448 — 二级长尾词进一步细化用户搜索意图，如“tunic women summer”或“tunic women half sleeve”，搜索量略低但更具针对性，SPR值继续降低。
+关键词 月搜索量 SPR tunic women summer 10,543 31 tunic women half sleeve 5,243 18 三级长尾词是最精准的用户意图表达，如“tunic women summer oversize”或“tunic women half-sleeve loose”，虽然搜索量最低，但竞争最小（SPR最低），更适合中小卖家进行精准投放。
+关键词 月搜索量 SPR tunic women summer oversize 3,322 18 tunic women half-sleeve loose 819 8 SPR（Sales per Ranking）表示关键词要达到首页所需的订单数。例如，SPR=8，意味着需在8天内出8单，才能使该词排到首页。SPR越高，说明该词的竞争越激烈。</description>
+    </item>
+  </channel>
+</rss>
